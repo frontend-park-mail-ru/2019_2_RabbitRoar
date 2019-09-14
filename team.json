@@ -1,0 +1,23 @@
+{
+    title: 'RabbitRoar',
+    project: 'Свояк',
+    members: [
+        {
+            name: 'Alexey Navarkin',
+            github: 'github.com/alexeynavarkin'
+        },
+        {
+            name: 'Anita Smirnova',
+            github: 'github.com/siberiacalling'
+        },
+        {
+            name: 'Vladimir Babayan',
+            github: 'github.com/babayanv'
+        },
+        {
+            name: 'Egor Bezrukov',
+            github: 'github.com/egorkekor'
+        }
+    ],
+    mentor: 'Elizaveta Dobryanskaya'
+}
