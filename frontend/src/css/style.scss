@@ -1,1 +1,6 @@
 @import 'colors';
+@import 'buttons';
+
+body {
+    background-color: $color_bg-dark;
+}

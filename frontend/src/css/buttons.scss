@@ -1,0 +1,21 @@
+
+.btn {
+    border-color: $color-border-primary;
+    color: $color-border-primary;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    background-color: $color-bg-light;
+    padding: 10px 100px;
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    font-feature-settings: "kern";
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.btn:hover {
+    -webkit-box-shadow: 0px 0px 21px 2px $color-border-primary;
+    -moz-box-shadow: 0px 0px 21px 2px $color-border-primary;
+    box-shadow: 0px 0px 21px 2px $color-border-primary;
+}
