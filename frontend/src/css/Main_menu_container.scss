@@ -1,0 +1,54 @@
+.main-container {
+    color: aqua;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 200px;
+  }
+
+.tab-content {
+    overflow-y:scroll;
+    overflow-x:hidden;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.const-height {
+    height: 200px;
+}
+
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #36f9f6;
+  border: 0px none #ffffff;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #36f9f6;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #36f9f6;
+}
+::-webkit-scrollbar-track {
+  background: #920031;
+  border: 0px none #ffffff;
+  border-radius: 100px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #920031;
+}
+::-webkit-scrollbar-track:active {
+  background: #920031;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
