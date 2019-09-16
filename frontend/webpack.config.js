@@ -26,6 +26,7 @@ module.exports = {
     new webpack.ProgressPlugin(),
     new CopyPlugin([
       { from: 'index.html', to: '' },
+      { from: 'login.html', to: '' },
     ]),
     new CleanWebpackPlugin(),
   ],
