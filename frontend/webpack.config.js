@@ -27,6 +27,7 @@ module.exports = {
     new CopyPlugin([
       { from: 'index.html', to: '' },
       { from: 'login.html', to: '' },
+      { from: 'best_players_example.html', to: '' },
     ]),
     new CleanWebpackPlugin(),
   ],

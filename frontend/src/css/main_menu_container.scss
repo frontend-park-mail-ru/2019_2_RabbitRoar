@@ -1,8 +1,10 @@
 .main-container {
+    width: 90vw;
+    margin: auto;
     color: aqua;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 200px;
+    grid-template-rows: 1fr 50vh;
   }
 
 .tab-content {
@@ -20,34 +22,34 @@
 
 
 ::-webkit-scrollbar {
-  width: 11px;
-  height: 11px;
+  width: 1.5vh;
+  height: 1.5vh;
 }
 ::-webkit-scrollbar-button {
-  width: 0px;
-  height: 0px;
+  width: 1.5vh;
+  height: 1.5vh;
 }
 ::-webkit-scrollbar-thumb {
-  background: #36f9f6;
+  background: rgba(54, 249, 246, 1);
   border: 0px none #ffffff;
-  border-radius: 0px;
+  border-radius: 100px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #36f9f6;
+  background: #ffffff;
 }
 ::-webkit-scrollbar-thumb:active {
-  background: #36f9f6;
+  background: rgba(54, 249, 246, 1);
 }
 ::-webkit-scrollbar-track {
-  background: #920031;
+  background: $color-danger;
   border: 0px none #ffffff;
   border-radius: 100px;
 }
 ::-webkit-scrollbar-track:hover {
-  background: #920031;
+  background: $color-danger;
 }
 ::-webkit-scrollbar-track:active {
-  background: #920031;
+  background: $color-danger;
 }
 ::-webkit-scrollbar-corner {
   background: transparent;
