@@ -1,6 +1,8 @@
 @import 'colors';
 @import 'buttons';
+@import 'forms';
 
 body {
-    background-color: $color_bg-dark;
+    background-color: $color-bg-dark;
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
 }
