@@ -1,6 +1,10 @@
 @import 'colors';
 @import 'buttons';
+@import 'navbar';
+
 
 body {
     background-color: $color_bg-dark;
+    padding: 0px;
+    margin: 0px;
 }

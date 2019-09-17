@@ -1,0 +1,21 @@
+// navbar.scss
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: $color-bg-light;
+  align-items: center;
+
+  .nav-item {
+    width: 30%;
+    text-decoration: none;
+    text-align: center;
+    color: $color-font;
+    font-size: 1.5rem;
+  }
+  
+  .user {
+    width: 64px;
+    height: auto;
+  }
+}
