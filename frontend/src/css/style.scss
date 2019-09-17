@@ -1,10 +1,14 @@
 @import 'colors';
 @import 'buttons';
 @import 'navbar';
-
+@import 'main_menu_container';
+@import 'tab';
+@import 'best_players';
+@import 'forms';
 
 body {
     background-color: $color_bg-dark;
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;    
     padding: 0px;
     margin: 0px;
 }

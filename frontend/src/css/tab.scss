@@ -1,0 +1,32 @@
+.tab {
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-color: $color-border-primary-low;
+    color: $color-border-primary-low;
+    border-width: 1px;
+    border-style: solid;
+    background-color: $color-bg-light;
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    font-feature-settings: "kern";
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.tab:hover .tab {
+    border-bottom-width: 2px;
+    color: $color-border-primary;
+}
+
+.tab:hover {
+    border-width: 2px;
+    border-bottom-width: 0px;
+    border-color: $color-border-primary;
+    color: $color-border-primary;
+    background-color: rgba(0, 0, 0, 0); 
+}
+
+
