@@ -4,6 +4,8 @@ $table-elem-height: 8vh;
 $rank-margin: 8vw;
 
 .best-players-panel {
+    margin: 0px auto;
+    width: 98%;
     margin-top: 2vh;
     display: grid;
     grid-template-columns: 1fr 3fr 2fr 3fr;
