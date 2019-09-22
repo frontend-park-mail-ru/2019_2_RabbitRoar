@@ -1,0 +1,20 @@
+.paginator-panel {
+    @extend %panel;
+    width: 50%;
+    grid-template-columns: 1fr 4fr 1fr;
+}
+
+.pg-elem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: $table-vertical-margin;
+    margin-bottom: $table-vertical-margin;
+    border-style: solid;
+    background-color: $color-bg-dark;
+    border-color: $color-border-primary;
+    border-right-width: 0px;
+    border-left-width: 0px;
+    border-bottom-width: 0px;
+    border-top-width: 0px;
+}
