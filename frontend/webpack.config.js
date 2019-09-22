@@ -28,6 +28,7 @@ module.exports = {
       { from: 'index.html', to: '' },
       { from: 'login.html', to: '' },
       { from: 'best_players_example.html', to: '' },
+      { from: 'rooms_example.html', to: '' },
     ]),
     new CleanWebpackPlugin(),
   ],

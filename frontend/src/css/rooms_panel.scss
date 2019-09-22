@@ -1,0 +1,11 @@
+.rooms-panel {
+    @extend %panel;
+    grid-template-columns: 4fr 1fr 2fr;
+}
+
+
+.room-join-img {
+    width: ($table-elem-height / 1.5);
+    height: ($table-elem-height / 1.5);
+    border-radius: 100px;
+}
