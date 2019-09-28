@@ -2,10 +2,19 @@
 @import 'sizes';
 @import 'TEMPLATE_PANEL';
 @import 'buttons';
+
 @import '/navbar/navbar';
 @import '/navbar/__exit/navbar__exit';
 @import '/navbar/__game-logo/navbar__game-logo';
 @import '/navbar/__user-logo/navbar__user-logo';
+
+@import '/profile/profile';
+@import '/profile/__download-img/profile__download-img';
+@import '/profile/__user-img/profile__user-img';
+@import '/profile/__title/profile__title';
+@import '/profile/__edit-list/profile__edit-list';
+@import '/profile/__form-text/profile__form-text';
+
 @import 'main_menu_container';
 @import 'tab';
 @import 'best_players_panel';

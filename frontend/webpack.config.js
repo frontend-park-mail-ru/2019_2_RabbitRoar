@@ -30,6 +30,7 @@ module.exports = {
       { from: 'login.html', to: '' },
       { from: 'best_players_example.html', to: '' },
       { from: 'rooms_example.html', to: '' },
+      { from: 'profile.html', to: '' },
     ]),
     new CleanWebpackPlugin(),
   ],
