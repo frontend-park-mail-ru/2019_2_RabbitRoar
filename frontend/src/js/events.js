@@ -32,3 +32,29 @@ setTabListeners = () => {
         });
     });
 }
+
+setNavbarListeners = () => {
+    document.querySelector('.navbar__game-logo').addEventListener('click', function (event){
+        alert("Главная страница");
+    });
+    document.querySelector('.navbar__user-logo').addEventListener('click', function (event){
+        alert("Редактирование личного кабинета");
+    });
+    document.querySelector('.navbar__exit').addEventListener('click', function (event){
+        alert("Пользователь вышел");
+    });
+}
+
+setProfileListeners = () => {
+    document.querySelector('.profile__save-button').addEventListener('click', function (event){
+        alert("Сохранение");
+    });
+    document.querySelector('.profile__cancel-button').addEventListener('click', function (event){
+        alert("Сброс");
+    });
+}
+
+changedValue = (value, valId) => {
+    alert(value); 
+    alert (valId);
+}
