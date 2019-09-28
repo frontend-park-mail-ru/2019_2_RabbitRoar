@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
@@ -20,11 +21,9 @@ module.exports = {
           'sass-loader',
         ]
       },
-      {
-        test: /\.xml$/, 
-        use: [
-          'fest-webpack-loader',
-        ]
+      { 
+        test: /\.pug$/,
+        use: ['pug-loader']
       },
     ],
   },
@@ -37,6 +36,9 @@ module.exports = {
       { from: 'rooms_example.html', to: '' },
     ]),
     new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: './index.pug'
+    }),
   ],
   devtool: 'source-map',  // Source map generations
   devServer: {

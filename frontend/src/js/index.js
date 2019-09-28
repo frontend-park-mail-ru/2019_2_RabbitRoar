@@ -1,10 +1,10 @@
 import '../css/style.scss';
 import '../js/main_content_creators.js';
 import '../js/events.js';
-import template from '../templates.xml';
 
-console.log('Hello world!');
-'use strict';
+import tabs from '../templates/tabs/tabs.pug';
+
+
 
 const application = document.getElementById('application');
 
@@ -14,7 +14,7 @@ const mainMenuItems = {
 	packs: 'Игровые наборы',
 };
 
-
+const tabNames = ['rooms', 'top', 'packs'];
 const contentCreators = {
     rooms: roomCreator,
     topCreator: function(parent) {
@@ -26,29 +26,20 @@ const contentCreators = {
 
 
 
-function createMainMenu(contentCreator = contentCreators['rooms']) {
+function createMainMenu(contentType = tabNames[0]) {
     application.innerHTML = '';
 
     const mainContainer = document.createElement('div');
     mainContainer.classList.add('main-container')
     application.appendChild(mainContainer)
 
-    
-    Object.keys(mainMenuItems).forEach(function(key) {
-        const containerTab = document.createElement('div');
-        containerTab.classList.add('tab')
-        containerTab.textContent = mainMenuItems[key]
-        mainContainer.append(containerTab)
-    });
+    mainContainer.innerHTML += tabs();
 
-    const tabContent = document.createElement('div');
-    tabContent.classList.add('tab-content')
-    mainContainer.append(tabContent)
+    contentCreators[contentType](mainContainer);
+    alert("1")
 
-    contentCreator(tabContent)
-    
     setTabListeners()
 }
 
 
-createMainMenu(contentCreators['roomCreator']);
+createMainMenu();

@@ -24,7 +24,9 @@
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7",
     "webpack-dev-server": "^3.8.0",
-    "fest-webpack-loader": "^2.0.0",
-    "fest": "^0.12.1"
+    "pug": "^2.0.4",
+    "pug-loader": "^2.4.0",
+    "html-webpack-pug-plugin": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0"
   }
 }
