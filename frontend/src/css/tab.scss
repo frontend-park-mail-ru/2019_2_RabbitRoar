@@ -1,4 +1,4 @@
-.tab {
+%tab-default {
     text-align: center;
     align-items: center;
     width: 100%;
@@ -10,19 +10,32 @@
     border-style: solid;
     background-color: $color-bg-light;
     text-transform: uppercase;
+};
+
+.tab {
+    @extend %tab-default;
 }
 
-.tab:hover .tab {
-    border-bottom-width: 2px;
-    color: $color-border-primary;
-}
-
-.tab:hover {
+.tab-click {
+    @extend %tab-default;
     border-width: 2px;
     border-bottom-width: 0px;
     border-color: $color-border-primary;
     color: $color-border-primary;
     background-color: rgba(0, 0, 0, 0); 
 }
+
+// .tab:hover .tab {
+//     border-bottom-width: 2px;
+//     color: $color-border-primary;
+// }
+
+// .tab:hover {
+//     border-width: 2px;
+//     border-bottom-width: 0px;
+//     border-color: $color-border-primary;
+//     color: $color-border-primary;
+//     background-color: rgba(0, 0, 0, 0); 
+// }
 
 
