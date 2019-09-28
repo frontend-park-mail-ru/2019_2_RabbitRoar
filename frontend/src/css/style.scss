@@ -1,6 +1,9 @@
 @import 'colors';
 @import 'buttons';
-@import 'navbar';
+@import '/navbar/navbar';
+@import '/navbar/__exit/navbar__exit';
+@import '/navbar/__game-logo/navbar__game-logo';
+@import '/navbar/__user-logo/navbar__user-logo';
 @import 'main_menu_container';
 @import 'tab';
 @import 'best_players';
