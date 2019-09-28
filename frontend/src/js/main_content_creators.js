@@ -1,7 +1,6 @@
-import roooooooms from '../templates/tabs/content_rooms.pug';
 
-
-roomCreator = function roomCreate(container) {
-    container.innerHTML += rooms();
+function getRooms(creator, container) {
+    container.innerHTML += creator.info();
+    container.innerHTML += creator.paginator();
     // Сходить на бэк, вернуть все комнаты
 };
