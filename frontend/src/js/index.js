@@ -1,6 +1,7 @@
 import '../css/style.scss';
 import '../js/main_content_creators.js';
 import '../js/events.js';
+import template from '../templates.xml';
 
 console.log('Hello world!');
 'use strict';
