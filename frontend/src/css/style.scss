@@ -1,14 +1,19 @@
 @import 'colors';
+@import 'sizes';
+@import 'TEMPLATE_PANEL';
 @import 'buttons';
 @import 'navbar';
 @import 'main_menu_container';
 @import 'tab';
-@import 'best_players';
+@import 'best_players_panel';
 @import 'forms';
+@import 'rooms_panel';
+@import 'paginator';
 
 body {
-    background-color: $color_bg-dark;
-    font-family: "Open Sans",Arial,Helvetica,sans-serif;    
-    padding: 0px;
-    margin: 0px;
+    background-color: $color-bg-dark;
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    font-feature-settings: "kern";
+    font-size: $font-size;
+    font-weight: 600;
 }

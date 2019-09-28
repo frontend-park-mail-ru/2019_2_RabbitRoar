@@ -1,17 +1,13 @@
-$table-slash-height: 6vh;
-$table-vertical-margin: 1vh;
-$table-elem-height: 8vh;
-$rank-margin: 8vw;
-
-.best-players-panel {
-    margin-top: 2vh;
+%panel {
+    margin: 0px auto;
+    width: 98%;
+    margin-top: $panels-margin;
     display: grid;
-    grid-template-columns: 1fr 3fr 2fr 3fr;
     grid-template-rows: $table-elem-height;
+}
 
 
-
-.bp-elem {
+.panel-elem {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,8 +22,14 @@ $rank-margin: 8vw;
     border-top-width: 0px;
 }
 
+
 .elem-justify-end {
     justify-content: end;
+}
+
+.elem-justify-start {
+    padding-left: 4vw;
+    justify-content: flex-start;
 }
 
 
@@ -35,31 +37,7 @@ $rank-margin: 8vw;
     border-right-width: 0px;
 }
 
+
 .no-border {
     border-right-width: 0px;
-}
-
-.best-avatar {
-    width: $table-slash-height;
-    height: $table-slash-height;
-}
-
-.rank-avatar {
-    border-radius: 100px;
-    width: ($table-slash-height / 2);
-    height: ($table-slash-height / 2);
-}
-
-
-.rank-text {
-    margin-left: $rank-margin;
-    flex-grow: 1;
-}
-
-.rank-img {
-    margin-right: $rank-margin;
-}
-
-
-
 }
