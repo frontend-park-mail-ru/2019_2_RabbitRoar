@@ -46,7 +46,7 @@ setNavbarListeners = () => {
 }
 
 setProfileListeners = () => {
-    document.querySelector('.profile__save-button').addEventListener('click', function (event) {
+    document.getElementById('save-button').addEventListener('click', function (event) {
         for (let valId of changedForms.keys()) {
             alert(valId, changedForms.get(valId));
             alert(changedForms.get(valId));
@@ -55,12 +55,12 @@ setProfileListeners = () => {
         changedForms.clear()
         alert("Сохранение");
     });
-    document.querySelector('.profile__cancel-button').addEventListener('click', function (event) {
+    document.getElementById('cancel-button').addEventListener('click', function (event) {
         changedForms.clear()
         alert("Сброс");
     });
 
-    let formFields = document.querySelectorAll('.profile__form-text');
+    let formFields = document.querySelectorAll('.input-valid');
     formFields.forEach(function (form) {
         form.addEventListener("change", function () {
             changedValue(this.value, this.id);

@@ -1,0 +1,69 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 20px;
+
+  color: $color-font;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0px;
+  }
+
+  input,
+  button {
+    background-color: rgba(0, 0, 0, 0);
+    margin: 10px 0px;
+    width: 80%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  input {
+    border: 0px;
+    margin-bottom: 1px;
+    color: $color-font;
+    background-color: $color-bg-light;
+    text-align: center;
+    border-bottom: 2px solid transparent;
+    transition: background-color 500ms ease, border-bottom 500ms ease, box-shadow 1000ms ease;
+    font-size: 0.8em;
+  }
+
+  input:focus {
+    border-bottom: 2px solid $color-border-primary;
+    box-shadow: 0 5px 5px -5px $color-border-primary;
+  }
+
+  .input-error,
+  input:invalid {
+    box-shadow: 0 5px 5px -5px $color-danger;
+    border-bottom: 2px solid $color-danger;
+    color: $color-danger;
+  }
+
+  .input-valid:focus {
+    color: $color-success;
+    box-shadow: 0 5px 5px -5px $color-success;
+    border-bottom: 2px solid $color-success;
+  }
+
+  .error-annotation {
+    font-size: 0.8rem;
+    color: $color-danger;
+    visibility: hidden;
+  }
+
+  label {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  button {
+    color: $color-font;
+  }
+}

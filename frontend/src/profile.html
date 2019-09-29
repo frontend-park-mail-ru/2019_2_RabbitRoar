@@ -10,48 +10,55 @@
 </head>
 
 <div class="profile">
-    <div align="center">
+    <form class="form">
         <div>
             <img class="profile__user-img" src="https://pngimage.net/wp-content/uploads/2018/06/user-logo-png-4.png"
                 alt="User">
         </div>
+        <div align=center>
+            <input type="file" class="profile__download-img">
+        </div>
 
-        <input type="file" class="profile__download-img">
         <h3 class="profile__title">Основное</h3>
 
-        <div>
-            <label class="profile__edit-list">Имя
-                <input class="profile__form-text" id="name" type="text" value="Egor">
-            </label>
+        <div class="form-group">
+            <label for="name">Имя:</label>
+            <input class="input-valid" name="name" id="name" type="text" value="Egor">
+            <span class="error-annotation">Отображение ошибки</span>
         </div>
-        <div>
-            <label class="profile__edit-list">Фамилия
-                <input class="profile__form-text" id="surname" type="text" value="Kekor">
-            </label>
+
+        <div class="form-group">
+            <label for="surname">Фамилия:</label>
+            <input class="input-valid" name="surname" id="surname" type="text" value="Kekor">
+            <span class="error-annotation">Отображение ошибки</span>
         </div>
-        <div>
-            <label class="profile__edit-list">Email
-                <input class="profile__form-text" id="email" type="text" value="example@gmail.com">
-            </label>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input class="input-valid" name="email" id="email" type="email" value="example@gmail.com">
+            <span class="error-annotation">Отображение ошибки</span>
         </div>
-        <div>
-            <label class="profile__edit-list">Username
-                <input class="profile__form-text" id="username" type="text" value="egorkekor">
-            </label>
+
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input class="input-valid" name="username" id="username" type="text" value="egorkekor">
+            <span class="error-annotation">Отображение ошибки</span>
         </div>
-        <div>
-            <label class="profile__edit-list">Пароль
-                <input class="profile__form-text" id="password" type="password" value="Topsecret">
-            </label>
+
+        <div class="form-group">
+            <label for="password">Пароль:</label>
+            <input class="input-valid" name="password" id="password" type="password" value="Topsecret">
+            <span class="error-annotation">Отображение ошибки</span>
         </div>
-        <div>
-            <label class="profile__edit-list">Подтвердите пароль
-                <input class="profile__form-text" id="password-confirmation" type="password" value="Topsecret">
-            </label>
+
+        <div class="form-group">
+            <label for="password-confirmation">Подтвердите пароль:</label>
+            <input class="input-valid" name="password-confirmation" id="password-confirmation" type="password"
+                value="Topsecret">
+            <span class="error-annotation">Отображение ошибки</span>
         </div>
-        <div>
-            <input class="profile__save-button" type="button" value="Сохранить">
-            <input class="profile__cancel-button" type="reset" value="Сбросить">
-        </div>
-    </div>
+
+        <button id="save-button" type="submit">Сохранить</button>
+        <button id="cancel-button" type="reset">Сбросить</button>
+    </form>
 </div>

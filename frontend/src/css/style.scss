@@ -1,7 +1,6 @@
 @import 'colors';
 @import 'sizes';
 @import 'TEMPLATE_PANEL';
-@import 'buttons';
 
 @import '/navbar/navbar';
 @import '/navbar/__exit/navbar__exit';
@@ -12,19 +11,16 @@
 @import '/profile/__download-img/profile__download-img';
 @import '/profile/__user-img/profile__user-img';
 @import '/profile/__title/profile__title';
-@import '/profile/__edit-list/profile__edit-list';
-@import '/profile/__form-text/profile__form-text';
-@import '/profile/__save-button/profile__save-button';
-@import '/profile/__cancel-button/profile__cancel-button';
-
 
 
 @import 'main_menu_container';
 @import 'tab';
 @import 'best_players_panel';
-@import 'forms';
+@import 'form/form';
 @import 'rooms_panel';
-@import 'paginator';
+@import 'paginator/paginator';
+@import 'button/button';
+
 
 body {
     background-color: $color-bg-dark;
