@@ -19,12 +19,12 @@ setTabListeners = () => {
         return
     }
 
-    tabs.forEach(function(tab) {
+    tabs.forEach(function (tab) {
         tab.addEventListener('click', function (event) {
             tab.className = 'tab-click';
 
             let noClickTab = document.querySelectorAll('div.tab , div.tab-click');
-            noClickTab.forEach(function(noClick) {
+            noClickTab.forEach(function (noClick) {
                 if (noClick != tab) {
                     noClick.className = "tab";
                 }
@@ -34,27 +34,43 @@ setTabListeners = () => {
 }
 
 setNavbarListeners = () => {
-    document.querySelector('.navbar__game-logo').addEventListener('click', function (event){
+    document.querySelector('.navbar__game-logo').addEventListener('click', function (event) {
         alert("Главная страница");
     });
-    document.querySelector('.navbar__user-logo').addEventListener('click', function (event){
+    document.querySelector('.navbar__user-logo').addEventListener('click', function (event) {
         alert("Редактирование личного кабинета");
     });
-    document.querySelector('.navbar__exit').addEventListener('click', function (event){
+    document.querySelector('.navbar__exit').addEventListener('click', function (event) {
         alert("Пользователь вышел");
     });
 }
 
 setProfileListeners = () => {
-    document.querySelector('.profile__save-button').addEventListener('click', function (event){
+    document.querySelector('.profile__save-button').addEventListener('click', function (event) {
+        for (let valId of changedForms.keys()) {
+            alert(valId, changedForms.get(valId));
+            alert(changedForms.get(valId));
+        }
+        // формируем json с измененными данными и отправлем его на сервер
+        changedForms.clear()
         alert("Сохранение");
     });
-    document.querySelector('.profile__cancel-button').addEventListener('click', function (event){
+    document.querySelector('.profile__cancel-button').addEventListener('click', function (event) {
+        changedForms.clear()
         alert("Сброс");
     });
+
+    let formFields = document.querySelectorAll('.profile__form-text');
+    formFields.forEach(function (form) {
+        form.addEventListener("change", function () {
+            changedValue(this.value, this.id);
+        });
+    });
+    let tabs = document.querySelectorAll('div.tab')
 }
 
-changedValue = (value, valId) => {
-    alert(value); 
-    alert (valId);
+let changedForms = new Map();
+
+changedValue = (changedVal, valId) => {
+    changedForms.set(valId, changedVal);
 }
