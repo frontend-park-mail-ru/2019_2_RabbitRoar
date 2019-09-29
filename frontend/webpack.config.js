@@ -30,12 +30,7 @@ module.exports = {
   plugins: [
     new webpack.ProgressPlugin(),
     new CopyPlugin([
-      { from: 'navbar.html', to: '' },
       { from: 'index.pug', to: '' },
-      { from: 'login.html', to: '' },
-      { from: 'best_players_example.html', to: '' },
-      { from: 'rooms_example.html', to: '' },
-      { from: 'profile.html', to: '' },
     ]),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({

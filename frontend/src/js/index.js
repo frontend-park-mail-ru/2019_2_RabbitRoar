@@ -2,9 +2,8 @@ import '../css/style.scss';
 import {createMainMenu} from './main_menu/main_menu.js';
 
 
+export let autorised = true;
 
-const application = document.getElementById('application');
-
-
+document.cookie = "autorised=true";
 
 createMainMenu();

@@ -3,11 +3,12 @@ import {setNavbarListeners} from './events/navbar_click.js';
 
 import {RoomCreator} from './creators/room_creator.js'
 import {BestCreator} from './creators/best_creator.js'
+import {NavbarCreator} from './creators/navbar_creator.js'
 
 
-import Navbar from '../../templates/main_menu/navbar.pug';
 import Tabs from '../../templates/main_menu/tabs.pug';
 
+import {createRegistration} from '../registration/registration_creator.js';
 
 
 //ID у табов являются ключами мапы!
@@ -15,9 +16,12 @@ export const contentCreators = new Map([['rooms', RoomCreator], ['top', BestCrea
 
 
 export function createMainMenu(creatorType = 'top') {
+    if (document.cookie == "autorised=false") {
+        createRegistration();
+    }
     const creator = contentCreators.get(creatorType)
     application.innerHTML = '';
-    application.innerHTML += Navbar();
+    application.innerHTML += NavbarCreator();
 
     const mainContainer = document.createElement('div');
     mainContainer.classList.add('main-container')
