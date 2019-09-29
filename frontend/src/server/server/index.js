@@ -57,6 +57,9 @@ app.post('/user/signup', function (req, res) {
 });
 
 app.post('/user/login', function (req, res) {
+    res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.set('Access-Control-Allow-Credentials', 'true');
+    
     const password = req.body.password;
     const username = req.body.username;
     if (!password || !username) {
@@ -70,6 +73,25 @@ app.post('/user/login', function (req, res) {
     res.cookie('username', username, {expires: new Date(Date.now() + 1000 * 60 * 10)});
 
     res.status(200).json({id});
+});
+
+app.options('/user/login', function (req, res) {
+	const Origin = req.get('Origin');
+	const AccessControlRequestMethod = req.get('Access-Control-Request-Method');
+	const AccessControlRequestHeaders = req.get('Access-Control-Request-Headers');
+	console.log({
+		Origin,
+		AccessControlRequestMethod,
+		AccessControlRequestHeaders,
+	});
+
+
+	res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+	res.set('Access-Control-Allow-Methods', 'POST,PUT');
+	res.set('Access-Control-Allow-Headers', 'Content-Type,X-Lol');
+	res.set('Access-Control-Allow-Credentials', 'true');
+
+	res.status(204).end();
 });
 
 app.get('/user', function (req, res) {

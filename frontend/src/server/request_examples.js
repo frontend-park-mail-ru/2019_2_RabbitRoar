@@ -12,40 +12,52 @@ ajax(
         }
     }
 )
-// Эти переделать
-// выйти
-AjaxModule.doGet({
-    url: '/user/logout',
-    body: {username, password},
-    callback(status, responseText) {
+
+// Выйти
+ajax(
+    'GET',
+    '/user/logout',
+    {username, password},
+    function (status, response) {
         if (status === 200) {
-            // МЫ ВЫШЛИ
-            // Создаем страницу для выхода
-            return;
+            // СОЗДАЕМ ПРОФИЛЬ
+        } else {
+            const {error} = JSON.parse(response);
+            alert(error);
         }
-
-        const {error} = JSON.parse(responseText);
-        alert(error);
     }
-});
-
+)
 // Регистрация
-AjaxModule.doPost({
-    url: '/user/signup',
-    body: {username, password, email},
-    callback(status, responseText) {
-        if (status === 200)
-            // Регистрация успешна
-            // Создаем профиль
-            return;
+ajax(
+    'POST',
+    '/user/signup',
+    {username, password, email},
+    function (status, response) {
+        if (status === 200) {
+            // СОЗДАЕМ ПРОФИЛЬ
+        } else {
+            const {error} = JSON.parse(response);
+            alert(error);
         }
-
-        const {error} = JSON.parse(responseText);
-        alert(error);
     }
-});
+)
+
 
 // обновить профиль
+ajax(
+    'POST',
+    '/user',
+    {username, password},
+    function (status, response) {
+        if (status === 200) {
+            // СОЗДАЕМ ПРОФИЛЬ
+        } else {
+            const {error} = JSON.parse(response);
+            alert(error);
+        }
+    }
+)
+
 AjaxModule.doPut({
     url: '/user',
     body: {username, password},
