@@ -1,24 +1,29 @@
 import {createMainMenu} from '../main_menu/main_menu.js';
+import {createProfile} from '../profile/profile_creator.js';
+import {ajax} from '../requests/ajax.js';
 
 export function setRegistrationListeners() {
     document.getElementById('registration').addEventListener('click', function (event) {
-        const email = document.getElementById('registration').textContent;
-        if (email == '') {
-            return
-        }
+        const email = document.getElementById('email').value;
+        const username = document.getElementById('login').value;
+        const password = document.getElementById('password').value;
 
-        const login = document.getElementById('login').textContent;
-        if (login == '') {
-            return
-        }
+        ajax(
+            'POST',
+            '/user/signup',
+            {username, password, email},
+            function (status, response) {
+                if (status === 201) {
+                    alert("!!!");
+                    document.cookie = "autorised=true";
+                    createProfile();
+                } else {
+                    const {error} = JSON.parse(response);
+                    alert(error);
+                }
+            }
+        );
+        alert("228");
 
-        const password = document.getElementById('password').textContent;
-        if (password == '') {
-            return
-        }
-
-        document.cookie = "autorised=true";
-        createMainMenu();
-        // //Отправляем на сервер логин с паролем, получаем НОВОГО пользователя
     }); 
 }

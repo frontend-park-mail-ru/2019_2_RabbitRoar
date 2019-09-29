@@ -19,6 +19,7 @@ export function createMainMenu(creatorType = 'top') {
     if (document.cookie == "autorised=false") {
         createRegistration();
     }
+    alert(document.cookie);
     const creator = contentCreators.get(creatorType)
     application.innerHTML = '';
     application.innerHTML += NavbarCreator();
@@ -33,4 +34,5 @@ export function createMainMenu(creatorType = 'top') {
 
     setTabListeners();
     setNavbarListeners();
+    return;
 }

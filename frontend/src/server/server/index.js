@@ -53,10 +53,11 @@ app.post('/user/signup', function (req, res) {
 
     res.cookie('autorized', true, {expires: new Date(Date.now() + 1000 * 60 * 10)});
     res.cookie('username', username, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-    res.status(201).json({username});
+    res.status(201).end();
 });
 
 app.post('/user/login', function (req, res) {
+    console.log("here");
     res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
     res.set('Access-Control-Allow-Credentials', 'true');
     
