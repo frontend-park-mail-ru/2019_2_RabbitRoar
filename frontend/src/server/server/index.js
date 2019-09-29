@@ -35,6 +35,7 @@ const users = {
 };
 
 app.post('/user/signup', function (req, res) {
+    console.log("here");
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
@@ -57,7 +58,6 @@ app.post('/user/signup', function (req, res) {
 });
 
 app.post('/user/login', function (req, res) {
-    console.log("here");
     res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
     res.set('Access-Control-Allow-Credentials', 'true');
     
