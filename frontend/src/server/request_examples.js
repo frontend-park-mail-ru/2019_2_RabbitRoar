@@ -1,18 +1,18 @@
 // войти по логину
-AjaxModule.doPost({
-    url: '/user/login',
-    body: {username, password},
-    callback(status, responseText) {
+ajax(
+    'POST',
+    '/user/login',
+    {username, password},
+    function (status, response) {
         if (status === 200) {
             // СОЗДАЕМ ПРОФИЛЬ
-            return;
+        } else {
+            const {error} = JSON.parse(response);
+            alert(error);
         }
-
-        const {error} = JSON.parse(responseText);
-        alert(error);
     }
-});
-
+)
+// Эти переделать
 // выйти
 AjaxModule.doGet({
     url: '/user/logout',
