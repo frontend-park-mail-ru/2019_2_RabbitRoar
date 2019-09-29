@@ -1,0 +1,46 @@
+div(class="profile")
+    form(class="form")
+        div
+            img(class="profile__user-img",
+            src="https://pngimage.net/wp-content/uploads/2018/06/user-logo-png-4.png"
+            alt="User")
+        div
+            input(type="file", class="profile__download-img")
+        h3(class="profile__title") Основное
+        div(class="form-group")
+            label(for="name") Имя:
+            input(class="input-valid", name="name", id="name", type="text", value="Egor")
+            span(class="error-annotation") Отображение ошибки
+
+        div(class="form-group")
+            label(for="surname") Фамилия:
+            input(class="input-valid", name="surname", id="surname", type="text", value="Kekor")
+            span(class="error-annotation") Отображение ошибки
+
+
+        div(class="form-group")
+            label(for="email") Email:
+            input(class="input-valid", name="email", id="email", type="email", value="example@gmail.com")
+            span(class="error-annotation") Отображение ошибки
+
+
+        div(class="form-group")
+            label(for="username") Username:
+            input(class="input-valid", name="username", id="username", type="text", value="egorkekor")
+            span(class="error-annotation") Отображение ошибки           
+
+
+        div(class="form-group")
+            label(for="password") Пароль:
+            input(class="input-valid", name="password", id="password", type="password", value="Topsecret")
+            span(class="error-annotation") Отображение ошибки
+
+
+        div(class="form-group")
+            label(for="password-confirmation") Подтвердите пароль:
+            input(class="input-valid", name="password-confirmation", id="password-confirmation", type="password", value="Topsecret")
+            span(class="error-annotation") Отображение ошибки
+
+
+        button(id="save-button", type="submit") Сохранить
+        button(id="cancel-button", type="reset") Сбросить

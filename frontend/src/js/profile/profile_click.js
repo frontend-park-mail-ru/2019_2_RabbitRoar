@@ -8,10 +8,10 @@ export function setProfileListeners() {
         changedForms.clear()
         alert("Сохранение");
     });
-    document.getElementById('cancel-button').addEventListener('click', function (event) {
+    const element = document.getElementById('cancel-button').addEventListener('click', function (event) {
         changedForms.clear()
         alert("Сброс");
-    });
+    });// Может вернуть null, тогда гг
 
     let formFields = document.querySelectorAll('.input-valid');
     formFields.forEach(function (form) {
@@ -24,6 +24,6 @@ export function setProfileListeners() {
 
 let changedForms = new Map();
 
-changedValue = (changedVal, valId) => {
+const changedValue = (changedVal, valId) => {
     changedForms.set(valId, changedVal);
 }

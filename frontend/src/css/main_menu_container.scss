@@ -1,6 +1,6 @@
 .main-container {
     width: 90vw;
-    margin: auto;
+    margin: $panels-margin auto;
     color: aqua;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
