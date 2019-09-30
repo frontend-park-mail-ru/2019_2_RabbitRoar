@@ -19,7 +19,6 @@ export function setAutorisationListeners() {
                     document.cookie = "autorised=true";
                     createMainMenu();
                 } else {
-                    alert(response);
                     const {error} = JSON.parse(response);
                     alert(error);
                 }
