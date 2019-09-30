@@ -213,6 +213,7 @@ app.get('/user/logout', function (req, res) {
     const id = req.cookies['id'];
     const username = ids[id];
     delete ids[id];
+    res.cookie('id', '', {expires: new Date(Date.now() + 1000 * 60 * 10)});  
     res.status(200).end();
 });
 

@@ -18,7 +18,7 @@ export const contentCreators = new Map([['rooms', RoomCreator], ['top', BestCrea
 
 
 export function createMainMenu(creatorType = 'top') {
-    if (getCookie("id") == "undefined") {
+    if (getCookie("id") == "") {
         createRegistration();
         return;
     }
