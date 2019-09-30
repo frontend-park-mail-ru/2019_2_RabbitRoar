@@ -34,6 +34,8 @@ const users = {
     },
 };
 
+const ids = {};
+
 app.post('/user/signup', function (req, res) {
     res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
     res.set('Access-Control-Allow-Credentials', 'true');
@@ -51,11 +53,16 @@ app.post('/user/signup', function (req, res) {
     if (users[username]) {
         return res.status(400).json({error: 'Пользователь с такой почтой уже существует'});
     }
-    users[username] = {username, password, email, rating: 0};
 
-    res.cookie('autorized', true, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-    res.cookie('username', username, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+    const id = uuid();
+    const user = {username, password, email, rating: 0};
+    ids[id] = username;
+    users[username] = user;
+
+    res.cookie('id', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+    //res.cookie('autorized', true, {expires: new Date(Date.now() + 1000 * 60 * 10)});
     res.status(201).end();
+    
     console.log("send");
 });
 
@@ -73,8 +80,11 @@ app.post('/user/login', function (req, res) {
         return res.status(401).json({error: 'Не верный юзернейм и/или пароль'});
     }
 
-    res.cookie('autorized', true, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-    res.cookie('username', username, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+    const id = uuid();
+    ids[id] = username;
+
+    res.cookie('id', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});    
+    //res.cookie('autorized', true, {expires: new Date(Date.now() + 1000 * 60 * 10)});
 
     res.status(200).end();
 });
@@ -119,7 +129,13 @@ app.options('/user/signup', function (req, res) {
 
 
 app.get('/user', function (req, res) {
-    const username = req.cookies['username'];
+    // Добавила заголовки
+    res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.set('Access-Control-Allow-Credentials', 'true');
+    
+    const id = req.cookies['id'];
+    const username = ids[id];
+
     if (!username || !users[username]) {
         return res.status(401).end();
     }
