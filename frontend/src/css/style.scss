@@ -1,0 +1,31 @@
+@import 'colors';
+@import 'sizes';
+@import 'TEMPLATE_PANEL';
+
+@import '/navbar/navbar';
+@import '/navbar/__exit/navbar__exit';
+@import '/navbar/__game-logo/navbar__game-logo';
+@import '/navbar/__user-logo/navbar__user-logo';
+
+@import '/profile/profile';
+@import '/profile/__download-img/profile__download-img';
+@import '/profile/__user-img/profile__user-img';
+@import '/profile/__title/profile__title';
+
+
+@import 'main_menu_container';
+@import 'tab';
+@import 'best_players_panel';
+@import 'form/form';
+@import 'rooms_panel';
+@import 'paginator/paginator';
+@import 'button/button';
+
+
+body {
+    background-color: $color-bg-dark;
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    font-feature-settings: "kern";
+    font-size: $font-size;
+    font-weight: 600;
+}

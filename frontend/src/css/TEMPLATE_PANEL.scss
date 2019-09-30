@@ -1,0 +1,35 @@
+%panel {
+    margin: 0px auto;
+    width: 98%;
+    margin-top: $panels-margin;
+    display: grid;
+    grid-template-rows: $table-elem-height;
+}
+
+
+.panel-elem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: $table-vertical-margin;
+    margin-bottom: $table-vertical-margin;
+    border-style: solid;
+    background-color: $color-bg-light;
+    border-color: $color-border-primary;
+    border-width: 0px;
+}
+
+
+.elem-justify-end {
+    justify-content: end;
+}
+
+.elem-justify-start {
+    padding-left: 4vw;
+    justify-content: flex-start;
+}
+
+
+.right-border, .no-border {
+    border-right-width: 0px;
+}

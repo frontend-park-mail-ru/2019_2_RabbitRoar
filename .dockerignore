@@ -1,0 +1,3 @@
+# Exclude that files from container
+**/dist
+**/node_modules/

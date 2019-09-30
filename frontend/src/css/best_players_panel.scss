@@ -1,0 +1,26 @@
+.best-players-panel {
+    @extend %panel;
+    grid-template-columns: 1fr 3fr 2fr 3fr;
+}
+
+
+
+.best-avatar {
+    height: ($table-elem-height/1.5);
+    width: ($table-elem-height/1.5);
+}
+
+.rank-avatar {
+    border-radius: 100px;
+    width: ($table-elem-height / 2);
+    height: ($table-elem-height / 2);
+    margin-right: $rank-margin;
+}
+
+
+.rank-text {
+    margin-left: $rank-margin;
+    flex-grow: 1;
+}
+
+

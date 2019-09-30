@@ -1,0 +1,5 @@
+FROM node:12
+COPY frontend /app
+RUN cd /app && ls && echo "Install starting" && npm install && echo "Install finished" && npm run build && echo "Build finished"
+EXPOSE 8000/tcp
+CMD cd /app && echo 'Starting server' && npm run server

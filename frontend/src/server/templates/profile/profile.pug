@@ -1,0 +1,37 @@
+div(class="profile")
+    form(class="form")
+        div
+            img(class="profile__user-img",
+            src="https://pngimage.net/wp-content/uploads/2018/06/user-logo-png-4.png"
+            alt="User")
+        div
+            input(type="file", class="profile__download-img")
+        h3(class="profile__title") Основноеt
+        
+
+        div(class="form-group")
+            label(for="email") Email:
+            input(class="input-valid", name="email", id="email", type="email")
+            span(class="error-annotation") Отображение ошибки
+
+
+        div(class="form-group")
+            label(for="username") Username:
+            input(class="input-valid", name="username", id="username", type="text")
+            span(class="error-annotation") Отображение ошибки           
+
+
+        div(class="form-group")
+            label(for="password") Пароль:
+            input(class="input-valid", name="password", id="password", type="password")
+            span(class="error-annotation") Отображение ошибки
+
+
+        div(class="form-group")
+            label(for="password-confirmation") Подтвердите пароль:
+            input(class="input-valid", name="password-confirmation", id="password-confirmation", type="password")
+            span(class="error-annotation") Отображение ошибки
+
+
+        button(id="save-button", type="submit") Сохранить
+        button(id="cancel-button", type="reset") Сбросить
