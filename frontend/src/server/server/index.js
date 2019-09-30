@@ -35,13 +35,15 @@ const users = {
 };
 
 app.post('/user/signup', function (req, res) {
+    res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
+    res.set('Access-Control-Allow-Credentials', 'true');
+
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
     if (
         !username || !password || !email ||
         !username.match(/^[a-zA-Z\-]+$/) ||
-        !password.match(/^\S{4,}$/) ||
         !email.match(/@/)
     ) {
         return res.status(400).json({error: 'Не валидные данные пользователя'});
@@ -54,10 +56,10 @@ app.post('/user/signup', function (req, res) {
     res.cookie('autorized', true, {expires: new Date(Date.now() + 1000 * 60 * 10)});
     res.cookie('username', username, {expires: new Date(Date.now() + 1000 * 60 * 10)});
     res.status(201).end();
+    console.log("send");
 });
 
 app.post('/user/login', function (req, res) {
-    console.log("here");
     res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
     res.set('Access-Control-Allow-Credentials', 'true');
     
@@ -95,9 +97,29 @@ app.options('/user/login', function (req, res) {
 	res.status(204).end();
 });
 
+app.options('/user/signup', function (req, res) {
+	const Origin = req.get('Origin');
+	const AccessControlRequestMethod = req.get('Access-Control-Request-Method');
+	const AccessControlRequestHeaders = req.get('Access-Control-Request-Headers');
+	console.log({
+		Origin,
+		AccessControlRequestMethod,
+		AccessControlRequestHeaders,
+	});
+
+
+	res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
+	res.set('Access-Control-Allow-Methods', 'POST,PUT');
+	res.set('Access-Control-Allow-Headers', 'Content-Type,X-Lol');
+	res.set('Access-Control-Allow-Credentials', 'true');
+
+	res.status(204).end();
+});
+
+
 app.get('/user', function (req, res) {
     const username = req.cookies['username'];
-    if (!email || !users[username]) {
+    if (!username || !users[username]) {
         return res.status(401).end();
     }
 

@@ -5,12 +5,10 @@ import {setNavbarListeners} from '../main_menu/events/navbar_click.js';
 import {setRegistrationListeners} from './registration_click.js';
 
 export function createRegistration() {
-    alert(document.cookie);
     application.innerHTML = '';
     application.innerHTML += NavbarCreator();
     application.innerHTML += Registration();
 
     setNavbarListeners()
     setRegistrationListeners();
-    return;
 }

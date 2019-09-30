@@ -8,22 +8,24 @@ export function setRegistrationListeners() {
         const username = document.getElementById('login').value;
         const password = document.getElementById('password').value;
 
+        event.preventDefault();
         ajax(
             'POST',
-            '/user/signup',
+            'http://localhost:3000/user/signup',
             {username, password, email},
             function (status, response) {
                 if (status === 201) {
-                    alert("!!!");
                     document.cookie = "autorised=true";
                     createProfile();
                 } else {
+                    alert(status);
                     const {error} = JSON.parse(response);
                     alert(error);
                 }
             }
         );
-        alert("228");
+
+        return;
 
     }); 
 }

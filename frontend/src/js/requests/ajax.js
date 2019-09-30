@@ -11,7 +11,7 @@ export function ajax(method, url, body = null, callback) {
 
 	if (body) {
 		xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
-		xhr.send(JSON.stringify(body));
+        xhr.send(JSON.stringify(body));
 		return;
 	}
 
