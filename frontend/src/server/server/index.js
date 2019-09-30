@@ -40,7 +40,7 @@ const users = {
 const ids = {};
 
 app.post('/user/signup', function (req, res) {
-    res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
+    res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space:8000');
     res.set('Access-Control-Allow-Credentials', 'true');
 
     const username = req.body.username;
@@ -71,7 +71,7 @@ app.post('/user/signup', function (req, res) {
 
 
 app.post('/user/login', function (req, res) {
-    res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
+    res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space:8000');
     res.set('Access-Control-Allow-Credentials', 'true');
     
     const password = req.body.password;
@@ -103,7 +103,7 @@ app.options('/user/login', function (req, res) {
 	});
 
 
-	res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
+	res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space:8000');
 	res.set('Access-Control-Allow-Methods', 'POST,PUT,GET');
 	res.set('Access-Control-Allow-Headers', 'Content-Type,X-Lol');
 	res.set('Access-Control-Allow-Credentials', 'true');
@@ -122,7 +122,7 @@ app.options('/user/signup', function (req, res) {
 	});
 
 
-	res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
+	res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space:8000');
 	res.set('Access-Control-Allow-Methods', 'POST,PUT');
 	res.set('Access-Control-Allow-Headers', 'Content-Type,X-Lol');
 	res.set('Access-Control-Allow-Credentials', 'true');
@@ -136,7 +136,7 @@ app.options('/user/signup', function (req, res) {
 
 app.put('/user', function (req, res) {
     // Добавила заголовки
-    res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
+    res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space:8000');
     res.set('Access-Control-Allow-Credentials', 'true');
 
     const id = req.cookies['id'];
@@ -171,7 +171,7 @@ app.put('/user', function (req, res) {
 
 app.get('/user', function (req, res) {
     // Добавила заголовки
-    res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
+    res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space:8000');
     res.set('Access-Control-Allow-Credentials', 'true');
     
     const id = req.cookies['id'];
@@ -196,7 +196,7 @@ app.options('/user', function (req, res) {
 	});
 
 
-	res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
+	res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space:8000');
 	res.set('Access-Control-Allow-Methods', 'GET');
 	res.set('Access-Control-Allow-Headers', 'Content-Type,X-Lol');
 	res.set('Access-Control-Allow-Credentials', 'true');
@@ -207,7 +207,7 @@ app.options('/user', function (req, res) {
 
 app.get('/user/logout', function (req, res) {
     // Добавила заголовки
-    res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
+    res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space:8000');
     res.set('Access-Control-Allow-Credentials', 'true');
     
     const id = req.cookies['id'];
@@ -228,7 +228,7 @@ app.options('/user/logout', function (req, res) {
 	});
 
 
-	res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
+	res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space:8000');
 	res.set('Access-Control-Allow-Methods', 'GET');
 	res.set('Access-Control-Allow-Headers', 'Content-Type,X-Lol');
 	res.set('Access-Control-Allow-Credentials', 'true');
