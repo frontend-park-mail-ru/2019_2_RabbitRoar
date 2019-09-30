@@ -212,7 +212,7 @@ app.get('/user/logout', function (req, res) {
     
     const id = req.cookies['id'];
     const username = ids[id];
-    ids.delete(id);
+    delete ids[id];
     res.status(200).end();
 });
 
