@@ -144,6 +144,7 @@ app.get('/user', function (req, res) {
     }
 
     res.json(users[username]);
+    res.status(200).end();
 });
 
 app.put('/user', function (req, res) {
