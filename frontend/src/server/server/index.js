@@ -35,7 +35,7 @@ const users = {
 };
 
 app.post('/user/signup', function (req, res) {
-    console.log("here");
+    console.log("here");  
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
@@ -57,7 +57,7 @@ app.post('/user/signup', function (req, res) {
     res.status(201).end();
 });
 
-app.post('/user/login', function (req, res) {
+app.post('/user/login', function (req, res) {   
     res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
     res.set('Access-Control-Allow-Credentials', 'true');
     
@@ -88,7 +88,7 @@ app.options('/user/login', function (req, res) {
 
 
 	res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
-	res.set('Access-Control-Allow-Methods', 'POST,PUT');
+	res.set('Access-Control-Allow-Methods', 'POST,PUT,GET');
 	res.set('Access-Control-Allow-Headers', 'Content-Type,X-Lol');
 	res.set('Access-Control-Allow-Credentials', 'true');
 

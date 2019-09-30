@@ -8,9 +8,11 @@ export function setRegistrationListeners() {
         const username = document.getElementById('login').value;
         const password = document.getElementById('password').value;
 
+        event.preventDefault();
+
         ajax(
             'POST',
-            '/user/signup',
+            'localhost:3000/user/signup',
             {username, password, email},
             function (status, response) {
                 if (status === 201) {
@@ -24,6 +26,5 @@ export function setRegistrationListeners() {
             }
         );
         alert("228");
-
     }); 
 }
