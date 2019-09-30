@@ -19,18 +19,21 @@ const users = {
         password: 'password',
         email: 'smirnova@mail.ru',
         rating: 3,
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEFF6tCXWJuWRLxP0Ovu785xFo3oiw_kKf0ZRJCIGH0jbIFvo1',
     },
     'prikol': {
         username: 'prikol',
         password: 'password',
         email: 'egor@mail.ru',
         rating: 100500,
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEFF6tCXWJuWRLxP0Ovu785xFo3oiw_kKf0ZRJCIGH0jbIFvo1',
     },
     'egooor': {
         username: 'egooor',
         password: 'password',
         email: 'kekor@mail.ru',
         rating: 72,
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEFF6tCXWJuWRLxP0Ovu785xFo3oiw_kKf0ZRJCIGH0jbIFvo1',
     },
 };
 
@@ -141,6 +144,41 @@ app.get('/user', function (req, res) {
     }
 
     res.json(users[username]);
+});
+
+app.put('/user', function (req, res) {
+    // Добавила заголовки
+    res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.set('Access-Control-Allow-Credentials', 'true');
+
+    const id = req.cookies['id'];
+    const username = ids[id];
+
+    if (!username || !users[username]) {
+        return res.status(401).end();
+    }
+
+    const newUsername = req.body.username;
+    const newPassword = req.body.password;
+    const newEmail = req.body.email;
+    const newUrl = req.body.url;
+
+    if (!newUsername || !newPassword || !newEmail || !newUrl) {
+        return res.status(401).json({error: 'Новые данные не были введены'});
+    }
+    if (newEmail) {
+        users[username].email = newEmail;
+    }
+    if (newPassword) {
+        users[username].password = newPassword;
+    }
+    if (newUrl) {
+        users[username].url = newUrl;
+    }
+    if (newUrl) {
+        users[username].url = newUrl;
+    }
+    res.status(200).end();
 });
 
 const port = process.env.PORT || 3000;
