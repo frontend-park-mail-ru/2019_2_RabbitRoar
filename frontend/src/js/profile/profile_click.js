@@ -1,16 +1,16 @@
 export function setProfileListeners() {
     document.getElementById('save-button').addEventListener('click', function (event) {
         for (let valId of changedForms.keys()) {
-            alert(valId, changedForms.get(valId));
-            alert(changedForms.get(valId));
+            console.log(valId, changedForms.get(valId));
+            console.log(changedForms.get(valId));
         }
         // формируем json с измененными данными и отправлем его на сервер
         changedForms.clear()
-        alert("Сохранение");
+        console.log("Сохранение");
     });
     const element = document.getElementById('cancel-button').addEventListener('click', function (event) {
         changedForms.clear()
-        alert("Сброс");
+        console.log("Сброс");
     });// Может вернуть null, тогда гг
 
     let formFields = document.querySelectorAll('.input-valid');

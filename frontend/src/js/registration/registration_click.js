@@ -17,9 +17,8 @@ export function setRegistrationListeners() {
                 if (status === 201) {
                     createProfile();
                 } else {
-                    alert(status);
                     const {error} = JSON.parse(response);
-                    alert(error);
+                    console.log(error);
                 }
             }
         );

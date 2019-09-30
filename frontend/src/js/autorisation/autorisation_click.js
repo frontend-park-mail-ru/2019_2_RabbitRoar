@@ -19,7 +19,7 @@ export function setAutorisationListeners() {
                     createMainMenu();
                 } else {
                     const {error} = JSON.parse(response);
-                    alert(error);
+                    console.log(error);
                 }
             }
         );
