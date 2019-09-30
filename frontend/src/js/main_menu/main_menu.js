@@ -5,6 +5,8 @@ import {RoomCreator} from './creators/room_creator.js'
 import {BestCreator} from './creators/best_creator.js'
 import {NavbarCreator} from './creators/navbar_creator.js'
 
+import {getCookie} from "../cookie/cookie.js";
+
 
 import Tabs from '../../templates/main_menu/tabs.pug';
 
@@ -16,8 +18,8 @@ export const contentCreators = new Map([['rooms', RoomCreator], ['top', BestCrea
 
 
 export function createMainMenu(creatorType = 'top') {
-    if (document.cookie == "autorised=false") {
-        let a = createRegistration();
+    if (getCookie("id") == "") {
+        createRegistration();
         return;
     }
     const creator = contentCreators.get(creatorType)

@@ -1,11 +1,23 @@
 # 2019_2_RabbitRoar
 Frontend-repository for project Swoyak
 
+# Deployment
+
 # About
 
 Project dashboard on [notion](https://www.notion.so/f53af7312b784f2bafa785c65e8d81a9).
 
 Interface mockup [Figma](https://www.figma.com/file/PXfi1Xe1TXSXzFgmho8DHK/Technopark_frontend).
+
+# Rules
+
+“Swoyak” is an online quiz game. 
+
+It is an analogue of the American television game Jeopardy!.
+
+Play cool and level up.
+
+Play with your friends and create custom themed rooms.
 
 # How to start project?
 

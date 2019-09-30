@@ -1,16 +1,32 @@
+import {ajax} from '../requests/ajax.js';
+
 export function setProfileListeners() {
     document.getElementById('save-button').addEventListener('click', function (event) {
         for (let valId of changedForms.keys()) {
-            alert(valId, changedForms.get(valId));
-            alert(changedForms.get(valId));
+            console.log(valId, changedForms.get(valId));
+            console.log(changedForms.get(valId));
         }
-        // формируем json с измененными данными и отправлем его на сервер
+        event.preventDefault();
+
+        ajax(
+            'PUT',
+            'http://localhost:3000/user',
+            JSON.stringify(mapToObj(changedForms)),
+            function (status, response) {
+                if (status === 200) {
+                    createMainMenu();
+                } else {
+                    const {error} = JSON.parse(response);
+                    alert(error);
+                }
+            }
+        );
         changedForms.clear()
-        alert("Сохранение");
+        console.log("Сохранение");
     });
     const element = document.getElementById('cancel-button').addEventListener('click', function (event) {
         changedForms.clear()
-        alert("Сброс");
+        console.log("Сброс");
     });// Может вернуть null, тогда гг
 
     let formFields = document.querySelectorAll('.input-valid');
@@ -27,3 +43,13 @@ let changedForms = new Map();
 const changedValue = (changedVal, valId) => {
     changedForms.set(valId, changedVal);
 }
+
+function mapToObj(inputMap) {
+    let obj = {};
+
+    inputMap.forEach(function(value, key){
+        obj[key] = value
+    });
+
+    return obj;
+} 

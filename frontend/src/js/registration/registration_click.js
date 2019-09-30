@@ -1,4 +1,4 @@
-import {createMainMenu} from '../main_menu/main_menu.js';
+//import {createMainMenu} from '../main_menu/main_menu.js';
 import {createProfile} from '../profile/profile_creator.js';
 import {ajax} from '../requests/ajax.js';
 
@@ -15,12 +15,10 @@ export function setRegistrationListeners() {
             {username, password, email},
             function (status, response) {
                 if (status === 201) {
-                    document.cookie = "autorised=true";
                     createProfile();
                 } else {
-                    alert(status);
                     const {error} = JSON.parse(response);
-                    alert(error);
+                    console.log(error);
                 }
             }
         );

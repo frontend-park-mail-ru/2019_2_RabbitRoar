@@ -2,10 +2,6 @@ import {createMainMenu} from '../main_menu.js';
 
 export function setTabListeners() {
     let tabs = document.querySelectorAll('div.tab')
-    if (tabs == SyntaxError) {
-        alert("No exist div.tab!")
-        return
-    }
 
     tabs.forEach(function(tab) {
         tab.addEventListener('click', function (event) {

@@ -16,10 +16,7 @@
     border-style: solid;
     background-color: $color-bg-light;
     border-color: $color-border-primary;
-    border-right-width: 0px;
-    border-left-width: 0px;
-    border-bottom-width: 0px;
-    border-top-width: 0px;
+    border-width: 0px;
 }
 
 
@@ -33,11 +30,6 @@
 }
 
 
-.right-border {
-    border-right-width: 0px;
-}
-
-
-.no-border {
+.right-border, .no-border {
     border-right-width: 0px;
 }
