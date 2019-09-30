@@ -4,8 +4,7 @@ nav(class="navbar")
         img(class="navbar__user-logo",
         src="https://pngimage.net/wp-content/uploads/2018/06/user-logo-png-4.png",
         alt="User")
-    - //alert(userId);
-    if userId == ""
+    if userId == "" || userId == undefined
         a(class="navbar__exit", id="nav_login", href="#") Вход
         a(class="navbar__exit", id='nav_registration', href="#") Регистрация
     else
