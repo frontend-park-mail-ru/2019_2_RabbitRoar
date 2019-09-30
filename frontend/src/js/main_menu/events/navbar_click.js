@@ -7,12 +7,16 @@ import {getCookie, setCookie} from "../../cookie/cookie.js";
 import {ajax} from '../../requests/ajax.js';
 
 export function setNavbarListeners() {
-    document.querySelector('.navbar__game-logo').addEventListener('click', function (event) {
+    let element = document.querySelector('.navbar__game-logo')
+    if (element) {
+        element.addEventListener('click', function (event) {
         event.preventDefault();
         createMainMenu();
     });
 
-    document.querySelector('.navbar__user-logo').addEventListener('click', function (event) {
+    element = document.querySelector('.navbar__user-logo')
+    if (element) {
+        element.addEventListener('click', function (event) {
         event.preventDefault();
         if (getCookie("id") == "") {
             createRegistration();
