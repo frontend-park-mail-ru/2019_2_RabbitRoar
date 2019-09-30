@@ -16,7 +16,6 @@ export function setAutorisationListeners() {
             {username, password},
             function (status, response) {
                 if (status === 200) {
-                    document.cookie = "autorised=true";
                     createMainMenu();
                 } else {
                     const {error} = JSON.parse(response);

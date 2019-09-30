@@ -1,6 +1,10 @@
 import Navbar from '../../../templates/main_menu/navbar.pug';
-import {autorised} from '../../index.js';
+import {getCookie} from "../../cookie/cookie.js";
+
 
 export function NavbarCreator() {
-    return Navbar()
+    const userId = getCookie("id");
+    return Navbar({
+        userId
+    });
 }
