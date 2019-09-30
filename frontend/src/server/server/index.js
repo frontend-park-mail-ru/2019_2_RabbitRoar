@@ -205,6 +205,17 @@ app.options('/user', function (req, res) {
 
 });
 
+app.get('/user/logout', function (req, res) {
+    // Добавила заголовки
+    res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
+    res.set('Access-Control-Allow-Credentials', 'true');
+    
+    const id = req.cookies['id'];
+    const username = ids[id];
+    ids.delete(id);
+    res.status(200).end();
+});
+
 
 
 
