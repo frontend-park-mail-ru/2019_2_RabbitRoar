@@ -27,7 +27,7 @@ export function createProfile() {
                 setNavbarListeners();
             } else {
                 const {error} = JSON.parse(response);
-                alert(error);
+                console.log(error);
             }
         }
     );
