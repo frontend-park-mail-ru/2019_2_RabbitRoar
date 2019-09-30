@@ -5,7 +5,11 @@ services:
     build:
       context: ../
       dockerfile: Dockerfile-webserver
+    ports:
+      - "8000:8000"
   app:
     build:
         context: ../
         dockerfile: Dockerfile-app
+    ports:
+      - "3000:3000"
