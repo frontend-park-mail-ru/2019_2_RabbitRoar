@@ -12,7 +12,7 @@ export function setAutorisationListeners() {
 
         ajax(
             'POST',
-            'http://localhost:3000/user/login',
+            'http://frontend.photocouple.space:3000/user/login',
             {username, password},
             function (status, response) {
                 if (status === 200) {

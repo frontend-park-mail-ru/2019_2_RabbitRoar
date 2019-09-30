@@ -11,7 +11,7 @@ export function setRegistrationListeners() {
         event.preventDefault();
         ajax(
             'POST',
-            'http://localhost:3000/user/signup',
+            'http://frontend.photocouple.space:3000/user/signup',
             {username, password, email},
             function (status, response) {
                 if (status === 201) {

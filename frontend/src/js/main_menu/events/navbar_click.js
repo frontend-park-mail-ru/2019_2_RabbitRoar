@@ -29,7 +29,7 @@ export function setNavbarListeners() {
             const id = getCookie("id");
             ajax(
                 'GET',
-                'http://localhost:3000/user/logout',
+                'http://frontend.photocouple.space:3000/user/logout',
                 {id},
                 function (status, response) {
                     if (status === 200) {

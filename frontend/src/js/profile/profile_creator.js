@@ -15,7 +15,7 @@ export function createProfile() {
     const id = getCookie("id");
     ajax(
         'GET',
-        'http://localhost:3000/user',
+        'http://frontend.photocouple.space:3000/user',
         {id},
         function (status, response) {
             if (status === 200) {
