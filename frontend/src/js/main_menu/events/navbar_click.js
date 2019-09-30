@@ -14,7 +14,7 @@ export function setNavbarListeners() {
 
     document.querySelector('.navbar__user-logo').addEventListener('click', function (event) {
         event.preventDefault();
-        if (getCookie("id") == "undefined") {
+        if (getCookie("id") == "") {
             createRegistration();
         } else {
             createProfile();
@@ -33,7 +33,6 @@ export function setNavbarListeners() {
                 {id},
                 function (status, response) {
                     if (status === 200) {
-                        setCookie("id", "undefined");
                         createRegistration();
                     } else {
                         const {error} = JSON.parse(response);
