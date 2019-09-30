@@ -130,7 +130,7 @@ app.options('/user/signup', function (req, res) {
 
 app.get('/user', function (req, res) {
     // Добавила заголовки
-    res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
     res.set('Access-Control-Allow-Credentials', 'true');
     
     const id = req.cookies['id'];
@@ -141,7 +141,32 @@ app.get('/user', function (req, res) {
     }
 
     res.json(users[username]);
+    res.status(200).end();
 });
+
+
+app.options('/user', function (req, res) {
+	const Origin = req.get('Origin');
+	const AccessControlRequestMethod = req.get('Access-Control-Request-Method');
+	const AccessControlRequestHeaders = req.get('Access-Control-Request-Headers');
+	console.log({
+		Origin,
+		AccessControlRequestMethod,
+		AccessControlRequestHeaders,
+	});
+
+
+	res.set('Access-Control-Allow-Origin', 'http://localhost:8000');
+	res.set('Access-Control-Allow-Methods', 'GET');
+	res.set('Access-Control-Allow-Headers', 'Content-Type,X-Lol');
+	res.set('Access-Control-Allow-Credentials', 'true');
+
+	res.status(204).end();
+});
+
+
+
+
 
 const port = process.env.PORT || 3000;
 

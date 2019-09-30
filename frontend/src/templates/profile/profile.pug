@@ -6,18 +6,18 @@ div(class="profile")
             alt="User")
         div
             input(type="file", class="profile__download-img")
-        h3(class="profile__title") Основноеt
+        h3(class="profile__title") Основное
         
 
         div(class="form-group")
             label(for="email") Email:
-            input(class="input-valid", name="email", id="email", type="email", value="example@gmail.com")
+            input(class="input-valid", name="email", id="email", type="email", value=profile.email)
             span(class="error-annotation") Отображение ошибки
 
 
         div(class="form-group")
             label(for="username") Username:
-            input(class="input-valid", name="username", id="username", type="text", value="egorkekor")
+            input(class="input-valid", name="username", id="username", type="text", value=profile.username)
             span(class="error-annotation") Отображение ошибки           
 
 
