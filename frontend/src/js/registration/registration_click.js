@@ -9,9 +9,16 @@ export function setRegistrationListeners() {
         const password = document.getElementById('password').value;
 
         event.preventDefault();
+<<<<<<< HEAD
         ajax(
             'POST',
             'http://localhost:3000/user/signup',
+=======
+
+        ajax(
+            'POST',
+            'localhost:3000/user/signup',
+>>>>>>> 15bceeef014bb5f8971c743eb6814bcc55b3fcaa
             {username, password, email},
             function (status, response) {
                 if (status === 201) {
@@ -24,8 +31,12 @@ export function setRegistrationListeners() {
                 }
             }
         );
+<<<<<<< HEAD
 
         return;
 
+=======
+        alert("228");
+>>>>>>> 15bceeef014bb5f8971c743eb6814bcc55b3fcaa
     }); 
 }
