@@ -10,7 +10,7 @@ export function setProfileListeners() {
 
         ajax(
             'PUT',
-            'http://localhost:3000/user',
+            'http://frontend.photocouple.space:3000/user',
             JSON.stringify(mapToObj(changedForms)),
             function (status, response) {
                 if (status === 200) {
