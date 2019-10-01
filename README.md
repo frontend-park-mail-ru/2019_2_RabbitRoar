@@ -1,8 +1,6 @@
 # 2019_2_RabbitRoar
 Frontend-repository for project Swoyak [Project link](http://frontend.photocouple.space)
 
-# Deployment
-
 # About
 
 Project dashboard on [notion](https://www.notion.so/f53af7312b784f2bafa785c65e8d81a9).

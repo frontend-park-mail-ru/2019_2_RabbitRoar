@@ -40,7 +40,7 @@ const users = {
 const ids = {};
 
 app.post('/user/signup', function (req, res) {
-    res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space:8000');
+    res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
     res.set('Access-Control-Allow-Credentials', 'true');
 
     const username = req.body.username;
