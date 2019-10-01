@@ -127,33 +127,33 @@ app.put('/user', function (req, res) {
     res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
     res.set('Access-Control-Allow-Credentials', 'true');
 
-    const id = req.cookies['id'];
-    const username = ids[id];
+    // const id = req.cookies['id'];
+    // const username = ids[id];
 
-    if (!username || !users[username]) {
-        return res.status(401).end();
-    }
+    // if (!username || !users[username]) {
+    //     return res.status(401).end();
+    // }
 
-    const newUsername = req.body.username;
-    const newPassword = req.body.password;
-    const newEmail = req.body.email;
-    const newUrl = req.body.url;
+    // const newUsername = req.body.username;
+    // const newPassword = req.body.password;
+    // const newEmail = req.body.email;
+    // const newUrl = req.body.url;
 
-    if (!newUsername || !newPassword || !newEmail || !newUrl) {
-        return res.status(401).json({error: 'Новые данные не были введены'});
-    }
-    if (newEmail) {
-        users[username].email = newEmail;
-    }
-    if (newPassword) {
-        users[username].password = newPassword;
-    }
-    if (newUrl) {
-        users[username].url = newUrl;
-    }
-    if (newUrl) {
-        users[username].url = newUrl;
-    }
+    // if (!newUsername || !newPassword || !newEmail || !newUrl) {
+    //     return res.status(401).json({error: 'Новые данные не были введены'});
+    // }
+    // if (newEmail) {
+    //     users[username].email = newEmail;
+    // }
+    // if (newPassword) {
+    //     users[username].password = newPassword;
+    // }
+    // if (newUrl) {
+    //     users[username].url = newUrl;
+    // }
+    // if (newUrl) {
+    //     users[username].url = newUrl;
+    // }
     res.status(200).end();
 });
 
@@ -183,7 +183,7 @@ app.options('/user', function (req, res) {
 	});
 
 	res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
-	res.set('Access-Control-Allow-Methods', 'GET, PUT');
+	res.set('Access-Control-Allow-Methods', '*');
 	res.set('Access-Control-Allow-Headers', 'Content-Type');
 	res.set('Access-Control-Allow-Credentials', 'true');
 	res.status(200).end();
