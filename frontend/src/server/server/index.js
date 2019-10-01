@@ -184,7 +184,7 @@ app.options('/user', function (req, res) {
 
 	res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
 	res.set('Access-Control-Allow-Methods', 'GET, PUT');
-	res.set('Access-Control-Allow-Headers', 'Content-Type');
+	res.set('Access-Control-Allow-Headers', 'Content-Type, Content-Length');
 	res.set('Access-Control-Allow-Credentials', 'true');
 	res.status(200).end();
 
