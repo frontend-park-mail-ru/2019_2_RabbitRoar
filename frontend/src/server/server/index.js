@@ -205,7 +205,7 @@ app.options('/user', function (req, res) {
 
 });
 
-app.get('/user/logout', function (req, res) {
+app.delete('/user/logout', function (req, res) {
     // Добавила заголовки
     res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
     res.set('Access-Control-Allow-Credentials', 'true');
