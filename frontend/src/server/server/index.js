@@ -63,7 +63,6 @@ app.post('/user/signup', function (req, res) {
     users[username] = user;
 
     res.cookie('id', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-    //res.cookie('autorized', true, {expires: new Date(Date.now() + 1000 * 60 * 10)});
     res.status(201).end();
     
     console.log("send");
@@ -80,15 +79,13 @@ app.post('/user/login', function (req, res) {
         return res.status(401).json({error: 'Не указан юзернейм или пароль'});
     }
     if (!users[username] || users[username].password !== password) {
-        return res.status(401).json({error: 'Не верный юзернейм и/или пароль'});
+        return res.status(401).json({error: 'Неверный юзернейм и/или пароль'});
     }
 
     const id = uuid();
     ids[id] = username;
 
     res.cookie('id', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});    
-    //res.cookie('autorized', true, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-
     res.status(200).end();
 });
 
@@ -102,13 +99,12 @@ app.options('/user/login', function (req, res) {
 		AccessControlRequestHeaders,
 	});
 
-
 	res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
 	res.set('Access-Control-Allow-Methods', 'POST,PUT,GET');
-	res.set('Access-Control-Allow-Headers', 'Content-Type,X-Lol');
+	res.set('Access-Control-Allow-Headers', 'Content-Type');
 	res.set('Access-Control-Allow-Credentials', 'true');
 
-	res.status(204).end();
+	res.status(200).end();
 });
 
 app.options('/user/signup', function (req, res) {
@@ -121,18 +117,13 @@ app.options('/user/signup', function (req, res) {
 		AccessControlRequestHeaders,
 	});
 
-
 	res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
 	res.set('Access-Control-Allow-Methods', 'POST,PUT');
-	res.set('Access-Control-Allow-Headers', 'Content-Type,X-Lol');
+	res.set('Access-Control-Allow-Headers', 'Content-Type');
 	res.set('Access-Control-Allow-Credentials', 'true');
 
-	res.status(204).end();
+	res.status(200).end();
 });
-
-
-
-
 
 app.put('/user', function (req, res) {
     // Добавила заголовки
@@ -170,7 +161,6 @@ app.put('/user', function (req, res) {
 });
 
 app.get('/user', function (req, res) {
-    // Добавила заголовки
     res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
     res.set('Access-Control-Allow-Credentials', 'true');
     
@@ -195,18 +185,15 @@ app.options('/user', function (req, res) {
 		AccessControlRequestHeaders,
 	});
 
-
 	res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
 	res.set('Access-Control-Allow-Methods', 'GET');
-	res.set('Access-Control-Allow-Headers', 'Content-Type,X-Lol');
+	res.set('Access-Control-Allow-Headers', 'Content-Type');
 	res.set('Access-Control-Allow-Credentials', 'true');
-
-	res.status(204).end();
+	res.status(200).end();
 
 });
 
 app.delete('/user/logout', function (req, res) {
-    // Добавила заголовки
     res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
     res.set('Access-Control-Allow-Credentials', 'true');
     
@@ -227,21 +214,12 @@ app.options('/user/logout', function (req, res) {
 		AccessControlRequestHeaders,
 	});
 
-
-	res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
+    res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
 	res.set('Access-Control-Allow-Methods', 'GET');
-	res.set('Access-Control-Allow-Headers', 'Content-Type,X-Lol');
+	res.set('Access-Control-Allow-Headers', 'Content-Type');
 	res.set('Access-Control-Allow-Credentials', 'true');
-
-	res.status(204).end();
-
+	res.status(200).end();
 });
-
-
-
-
-
-
 
 const port = process.env.PORT || 3000;
 
