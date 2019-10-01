@@ -68,6 +68,22 @@ app.post('/user/signup', function (req, res) {
     console.log("send");
 });
 
+app.options('/user/signup', function (req, res) {
+	const Origin = req.get('Origin');
+	const AccessControlRequestMethod = req.get('Access-Control-Request-Method');
+	const AccessControlRequestHeaders = req.get('Access-Control-Request-Headers');
+	console.log({
+		Origin,
+		AccessControlRequestMethod,
+		AccessControlRequestHeaders,
+	});
+
+	res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
+	res.set('Access-Control-Allow-Methods', 'POST');
+	res.set('Access-Control-Allow-Headers', 'Content-Type');
+	res.set('Access-Control-Allow-Credentials', 'true');
+	res.status(200).end();
+});
 
 app.post('/user/login', function (req, res) {
     res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
@@ -100,33 +116,14 @@ app.options('/user/login', function (req, res) {
 	});
 
 	res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
-	res.set('Access-Control-Allow-Methods', 'POST,PUT,GET');
+	res.set('Access-Control-Allow-Methods', 'POST');
 	res.set('Access-Control-Allow-Headers', 'Content-Type');
 	res.set('Access-Control-Allow-Credentials', 'true');
-
 	res.status(200).end();
 });
 
-app.options('/user/signup', function (req, res) {
-	const Origin = req.get('Origin');
-	const AccessControlRequestMethod = req.get('Access-Control-Request-Method');
-	const AccessControlRequestHeaders = req.get('Access-Control-Request-Headers');
-	console.log({
-		Origin,
-		AccessControlRequestMethod,
-		AccessControlRequestHeaders,
-	});
-
-	res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
-	res.set('Access-Control-Allow-Methods', 'POST,PUT');
-	res.set('Access-Control-Allow-Headers', 'Content-Type');
-	res.set('Access-Control-Allow-Credentials', 'true');
-
-	res.status(200).end();
-});
 
 app.put('/user', function (req, res) {
-    // Добавила заголовки
     res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
     res.set('Access-Control-Allow-Credentials', 'true');
 
@@ -186,7 +183,7 @@ app.options('/user', function (req, res) {
 	});
 
 	res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
-	res.set('Access-Control-Allow-Methods', 'GET');
+	res.set('Access-Control-Allow-Methods', 'GET, POST');
 	res.set('Access-Control-Allow-Headers', 'Content-Type');
 	res.set('Access-Control-Allow-Credentials', 'true');
 	res.status(200).end();
@@ -215,7 +212,7 @@ app.options('/user/logout', function (req, res) {
 	});
 
     res.set('Access-Control-Allow-Origin', 'http://frontend.photocouple.space');
-	res.set('Access-Control-Allow-Methods', 'GET');
+	res.set('Access-Control-Allow-Methods', 'DELETE');
 	res.set('Access-Control-Allow-Headers', 'Content-Type');
 	res.set('Access-Control-Allow-Credentials', 'true');
 	res.status(200).end();
