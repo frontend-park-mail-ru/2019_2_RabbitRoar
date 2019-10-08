@@ -34,7 +34,7 @@ export function setNavbarListeners() {
 
             const id = getCookie("id");
             ajax(
-                'GET',
+                'DELETE',
                 'http://frontend.photocouple.space:3000/user/logout',
                 { id },
                 function (status, response) {
