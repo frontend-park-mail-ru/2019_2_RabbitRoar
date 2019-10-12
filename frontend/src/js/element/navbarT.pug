@@ -1,6 +1,6 @@
 nav(class="navbar")
-    a(class="navbar__game-logo", href="#") Своя игра
-    if userId == "" || userId == undefined
+    a(class="navbar__game-logo", id="nav_logo", href="#") Своя игра
+    if autorised == false
         a(class="navbar__exit", id="nav_login", href="#") Вход
         a(class="navbar__exit", id='nav_registration', href="#") Регистрация
     else

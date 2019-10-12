@@ -19,4 +19,5 @@ export const ObservableMixin = {
             listener(data);
         });
     }
+
 }
