@@ -13,17 +13,20 @@ class NavbarE {
         Object.assign(this, DomEventsWrapperMixin);
 
 
-        this.registerDefaultEventListener('nav_exit', 'click', NAVBAR_EVENT.CLICK_EXIT, this._exit.bind(this));
-        this.registerDefaultEventListener('nav_logo', 'click', NAVBAR_EVENT.CLICK_MAIN_MENU, this._mainMenu.bind(this));
-        this.registerDefaultEventListener('nav_login', 'click', NAVBAR_EVENT.CLICK_LOGIN, this._login.bind(this));
-        this.registerDefaultEventListener('nav_registration', 'click', NAVBAR_EVENT.CLICK_REG, this._registration.bind(this));
+        this.registerEventsChain('nav_exit', 'click', NAVBAR_EVENT.CLICK_EXIT, this._exit.bind(this));
+        this.registerEventsChain('nav_logo', 'click', NAVBAR_EVENT.CLICK_MAIN_MENU, this._mainMenu.bind(this));
+        this.registerCallback('nav_login', 'click', this._login.bind(this));
+        this.registerCallback('nav_registration', 'click', this._registration.bind(this));
 
         return this;
     }
 
     create(root = document.getElementById('application')) {
         this.root = root;
-        Bus.emit(NAVBAR_EVENT.GET_AUTORISE, this._render.bind(this));
+        const data = {
+            callback: this._render.bind(this)
+        }
+        Bus.emit(NAVBAR_EVENT.GET_AUTORISE, data);
     }
 
 

@@ -1,7 +1,7 @@
 import Template from './autorisationT.pug' 
 import Bus from '../event_bus.js'
 import {AUTORISATION_EVENT} from '../modules/events.js' 
-import {SIGN_IN, SIGN_UP, ROOT} from '../paths';
+import {ROOT} from '../paths';
 import {DomEventsWrapperMixin} from '../DomEventsWrapperMixin.js'
 
 class AutorisationE {
@@ -12,9 +12,11 @@ class AutorisationE {
         AutorisationE.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
 
-        userInput = {login: 'Kekos', password: 'qwerty', callback: this._login.bind(this)};
-        // TO_DO: Написать модуль, который предоставляет конструкторы для объектов и умеет с ними работать.
-        this.registerDefaultEventListener('autorisation', 'click', AUTORISATION_EVENT.USER_SIGNIN, userInput);
+
+
+        this.registerEventsChain('autorisation', 'click', AUTORISATION_EVENT.USER_SIGNIN,
+        this._signIn.bind(this),
+        this._inputCollector.bind(this));
 
 
         return this;
@@ -23,18 +25,31 @@ class AutorisationE {
     create(root = document.getElementById('application')) {
         this.root = root;
         this.root.insertAdjacentHTML('beforeend', Template());
+        this.enableAll();
     }
 
-    _login(autorised = false) {
+    _signIn(autorised = false) {
         if (autorised) {
-            Bus.emit(ROUTE_TO_EVENT, ROOT);
+            Bus.emit(AUTORISATION_EVENT.ROUTE_TO, ROOT);
+        } else {
+            console.log('AUTORISE ERROR');
         }
     }
 
+    _inputCollector() {
+        const username = document.getElementById('login').value;
+        const password = document.getElementById('password').value;
+        const data = {
+            username: username,
+            password: password
+        };
+        return data;
+    }
 
-    _exit_done() {}
 
-    destroy() {}
+    destroy() {
+        this.disableAll();
+    }
 }
 
 export default new AutorisationE();

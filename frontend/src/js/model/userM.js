@@ -23,6 +23,11 @@ class User {
         return this.uuid;
     }
 
+    signIn(userData) {
+        this.uuid = true;
+        return true;
+    }
+
 
 }
 export default new User();
