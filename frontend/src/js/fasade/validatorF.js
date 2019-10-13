@@ -1,13 +1,6 @@
 import Bus from '../event_bus.js'
 import User from '../model/userM.js'
-import {
-    GET_AUTORISE_EVENT,
-    USER_EXIT_EVENT,
-    USER_MAIN_MENU_EVENT,
-    USER_LOGIN_EVENT,
-    USER_REG_EVENT
-}
-from '../modules/events.js' 
+import {NAVBAR_EVENT} from '../modules/events.js' 
 
 
 class ValidatorF {
@@ -17,11 +10,11 @@ class ValidatorF {
         }
         ValidatorF.instance = this;
 
-        Bus.on(GET_AUTORISE_EVENT, this._getUserAutorise.bind(this));
-        Bus.on(USER_EXIT_EVENT, this._unAutoriseUser.bind(this));
-        Bus.on(USER_MAIN_MENU_EVENT, this._getUserAutorise.bind(this));
-        Bus.on(USER_LOGIN_EVENT, this._login.bind(this));
-        Bus.on(USER_REG_EVENT, this._registration.bind(this));
+        Bus.on(NAVBAR_EVENT.GET_AUTORISE, this._getUserAutorise.bind(this));
+        Bus.on(NAVBAR_EVENT.CLICK_EXIT, this._unAutoriseUser.bind(this));
+        Bus.on(NAVBAR_EVENT.CLICK_MAIN_MENU, this._getUserAutorise.bind(this));
+        Bus.on(NAVBAR_EVENT.CLICK_LOGIN, this._login.bind(this));
+        Bus.on(NAVBAR_EVENT.CLICK_REG, this._registration.bind(this));
         return this;
     }
 

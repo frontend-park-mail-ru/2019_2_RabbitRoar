@@ -1,12 +1,24 @@
-//Router
-export const ROUTE_TO_EVENT = 'goTo';
+const globalRouterEvent = 'goTo';
+
+// Router
+export const ROUTER_EVENT = {
+    ROUTE_TO: globalRouterEvent,
+}
 
 
 // NavbarE
-export const USER_EXIT_EVENT = 'userExit';
-export const USER_LOGIN_EVENT = 'userLogin';
-export const USER_REG_EVENT = 'userReg';
-export const USER_PROFILE_EVENT = 'userProfile';
-export const USER_MAIN_MENU_EVENT = 'mainMenu';
+export const NAVBAR_EVENT = {
+CLICK_EXIT: 'clickExit',
+CLICK_LOGIN: 'clickLogin',
+CLICK_REG: 'clickReg',
+CLICK_PROFILE: 'clickProfile',
+CLICK_MAIN_MENU: 'clickMainMenu',
+GET_AUTORISE: 'getAutorise',
+ROUTE_TO: globalRouterEvent,
+}
 
-export const GET_AUTORISE_EVENT = 'getAutorise';
+// AutorisationE
+export const AUTORISATION_EVENT = {
+USER_SIGNIN: 'userSignin',
+ROUTE_TO: globalRouterEvent,
+}

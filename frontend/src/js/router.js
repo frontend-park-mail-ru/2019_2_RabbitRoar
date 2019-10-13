@@ -1,11 +1,11 @@
 import Bus from './event_bus.js'
-import {ROUTE_TO_EVENT} from './modules/events.js'
+import {ROUTER_EVENT} from './modules/events.js'
 
 export class Router {
     constructor(root = document.getElementById('application')) {
         this.routes = new Map();
         this.root = root;
-        Bus.on(ROUTE_TO_EVENT, this.routeTo.bind(this));
+        Bus.on(ROUTER_EVENT.ROUTE_TO, this.routeTo.bind(this));
 
         window.addEventListener('popstate',  (event) => {
             event.preventDefault();

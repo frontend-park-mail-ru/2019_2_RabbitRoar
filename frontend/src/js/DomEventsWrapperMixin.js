@@ -2,7 +2,7 @@ import Bus from './event_bus.js'
 
 
 export const DomEventsWrapperMixin  = {
-    registerDefaultEventListener(id = 'application', JsEvent = 'click', userEvent, callback) {
+    registerDefaultEventListener(id = 'application', JsEvent = 'click', userEvent, data) {
         if (!this.events) {
             this.events = new Map;
         }
@@ -11,7 +11,7 @@ export const DomEventsWrapperMixin  = {
                 _JsEvent: JsEvent,
                 _handler: function (ev) {
                     ev.preventDefault();
-                    Bus.emit(userEvent, callback); }
+                    Bus.emit(userEvent, data); }
             });
         }
     },
