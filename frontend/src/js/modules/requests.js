@@ -1,4 +1,4 @@
-import { postRequest } from './ajax.js'
+import {postRequest, deleteRequest} from './ajax.js'
 
 export async function signIn(login, password) {
     const body = JSON.stringify({
@@ -11,7 +11,6 @@ export async function signIn(login, password) {
     if (response.status != 200) {
         throw new Error(`Signin error: ${response.statusText}`);
     }
-    return Promise.resolve(true);
 }
 
 
@@ -21,7 +20,6 @@ export async function logout() {
     if (response.status != 200) {
         throw new Error(`Exit error: ${response.statusText}`);
     }
-    return Promise.resolve(true);
 }
 
 export async function signUp(userStructure) {
@@ -32,4 +30,5 @@ export async function signUp(userStructure) {
     } else {
         throw new Error(`Signup error: ${response.statusText}`);
     }
+
 }

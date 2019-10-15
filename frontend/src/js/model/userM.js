@@ -22,20 +22,14 @@ class User {
     }
 
     async exit() {
-        result = await logout();
+        await logout();
         return true;
     }
 
 
     async signIn(userData) {
-        try {
-            result = await signIn(userData.username, userData.password);
-            this.autorised = true;
-            return true;
-        } catch (error) {
-            this.autorised = false;
-            throw (error);
-        }
+        await signIn(userData.username, userData.password);
+        this.autorised = true;
     }
 
     async signUp(userStructure) {
@@ -45,7 +39,5 @@ class User {
             throw (errpn)
         }
     }
-
-
 }
 export default new User();

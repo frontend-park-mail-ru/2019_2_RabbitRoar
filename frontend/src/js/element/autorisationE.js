@@ -12,13 +12,6 @@ class AutorisationE {
         AutorisationE.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
 
-
-
-        this.registerEventsChain('autorisation', 'click', AUTORISATION_EVENT.USER_SIGNIN,
-        this._signIn.bind(this),
-        this._inputCollector.bind(this));
-
-
         return this;
     }
 

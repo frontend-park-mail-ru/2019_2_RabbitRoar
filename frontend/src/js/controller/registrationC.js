@@ -23,6 +23,11 @@ class RegistrationC {
     }
 
     _registration(){
-        userValidator.doRegistration();
+        let user = {
+            username: document.getElementById('login').value,
+            password: document.getElementById('password').value,
+            email: document.getElementById('email').value,
+        };
+        userValidator.doRegistration(user);
     }
 }

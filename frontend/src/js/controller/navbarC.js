@@ -1,20 +1,23 @@
 import ValidatorF from '../fasade/userValidatorF.js'
+import Bus from '../event_bus.js'
+import {ROUTER_EVENT} from '../modules/events.js' 
+import { LOGIN, SIGN_UP, ROOT } from '../paths';
 import { DomEventsWrapperMixin } from '../DomEventsWrapperMixin.js'
 
 
 class NavbarC {
     constructor() {
-        if (!!navbarC.instance) {
+        if (!!NavbarC.instance) {
             console.log("ERROR: NavbarC must be import only ones");
-            return navbarC.instance;
+            return NavbarC.instance;
         }
-        navbarC.instance = this;
+        NavbarC.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
 
-        this.registerHandler('nav_exit', 'click', this._exit.bind(this));
-        this.registerHandler('nav_logo', 'click', this._mainMenu.bind(this));
-        this.registerHandler('nav_login', 'click', this._login.bind(this));
-        this.registerHandler('nav_registration', 'click', this._registration.bind(this));
+        this.registerHandler('nav_exit', 'click', ValidatorF.doExit);
+        this.registerHandler('nav_logo', 'click', this._routeToMainMenu);
+        this.registerHandler('nav_login', 'click', this._routeToLogin);
+        this.registerHandler('nav_registration', 'click', this._routeToSignUp);
 
         return this;
     }
@@ -28,20 +31,18 @@ class NavbarC {
     }
 
 
-    _exit() {
-        ValidatorF.setExit();
+    _routeToLogin() {
+        Bus.emit(ROUTER_EVENT.ROUTE_TO, LOGIN);
     }
 
-    _mainMenu() {
-        ValidatorF.setMainMenu();
+    _routeToSignUp() {
+        Bus.emit(ROUTER_EVENT.ROUTE_TO, SIGN_UP);
     }
 
-    _login() {
-        ValidatorF.setLogin();
-    }
-
-    _registration() {
-        ValidatorF.setRegistration();
+    _routeToMainMenu() {
+        if (ValidatorF.getUserAutorise() === true) {
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT)
+        }
     }
 
 }
