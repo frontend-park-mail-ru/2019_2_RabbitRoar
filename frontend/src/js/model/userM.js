@@ -1,3 +1,6 @@
+import { signIn, logout } from '../modules/requests.js'
+import Bus from '../event_bus.js'
+
 class User {
     constructor() {
         if (!!User.instance) {
@@ -5,27 +8,34 @@ class User {
         }
         User.instance = this;
 
-        this.uuid = true;
+        this.autorised = true;
         return this;
     }
 
 
     autorise() {
-        this.uuid = true;
+        this.autorised = true;
     }
 
     unAutorise() {
-        this.uuid = false;
+        this.autorised = false;
     }
 
-    checkAutorise() {
-        //goToBackend(this.uuid);
-        return this.uuid;
-    }
-
-    signIn(userData) {
-        this.uuid = true;
+    async exit() {
+        result = await logout();
         return true;
+    }
+
+
+    async signIn(userData) {
+        try {
+            result = await signIn(userData.username, userData.password);
+            this.autorised = true;
+            return true;
+        } catch (error) {
+            this.autorised = false;
+            throw(error);
+        }
     }
 
 

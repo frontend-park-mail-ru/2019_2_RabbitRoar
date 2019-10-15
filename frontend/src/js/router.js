@@ -1,10 +1,12 @@
 import Bus from './event_bus.js'
 import {ROUTER_EVENT} from './modules/events.js'
+import {ROOT} from './paths';
 
 export class Router {
     constructor(root = document.getElementById('application')) {
         this.routes = new Map();
         this.root = root;
+        Bus.on(ROUTER_EVENT.SESSION_END, this._exit.bind(this));
         Bus.on(ROUTER_EVENT.ROUTE_TO, this.routeTo.bind(this));
 
         window.addEventListener('popstate',  (event) => {
@@ -35,6 +37,10 @@ export class Router {
             newView.create();
             this.currentView = newView;
         }
+    }
+
+    _exit(data = {}) {
+        this.routeTo(ROOT);
     }
 
 

@@ -32,7 +32,7 @@ class AutorisationE {
         if (autorised) {
             Bus.emit(AUTORISATION_EVENT.ROUTE_TO, ROOT);
         } else {
-            console.log('AUTORISE ERROR');
+            console.log('autorisationE._signIn: AUTORISE ERROR');
         }
     }
 
