@@ -1,4 +1,4 @@
-import { signIn, logout } from '../modules/requests.js'
+import { signIn, logout, signUp } from '../modules/requests.js'
 import Bus from '../event_bus.js'
 
 class User {
@@ -34,7 +34,15 @@ class User {
             return true;
         } catch (error) {
             this.autorised = false;
-            throw(error);
+            throw (error);
+        }
+    }
+
+    async signUp(userStructure) {
+        try {
+            let response = await signUp(userStructure);
+        } catch (error) {
+            throw (errpn)
         }
     }
 

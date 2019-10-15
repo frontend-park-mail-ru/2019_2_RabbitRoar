@@ -1,6 +1,6 @@
 import Bus from '../event_bus.js'
 import User from '../model/userM.js'
-import {NAVBAR_EVENT, AUTORISATION_EVENT} from '../modules/events.js' 
+import { NAVBAR_EVENT, AUTORISATION_EVENT } from '../modules/events.js'
 import { userInfo } from 'os';
 import userM from '../model/userM.js';
 
@@ -30,7 +30,20 @@ class ValidatorF {
 
 
     setExit() {
-        
+
+    }
+
+    async doRegistration() {
+        let user = {
+            username: document.getElementById('login').value,
+            password: document.getElementById('password').value,
+            email: document.getElementById('email').value,
+        };
+        userM.signUp(user).then(
+            resolve => Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT)
+        ).catch(
+            (error) => console.log(`ERROR at: userValidatorF.doRegistration - ${error}`)
+        );
     }
 
 }
