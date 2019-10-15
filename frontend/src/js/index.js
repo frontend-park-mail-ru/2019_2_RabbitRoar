@@ -3,7 +3,7 @@ import {Router} from './router.js';
 import {ROOT, SIGN_IN, SIGN_UP} from './paths';
 
 
-import ValidatorF from './fasade/validatorF.js';
+import ValidatorF from './fasade/userValidatorF.js';
 import MainMenuV from './view/mainMenuV.js';
 import AutorisationV from './view/autorisationV.js';
 import RegistrationV from './view/registrationV.js';

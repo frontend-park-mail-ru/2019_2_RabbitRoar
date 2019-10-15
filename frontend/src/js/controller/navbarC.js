@@ -1,4 +1,4 @@
-import ValidatorF from '../fasade/validatorF.js'
+import ValidatorF from '../fasade/userValidatorF.js/index.js'
 import { DomEventsWrapperMixin } from '../DomEventsWrapperMixin.js'
 
 
