@@ -17,11 +17,17 @@ export function postRequest(
 		});
 }
 
-export function deleteRequest(url = '/') {
+export function deleteRequest(
+    url = '/',
+    headers = {
+        'Content-type' : 'application/json',
+    },
+    ){
         url = base + url;
         return fetch(url, {
-			method: 'DELETE',
-			credentials: 'include',
-			body: body,
+            method: 'DELETE',
+            headers: headers,
+            credentials: 'include',
+            mode: 'cors',
 		});
 }

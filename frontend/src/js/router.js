@@ -6,7 +6,7 @@ export class Router {
     constructor(root = document.getElementById('application')) {
         this.routes = new Map();
         this.root = root;
-        Bus.on(ROUTER_EVENT.SESSION_END, this._exit.bind(this));
+        console.log('ROUTER CREATE');
         Bus.on(ROUTER_EVENT.ROUTE_TO, this.routeTo.bind(this));
 
         window.addEventListener('popstate',  (event) => {

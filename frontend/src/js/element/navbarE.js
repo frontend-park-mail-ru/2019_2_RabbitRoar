@@ -1,8 +1,7 @@
 import Template from './navbarT.pug'
 import Bus from '../event_bus.js'
 import {NAVBAR_EVENT} from '../modules/events.js' 
-import ValidatorF from '../fasade/userValidatorF.js/index.js'
-import { SIGN_IN, SIGN_UP, ROOT } from '../paths';
+import ValidatorF from '../fasade/userValidatorF.js'
 import NavbarC from '../controller/navbarC.js'
 
 class NavbarE {

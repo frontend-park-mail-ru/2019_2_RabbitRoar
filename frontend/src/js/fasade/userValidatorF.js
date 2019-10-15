@@ -1,7 +1,7 @@
 import Bus from '../event_bus.js'
 import User from '../model/userM.js'
-import {NAVBAR_EVENT, AUTORISATION_EVENT} from '../modules/events.js' 
-import { userInfo } from 'os';
+import {USER_VALIDATE, ROUTER_EVENT} from '../modules/events.js' 
+import { LOGIN, SIGN_UP, ROOT } from '../paths';
 import userM from '../model/userM.js';
 
 
@@ -12,25 +12,22 @@ class ValidatorF {
         }
         ValidatorF.instance = this;
 
-        Bus.on(USER_MODEL_EVENT, this._processChange.bind(this));
-
-
-        Bus.on(NAVBAR_EVENT.GET_AUTORISE, this._getUserAutorise.bind(this));
-        Bus.on(NAVBAR_EVENT.CLICK_EXIT, this._unAutoriseUser.bind(this));
-        Bus.on(NAVBAR_EVENT.CLICK_MAIN_MENU, this._getUserAutorise.bind(this));
-
-        Bus.on(AUTORISATION_EVENT.USER_SIGNIN, this._signIn.bind(this));
         return this;
     }
 
 
 
-    async getUserAutorise() {
+    getUserAutorise() {
+        return User.autorised;
     }
 
 
-    setExit() {
-        
+    doExit() {
+        userM.exit().then(
+            resolve => Bus.emit(ROUTER_EVENT.ROUTE_TO, LOGIN)
+        ).catch(
+            (error) => console.log(`ERROR at: userValidatorF.doExit - ${error}`)
+        );
     }
 
 }

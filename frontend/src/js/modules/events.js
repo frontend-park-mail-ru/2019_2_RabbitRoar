@@ -18,6 +18,12 @@ ROUTE_TO: globalRouterEvent,
 
 // AutorisationE
 export const AUTORISATION_EVENT = {
-USER_SIGNIN: 'userSignin',
+USER_LOGIN: 'userLogin',
 ROUTE_TO: globalRouterEvent,
+}
+
+
+export const USER_VALIDATE = {
+    LOGIN_OK: 'userValidateLogin',
+    EXIT_OK: 'userValidateExit',
 }
