@@ -10,7 +10,6 @@ class AutorisationE {
             return AutorisationE.instance;
         }
         AutorisationE.instance = this;
-        Object.assign(this, DomEventsWrapperMixin);
 
         return this;
     }
@@ -18,7 +17,7 @@ class AutorisationE {
     create(root = document.getElementById('application')) {
         this.root = root;
         this.root.insertAdjacentHTML('beforeend', Template());
-        this.enableAll();
+        this.controller.start();
     }
 
     _signIn(autorised = false) {
@@ -41,7 +40,8 @@ class AutorisationE {
 
 
     destroy() {
-        this.disableAll();
+        this.controller.drop();
+        this.root.innerHTML = '';
     }
 }
 

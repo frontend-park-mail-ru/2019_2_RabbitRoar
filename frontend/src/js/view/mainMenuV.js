@@ -7,19 +7,24 @@ class MainMenuV {
             return MainMenuV.instance;
         }
         this.root = root;
+
+        this.navbarDiv = document.createElement('div');
+        this.navbarDiv.id = 'navbar_container';
+
         MainMenuV.instance = this;
         return this;
     }
 
 
     create(data = '') {
-        console.log("view create");
-        this.root.innerHTML = '';
-        NavbarE.create(this.root);
+        console.log("Main view create");
+        this.root.append(this.navbarDiv);
+
+        NavbarE.create(this.navbarDiv);
     }
 
     destroy() {
-        console.log("view destroy");
+        console.log("Main view destroy");
         NavbarE.destroy();
     }
 }

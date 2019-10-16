@@ -20,7 +20,6 @@ class NavbarE {
 
         const autorised = ValidatorF.getUserAutorise();
 
-        this.controller.drop();
         this.root.insertAdjacentHTML('beforeend', Template({ autorised: autorised }));
         this.controller.start();
     }
@@ -29,6 +28,7 @@ class NavbarE {
 
     destroy() {
         this.controller.drop();
+        this.root.innerHTML = '';
     }
 }
 

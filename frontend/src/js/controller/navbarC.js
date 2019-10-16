@@ -1,7 +1,7 @@
 import ValidatorF from '../fasade/userValidatorF.js'
 import Bus from '../event_bus.js'
 import {ROUTER_EVENT} from '../modules/events.js' 
-import { LOGIN, SIGN_UP, ROOT } from '../paths';
+import { LOGIN, SIGN_UP, ROOT, PROFILE } from '../paths';
 import { DomEventsWrapperMixin } from '../DomEventsWrapperMixin.js'
 
 
@@ -18,6 +18,7 @@ class NavbarC {
         this.registerHandler('nav_logo', 'click', this._routeToMainMenu);
         this.registerHandler('nav_login', 'click', this._routeToLogin);
         this.registerHandler('nav_registration', 'click', this._routeToSignUp);
+        this.registerHandler('nav_profile', 'click', this._routeToProfile);
 
         return this;
     }
@@ -41,7 +42,13 @@ class NavbarC {
 
     _routeToMainMenu() {
         if (ValidatorF.getUserAutorise() === true) {
-            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT)
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+        }
+    }
+
+    _routeToProfile() {
+        if (ValidatorF.getUserAutorise() === true) {
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, PROFILE);
         }
     }
 

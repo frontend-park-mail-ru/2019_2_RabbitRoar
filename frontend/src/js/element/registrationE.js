@@ -10,7 +10,6 @@ class RegistrationE {
             return RegistrationE.instance;
         }
         RegistrationE.instance = this;
-        Object.assign(this, DomEventsWrapperMixin);
 
         return this;
     }
@@ -18,10 +17,14 @@ class RegistrationE {
     create(root = document.getElementById('application')) {
         this.root = root;
         this.root.insertAdjacentHTML('beforeend', Template());
+        this.controller.start();
     }
 
 
-    destroy() {}
+    destroy() {
+        this.controller.drop();
+        this.root.innerHTML = '';
+    }
 }
 
 export default new RegistrationE();

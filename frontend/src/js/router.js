@@ -26,11 +26,13 @@ export class Router {
     }
 
 
-    routeTo(path = '/') {
+    routeTo(path = '/', firtsTime = false) {
         let newView;
         if ((newView = this.routes.get(path)) != undefined) {
             console.log(newView);
-            this.currentView.destroy();
+            if (!firtsTime) {
+                this.currentView.destroy();
+            }
             if (window.location.pathname !== path) {
                 history.pushState(null, null, path);
             }
@@ -47,6 +49,6 @@ export class Router {
 	start() {
         console.log(`location: ${location.pathname}`);
         this.currentView = this.routes.get('/');
-		this.routeTo('/');
+		this.routeTo('/', true);
 	}
 }

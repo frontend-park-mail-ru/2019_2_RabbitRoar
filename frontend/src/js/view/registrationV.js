@@ -8,20 +8,29 @@ class RegistrationV {
             return RegistrationV.instance;
         }
         this.root = root;
+
+        this.navbarDiv = document.createElement('div');
+        this.navbarDiv.id = 'navbar_container';
+
+        this.RegistrationDiv = document.createElement('div');
+        this.RegistrationDiv.id = 'registration_container';
+
         RegistrationV.instance = this;
         return this;
     }
 
 
     create(data = '') {
-        console.log("autorisation view create");
-        this.root.innerHTML = '';
-        NavbarE.create(this.root);
-        RegistrationE.create(this.root);
+        console.log("registration view create");
+        this.root.append(this.navbarDiv);
+        this.root.append(this.RegistrationDiv);
+
+        NavbarE.create(this.navbarDiv);
+        RegistrationE.create(this.RegistrationDiv);
     }
 
     destroy() {
-        console.log("view destroy");
+        console.log("registration view destroy");
         NavbarE.destroy();
         RegistrationE.destroy();
     }

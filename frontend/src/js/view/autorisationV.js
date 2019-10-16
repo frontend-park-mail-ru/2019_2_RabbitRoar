@@ -8,6 +8,13 @@ class AutorisationV {
             return AutorisationV.instance;
         }
         this.root = root;
+
+        this.navbarDiv = document.createElement('div');
+        this.navbarDiv.id = 'navbar_container';
+
+        this.AutorisationDiv = document.createElement('div');
+        this.AutorisationDiv.id = 'autorisation_container';
+
         AutorisationV.instance = this;
         return this;
     }
@@ -15,13 +22,15 @@ class AutorisationV {
 
     create(data = '') {
         console.log("autorisation view create");
-        this.root.innerHTML = '';
-        NavbarE.create(this.root);
-        AutorisationE.create(this.root);
+        this.root.append(this.navbarDiv);
+        this.root.append(this.AutorisationDiv);
+
+        NavbarE.create(this.navbarDiv);
+        AutorisationE.create(this.AutorisationDiv);
     }
 
     destroy() {
-        console.log("view destroy");
+        console.log("autorisation view destroy");
         NavbarE.destroy();
         AutorisationE.destroy();
     }

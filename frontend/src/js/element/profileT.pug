@@ -11,27 +11,27 @@ div(class="profile")
 
         div(class="form-group")
             label(for="email") Email:
-            input(class="input-valid", name="email", id="email", type="email", value=profile.email)
+            input(class="input-valid", name="email", id="email", type="email", value=userData.email)
             span(class="error-annotation") Отображение ошибки
 
 
         div(class="form-group")
             label(for="username") Username:
-            input(class="input-valid", name="username", id="username", type="text", value=profile.username)
+            input(class="input-valid", name="username", id="username", type="text", value=userData.username)
             span(class="error-annotation") Отображение ошибки           
 
 
         div(class="form-group")
             label(for="password") Пароль:
-            input(class="input-valid", name="password", id="password", type="password", value="Topsecret")
+            input(class="input-valid", name="password", id="password", type="password", value=userData.password)
             span(class="error-annotation") Отображение ошибки
 
 
         div(class="form-group")
             label(for="password-confirmation") Подтвердите пароль:
-            input(class="input-valid", name="password-confirmation", id="password-confirmation", type="password", value="Topsecret")
+            input(class="input-valid", name="password-confirmation", id="password-confirmation", type="password", value=userData.password)
             span(class="error-annotation") Отображение ошибки
 
 
-        button(id="save-button", type="submit") Сохранить
-        button(id="cancel-button", type="reset") Сбросить
+        button(id="save_button", type="submit") Сохранить
+        button(id="cancel_button", type="reset") Сбросить

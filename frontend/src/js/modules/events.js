@@ -22,6 +22,9 @@ USER_LOGIN: 'userLogin',
 ROUTE_TO: globalRouterEvent,
 }
 
+// ProfileE
+export const PROFILE_UPDATE = 'profileUpdate';
+
 
 export const USER_VALIDATE = {
     LOGIN_OK: 'userValidateLogin',
