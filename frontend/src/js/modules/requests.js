@@ -18,7 +18,7 @@ export async function logout() {
     let response = await deleteRequest('/logout');
 
     if (response.status != 200) {
-        throw new Error(`Exit error: ${response.statusText}`);
+        throw new Error(`Logout error: ${response.statusText}`);
     }
 }
 

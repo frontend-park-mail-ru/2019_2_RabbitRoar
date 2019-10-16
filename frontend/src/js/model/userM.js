@@ -27,10 +27,11 @@ class User {
     }
 
 
-    async signIn(userData) {
-        await signIn(userData.username, userData.password);
+    async signIn(username, password) {
+        await signIn(username, password);
         this.autorised = true;
     }
+
 
     async signUp(userStructure) {
         try {

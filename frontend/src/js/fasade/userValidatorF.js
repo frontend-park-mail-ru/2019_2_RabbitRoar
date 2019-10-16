@@ -21,6 +21,14 @@ class ValidatorF {
         return User.autorised;
     }
 
+    
+    doAutorise(username, password) {
+        userM.signIn(username, password).then(
+            resolve => Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT)
+        ).catch(
+            (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
+    }
+
     async doRegistration(userStructure) {
         userM.signUp(userStructure).then(
             resolve => Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT)
