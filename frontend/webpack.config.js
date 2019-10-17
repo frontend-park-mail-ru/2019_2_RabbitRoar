@@ -9,7 +9,8 @@ module.exports = {
   entry: './js/index.js', 
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: "/",
   },
   module: {
     rules: [
@@ -40,8 +41,9 @@ module.exports = {
   devtool: 'source-map',  // Source map generations
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
+    historyApiFallback: true,
     liveReload: true,
-    port: 8000,
+    port: 8080,
   }
   // watch: true`
 };
