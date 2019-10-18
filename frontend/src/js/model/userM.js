@@ -1,4 +1,4 @@
-import { signIn, logout, signUp } from '../modules/requests.js'
+import { signIn, logout, signUp, changeAvatar, changeTextFields } from '../modules/requests.js'
 import Bus from '../event_bus.js'
 
 class User {
@@ -23,14 +23,12 @@ class User {
         }
     }
 
-    change(changes) {
-        //send changes;
+    async changeAvatar(formData) {
+        await changeAvatar(formData);
+    }
 
-        for (const key in changes) {
-            console.log(changes[key]);
-            this[key] = changes[key];
-        }
-        return true;
+    async changeTextFields(changesMap) {
+        await changeTextFields(changesMap);
     }
 
     autorise() {
@@ -43,7 +41,6 @@ class User {
 
     async exit() {
         await logout();
-        return true;
     }
 
 

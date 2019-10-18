@@ -19,13 +19,27 @@ export function postRequest(
 
 export function deleteRequest(
     url = '/',
+    headers = {},
+    ){
+        url = base + url;
+        return fetch(url, {
+            method: 'DELETE',
+            headers: headers,
+            credentials: 'include',
+            mode: 'cors',
+		});
+}
+
+export function putRequest(
+    url = '/',
+    body = {},
     headers = {
         'Content-type' : 'application/json',
     },
     ){
         url = base + url;
         return fetch(url, {
-            method: 'DELETE',
+            method: 'PUT',
             headers: headers,
             credentials: 'include',
             mode: 'cors',

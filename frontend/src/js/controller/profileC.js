@@ -13,12 +13,11 @@ class ProfileC {
         Object.assign(this, DomEventsWrapperMixin);
 
         this.changedForms = new Map();
-        this.fileUploaded = false;
 
-        this.registerHandler('save_button', 'click', this._save.bind(this));
+        this.registerHandler('save_button', 'click', this._saveTextFields.bind(this));
         this.registerHandler('cancel_button', 'click', this._cansel.bind(this));
         this.registerClassHandler('.input-valid', 'change', this._changeTextValue.bind(this));
-        this.registerClassHandler('.profile__download-img', 'change', this._imageUploaded.bind(this));
+        this.registerClassHandler('.profile__download-img', 'change', this._saveImage.bind(this));
     }
 
     start() {
@@ -27,24 +26,21 @@ class ProfileC {
 
     drop() {
         this.disableAll();
+        this.changedForms.clear();
     }
 
-    _save() {
-        let formData = new FormData();
-
-        this.changedForms.forEach(function (value, key) {
-            formData.append(key, value);
-        });
-        if (this.fileUploaded) {
-            const input = document.querySelector('.profile__download-img');
-            if (this._checkFileType(input.files[0]) === false) {
-                alert("Файл недопустимого расширения и загружен не будет.");
-            } else {
-                alert("Ok type");
-                formData.append("userfile", input.files[0]);
-            }
+    _saveTextFields() {
+        if (this.changedForms.size == 0) {
+            alert("Нет изменений для сохранения");
+            return;
         }
-        UserValidatorF.doChangeUser(formData);
+        const changes = {};
+        this.changedForms.forEach(function (value, key) {
+            changes[key] = value;
+        });
+        UserValidatorF.changeTextFields(changes);
+        this.changedForms.clear();
+        Bus.emit(PROFILE_UPDATE);
     }
 
     _cansel() {
@@ -56,12 +52,20 @@ class ProfileC {
         this.changedForms.set(event.target.id, event.target.value);
     }
 
-    _imageUploaded() {
+    _saveImage() {
+        let formData = new FormData();
         const input = document.querySelector('.profile__download-img');
         if (this._checkFileSize(input.files[0]) === false) {
             return;
         }
-        this.fileUploaded = true;
+        if (this._checkFileType(input.files[0]) === false) {
+            alert("Файл недопустимого расширения и загружен не будет.");
+        } else {
+            alert("Downloaded");
+            formData.append("userfile", input.files[0]);
+            UserValidatorF.changeUserAvatar(formData);
+            Bus.emit(PROFILE_UPDATE);
+        }
     }
 
     _checkFileSize(file) {

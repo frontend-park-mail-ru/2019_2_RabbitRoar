@@ -15,8 +15,6 @@ class ValidatorF {
         return this;
     }
 
-
-
     getUserAutorise() {
         return User.autorised;
     }
@@ -26,15 +24,21 @@ class ValidatorF {
     }
 
 
-    doChangeUser(formData) {
-        if (userM.change(formData)) {
-            Bus.emit(PROFILE_UPDATE);
-        } else {
-            // TODO: handle saving error 
-        }
+    changeTextFields(changesMap) {
+        userM.changeTextFields(changesMap).then(
+            resolve => Bus.emit(PROFILE_UPDATE)
+        ).catch(
+            (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
     }
 
-    
+    changeUserAvatar(formData) {
+        userM.changeAvatar(formData).then(
+            resolve => Bus.emit(PROFILE_UPDATE)
+        ).catch(
+            (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
+    }
+
+
     doAutorise(username, password) {
         userM.signIn(username, password).then(
             resolve => Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT)
