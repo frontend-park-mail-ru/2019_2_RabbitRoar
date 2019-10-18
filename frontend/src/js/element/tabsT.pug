@@ -1,0 +1,44 @@
+div(class="main-container")
+    div(class="tab", id="tabs_rooms") Комнаты
+    div(class="tab", id="tabs_top") Зал славы
+    div(class="tab", id="tabs_packs") Игровые наборы
+
+    div(class="tab-content")
+        div(class="rooms-panel")
+            div(class="panel-elem elem-justify-start") Название:
+            div(class="panel-elem") Количество:
+            div(class="panel-elem")
+                img(class="room-join-img",
+                src="https://myandroid.ru/uploads/posts/2019-01/kto-takoj-rikardo-milos-chim-imenem-nazyvajut-obekty-na-google-kartah_1.png",
+                alt="ok")
+        each val, index in templateContent
+            div(class="rooms-panel")
+                div(class="panel-elem elem-justify-start") #{val.name}
+                div(class="panel-elem") #{val.amount}
+                div(class="panel-elem")
+                    div(class="join-button") Присоединиться
+        include paginator.pug  
+
+
+    div(class="tab-content")
+        div(class="best-players-panel")
+            div(class="panel-elem")
+                img(class="best-avatar",
+                src="https://www.pnglot.com/pngfile/detail/493-4930333_user-icon-my-profile-icon-png.png",
+                alt="No exist")
+            div(class="panel-elem") Имя:
+            div(class="panel-elem") Рейтинг:
+            div(class="panel-elem") Звание:
+        each val, index in templateContent
+            div(class="best-players-panel")
+                div(class="panel-elem")
+                    img(class="best-avatar",
+                    src = val.src,
+                    alt="No exist")
+                div(class="panel-elem") #{val.name}
+                div(class="panel-elem") #{val.rate.value}
+                div(class="panel-elem")
+                    div(class="rank-text") #{val.rate.description}
+                    img(class="rank-avatar",
+                    src = val.rate.src,
+                    alt="No exist")

@@ -12,7 +12,12 @@ export class Router {
         window.addEventListener('popstate',  (event) => {
             event.preventDefault();
             console.log('popstate occur:');
-            console.log(event.state);
+            this.routeTo(location.pathname);    //  location == url новой страницы
+        });
+
+        document.addEventListener('readystatechange', (eventt) => {
+            event.preventDefault();
+            console.log('change occur:');
             this.routeTo(location.pathname);    //  location == url новой страницы
         });
     }
@@ -49,6 +54,6 @@ export class Router {
 	start() {
         console.log(`location: ${location.pathname}`);
         this.currentView = this.routes.get('/');
-		this.routeTo('/', true);
+		this.routeTo(location.pathname, true);
 	}
 }
