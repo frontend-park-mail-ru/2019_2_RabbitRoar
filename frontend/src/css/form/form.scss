@@ -34,6 +34,11 @@
     font-size: 0.8em;
   }
 
+  input[type="file"]{
+    width: 25%;
+    margin: 0 auto;
+  }
+
   input:focus {
     border-bottom: 2px solid $color-border-primary;
     box-shadow: 0 5px 5px -5px $color-border-primary;
@@ -56,6 +61,16 @@
     font-size: 0.8rem;
     color: $color-danger;
     visibility: hidden;
+  }
+
+  .error-visible {
+    font-size: 1.2rem;
+    color: $color-danger;
+  }
+
+  .file-downloaded {
+    font-size: 1.2rem;
+    color: $color-success;
   }
 
   label {

@@ -52,6 +52,20 @@ class ProfileC {
         this.changedForms.set(event.target.id, event.target.value);
     }
 
+    _deleteErrorCssClasses(elem) {
+        if (elem.classList.contains('error-annotation')) {
+            elem.classList.remove('error-annotation');
+        }
+
+        if (elem.classList.contains('error-visible')) {
+            elem.classList.remove('error-visible');
+        }
+
+        if (elem.classList.contains('file-downloaded')) {
+            elem.classList.remove('file-downloaded');
+        }
+    }
+
     _saveImage() {
         let formData = new FormData();
         const input = document.querySelector('.profile__download-img');
@@ -59,18 +73,23 @@ class ProfileC {
             return;
         }
         if (this._checkFileType(input.files[0]) === false) {
-            alert("Файл недопустимого расширения и загружен не будет.");
+            this._deleteErrorCssClasses(document.getElementById("error_file"));
+            document.getElementById("error_file").classList.add('error-visible');
+            document.getElementById("error_file").innerHTML = "Файл недопустимого расширения и загружен не будет.";
         } else {
-            alert("Downloaded");
+            this._deleteErrorCssClasses(document.getElementById("error_file"));
+            document.getElementById("error_file").classList.add('file-downloaded');
+            document.getElementById("error_file").innerHTML = "Файл загружен";
             formData.append("userfile", input.files[0]);
             UserValidatorF.changeUserAvatar(formData);
-            Bus.emit(PROFILE_UPDATE);
         }
     }
 
     _checkFileSize(file) {
         if (file.size > 2000000) {
-            alert("Размер файла не должен привышать 2МБ");
+            this._deleteErrorCssClasses(document.getElementById("error_file"));
+            document.getElementById("error_file").classList.add('error-visible');
+            document.getElementById("error_file").innerHTML = "Размер файла не должен привышать 2МБ";
             return false;
         }
         return true;
