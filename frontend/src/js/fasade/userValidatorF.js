@@ -26,11 +26,11 @@ class ValidatorF {
     }
 
 
-    doChangeUser(changes) {
-        if (userM.change(changes)) {
+    doChangeUser(formData) {
+        if (userM.change(formData)) {
             Bus.emit(PROFILE_UPDATE);
         } else {
-
+            // TODO: handle saving error 
         }
     }
 
