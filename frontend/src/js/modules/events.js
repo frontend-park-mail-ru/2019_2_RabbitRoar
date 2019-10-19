@@ -30,3 +30,5 @@ export const USER_VALIDATE = {
     LOGIN_OK: 'userValidateLogin',
     EXIT_OK: 'userValidateExit',
 }
+
+export const CHANGE_TAB = 'changeTab';

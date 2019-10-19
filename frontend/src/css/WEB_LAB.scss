@@ -1,0 +1,197 @@
+:root {
+	--base-color1: #5555DA;
+	--base-color2: #5558DA;
+	--error-color: red;
+}
+
+.settings{
+	text-align: left;
+	font: Bold 45px/52px Impact;
+	letter-spacing: 0;
+	color: #5C5C5C;
+	opacity: 1;
+	margin: 110;
+	padding: 200;
+}
+
+*{
+	margin: 0;
+	padding: 0;
+	font-family: Impact;
+
+}
+
+.header{
+	padding: 15px 60px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.logo{
+	width: 45px;
+	height: 45px;
+	background: var(--base-color2)0% 0% no-repeat padding-box;
+	border-radius: 15px;
+}
+
+.logo:hover{
+	cursor: pointer;
+}
+
+.menu{
+	display: flex;
+}
+
+.user{
+	display: flex;
+}
+
+.menu-item{
+	margin-left:  20px;
+}
+
+.menu-item:hover:not(.user-name){
+	border-bottom: none;
+}
+.menu-item:hover:not(.user-name){
+	border-bottom: 2px solid var(--base-color1);
+}
+
+.user-name:hover{
+	border-bottom: 2px solid var(--base-color1);
+}
+
+.user-logo{
+	margin-left: 20px;
+	width: 45px;
+	height: 45px;
+	background: var(--base-color1)0% 0% no-repeat padding-box;
+	border-radius: 50%;
+}
+
+.user-name{
+	margin-left:  20px;
+}
+
+.dropdown{
+	visibility: hidden;
+	position: absolute;
+	border: 1px solid black;
+	top: 50px;
+	right: 75px;
+
+}
+
+.user:hover .dropdown{
+	visibility: visible;
+}
+
+form{
+	padding: 20px 100px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr) 50%;
+	grid-template-rows: repeat(5, fit-content);
+	grid-template-areas: "h h h h h"
+						"av bu bu bu e"
+						"in in in in tb"
+						"ie ie ie ie tb"
+						"bs bs e2 e2 e2";
+	row-gap: 20px;
+}
+
+form > div > input {
+	grid-column: 2 / 3;
+}
+
+header.form-header{
+	grid-area: h;
+	padding: 0;
+	font-size: 25px ;
+	font-weight: bold;
+}
+
+.avatar{
+	grid-area: av;
+	width: 60px;
+	height: 60px;
+	background: var(--base-color1)0% 0% no-repeat padding-box;
+	border-radius: 50%;
+}
+
+.btn-upload{
+	grid-area: bu;
+	border-radius: 10px;
+	box-shadow: 5px 5px 10px #1C1C1C2E;
+	border: 2px solid #5558DA;
+	background: #1E90FF 0% 0% no-repeat padding-box;
+	grid-column: 2 /3;
+}
+
+.inputs {
+	display: flex;
+    flex-direction: column;
+    grid-column: 1 /3;
+}
+
+.nickname > input{
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	box-shadow: 5px 5px 10px #1C1C1C2E;
+	border: 2px solid #5558DA;
+	border-radius: 10px;
+	opacity: 1;
+}
+
+
+.email > input{
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	box-shadow: 5px 5px 10px #1C1C1C2E;
+	border: 2px solid #5558DA;
+	border-radius: 10px;
+	opacity: 1;
+}
+
+.bio > textarea{
+	grid-area: tb;
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	box-shadow: 5px 5px 10px #1C1C1C2E;
+	border: 2px solid #5558DA;
+	border-radius: 10px;
+	opacity: 1;
+	grid-row: 4 /5;
+	grid-column: 3 /5;
+}
+
+.btn-submit{
+	grid-area: bs;
+	grid-area: bu;
+	border-radius: 10px;
+	box-shadow: 5px 5px 10px #1C1C1C2E;
+	border: 2px solid #5558DA;
+	background: #1E90FF 0% 0% no-repeat padding-box;
+	grid-column: 1 /3;
+	grid-row: 5 /6;
+}
+
+label, input, textarea { 
+width: 100%; 
+} 
+
+label.error { 
+height: 15px; 
+transition: all 0.5s; 
+visibility: hidden; 
+color: var(--error-color); 
+} 
+
+input,textarea { 
+margin-top: 5px; 
+outline: none; 
+border-radius: 5px; 
+border: 2px solid var(--base-color); 
+font-size: 10px; 
+padding: 5px; 
+} 
+
+input.error { 
+border-color: var(--error-color); 
+}

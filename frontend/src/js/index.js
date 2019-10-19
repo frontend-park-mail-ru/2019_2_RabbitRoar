@@ -1,14 +1,14 @@
 import '../css/style.scss';
 import {Router} from './router.js';
 import {ROOT, LOGIN, SIGN_UP, PROFILE} from './paths';
+import {id} from './modules/id.js'
 
-
-import ValidatorF from './fasade/userValidatorF.js';
 import MainMenuV from './view/mainMenuV.js';
 import AutorisationV from './view/autorisationV.js';
 import RegistrationV from './view/registrationV.js';
 import ProfileV from './view/profileV.js';
 
+window.id = id;
 
 const router = new Router;
 
@@ -19,28 +19,9 @@ router.register(PROFILE, ProfileV);
 
 router.start();
 
-// async function promise1() {
-//     console.log('promise1');
-//     return true;
-// }
-// async function promise2() {
-//     console.log('promise2');
-//     throw new Error("Ошибка!");
-// }
-// async function promise3() {
-//     console.log('promise3');
-//     return true;
-// }
 
-// async function promiseFail() {
-//     const resolve1 = await promise1();
-//     const resolve2 = await promise2();
-//     console.log('simple code after');
-//     const resolve3 = await promise3();
-// }
 
-// promiseFail().then(
-//     result => console.log(`HANDLE: ${result}`)
-// ).catch(
-//     error => console.log(`HANDLE: ${error}`)
-// );
+// import Template from '../css/WEB_LAB.pug'
+
+// const root = document.getElementById('application');
+// root.insertAdjacentHTML('beforeend', Template());
