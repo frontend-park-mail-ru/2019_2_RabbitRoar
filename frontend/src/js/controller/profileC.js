@@ -2,6 +2,7 @@ import UserValidatorF from "../fasade/userValidatorF.js";
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import Bus from "../event_bus.js";
 import { PROFILE_UPDATE } from "../modules/events.js";
+import { emailIsValid, usernameIsValid, passwordsAreEqual, passwordIsValid } from "../modules/form_validation.js";
 
 class ProfileC {
     constructor() {
@@ -35,8 +36,33 @@ class ProfileC {
             return;
         }
         const changes = {};
+
+        const passwordWasEntered = this.changedForms.has("password");
+        const passwordConfirmationWasEntered = this.changedForms.has("password-confirmation");
+
+        const errorPasswordElement = document.getElementById("error_password");
+        if (passwordWasEntered && passwordConfirmationWasEntered) {
+            if (passwordsAreEqual(this.changedForms.get("password"), this.changedForms.get("password-confirmation"))) {
+                alert("Все Чотко");
+                changes["password"] = this.changedForms.get("password");
+            } else {
+                this._deleteErrorCssClasses(errorPasswordElement);
+                errorPasswordElement.classList.add("error-visible");
+                errorPasswordElement.innerHTML = "Пароли не совпадают.";
+                return;
+            }
+        } else if (passwordWasEntered || passwordConfirmationWasEntered) {
+            this._deleteErrorCssClasses(errorPasswordElement);
+            errorPasswordElement.classList.add("error-visible");
+            errorPasswordElement.innerHTML = "Для смены пароля заполните два поля.";
+            return;
+        }
+        this.changedForms.delete("password");
+        this.changedForms.delete("password-confirmation");
+
         this.changedForms.forEach(function (value, key) {
             changes[key] = value;
+            
         });
         UserValidatorF.changeTextFields(changes);
         this.changedForms.clear();
@@ -72,14 +98,15 @@ class ProfileC {
         if (this._checkFileSize(input.files[0]) === false) {
             return;
         }
+        const errorFileElement = document.getElementById("error_file");
         if (this._checkFileType(input.files[0]) === false) {
-            this._deleteErrorCssClasses(document.getElementById("error_file"));
-            document.getElementById("error_file").classList.add("error-visible");
-            document.getElementById("error_file").innerHTML = "Файл недопустимого расширения и загружен не будет.";
+            this._deleteErrorCssClasses(errorFileElement);
+            errorFileElement.classList.add("error-visible");
+            errorFileElement.innerHTML = "Файл недопустимого расширения и загружен не будет.";
         } else {
-            this._deleteErrorCssClasses(document.getElementById("error_file"));
-            document.getElementById("error_file").classList.add("file-downloaded");
-            document.getElementById("error_file").innerHTML = "Файл загружен";
+            this._deleteErrorCssClasses(errorFileElement);
+            errorFileElement.classList.add("file-downloaded");
+            errorFileElement.innerHTML = "Файл загружен";
             formData.append("userfile", input.files[0]);
             UserValidatorF.changeUserAvatar(formData);
         }
@@ -87,9 +114,10 @@ class ProfileC {
 
     _checkFileSize(file) {
         if (file.size > 2000000) {
-            this._deleteErrorCssClasses(document.getElementById("error_file"));
-            document.getElementById("error_file").classList.add("error-visible");
-            document.getElementById("error_file").innerHTML = "Размер файла не должен привышать 2МБ";
+            const errorFileElement = document.getElementById("error_file");
+            this._deleteErrorCssClasses(errorFileElement);
+            errorFileElement.classList.add("error-visible");
+            errorFileElement.innerHTML = "Размер файла не должен привышать 2МБ";
             return false;
         }
         return true;
