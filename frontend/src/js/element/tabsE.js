@@ -1,4 +1,4 @@
-import Template from "./tabsT.pug";
+import Template from "./templates/tabsT.pug";
 import Bus from "../event_bus.js";
 import { CHANGE_TAB } from "../modules/events.js";
 import ContentF from "../fasade/contentF.js";

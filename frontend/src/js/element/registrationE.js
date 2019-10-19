@@ -1,4 +1,4 @@
-import Template from "./registrationT.pug"; 
+import Template from "./templates/registrationT.pug"; 
 import Bus from "../event_bus.js";
 import {ROUTE_TO_EVENT} from "../modules/events.js";
 import {SIGN_IN, SIGN_UP, ROOT} from "../paths";

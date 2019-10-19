@@ -1,4 +1,4 @@
-import Template from "./autorisationT.pug"; 
+import Template from "./templates/autorisationT.pug"; 
 import Bus from "../event_bus.js";
 import {AUTORISATION_EVENT} from "../modules/events.js"; 
 import {ROOT} from "../paths";

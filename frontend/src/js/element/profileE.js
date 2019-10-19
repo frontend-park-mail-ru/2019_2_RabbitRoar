@@ -1,4 +1,4 @@
-import Template from "./profileT.pug";
+import Template from "./templates/profileT.pug";
 import Bus from "../event_bus.js";
 import ValidatorF from "../fasade/userValidatorF.js";
 import ProfileC from "../controller/profileC.js";
