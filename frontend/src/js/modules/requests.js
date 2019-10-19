@@ -1,4 +1,4 @@
-import {postRequest, deleteRequest} from './ajax.js'
+import {postRequest, deleteRequest, getRequest} from './ajax.js'
 
 export async function signIn(login, password) {
     const body = JSON.stringify({
@@ -31,4 +31,24 @@ export async function signUp(userStructure) {
         throw new Error(`Signup error: ${response.statusText}`);
     }
 
+}
+
+
+export async function queryTabContent(id) {
+    if (id === undefined) {
+        throw new Error(`Content error: id is undefined`);
+    }
+    const body = JSON.stringify({
+        contentType: "tabContent",
+        id: id,
+    });
+
+    const response = await getRequest('/content', body);
+
+    if (response.status != 200) {
+        throw new Error(`Content error: ${response.statusText}`);
+    }
+
+    const content = await response.json();
+    return content;
 }

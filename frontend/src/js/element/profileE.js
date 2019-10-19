@@ -13,7 +13,7 @@ class ProfileE {
         ProfileE.instance = this;
         this.controller = ProfileC;
 
-        Bus.on(PROFILE_UPDATE, this.restartListener.bind(this));
+        Bus.on(PROFILE_UPDATE, this._restartListener.bind(this));
 
         return this;
     }
@@ -26,8 +26,7 @@ class ProfileE {
         this.controller.start();
     }
 
-    restartListener() {
-        console.log('restart');
+    _restartListener() {
         this.destroy();
         this.create(this.root);
     }

@@ -31,3 +31,19 @@ export function deleteRequest(
             mode: 'cors',
 		});
 }
+
+
+export function getRequest(
+    url = '/',
+    body = {},
+    headers = {
+        'Content-type' : 'application/json; charset=utf-8',
+    }) {
+        url = base + url;
+        return fetch(url, {
+			method: 'GET',
+            headers: headers,
+			credentials: 'include',
+			body: body,
+		});
+}

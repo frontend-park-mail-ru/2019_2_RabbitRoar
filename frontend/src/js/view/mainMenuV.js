@@ -1,4 +1,5 @@
 import NavbarE from '../element/navbarE.js'
+import TabsE from '../element/tabsE.js'
 
 class MainMenuV {
     constructor(root = document.getElementById('application')) {
@@ -11,6 +12,9 @@ class MainMenuV {
         this.navbarDiv = document.createElement('div');
         this.navbarDiv.id = 'navbar_container';
 
+        this.tabsDiv = document.createElement('div');
+        this.tabsDiv.id = 'tabs_container';
+
         MainMenuV.instance = this;
         return this;
     }
@@ -19,13 +23,16 @@ class MainMenuV {
     create(data = '') {
         console.log("Main view create");
         this.root.append(this.navbarDiv);
+        this.root.append(this.tabsDiv);
 
         NavbarE.create(this.navbarDiv);
+        TabsE.create(this.tabsDiv);
     }
 
     destroy() {
         console.log("Main view destroy");
         NavbarE.destroy();
+        TabsE.destroy();
     }
 }
 export default new MainMenuV();

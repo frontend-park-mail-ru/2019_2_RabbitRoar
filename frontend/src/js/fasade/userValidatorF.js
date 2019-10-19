@@ -11,7 +11,6 @@ class ValidatorF {
             return ValidatorF.instance;
         }
         ValidatorF.instance = this;
-
         return this;
     }
 

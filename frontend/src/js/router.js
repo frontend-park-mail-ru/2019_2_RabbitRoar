@@ -14,12 +14,6 @@ export class Router {
             console.log('popstate occur:');
             this.routeTo(location.pathname);    //  location == url новой страницы
         });
-
-        document.addEventListener('readystatechange', (eventt) => {
-            event.preventDefault();
-            console.log('change occur:');
-            this.routeTo(location.pathname);    //  location == url новой страницы
-        });
     }
 
     register(path = '/', view) {

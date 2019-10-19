@@ -1,44 +1,43 @@
 div(class="main-container")
-    div(class="tab", id="tabs_rooms") Комнаты
-    div(class="tab", id="tabs_top") Зал славы
-    div(class="tab", id="tabs_packs") Игровые наборы
+    div(class="tab", id=window.id.tabRoom) Комнаты
+    div(class="tab", id=window.id.tabTop) Зал славы
+    div(class="tab", id=window.id.tabPack) Игровые наборы
 
     div(class="tab-content")
-        div(class="rooms-panel")
-            div(class="panel-elem elem-justify-start") Название:
-            div(class="panel-elem") Количество:
-            div(class="panel-elem")
-                img(class="room-join-img",
-                src="https://myandroid.ru/uploads/posts/2019-01/kto-takoj-rikardo-milos-chim-imenem-nazyvajut-obekty-na-google-kartah_1.png",
-                alt="ok")
-        each val, index in templateContent
+        if templateContent.contentType == window.id.tabRoom
             div(class="rooms-panel")
-                div(class="panel-elem elem-justify-start") #{val.name}
-                div(class="panel-elem") #{val.amount}
+                div(class="panel-elem elem-justify-start") Название:
+                div(class="panel-elem") Количество:
                 div(class="panel-elem")
-                    div(class="join-button") Присоединиться
-        include paginator.pug  
+                    img(class="room-join-img",
+                    src=templateContent.infoPanel.src,
+                    alt="ok")
+            each val, index in templateContent.content
+                div(class="rooms-panel")
+                    div(class="panel-elem elem-justify-start") #{val.name}
+                    div(class="panel-elem") #{val.currentPlayers}/#{val.maxPlayers}
+                    div(class="panel-elem")
+                        div(class="join-button") Присоединиться
 
-
-    div(class="tab-content")
-        div(class="best-players-panel")
-            div(class="panel-elem")
-                img(class="best-avatar",
-                src="https://www.pnglot.com/pngfile/detail/493-4930333_user-icon-my-profile-icon-png.png",
-                alt="No exist")
-            div(class="panel-elem") Имя:
-            div(class="panel-elem") Рейтинг:
-            div(class="panel-elem") Звание:
-        each val, index in templateContent
+        else if templateContent.contentType == window.id.tabTop
             div(class="best-players-panel")
                 div(class="panel-elem")
                     img(class="best-avatar",
-                    src = val.src,
+                    src=templateContent.infoPanel.src,
                     alt="No exist")
-                div(class="panel-elem") #{val.name}
-                div(class="panel-elem") #{val.rate.value}
-                div(class="panel-elem")
-                    div(class="rank-text") #{val.rate.description}
-                    img(class="rank-avatar",
-                    src = val.rate.src,
-                    alt="No exist")
+                div(class="panel-elem") Имя:
+                div(class="panel-elem") Рейтинг:
+                div(class="panel-elem") Звание:
+            each val, index in templateContent.content
+                div(class="best-players-panel")
+                    div(class="panel-elem")
+                        img(class="best-avatar",
+                        src = val.userSrc,
+                        alt="No exist")
+                    div(class="panel-elem") #{val.name}
+                    div(class="panel-elem") #{val.raiting}
+                    div(class="panel-elem")
+                        div(class="rank-text") #{val.rankDescr}
+                        img(class="rank-avatar",
+                        src = val.rankSrc,
+                        alt="No exist")

@@ -1,5 +1,4 @@
 import { signIn, logout, signUp } from '../modules/requests.js'
-import Bus from '../event_bus.js'
 
 class User {
     constructor() {
