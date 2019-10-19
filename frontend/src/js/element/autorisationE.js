@@ -1,8 +1,8 @@
-import Template from './autorisationT.pug' 
-import Bus from '../event_bus.js'
-import {AUTORISATION_EVENT} from '../modules/events.js' 
-import {ROOT} from '../paths';
-import {DomEventsWrapperMixin} from '../DomEventsWrapperMixin.js'
+import Template from "./autorisationT.pug"; 
+import Bus from "../event_bus.js";
+import {AUTORISATION_EVENT} from "../modules/events.js"; 
+import {ROOT} from "../paths";
+import {DomEventsWrapperMixin} from "../DomEventsWrapperMixin.js";
 
 class AutorisationE {
     constructor() {
@@ -14,9 +14,9 @@ class AutorisationE {
         return this;
     }
 
-    create(root = document.getElementById('application')) {
+    create(root = document.getElementById("application")) {
         this.root = root;
-        this.root.insertAdjacentHTML('beforeend', Template());
+        this.root.insertAdjacentHTML("beforeend", Template());
         this.controller.start();
     }
 
@@ -24,13 +24,13 @@ class AutorisationE {
         if (autorised) {
             Bus.emit(AUTORISATION_EVENT.ROUTE_TO, ROOT);
         } else {
-            console.log('autorisationE._signIn: AUTORISE ERROR');
+            console.log("autorisationE._signIn: AUTORISE ERROR");
         }
     }
 
     _inputCollector() {
-        const username = document.getElementById('login').value;
-        const password = document.getElementById('password').value;
+        const username = document.getElementById("login").value;
+        const password = document.getElementById("password").value;
         const data = {
             username: username,
             password: password
@@ -41,7 +41,7 @@ class AutorisationE {
 
     destroy() {
         this.controller.drop();
-        this.root.innerHTML = '';
+        this.root.innerHTML = "";
     }
 }
 

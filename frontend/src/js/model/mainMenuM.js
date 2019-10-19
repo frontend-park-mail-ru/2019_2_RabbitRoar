@@ -1,5 +1,5 @@
-import { queryTabContent } from '../modules/requests.js'
-import { id } from '../modules/id.js'
+import { queryTabContent } from "../modules/requests.js";
+import { id } from "../modules/id.js";
 
 
 class MainMenuM {

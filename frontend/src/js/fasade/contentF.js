@@ -1,7 +1,7 @@
-import Bus from '../event_bus.js'
-import ContentM from '../model/contentM.js'
-import { CHANGE_TAB } from '../modules/events.js'
-import MainMenuM from '../model/mainMenuM.js';
+import Bus from "../event_bus.js";
+import ContentM from "../model/contentM.js";
+import { CHANGE_TAB } from "../modules/events.js";
+import MainMenuM from "../model/mainMenuM.js";
 
 
 class ContentF {

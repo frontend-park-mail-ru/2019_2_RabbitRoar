@@ -1,5 +1,5 @@
-import { signIn, logout, signUp, changeAvatar, changeTextFields } from '../modules/requests.js'
-import Bus from '../event_bus.js'
+import { signIn, logout, signUp, changeAvatar, changeTextFields } from "../modules/requests.js";
+import Bus from "../event_bus.js";
 
 class User {
     constructor() {
@@ -20,7 +20,7 @@ class User {
             email: this.email,
             username: this.username,
             password: this.password
-        }
+        };
     }
 
     async changeAvatar(formData) {
@@ -54,7 +54,7 @@ class User {
         try {
             let response = await signUp(userStructure);
         } catch (error) {
-            throw (errpn)
+            throw (errpn);
         }
     }
 }

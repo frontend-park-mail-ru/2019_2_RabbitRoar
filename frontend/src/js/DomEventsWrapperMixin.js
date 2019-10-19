@@ -1,9 +1,9 @@
-import Bus from './event_bus.js'
+import Bus from "./event_bus.js";
 
 
 
 export const DomEventsWrapperMixin = {
-    registerHandler(id = 'application', JsEvent = 'click', callback) {
+    registerHandler(id = "application", JsEvent = "click", callback) {
         if (!this.events) {
             this.events = new Map();
         }
@@ -23,7 +23,7 @@ export const DomEventsWrapperMixin = {
         this.events.set(id, idHandlers);
     },
 
-    registerClassHandler(cssClass = 'application', JsEvent = 'click', callback) {
+    registerClassHandler(cssClass = "application", JsEvent = "click", callback) {
         if (!this.classEvents) {
             this.classEvents = new Map();
         }
@@ -106,4 +106,4 @@ export const DomEventsWrapperMixin = {
         }
     }
 
-}
+};

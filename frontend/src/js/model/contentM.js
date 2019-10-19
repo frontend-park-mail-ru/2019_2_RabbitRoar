@@ -1,4 +1,4 @@
-import { queryTabContent } from '../modules/requests.js'
+import { queryTabContent } from "../modules/requests.js";
 
 class ContentM {
     constructor() {

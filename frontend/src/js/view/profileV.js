@@ -1,19 +1,19 @@
-import NavbarE from '../element/navbarE.js'
-import ProfileE from '../element/profileE.js'
+import NavbarE from "../element/navbarE.js";
+import ProfileE from "../element/profileE.js";
 
 class ProfileV {
-    constructor(root = document.getElementById('application')) {
+    constructor(root = document.getElementById("application")) {
         if (!!ProfileV.instance) {
             this.root = root;
             return ProfileV.instance;
         }
         this.root = root;
 
-        this.navbarDiv = document.createElement('div');
-        this.navbarDiv.id = 'navbar_container';
+        this.navbarDiv = document.createElement("div");
+        this.navbarDiv.id = "navbar_container";
 
-        this.profileDiv = document.createElement('div');
-        this.profileDiv.id = 'profile_container';
+        this.profileDiv = document.createElement("div");
+        this.profileDiv.id = "profile_container";
 
         ProfileV.instance = this;
         return this;

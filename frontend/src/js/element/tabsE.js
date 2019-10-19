@@ -1,8 +1,8 @@
-import Template from './tabsT.pug'
-import Bus from '../event_bus.js'
-import { CHANGE_TAB } from '../modules/events.js'
-import ContentF from '../fasade/contentF.js'
-import TabsC from '../controller/tabsC.js'
+import Template from "./tabsT.pug";
+import Bus from "../event_bus.js";
+import { CHANGE_TAB } from "../modules/events.js";
+import ContentF from "../fasade/contentF.js";
+import TabsC from "../controller/tabsC.js";
 
 
 class TabsE {
@@ -18,7 +18,7 @@ class TabsE {
         return this;
     }
 
-    create(root = document.getElementById('application')) {
+    create(root = document.getElementById("application")) {
         // console.log(`id listeners: ${this.controller.events.size}`);
         console.log(`class listeners ${this.controller.classEvents.get(".tab").size}`);
         this.root = root;
@@ -27,7 +27,7 @@ class TabsE {
 
         ContentF.getTabContent(id).then(
             templateContent => {
-                this.root.insertAdjacentHTML('beforeend', Template({ templateContent }));
+                this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
                 this._highlightChosen(id);
                 this.controller.start();
             }
@@ -49,9 +49,9 @@ class TabsE {
         if (targetElems) {
             targetElems.forEach(function (elem) {
                 if (elem.id === chosenId) {
-                    elem.className = 'tab-click';
+                    elem.className = "tab-click";
                 } else {
-                    elem.className = 'tab';
+                    elem.className = "tab";
                 }
             });
         }
@@ -60,7 +60,7 @@ class TabsE {
 
     destroy() {
         this.controller.drop();
-        this.root.innerHTML = '';
+        this.root.innerHTML = "";
     }
 }
 

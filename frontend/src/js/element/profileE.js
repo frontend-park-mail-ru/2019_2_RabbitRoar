@@ -1,8 +1,8 @@
-import Template from './profileT.pug'
-import Bus from '../event_bus.js'
-import ValidatorF from '../fasade/userValidatorF.js'
-import ProfileC from '../controller/profileC.js'
-import { PROFILE_UPDATE } from '../modules/events.js'
+import Template from "./profileT.pug";
+import Bus from "../event_bus.js";
+import ValidatorF from "../fasade/userValidatorF.js";
+import ProfileC from "../controller/profileC.js";
+import { PROFILE_UPDATE } from "../modules/events.js";
 
 
 class ProfileE {
@@ -18,11 +18,11 @@ class ProfileE {
         return this;
     }
 
-    create(root = document.getElementById('application')) {
+    create(root = document.getElementById("application")) {
         this.root = root;
         const userData = ValidatorF.getUserData();
         
-        this.root.insertAdjacentHTML('beforeend', Template({userData}));
+        this.root.insertAdjacentHTML("beforeend", Template({userData}));
         this.controller.start();
     }
 
@@ -33,7 +33,7 @@ class ProfileE {
 
     destroy() {
         this.controller.drop();
-        this.root.innerHTML = '';
+        this.root.innerHTML = "";
     }
 }
 

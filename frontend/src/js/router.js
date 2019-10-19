@@ -1,22 +1,22 @@
-import Bus from './event_bus.js'
-import {ROUTER_EVENT} from './modules/events.js'
-import {ROOT} from './paths';
+import Bus from "./event_bus.js";
+import {ROUTER_EVENT} from "./modules/events.js";
+import {ROOT} from "./paths";
 
 export class Router {
-    constructor(root = document.getElementById('application')) {
+    constructor(root = document.getElementById("application")) {
         this.routes = new Map();
         this.root = root;
-        console.log('ROUTER CREATE');
+        console.log("ROUTER CREATE");
         Bus.on(ROUTER_EVENT.ROUTE_TO, this.routeTo.bind(this));
 
-        window.addEventListener('popstate',  (event) => {
+        window.addEventListener("popstate",  (event) => {
             event.preventDefault();
-            console.log('popstate occur:');
+            console.log("popstate occur:");
             this.routeTo(location.pathname);    //  location == url новой страницы
         });
     }
 
-    register(path = '/', view) {
+    register(path = "/", view) {
         if (this.routes.get(path) == undefined) {
             this.routes.set(path, view);
         } else {
@@ -25,7 +25,7 @@ export class Router {
     }
 
 
-    routeTo(path = '/', firtsTime = false) {
+    routeTo(path = "/", firtsTime = false) {
         let newView;
         if ((newView = this.routes.get(path)) != undefined) {
             console.log(newView);
@@ -47,7 +47,7 @@ export class Router {
 
 	start() {
         console.log(`location: ${location.pathname}`);
-        this.currentView = this.routes.get('/');
+        this.currentView = this.routes.get("/");
 		this.routeTo(location.pathname, true);
 	}
 }

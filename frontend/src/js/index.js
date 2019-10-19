@@ -1,12 +1,12 @@
-import '../css/style.scss';
-import {Router} from './router.js';
-import {ROOT, LOGIN, SIGN_UP, PROFILE} from './paths';
-import {id} from './modules/id.js'
+import "../css/style.scss";
+import {Router} from "./router.js";
+import {ROOT, LOGIN, SIGN_UP, PROFILE} from "./paths";
+import {id} from "./modules/id.js";
 
-import MainMenuV from './view/mainMenuV.js';
-import AutorisationV from './view/autorisationV.js';
-import RegistrationV from './view/registrationV.js';
-import ProfileV from './view/profileV.js';
+import MainMenuV from "./view/mainMenuV.js";
+import AutorisationV from "./view/autorisationV.js";
+import RegistrationV from "./view/registrationV.js";
+import ProfileV from "./view/profileV.js";
 
 window.id = id;
 
@@ -21,7 +21,7 @@ router.start();
 
 
 
-// import Template from '../css/WEB_LAB.pug'
+// import Template from "../css/WEB_LAB.pug"
 
-// const root = document.getElementById('application');
-// root.insertAdjacentHTML('beforeend', Template());
+// const root = document.getElementById("application");
+// root.insertAdjacentHTML("beforeend", Template());

@@ -1,8 +1,8 @@
-import ValidatorF from '../fasade/userValidatorF.js'
-import Bus from '../event_bus.js'
-import {ROUTER_EVENT} from '../modules/events.js' 
-import { LOGIN, SIGN_UP, ROOT, PROFILE } from '../paths';
-import { DomEventsWrapperMixin } from '../DomEventsWrapperMixin.js'
+import ValidatorF from "../fasade/userValidatorF.js";
+import Bus from "../event_bus.js";
+import {ROUTER_EVENT} from "../modules/events.js";
+import { LOGIN, SIGN_UP, ROOT, PROFILE } from "../paths";
+import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 
 
 class NavbarC {
@@ -14,11 +14,11 @@ class NavbarC {
         NavbarC.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
 
-        this.registerHandler('nav_exit', 'click', ValidatorF.doExit);
-        this.registerHandler('nav_logo', 'click', this._routeToMainMenu);
-        this.registerHandler('nav_login', 'click', this._routeToLogin);
-        this.registerHandler('nav_registration', 'click', this._routeToSignUp);
-        this.registerHandler('nav_profile', 'click', this._routeToProfile);
+        this.registerHandler("nav_exit", "click", ValidatorF.doExit);
+        this.registerHandler("nav_logo", "click", this._routeToMainMenu);
+        this.registerHandler("nav_login", "click", this._routeToLogin);
+        this.registerHandler("nav_registration", "click", this._routeToSignUp);
+        this.registerHandler("nav_profile", "click", this._routeToProfile);
 
         return this;
     }

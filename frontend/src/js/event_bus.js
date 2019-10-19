@@ -1,4 +1,4 @@
-import {ObservableMixin} from './observable_mixin.js'
+import {ObservableMixin} from "./observable_mixin.js";
 
 class Bus {
     constructor(){

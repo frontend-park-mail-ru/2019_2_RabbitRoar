@@ -1,8 +1,8 @@
-import Template from './navbarT.pug'
-import Bus from '../event_bus.js'
-import {NAVBAR_EVENT} from '../modules/events.js' 
-import ValidatorF from '../fasade/userValidatorF.js'
-import NavbarC from '../controller/navbarC.js'
+import Template from "./navbarT.pug";
+import Bus from "../event_bus.js";
+import {NAVBAR_EVENT} from "../modules/events.js";
+import ValidatorF from "../fasade/userValidatorF.js";
+import NavbarC from "../controller/navbarC.js";
 
 class NavbarE {
     constructor() {
@@ -15,12 +15,12 @@ class NavbarE {
         return this;
     }
 
-    create(root = document.getElementById('application')) {
+    create(root = document.getElementById("application")) {
         this.root = root;
 
         const autorised = ValidatorF.getUserAutorise();
 
-        this.root.insertAdjacentHTML('beforeend', Template({ autorised: autorised }));
+        this.root.insertAdjacentHTML("beforeend", Template({ autorised: autorised }));
         this.controller.start();
     }
 
@@ -28,7 +28,7 @@ class NavbarE {
 
     destroy() {
         this.controller.drop();
-        this.root.innerHTML = '';
+        this.root.innerHTML = "";
     }
 }
 

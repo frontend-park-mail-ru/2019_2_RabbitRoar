@@ -1,8 +1,8 @@
-import Bus from '../event_bus.js'
-import User from '../model/userM.js'
-import { USER_VALIDATE, ROUTER_EVENT, PROFILE_UPDATE } from '../modules/events.js'
-import { LOGIN, SIGN_UP, ROOT } from '../paths';
-import userM from '../model/userM.js';
+import Bus from "../event_bus.js";
+import User from "../model/userM.js";
+import { USER_VALIDATE, ROUTER_EVENT, PROFILE_UPDATE } from "../modules/events.js";
+import { LOGIN, SIGN_UP, ROOT } from "../paths";
+import userM from "../model/userM.js";
 
 
 class ValidatorF {

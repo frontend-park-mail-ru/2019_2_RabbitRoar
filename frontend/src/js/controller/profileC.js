@@ -1,7 +1,7 @@
-import UserValidatorF from '../fasade/userValidatorF.js'
-import { DomEventsWrapperMixin } from '../DomEventsWrapperMixin.js'
-import Bus from '../event_bus.js'
-import { PROFILE_UPDATE } from '../modules/events.js'
+import UserValidatorF from "../fasade/userValidatorF.js";
+import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
+import Bus from "../event_bus.js";
+import { PROFILE_UPDATE } from "../modules/events.js";
 
 class ProfileC {
     constructor() {
@@ -14,10 +14,10 @@ class ProfileC {
 
         this.changedForms = new Map();
 
-        this.registerHandler('save_button', 'click', this._saveTextFields.bind(this));
-        this.registerHandler('cancel_button', 'click', this._cansel.bind(this));
-        this.registerClassHandler('.input-valid', 'change', this._changeTextValue.bind(this));
-        this.registerClassHandler('.profile__download-img', 'change', this._saveImage.bind(this));
+        this.registerHandler("save_button", "click", this._saveTextFields.bind(this));
+        this.registerHandler("cancel_button", "click", this._cansel.bind(this));
+        this.registerClassHandler(".input-valid", "change", this._changeTextValue.bind(this));
+        this.registerClassHandler(".profile__download-img", "change", this._saveImage.bind(this));
     }
 
     start() {
@@ -44,7 +44,7 @@ class ProfileC {
     }
 
     _cansel() {
-        this.changedForms.clear()
+        this.changedForms.clear();
         Bus.emit(PROFILE_UPDATE);
     }
 
@@ -53,32 +53,32 @@ class ProfileC {
     }
 
     _deleteErrorCssClasses(elem) {
-        if (elem.classList.contains('error-annotation')) {
-            elem.classList.remove('error-annotation');
+        if (elem.classList.contains("error-annotation")) {
+            elem.classList.remove("error-annotation");
         }
 
-        if (elem.classList.contains('error-visible')) {
-            elem.classList.remove('error-visible');
+        if (elem.classList.contains("error-visible")) {
+            elem.classList.remove("error-visible");
         }
 
-        if (elem.classList.contains('file-downloaded')) {
-            elem.classList.remove('file-downloaded');
+        if (elem.classList.contains("file-downloaded")) {
+            elem.classList.remove("file-downloaded");
         }
     }
 
     _saveImage() {
         let formData = new FormData();
-        const input = document.querySelector('.profile__download-img');
+        const input = document.querySelector(".profile__download-img");
         if (this._checkFileSize(input.files[0]) === false) {
             return;
         }
         if (this._checkFileType(input.files[0]) === false) {
             this._deleteErrorCssClasses(document.getElementById("error_file"));
-            document.getElementById("error_file").classList.add('error-visible');
+            document.getElementById("error_file").classList.add("error-visible");
             document.getElementById("error_file").innerHTML = "Файл недопустимого расширения и загружен не будет.";
         } else {
             this._deleteErrorCssClasses(document.getElementById("error_file"));
-            document.getElementById("error_file").classList.add('file-downloaded');
+            document.getElementById("error_file").classList.add("file-downloaded");
             document.getElementById("error_file").innerHTML = "Файл загружен";
             formData.append("userfile", input.files[0]);
             UserValidatorF.changeUserAvatar(formData);
@@ -88,7 +88,7 @@ class ProfileC {
     _checkFileSize(file) {
         if (file.size > 2000000) {
             this._deleteErrorCssClasses(document.getElementById("error_file"));
-            document.getElementById("error_file").classList.add('error-visible');
+            document.getElementById("error_file").classList.add("error-visible");
             document.getElementById("error_file").innerHTML = "Размер файла не должен привышать 2МБ";
             return false;
         }
