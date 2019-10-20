@@ -32,7 +32,10 @@ class ProfileC {
 
     _saveTextFields() {
         if (this.changedForms.size == 0) {
-            alert("Нет изменений для сохранения");
+            const errorMain = document.getElementById("error_main");
+            this._deleteErrorCssClasses(errorMain);
+            errorMain.classList.add("error-visible");
+            errorMain.innerHTML = "Нет изменений для сохранения.";
             return;
         }
         const changes = {};
@@ -40,11 +43,17 @@ class ProfileC {
         const passwordWasEntered = this.changedForms.has("password");
         const passwordConfirmationWasEntered = this.changedForms.has("password-confirmation");
 
-        const errorPasswordElement = document.getElementById("error_password");
         if (passwordWasEntered && passwordConfirmationWasEntered) {
+            const errorPasswordElement = document.getElementById("error_password");
             if (passwordsAreEqual(this.changedForms.get("password"), this.changedForms.get("password-confirmation"))) {
-                alert("Все Чотко");
-                changes["password"] = this.changedForms.get("password");
+                if (passwordIsValid(password)) {
+                    changes["password"] = this.changedForms.get("password");
+                } else {
+                    this._deleteErrorCssClasses(errorPasswordElement);
+                    errorPasswordElement.classList.add("error-visible");
+                    errorPasswordElement.innerHTML = "Недопустимый пароль. Введите минимум 5 символов.";
+                    return;
+                }
             } else {
                 this._deleteErrorCssClasses(errorPasswordElement);
                 errorPasswordElement.classList.add("error-visible");
@@ -60,10 +69,32 @@ class ProfileC {
         this.changedForms.delete("password");
         this.changedForms.delete("password-confirmation");
 
-        this.changedForms.forEach(function (value, key) {
-            changes[key] = value;
-            
-        });
+
+        if (this.changedForms.has("username")) {
+            const username = this.changedForms.get("username");
+            if (!usernameIsValid(username)) {
+                alert("ne verniy username");
+
+                const errorUsernameElement = document.getElementById("error_username");
+                this._deleteErrorCssClasses(errorUsernameElement);
+                errorUsernameElement.classList.add("error-visible");
+                errorUsernameElement.innerHTML = "Недопустимый username.";
+                document.getElementById("username").classList.add("input-error");
+                return;
+            }
+        }
+
+        if (this.changedForms.has("email")) {
+            const email = this.changedForms.get("email");
+            if (!emailIsValid(email)) {
+                const errorEmailElement = document.getElementById("error_email");
+                this._deleteErrorCssClasses(errorEmailElement);
+                errorEmailElement.classList.add("error-visible");
+                errorEmailElement.innerHTML = "Недопустимый email.";
+                return;
+            }
+        }
+
         UserValidatorF.changeTextFields(changes);
         this.changedForms.clear();
         Bus.emit(PROFILE_UPDATE);
@@ -90,6 +121,9 @@ class ProfileC {
         if (elem.classList.contains("file-downloaded")) {
             elem.classList.remove("file-downloaded");
         }
+        if (elem.classList.contains("input-error")) {
+            elem.classList.remove("input-error");
+        }
     }
 
     _saveImage() {
@@ -98,7 +132,7 @@ class ProfileC {
         if (this._checkFileSize(input.files[0]) === false) {
             return;
         }
-        const errorFileElement = document.getElementById("error_file");
+        const errorFileElement = document.getElementById("error_top");
         if (this._checkFileType(input.files[0]) === false) {
             this._deleteErrorCssClasses(errorFileElement);
             errorFileElement.classList.add("error-visible");
@@ -114,7 +148,7 @@ class ProfileC {
 
     _checkFileSize(file) {
         if (file.size > 2000000) {
-            const errorFileElement = document.getElementById("error_file");
+            const errorFileElement = document.getElementById("error_top");
             this._deleteErrorCssClasses(errorFileElement);
             errorFileElement.classList.add("error-visible");
             errorFileElement.innerHTML = "Размер файла не должен привышать 2МБ";
