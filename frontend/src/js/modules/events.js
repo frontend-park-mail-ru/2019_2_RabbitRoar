@@ -9,17 +9,17 @@ export const ROUTER_EVENT = {
 
 // NavbarE
 export const NAVBAR_EVENT = {
-CLICK_EXIT: "clickExit",
-CLICK_PROFILE: "clickProfile",
-CLICK_MAIN_MENU: "clickMainMenu",
-GET_AUTORISE: "getAutorise",
-ROUTE_TO: globalRouterEvent,
+    CLICK_EXIT: "clickExit",
+    CLICK_PROFILE: "clickProfile",
+    CLICK_MAIN_MENU: "clickMainMenu",
+    GET_AUTORISE: "getAutorise",
+    ROUTE_TO: globalRouterEvent,
 };
 
 // AutorisationE
 export const AUTORISATION_EVENT = {
-USER_LOGIN: "userLogin",
-ROUTE_TO: globalRouterEvent,
+    USER_LOGIN: "userLogin",
+    ROUTE_TO: globalRouterEvent,
 };
 
 // ProfileE
@@ -32,3 +32,5 @@ export const USER_VALIDATE = {
 };
 
 export const CHANGE_TAB = "changeTab";
+
+export const REGISTRATION = "registration";

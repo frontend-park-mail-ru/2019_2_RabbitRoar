@@ -73,8 +73,6 @@ class ProfileC {
         if (this.changedForms.has("username")) {
             const username = this.changedForms.get("username");
             if (!usernameIsValid(username)) {
-                alert("ne verniy username");
-
                 const errorUsernameElement = document.getElementById("error_username");
                 this._deleteErrorCssClasses(errorUsernameElement);
                 errorUsernameElement.classList.add("error-visible");

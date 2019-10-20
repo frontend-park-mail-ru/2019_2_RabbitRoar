@@ -1,6 +1,7 @@
 import Template from "./templates/registrationT.pug"; 
 import Bus from "../event_bus.js";
-import {ROUTE_TO_EVENT} from "../modules/events.js";
+import RegistrationC from "../controller/registrationC.js";
+import {ROUTE_TO_EVENT, REGISTRATION} from "../modules/events.js";
 import {SIGN_IN, SIGN_UP, ROOT} from "../paths";
 import {DomEventsWrapperMixin} from "../DomEventsWrapperMixin.js";
 
@@ -10,7 +11,9 @@ class RegistrationE {
             return RegistrationE.instance;
         }
         RegistrationE.instance = this;
-
+        this.controller = RegistrationC;
+        
+        //Bus.on(REGISTRATION, this._restartListener.bind(this));
         return this;
     }
 
@@ -24,6 +27,11 @@ class RegistrationE {
     destroy() {
         this.controller.drop();
         this.root.innerHTML = "";
+    }
+
+    _restartListener() {
+        this.destroy();
+        this.create(this.root);
     }
 }
 
