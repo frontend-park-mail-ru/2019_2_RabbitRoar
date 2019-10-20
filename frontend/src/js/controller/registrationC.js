@@ -23,11 +23,7 @@ class RegistrationC {
     }
 
     _registration() {
-        const errorPasswordElement = document.getElementById("error_password");
-        const errorUsernameElement = document.getElementById("error_username");
-        const errorEmailElement = document.getElementById("error_email");
-
-        let registrationError = registrationValidation(errorPasswordElement, errorUsernameElement, errorEmailElement);
+        const registrationError = registrationValidation();
 
         if (registrationError) {
             return;

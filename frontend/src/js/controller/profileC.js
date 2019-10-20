@@ -2,7 +2,7 @@ import UserValidatorF from "../fasade/userValidatorF.js";
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import Bus from "../event_bus.js";
 import { PROFILE_UPDATE } from "../modules/events.js";
-import { fileVaildation, textFieldsVaildation } from "../modules/form_validation.js";
+import { fileVaildation, textFieldsVaildationProfile } from "../modules/form_validation.js";
 
 
 class ProfileC {
@@ -32,7 +32,7 @@ class ProfileC {
     }
 
     _saveTextFields() {
-        const result = textFieldsVaildation(this.changedForms);
+        const result = textFieldsVaildationProfile(this.changedForms);
         if (result.fieldsAreValid) {
             UserValidatorF.changeTextFields(result.changes);
             this.changedForms.clear();

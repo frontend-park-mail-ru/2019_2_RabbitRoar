@@ -3,6 +3,8 @@ import Bus from "../event_bus.js";
 import {AUTORISATION_EVENT} from "../modules/events.js"; 
 import {ROOT} from "../paths";
 import {DomEventsWrapperMixin} from "../DomEventsWrapperMixin.js";
+import AutorisationC from "../controller/autorisationC";
+
 
 class AutorisationE {
     constructor() {
@@ -10,6 +12,7 @@ class AutorisationE {
             return AutorisationE.instance;
         }
         AutorisationE.instance = this;
+        this.controller = AutorisationC;
 
         return this;
     }

@@ -1,8 +1,9 @@
-import ValidatorF from '../fasade/userValidatorF.js'
-import Bus from '../event_bus.js'
-import {ROUTER_EVENT} from '../modules/events.js' 
-import { LOGIN, SIGN_UP } from '../paths';
-import { DomEventsWrapperMixin } from '../DomEventsWrapperMixin.js'
+import ValidatorF from "../fasade/userValidatorF.js";
+import Bus from "../event_bus.js";
+import { ROUTER_EVENT } from "../modules/events.js";
+import { LOGIN, SIGN_UP } from "../paths";
+import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
+import { autorizationVaildation } from "../modules/form_validation.js";
 
 
 class AutorisationC {
@@ -14,7 +15,7 @@ class AutorisationC {
         AutorisationC.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
 
-        this.registerHandler('autorisation', 'click', _autorise);
+        this.registerHandler("autorisation", "click", this._autorise.bind(this));
 
         return this;
     }
@@ -29,9 +30,12 @@ class AutorisationC {
 
 
     _autorise() {
-        const username = document.getElementById('login').value;
-        const password = document.getElementById('password').value;
-        ValidatorF.doAutorise(username, password);
+        const autorizationError = autorizationVaildation();
+
+        if (autorizationError) {
+            return;
+        }
+        ValidatorF.doAutorise(document.getElementById("username").value, document.getElementById("password").value);
     }
 
 

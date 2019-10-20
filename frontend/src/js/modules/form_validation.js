@@ -63,9 +63,13 @@ const _fieldValidation = (value, valueInputElement, errorElement, validFunction,
     return fieldIsOk;
 };
 
-export const registrationValidation = (errorPasswordElement, errorUsernameElement, errorEmailElement) => {
+export const registrationValidation = () => {
+    const errorPasswordElement = document.getElementById("error_password");
+    const errorUsernameElement = document.getElementById("error_username");
+    const errorEmailElement = document.getElementById("error_email");
+
     let registrationError = _fieldValidation(document.getElementById("username").value, document.getElementById("username"),
-        errorUsernameElement, _usernameIsValid, "Введите логин.", "Логин должен содержать минимум 3 символа.");
+        errorUsernameElement, _usernameIsValid, c, "Логин должен содержать минимум 3 символа.");
 
     registrationError = _fieldValidation(document.getElementById("password").value, document.getElementById("password"),
         errorPasswordElement, _passwordIsValid, "Введите пароль.", "Пароль должен содержать от 5 до 12 символов, одну цифру и одну букву.");
@@ -164,7 +168,7 @@ const _drawPasswordError = (errorPasswordElement) => {
     _replaceTwoCssClasses(document.getElementById("password-confirmation"), "input-valid", "input-error");
 };
 
-export const textFieldsVaildation = (changedForms) => {
+export const textFieldsVaildationProfile = (changedForms) => {
     if (changedForms.size == 0) {
         const errorMain = document.getElementById("error_top");
         _deleteCssClassesFileInput(errorMain);
@@ -237,5 +241,35 @@ export const textFieldsVaildation = (changedForms) => {
         return { fieldsAreValid: false, changes: {} };
     }
     return { fieldsAreValid: true, changes: changes };
+};
 
+export const autorizationVaildation = () => {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    const errorPasswordElement = document.getElementById("error_password");
+    const errorUsernameElement = document.getElementById("error_username");
+
+    let error = false;
+
+    if (!username) {
+        _replaceTwoCssClasses(errorUsernameElement, "error-annotation", "error-visible");
+        _replaceTwoCssClasses(document.getElementById("username"), "input-valid", "input-error");
+        errorUsernameElement.innerHTML = "Введите логин.";
+        error = true;
+    } else {
+        _replaceTwoCssClasses(errorUsernameElement, "error-visible", "error-annotation");
+        _replaceTwoCssClasses(document.getElementById("username"), "input-error", "input-valid");
+    }
+
+    if (!password) {
+        _replaceTwoCssClasses(errorPasswordElement, "error-annotation", "error-visible");
+        _replaceTwoCssClasses(document.getElementById("password"), "input-valid", "input-error");
+        errorPasswordElement.innerHTML = "Введите пароль.";
+        error = true;
+    } else {
+        _replaceTwoCssClasses(errorPasswordElement, "error-visible", "error-annotation");
+        _replaceTwoCssClasses(document.getElementById("password"), "input-error", "input-valid");
+    }
+    return error;
 };
