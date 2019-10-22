@@ -8,6 +8,15 @@ import AutorisationV from "./view/autorisationV.js";
 import RegistrationV from "./view/registrationV.js";
 import ProfileV from "./view/profileV.js";
 
+if ("serviceWorker" in navigator) {
+    // Весь код регистрации у нас асинхронный.
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => navigator.serviceWorker.ready.then((worker) => {
+        worker.sync.register("syncdata");
+      }))
+      .catch((err) => console.log(err));
+}
+
 window.id = id;
 
 const router = new Router;
