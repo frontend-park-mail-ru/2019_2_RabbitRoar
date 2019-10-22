@@ -64,7 +64,7 @@
 
 .game-panel-button:hover {
     border-width: 1px;
-    border-color: $color-border-primary;
-    color: $color-border-primary;
+    border-color: var(--border-color-theme);
+    color: var(--border-color-theme);
     background-color: $color-bg-dark;
 }
