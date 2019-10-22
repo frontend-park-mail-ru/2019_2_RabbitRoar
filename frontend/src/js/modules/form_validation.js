@@ -43,24 +43,24 @@ const _replaceTwoCssClasses = (elem, classOne, classTwo) => {
 };
 
 const _fieldValidation = (value, valueInputElement, errorElement, validFunction, emptyFieldError, unvalidValueError) => {
-    let fieldIsOk = true;
+    let error = false;
     if (!value) {
         _replaceTwoCssClasses(errorElement, "error-annotation", "error-visible");
         _replaceTwoCssClasses(valueInputElement, "input-valid", "input-error");
         errorElement.innerHTML = emptyFieldError;
-        fieldIsOk = false;
+        error = true;
     } else {
         if (!validFunction(value)) {
             _replaceTwoCssClasses(errorElement, "error-annotation", "error-visible");
             _replaceTwoCssClasses(valueInputElement, "input-valid", "input-error");
             errorElement.innerHTML = unvalidValueError;
-            fieldIsOk = false;
+            error = true;
         } else {
             _replaceTwoCssClasses(errorElement, "error-visible", "error-annotation");
             _replaceTwoCssClasses(valueInputElement, "input-error", "input-valid");
         }
     }
-    return fieldIsOk;
+    return error;
 };
 
 export const registrationValidation = () => {
@@ -78,9 +78,9 @@ export const registrationValidation = () => {
         errorEmailElement, _emailIsValid, "Введите email.", "Недопустимый email.");
 
     if (registrationError) {
-        return false;
+        return true;
     }
-    return true;
+    return false;
 };
 
 export const fileVaildation = () => {

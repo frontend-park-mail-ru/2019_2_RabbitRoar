@@ -12,7 +12,8 @@ export function postRequest(
         return fetch(url, {
 			method: "POST",
             headers: headers,
-			credentials: "include",
+            credentials: "include",
+            mode: "cors",            
 			body: body,
 		});
 }
