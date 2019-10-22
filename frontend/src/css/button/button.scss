@@ -2,8 +2,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-color: $color-border-primary;
-    color: $color-border-primary;
+    border-color: var(--border-color-theme);
+    color: var(--font-color-theme);
     border-width: 0px;
     border-style: solid;
     border-radius: 5px;
@@ -22,8 +22,8 @@
 
 .btn:hover {
     border-width: 1px;
-    border-color: $color-border-primary;
-    color: $color-border-primary;
+    border-color: var(--border-color-theme);
+    color: var(--font-color-theme);
     background-color: $color-bg-dark;
     border-bottom-width: 0px;
 }
@@ -33,10 +33,12 @@
     width: 75%;
     height: 75%;
 }
+
+
 .join-button:hover {
     border-width: 1px;
-    border-color: $color-border-primary;
-    color: $color-border-primary;
+    border-color: var(--border-color-theme);
+    color: var(--font-color-theme);
     background-color: $color-bg-dark;
 }
 
@@ -48,8 +50,8 @@
 
 .pg-button:hover {
     border-width: 1px;
-    border-color: $color-border-primary;
-    color: $color-border-primary;
+    border-color: var(--border-color-theme);;
+    color: var(--font-color-theme);;
     background-color: $color-bg-light;
     border-width: 0px;
 }

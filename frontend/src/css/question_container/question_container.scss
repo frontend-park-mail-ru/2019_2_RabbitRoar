@@ -1,0 +1,9 @@
+
+.question_container {
+    display: grid;
+    margin: auto;
+    width: var(--main-width);
+    color: var(--font-color-theme);
+    grid-template-columns: 1fr;
+    grid-template-rows:  10vh 10vh 10vh 10vh 10vh 10vh;
+}

@@ -1,6 +1,4 @@
 import Template from "./templates/navbarT.pug";
-import Bus from "../event_bus.js";
-import {NAVBAR_EVENT} from "../modules/events.js";
 import ValidatorF from "../fasade/userValidatorF.js";
 import NavbarC from "../controller/navbarC.js";
 

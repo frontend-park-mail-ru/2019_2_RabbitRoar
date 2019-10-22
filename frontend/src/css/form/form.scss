@@ -41,8 +41,8 @@
   }
 
   input:focus {
-    border-bottom: 2px solid $color-border-primary;
-    box-shadow: 0 5px 5px -5px $color-border-primary;
+    border-bottom: 2px solid var(--border-color-theme);
+    box-shadow: 0 5px 5px -5px var(--border-color-theme);
   }
 
   .input-error,
