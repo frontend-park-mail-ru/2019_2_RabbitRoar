@@ -1,0 +1,67 @@
+.panel-text {
+  color: white;
+  font-size: 1vw;
+
+  display: flex;
+  justify-content: center;
+}
+
+.game-panel-container {
+  display: grid;
+  margin: auto;
+  width: 90vw;
+  height: 20vh;
+  grid-template-rows: 1fr 3fr;
+  grid-template-columns: 2fr 1fr 4fr 1fr 2fr;
+}
+
+.input-answer {
+  grid-row-start: 1;
+  grid-row-end: 2;
+
+  grid-column-start: 3;
+  grid-column-end: 4;
+
+  font-size: $font-size;
+}
+
+.profile {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  
+  grid-column-start: 2;
+  grid-column-end: 3;
+  background-color: $color-bg-light;
+
+  border-bottom: 2px solid $color-border-primary-low;
+  border-left: 2px solid $color-border-primary-low;
+  border-top: 2px solid $color-border-primary-low;
+}
+
+.control {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 3;
+  grid-column-end: 4;
+  background-color: $color-bg-light;
+
+  border-bottom: 2px solid $color-border-primary-low;
+  border-left: 2px solid $color-border-primary-low;
+  border-top: 2px solid $color-border-primary-low;
+  border-right: 2px solid $color-border-primary-low;
+}
+
+.score {
+  display: flex;
+  justify-content: center;
+
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 4;
+  grid-column-end: 5;
+  background-color: $color-bg-light;
+
+  border-bottom: 2px solid $color-border-primary-low;
+  border-top: 2px solid $color-border-primary-low;
+  border-right: 2px solid $color-border-primary-low;
+}

@@ -19,6 +19,7 @@
 .btn {
     @extend %button;
 }
+
 .btn:hover {
     border-width: 1px;
     border-color: $color-border-primary;
@@ -26,7 +27,6 @@
     background-color: $color-bg-dark;
     border-bottom-width: 0px;
 }
-
 
 .join-button {
     @extend %button;
@@ -40,16 +40,29 @@
     background-color: $color-bg-dark;
 }
 
-
 .pg-button {
     @extend %button;
     border-radius: 0px;
     background-color: $color-bg-dark;
 }
+
 .pg-button:hover {
     border-width: 1px;
     border-color: $color-border-primary;
     color: $color-border-primary;
     background-color: $color-bg-light;
     border-width: 0px;
+}
+
+.game-panel-button {
+    @extend %button;
+    font-size: 1vw;
+    border-radius: 0px;
+}
+
+.game-panel-button:hover {
+    border-width: 1px;
+    border-color: $color-border-primary;
+    color: $color-border-primary;
+    background-color: $color-bg-dark;
 }
