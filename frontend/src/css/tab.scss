@@ -1,9 +1,8 @@
 %tab-default {
-    text-align: center;
+    display: flex;
     align-items: center;
-    width: 100%;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    justify-content: center;
+    height: 7vh;
     border-color: $color-border-primary-low;
     color: $color-border-primary-low;
     border-width: 1px;
@@ -12,20 +11,23 @@
     text-transform: uppercase;
 };
 
+
 .tab {
     @extend %tab-default;
 }
 
 .tab-click {
     @extend %tab-default;
+    z-index: 1;
     border-width: 2px;
     border-bottom-width: 0px;
-    border-color: $color-border-primary;
-    color: $color-border-primary;
+    border-color: var(--border-color-theme);
+    color: var(--font-color-theme);
     background-color: rgba(0, 0, 0, 0); 
 }
 
 .tab-hover {
+    z-index: 1;
     background-color: rgba(0, 0, 0, 0); 
     -webkit-box-shadow: 0px -5px 5px 0px rgba(54,249,246,1);
     -moz-box-shadow: 0px -5px 5px 0px rgba(54,249,246,1);
