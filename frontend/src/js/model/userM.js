@@ -8,7 +8,7 @@ class User {
         }
         User.instance = this;
 
-        this.autorised = true;
+        this.autorised = localStorage.getItem("autorized") || false;
         this.email = "Kekos@mail.ru";
         this.username = "Kekos";
         this.password = "qwerty";
@@ -33,6 +33,7 @@ class User {
 
     autorise() {
         this.autorised = true;
+        localStorage.setItem("autorized", this.autorised);
     }
 
     unAutorise() {
@@ -41,21 +42,22 @@ class User {
 
     async exit() {
         await logout();
+        this.autorised = false;
+        localStorage.removeItem("autorized");
     }
 
 
     async signIn(username, password) {
         await signIn(username, password);
         this.autorised = true;
+        localStorage.setItem("autorized", this.autorised);
     }
 
 
     async signUp(userStructure) {
-        try {
-            let response = await signUp(userStructure);
-        } catch (error) {
-            throw (errpn);
-        }
+        let response = await signUp(userStructure);
+        this.autorised = true;
+        localStorage.setItem("autorized", this.autorised);
     }
 }
 export default new User();
