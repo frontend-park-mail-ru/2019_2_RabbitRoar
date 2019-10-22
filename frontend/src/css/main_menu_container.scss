@@ -1,7 +1,7 @@
 .main-container {
-    width: 90vw;
-    margin: $panels-margin auto;
-    color: aqua;
+    width: var(--main-width);
+    margin: var(--main-content-vertical-margin) auto;
+    color: var(--font-color-theme);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 70vh;
@@ -16,9 +16,6 @@
     grid-row-end: 3;
 }
 
-.const-height {
-    height: 200px;
-}
 
 
 ::-webkit-scrollbar {

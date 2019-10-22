@@ -1,7 +1,7 @@
 %panel {
     margin: 0px auto;
     width: 98%;
-    margin-top: $panels-margin;
+    margin-top: var(--main-content-vertical-margin);
     display: grid;
     grid-template-rows: $table-elem-height;
 }
@@ -15,7 +15,7 @@
     margin-bottom: $table-vertical-margin;
     border-style: solid;
     background-color: $color-bg-light;
-    border-color: $color-border-primary;
+    border-color: var(--border-color-theme);
     border-width: 0px;
 }
 

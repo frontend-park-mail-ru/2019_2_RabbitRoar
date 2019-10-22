@@ -20,6 +20,24 @@
 @import 'paginator/paginator';
 @import 'button/button';
 
+@import 'question_container/question_container';
+@import 'question_container/__line/question_container__line';
+@import 'question_container/__theme/question_container__theme';
+@import 'question_container/__cost/question_container__cost';
+
+
+:root {
+    --question-theme-bg: $color-bg-dark;
+    --main-width: 90vw;
+    --main-content-vertical-margin: 2vh;
+
+
+    --font-color-theme: rgba(54, 249, 246, 1);
+    --border-color-theme: rgba(54, 249, 246, 1);
+
+    --question-container-border-width: 1px;
+    --question-container-gap-width: 2px;
+}
 
 body {
     background-color: $color-bg-dark;
