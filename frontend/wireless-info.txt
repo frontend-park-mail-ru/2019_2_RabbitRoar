@@ -1,0 +1,912 @@
+
+########## wireless info START ##########
+
+Report from: 22 Oct 2019 17:59 MSK +0300
+
+Booted last: 22 Oct 2019 00:00 MSK +0300
+
+Script from: 22 Oct 2018 03:34 UTC +0000
+
+##### release ###########################
+
+Distributor ID:	Ubuntu
+Description:	Ubuntu 18.04.3 LTS
+Release:	18.04
+Codename:	bionic
+
+##### kernel ############################
+
+Linux 5.0.0-23-generic #24~18.04.1-Ubuntu SMP Mon Jul 29 16:12:28 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+
+Parameters: ro, quiet, splash, vt.handoff=1
+
+##### desktop ###########################
+
+Ubuntu
+
+##### lspci #############################
+
+02:00.0 Ethernet controller [0200]: Realtek Semiconductor Co., Ltd. RTL810xE PCI Express Fast Ethernet controller [10ec:8136] (rev 05)
+	Subsystem: ASUSTeK Computer Inc. RTL810xE PCI Express Fast Ethernet controller [1043:200f]
+	Kernel driver in use: r8169
+
+03:00.0 Network controller [0280]: Qualcomm Atheros AR9485 Wireless Network Adapter [168c:0032] (rev 01)
+	Subsystem: AzureWave AR9485 Wireless Network Adapter [1a3b:2c97]
+	Kernel driver in use: ath9k
+
+##### lsusb #############################
+
+Bus 001 Device 002: ID 8087:8000 Intel Corp. 
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 003 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 002 Device 004: ID 0457:1029 Silicon Integrated Systems Corp. 
+Bus 002 Device 019: ID 13d3:3362 IMC Networks Atheros AR3012 Bluetooth 4.0 Adapter
+Bus 002 Device 002: ID 0bda:0129 Realtek Semiconductor Corp. RTS5129 Card Reader Controller
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+##### PCMCIA card info ##################
+
+##### rfkill ############################
+
+0: phy0: Wireless LAN
+	Soft blocked: no
+	Hard blocked: no
+8: hci0: Bluetooth
+	Soft blocked: no
+	Hard blocked: no
+
+##### secure boot #######################
+
+'mokutil' is not installed (package "mokutil").
+
+##### lsmod #############################
+
+ath3k                  24576  0
+ath9k                 151552  0
+ath9k_common           36864  1 ath9k
+ath9k_hw              475136  2 ath9k_common,ath9k
+bluetooth             557056  51 btrtl,btintel,btbcm,bnep,ath3k,btusb,rfcomm
+ath                    32768  3 ath9k_common,ath9k,ath9k_hw
+mac80211              815104  1 ath9k
+asus_nb_wmi            28672  0
+asus_wmi               28672  1 asus_nb_wmi
+sparse_keymap          16384  1 asus_wmi
+cfg80211              675840  4 ath9k_common,ath9k,ath,mac80211
+wmi                    28672  1 asus_wmi
+video                  49152  2 asus_wmi,i915
+
+##### interfaces ########################
+
+[/etc/network/interfaces]
+auto lo
+iface lo inet loopback
+
+##### ifconfig ##########################
+
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback <MAC address> brd <MAC address>
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: enp2s0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc fq_codel state DOWN group default qlen 1000
+    link/ether <MAC 'enp2s0' [IF1]> brd <MAC address>
+3: wlp3s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether <MAC 'wlp3s0' [IF2]> brd <MAC address>
+    inet 172.16.84.42/20 brd 172.16.95.255 scope global dynamic noprefixroute wlp3s0
+       valid_lft 820sec preferred_lft 820sec
+    inet6 fe80::c582:2ea4:75be:d5a/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+4: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default 
+    link/ether <MAC 'docker0' [IF3]> brd <MAC address>
+    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+       valid_lft forever preferred_lft forever
+
+##### iwconfig ##########################
+
+lo        no wireless extensions.
+
+docker0   no wireless extensions.
+
+enp2s0    no wireless extensions.
+
+wlp3s0    IEEE 802.11  ESSID:"bmstu_lb"  
+          Mode:Managed  Frequency:2.462 GHz  Access Point: <MAC 'bmstu_lb' [AC1]>   
+          Bit Rate=52 Mb/s   Tx-Power=15 dBm   
+          Retry short limit:7   RTS thr:off   Fragment thr:off
+          Power Management:off
+          Link Quality=68/70  Signal level=-42 dBm  
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:1  Invalid misc:52   Missed beacon:0
+
+##### route #############################
+
+default via 172.16.80.1 dev wlp3s0 proto dhcp metric 600 
+169.254.0.0/16 dev wlp3s0 scope link metric 1000 
+172.16.80.0/20 dev wlp3s0 proto kernel scope link src 172.16.84.42 metric 600 
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown 
+
+##### resolv.conf #######################
+
+[777 root '/etc/resolv.conf' -> '../run/systemd/resolve/stub-resolv.conf']
+
+nameserver 127.0.0.53
+options edns0
+search bmstu.ru
+
+##### network managers ##################
+
+Installed:
+
+	NetworkManager
+
+Running:
+
+root       751     1  0 Oct19 ?        00:00:32 /usr/sbin/NetworkManager --no-daemon
+
+##### NetworkManager info ###############
+
+GENERAL.DEVICE:                         wlp3s0
+GENERAL.TYPE:                           wifi
+GENERAL.NM-TYPE:                        NMDeviceWifi
+GENERAL.VENDOR:                         Qualcomm Atheros
+GENERAL.PRODUCT:                        AR9485 Wireless Network Adapter
+GENERAL.DRIVER:                         ath9k
+GENERAL.DRIVER-VERSION:                 5.0.0-23-generic
+GENERAL.FIRMWARE-VERSION:               N/A
+GENERAL.HWADDR:                         <MAC 'wlp3s0' [IF2]>
+GENERAL.MTU:                            1500
+GENERAL.STATE:                          100 (connected)
+GENERAL.REASON:                         0 (No reason given)
+GENERAL.UDI:                            /sys/devices/pci0000:00/0000:00:1c.3/0000:03:00.0/net/wlp3s0
+GENERAL.IP-IFACE:                       wlp3s0
+GENERAL.IS-SOFTWARE:                    no
+GENERAL.NM-MANAGED:                     yes
+GENERAL.AUTOCONNECT:                    yes
+GENERAL.FIRMWARE-MISSING:               no
+GENERAL.NM-PLUGIN-MISSING:              no
+GENERAL.PHYS-PORT-ID:                   --
+GENERAL.CONNECTION:                     bmstu_lb
+GENERAL.CON-UUID:                       bb98597e-0db5-4d30-b0df-4f0bd5aef891
+GENERAL.CON-PATH:                       /org/freedesktop/NetworkManager/ActiveConnection/31
+GENERAL.METERED:                        no (guessed)
+CAPABILITIES.CARRIER-DETECT:            no
+CAPABILITIES.SPEED:                     52 Mb/s
+CAPABILITIES.IS-SOFTWARE:               no
+CAPABILITIES.SRIOV:                     no
+WIFI-PROPERTIES.WEP:                    yes
+WIFI-PROPERTIES.WPA:                    yes
+WIFI-PROPERTIES.WPA2:                   yes
+WIFI-PROPERTIES.TKIP:                   yes
+WIFI-PROPERTIES.CCMP:                   yes
+WIFI-PROPERTIES.AP:                     yes
+WIFI-PROPERTIES.ADHOC:                  yes
+WIFI-PROPERTIES.2GHZ:                   yes
+WIFI-PROPERTIES.5GHZ:                   no
+IP4.ADDRESS[1]:                         172.16.84.42/20
+IP4.GATEWAY:                            172.16.80.1
+IP4.ROUTE[1]:                           dst = 0.0.0.0/0, nh = 172.16.80.1, mt = 600
+IP4.ROUTE[2]:                           dst = 172.16.80.0/20, nh = 0.0.0.0, mt = 600
+IP4.ROUTE[3]:                           dst = 169.254.0.0/16, nh = 0.0.0.0, mt = 1000
+IP4.DNS[1]:                             172.16.80.1
+IP4.DOMAIN[1]:                          bmstu.ru
+DHCP4.OPTION[1]:                        requested_host_name = 1
+DHCP4.OPTION[2]:                        requested_domain_search = 1
+DHCP4.OPTION[3]:                        requested_broadcast_address = 1
+DHCP4.OPTION[4]:                        requested_domain_name = 1
+DHCP4.OPTION[5]:                        requested_rfc3442_classless_static_routes = 1
+DHCP4.OPTION[6]:                        requested_time_offset = 1
+DHCP4.OPTION[7]:                        broadcast_address = 172.16.95.255
+DHCP4.OPTION[8]:                        domain_name = bmstu.ru
+DHCP4.OPTION[9]:                        requested_wpad = 1
+DHCP4.OPTION[10]:                       next_server = 0.0.0.0
+DHCP4.OPTION[11]:                       expiry = 1571757198
+DHCP4.OPTION[12]:                       requested_interface_mtu = 1
+DHCP4.OPTION[13]:                       dhcp_message_type = 5
+DHCP4.OPTION[14]:                       dhcp_lease_time = 1200
+DHCP4.OPTION[15]:                       ip_address = 172.16.84.42
+DHCP4.OPTION[16]:                       requested_subnet_mask = 1
+DHCP4.OPTION[17]:                       subnet_mask = 255.255.240.0
+DHCP4.OPTION[18]:                       requested_static_routes = 1
+DHCP4.OPTION[19]:                       routers = 172.16.80.1
+DHCP4.OPTION[20]:                       requested_netbios_scope = 1
+DHCP4.OPTION[21]:                       domain_name_servers = 172.16.80.1
+DHCP4.OPTION[22]:                       requested_ntp_servers = 1
+DHCP4.OPTION[23]:                       requested_netbios_name_servers = 1
+DHCP4.OPTION[24]:                       requested_routers = 1
+DHCP4.OPTION[25]:                       requested_ms_classless_static_routes = 1
+DHCP4.OPTION[26]:                       requested_domain_name_servers = 1
+DHCP4.OPTION[27]:                       network_number = 172.16.80.0
+DHCP4.OPTION[28]:                       dhcp_server_identifier = 172.16.80.1
+IP6.ADDRESS[1]:                         fe80::c582:2ea4:75be:d5a/64
+IP6.GATEWAY:                            --
+IP6.ROUTE[1]:                           dst = ff00::/8, nh = ::, mt = 256, table=255
+IP6.ROUTE[2]:                           dst = fe80::/64, nh = ::, mt = 256
+IP6.ROUTE[3]:                           dst = fe80::/64, nh = ::, mt = 600
+CONNECTIONS.AVAILABLE-CONNECTION-PATHS: /org/freedesktop/NetworkManager/Settings/{5,4}
+CONNECTIONS.AVAILABLE-CONNECTIONS[1]:   3f6d4fcf-91cf-44ce-a45d-ae2344b0b2dd | rk6_417
+CONNECTIONS.AVAILABLE-CONNECTIONS[2]:   bb98597e-0db5-4d30-b0df-4f0bd5aef891 | bmstu_lb
+
+GENERAL.DEVICE:                         docker0
+GENERAL.TYPE:                           bridge
+GENERAL.NM-TYPE:                        NMDeviceBridge
+GENERAL.VENDOR:                         --
+GENERAL.PRODUCT:                        --
+GENERAL.DRIVER:                         bridge
+GENERAL.DRIVER-VERSION:                 2.3
+GENERAL.FIRMWARE-VERSION:               N/A
+GENERAL.HWADDR:                         <MAC 'docker0' [IF3]>
+GENERAL.MTU:                            1500
+GENERAL.STATE:                          100 (connected)
+GENERAL.REASON:                         0 (No reason given)
+GENERAL.UDI:                            /sys/devices/virtual/net/docker0
+GENERAL.IP-IFACE:                       docker0
+GENERAL.IS-SOFTWARE:                    yes
+GENERAL.NM-MANAGED:                     yes
+GENERAL.AUTOCONNECT:                    yes
+GENERAL.FIRMWARE-MISSING:               no
+GENERAL.NM-PLUGIN-MISSING:              no
+GENERAL.PHYS-PORT-ID:                   --
+GENERAL.CONNECTION:                     docker0
+GENERAL.CON-UUID:                       ad8ffdcd-1b97-433d-9bb2-87d1e3092092
+GENERAL.CON-PATH:                       /org/freedesktop/NetworkManager/ActiveConnection/14
+GENERAL.METERED:                        no (guessed)
+CAPABILITIES.CARRIER-DETECT:            yes
+CAPABILITIES.SPEED:                     unknown
+CAPABILITIES.IS-SOFTWARE:               yes
+CAPABILITIES.SRIOV:                     no
+IP4.ADDRESS[1]:                         172.17.0.1/16
+IP4.GATEWAY:                            --
+IP4.ROUTE[1]:                           dst = 172.17.0.0/16, nh = 0.0.0.0, mt = 0
+IP6.GATEWAY:                            --
+BRIDGE.SLAVES:                          --
+CONNECTIONS.AVAILABLE-CONNECTION-PATHS: /org/freedesktop/NetworkManager/Settings/{6}
+CONNECTIONS.AVAILABLE-CONNECTIONS[1]:   ad8ffdcd-1b97-433d-9bb2-87d1e3092092 | docker0
+
+GENERAL.DEVICE:                         enp2s0
+GENERAL.TYPE:                           ethernet
+GENERAL.NM-TYPE:                        NMDeviceEthernet
+GENERAL.VENDOR:                         Realtek Semiconductor Co., Ltd.
+GENERAL.PRODUCT:                        RTL810xE PCI Express Fast Ethernet controller
+GENERAL.DRIVER:                         r8169
+GENERAL.DRIVER-VERSION:                 --
+GENERAL.FIRMWARE-VERSION:               --
+GENERAL.HWADDR:                         <MAC 'enp2s0' [IF1]>
+GENERAL.MTU:                            1500
+GENERAL.STATE:                          20 (unavailable)
+GENERAL.REASON:                         2 (Device is now managed)
+GENERAL.UDI:                            /sys/devices/pci0000:00/0000:00:1c.2/0000:02:00.0/net/enp2s0
+GENERAL.IP-IFACE:                       --
+GENERAL.IS-SOFTWARE:                    no
+GENERAL.NM-MANAGED:                     yes
+GENERAL.AUTOCONNECT:                    yes
+GENERAL.FIRMWARE-MISSING:               no
+GENERAL.NM-PLUGIN-MISSING:              no
+GENERAL.PHYS-PORT-ID:                   --
+GENERAL.CONNECTION:                     --
+GENERAL.CON-UUID:                       --
+GENERAL.CON-PATH:                       --
+GENERAL.METERED:                        unknown
+CAPABILITIES.CARRIER-DETECT:            yes
+CAPABILITIES.SPEED:                     unknown
+CAPABILITIES.IS-SOFTWARE:               no
+CAPABILITIES.SRIOV:                     no
+WIRED-PROPERTIES.CARRIER:               off
+CONNECTIONS.AVAILABLE-CONNECTION-PATHS: --
+
+SSID      BSSID              MODE   CHAN  FREQ      RATE        SIGNAL  BARS  SECURITY  ACTIVE  IN-USE 
+bmstu_lb  <MAC 'bmstu_lb' [AC1]>  Infra  11    2462 MHz  270 Mbit/s  78      ▂▄▆_  --        yes     *      
+
+##### NetworkManager.state ##############
+
+[main]
+NetworkingEnabled=true
+WirelessEnabled=true
+WWANEnabled=true
+
+##### NetworkManager config #############
+
+[[/etc/NetworkManager/conf.d/default-wifi-powersave-on.conf]]
+[connection]
+wifi.powersave = 3
+
+[[/etc/NetworkManager/NetworkManager.conf]]
+[main]
+plugins=ifupdown,keyfile
+[ifupdown]
+managed=false
+[device]
+wifi.scan-rand-mac-address=no
+
+[[/usr/lib/NetworkManager/conf.d/10-dns-resolved.conf]]
+[main]
+dns=systemd-resolved
+
+[[/usr/lib/NetworkManager/conf.d/10-globally-managed-devices.conf]]
+[keyfile]
+unmanaged-devices=*,except:type:wifi,except:type:wwan
+
+[[/usr/lib/NetworkManager/conf.d/20-connectivity-ubuntu.conf]]
+[connectivity]
+uri=http://connectivity-check.ubuntu.com/
+
+[[/usr/lib/NetworkManager/conf.d/no-mac-addr-change.conf]]
+[device-mac-addr-change-wifi]
+match-device=driver:rtl8723bs,driver:rtl8189es,driver:r8188eu,driver:8188eu,driver:eagle_sdio,driver:wl
+wifi.scan-rand-mac-address=no
+wifi.cloned-mac-address=preserve
+ethernet.cloned-mac-address=preserve
+
+##### NetworkManager profiles ###########
+
+[[/etc/NetworkManager/system-connections/Honor 7хэ]] (600 root)
+[connection] id=Honor 7хэ | type=wifi | permissions=
+[wifi] mac-address=<MAC 'wlp3s0' [IF2]> | mac-address-blacklist= | ssid=72;111;110;111;114;32;55;209;133;209;141;
+[ipv4] method=auto
+[ipv6] method=auto
+
+[[/etc/NetworkManager/system-connections/rk6_417]] (600 root)
+[connection] id=rk6_417 | type=wifi | permissions=
+[wifi] mac-address=<MAC 'wlp3s0' [IF2]> | mac-address-blacklist= | ssid=rk6_417
+[ipv4] method=auto
+[ipv6] method=auto
+
+[[/etc/NetworkManager/system-connections/bmstu_lb]] (600 root)
+[connection] id=bmstu_lb | type=wifi | permissions=
+[wifi] mac-address=<MAC 'wlp3s0' [IF2]> | mac-address-blacklist= | ssid=bmstu_lb
+[ipv4] method=auto
+[ipv6] method=auto
+
+[[/etc/NetworkManager/system-connections/It's amAzing]] (600 root)
+[connection] id=It's amAzing | type=wifi | permissions=
+[wifi] mac-address=<MAC 'wlp3s0' [IF2]> | mac-address-blacklist= | ssid=It's amAzing
+[ipv4] method=auto
+[ipv6] method=auto
+
+##### Netplan config ####################
+
+[/etc/netplan/01-network-manager-all.yaml]
+network:
+  version: 2
+  renderer: NetworkManager
+
+##### iw reg get ########################
+
+Region: Europe/Moscow (based on set time zone)
+
+global
+country RU: DFS-ETSI
+	(2402 - 2482 @ 40), (N/A, 20), (N/A)
+	(5170 - 5250 @ 80), (N/A, 20), (N/A), AUTO-BW
+	(5250 - 5330 @ 80), (N/A, 20), (0 ms), DFS, AUTO-BW
+	(5650 - 5730 @ 80), (N/A, 30), (0 ms), DFS
+	(5735 - 5835 @ 80), (N/A, 30), (N/A)
+	(57000 - 66000 @ 2160), (N/A, 40), (N/A)
+
+##### iwlist channels ###################
+
+lo        no frequency information.
+
+docker0   no frequency information.
+
+enp2s0    no frequency information.
+
+wlp3s0    13 channels in total; available frequencies :
+          Channel 01 : 2.412 GHz
+          Channel 02 : 2.417 GHz
+          Channel 03 : 2.422 GHz
+          Channel 04 : 2.427 GHz
+          Channel 05 : 2.432 GHz
+          Channel 06 : 2.437 GHz
+          Channel 07 : 2.442 GHz
+          Channel 08 : 2.447 GHz
+          Channel 09 : 2.452 GHz
+          Channel 10 : 2.457 GHz
+          Channel 11 : 2.462 GHz
+          Channel 12 : 2.467 GHz
+          Channel 13 : 2.472 GHz
+          Current Frequency:2.462 GHz (Channel 11)
+
+##### iwlist scan #######################
+
+lo        Interface doesn't support scanning.
+
+docker0   Interface doesn't support scanning.
+
+enp2s0    Interface doesn't support scanning.
+
+Channel occupancy:
+
+      7   APs on   Frequency:2.412 GHz (Channel 1)
+      1   APs on   Frequency:2.417 GHz (Channel 2)
+      1   APs on   Frequency:2.447 GHz (Channel 8)
+      4   APs on   Frequency:2.462 GHz (Channel 11)
+
+wlp3s0    Scan completed :
+          Cell 01 - Address: <MAC 'bmstu_lb' [AC1]>
+                    Channel:11
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=62/70  Signal level=-48 dBm  
+                    Encryption key:off
+                    ESSID:"bmstu_lb"
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 6 Mb/s; 9 Mb/s
+                              11 Mb/s; 12 Mb/s; 18 Mb/s
+                    Bit Rates:24 Mb/s; 36 Mb/s; 48 Mb/s; 54 Mb/s
+                    Mode:Master
+                    Extra:tsf=00000078f69fb9d3
+                    Extra: Last beacon: 48ms ago
+          Cell 02 - Address: <MAC 'RealTalk' [AC2]>
+                    Channel:1
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=39/70  Signal level=-71 dBm  
+                    Encryption key:on
+                    ESSID:"RealTalk"
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 11 Mb/s; 6 Mb/s
+                              9 Mb/s; 12 Mb/s; 18 Mb/s
+                    Bit Rates:24 Mb/s; 36 Mb/s; 48 Mb/s; 54 Mb/s
+                    Mode:Master
+                    Extra:tsf=00000004e242a635
+                    Extra: Last beacon: 48ms ago
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : CCMP
+                        Pairwise Ciphers (1) : CCMP
+                        Authentication Suites (1) : PSK
+          Cell 03 - Address: <MAC 'bmstu_lb' [AC3]>
+                    Channel:1
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=41/70  Signal level=-69 dBm  
+                    Encryption key:off
+                    ESSID:"bmstu_lb"
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 6 Mb/s; 9 Mb/s
+                              11 Mb/s; 12 Mb/s; 18 Mb/s
+                    Bit Rates:24 Mb/s; 36 Mb/s; 48 Mb/s; 54 Mb/s
+                    Mode:Master
+                    Extra:tsf=00000078f653b459
+                    Extra: Last beacon: 48ms ago
+          Cell 04 - Address: <MAC 'K6' [AC4]>
+                    Channel:2
+                    Frequency:2.417 GHz (Channel 2)
+                    Quality=43/70  Signal level=-67 dBm  
+                    Encryption key:on
+                    ESSID:"K6"
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 11 Mb/s; 6 Mb/s
+                              9 Mb/s; 12 Mb/s; 18 Mb/s
+                    Bit Rates:24 Mb/s; 36 Mb/s; 48 Mb/s; 54 Mb/s
+                    Mode:Master
+                    Extra:tsf=0000000051eb47f2
+                    Extra: Last beacon: 48ms ago
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : CCMP
+                        Pairwise Ciphers (1) : CCMP
+                        Authentication Suites (1) : PSK
+          Cell 05 - Address: <MAC 'Honor 7C' [AC5]>
+                    Channel:1
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=35/70  Signal level=-75 dBm  
+                    Encryption key:on
+                    ESSID:"Honor 7C"
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 11 Mb/s
+                    Bit Rates:6 Mb/s; 9 Mb/s; 12 Mb/s; 18 Mb/s; 24 Mb/s
+                              36 Mb/s; 48 Mb/s; 54 Mb/s
+                    Mode:Master
+                    Extra:tsf=000000006a049a05
+                    Extra: Last beacon: 48ms ago
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : CCMP
+                        Pairwise Ciphers (1) : CCMP
+                        Authentication Suites (1) : PSK
+          Cell 06 - Address: <MAC 'bmstu_staff' [AC6]>
+                    Channel:1
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=46/70  Signal level=-64 dBm  
+                    Encryption key:off
+                    ESSID:"bmstu_staff"
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 6 Mb/s; 9 Mb/s
+                              11 Mb/s; 12 Mb/s; 18 Mb/s
+                    Bit Rates:24 Mb/s; 36 Mb/s; 48 Mb/s; 54 Mb/s
+                    Mode:Master
+                    Extra:tsf=00000078f653bab9
+                    Extra: Last beacon: 48ms ago
+          Cell 07 - Address: <MAC 'nicknet_share' [AC7]>
+                    Channel:1
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=33/70  Signal level=-77 dBm  
+                    Encryption key:on
+                    ESSID:"nicknet_share"
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 11 Mb/s; 6 Mb/s
+                              9 Mb/s; 12 Mb/s; 18 Mb/s
+                    Bit Rates:24 Mb/s; 36 Mb/s; 48 Mb/s; 54 Mb/s
+                    Mode:Master
+                    Extra:tsf=0000000119d60673
+                    Extra: Last beacon: 2404ms ago
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : TKIP
+                        Pairwise Ciphers (2) : CCMP TKIP
+                        Authentication Suites (1) : PSK
+                    IE: WPA Version 1
+                        Group Cipher : TKIP
+                        Pairwise Ciphers (2) : CCMP TKIP
+                        Authentication Suites (1) : PSK
+          Cell 08 - Address: <MAC 'bmstu_guest' [AC8]>
+                    Channel:1
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=38/70  Signal level=-72 dBm  
+                    Encryption key:off
+                    ESSID:"bmstu_guest"
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 6 Mb/s; 9 Mb/s
+                              11 Mb/s; 12 Mb/s; 18 Mb/s
+                    Bit Rates:24 Mb/s; 36 Mb/s; 48 Mb/s; 54 Mb/s
+                    Mode:Master
+                    Extra:tsf=00000078f6539418
+                    Extra: Last beacon: 48ms ago
+          Cell 09 - Address: <MAC 'HUAWEI P smart Z' [AC9]>
+                    Channel:1
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=29/70  Signal level=-81 dBm  
+                    Encryption key:on
+                    ESSID:"HUAWEI P smart Z"
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 6 Mb/s; 9 Mb/s
+                              11 Mb/s; 12 Mb/s; 18 Mb/s
+                    Bit Rates:24 Mb/s; 36 Mb/s; 48 Mb/s; 54 Mb/s
+                    Mode:Master
+                    Extra:tsf=000000028511d932
+                    Extra: Last beacon: 48ms ago
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : CCMP
+                        Pairwise Ciphers (1) : CCMP
+                        Authentication Suites (1) : PSK
+          Cell 10 - Address: <MAC 'bmstu_staff' [AC10]>
+                    Channel:11
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=61/70  Signal level=-49 dBm  
+                    Encryption key:off
+                    ESSID:"bmstu_staff"
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 6 Mb/s; 9 Mb/s
+                              11 Mb/s; 12 Mb/s; 18 Mb/s
+                    Bit Rates:24 Mb/s; 36 Mb/s; 48 Mb/s; 54 Mb/s
+                    Mode:Master
+                    Extra:tsf=00000078f6a00303
+                    Extra: Last beacon: 744ms ago
+          Cell 11 - Address: <MAC 'bmstu_guest' [AC11]>
+                    Channel:11
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=70/70  Signal level=-37 dBm  
+                    Encryption key:off
+                    ESSID:"bmstu_guest"
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 6 Mb/s; 9 Mb/s
+                              11 Mb/s; 12 Mb/s; 18 Mb/s
+                    Bit Rates:24 Mb/s; 36 Mb/s; 48 Mb/s; 54 Mb/s
+                    Mode:Master
+                    Extra:tsf=00000078f6a18978
+                    Extra: Last beacon: 572ms ago
+          Cell 12 - Address: <MAC 'Keenetic-0409' [AC12]>
+                    Channel:8
+                    Frequency:2.447 GHz (Channel 8)
+                    Quality=32/70  Signal level=-78 dBm  
+                    Encryption key:on
+                    ESSID:"Keenetic-0409"
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 11 Mb/s; 9 Mb/s
+                              18 Mb/s; 36 Mb/s; 54 Mb/s
+                    Bit Rates:6 Mb/s; 12 Mb/s; 24 Mb/s; 48 Mb/s
+                    Mode:Master
+                    Extra:tsf=0000009376b221a8
+                    Extra: Last beacon: 2180ms ago
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : CCMP
+                        Pairwise Ciphers (1) : CCMP
+                        Authentication Suites (1) : PSK
+          Cell 13 - Address: <MAC 'nubia Z11' [AC13]>
+                    Channel:11
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=51/70  Signal level=-59 dBm  
+                    Encryption key:on
+                    ESSID:"nubia Z11"
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 11 Mb/s
+                    Bit Rates:6 Mb/s; 9 Mb/s; 12 Mb/s; 18 Mb/s; 24 Mb/s
+                              36 Mb/s; 48 Mb/s; 54 Mb/s
+                    Mode:Master
+                    Extra:tsf=00000000285ff796
+                    Extra: Last beacon: 1952ms ago
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : CCMP
+                        Pairwise Ciphers (1) : CCMP
+                        Authentication Suites (1) : PSK
+
+##### module infos ######################
+
+[ath3k]
+filename:       /lib/modules/5.0.0-23-generic/kernel/drivers/bluetooth/ath3k.ko
+firmware:       ath3k-1.fw
+license:        GPL
+version:        1.0
+description:    Atheros AR30xx firmware driver
+author:         Atheros Communications
+srcversion:     0698FF82BA5447F980EA11E
+depends:        bluetooth
+retpoline:      Y
+intree:         Y
+name:           ath3k
+vermagic:       5.0.0-23-generic SMP mod_unload 
+signat:         PKCS#7
+signer:         
+sig_key:        
+sig_hashalgo:   md4
+
+[ath9k]
+filename:       /lib/modules/5.0.0-23-generic/kernel/drivers/net/wireless/ath/ath9k/ath9k.ko
+license:        Dual BSD/GPL
+description:    Support for Atheros 802.11n wireless LAN cards.
+author:         Atheros Communications
+srcversion:     1A57E7BCBBB6129CC86B437
+depends:        mac80211,ath9k_hw,ath9k_common,cfg80211,ath
+retpoline:      Y
+intree:         Y
+name:           ath9k
+vermagic:       5.0.0-23-generic SMP mod_unload 
+signat:         PKCS#7
+signer:         
+sig_key:        
+sig_hashalgo:   md4
+parm:           debug:Debugging mask (uint)
+parm:           nohwcrypt:Disable hardware encryption (int)
+parm:           blink:Enable LED blink on activity (int)
+parm:           led_active_high:Invert LED polarity (int)
+parm:           btcoex_enable:Enable wifi-BT coexistence (int)
+parm:           bt_ant_diversity:Enable WLAN/BT RX antenna diversity (int)
+parm:           ps_enable:Enable WLAN PowerSave (int)
+parm:           use_chanctx:Enable channel context for concurrency (int)
+parm:           use_msi:Use MSI instead of INTx if possible (int)
+
+[ath9k_common]
+filename:       /lib/modules/5.0.0-23-generic/kernel/drivers/net/wireless/ath/ath9k/ath9k_common.ko
+license:        Dual BSD/GPL
+description:    Shared library for Atheros wireless 802.11n LAN cards.
+author:         Atheros Communications
+srcversion:     6C3F8168D5F16B48D690C74
+depends:        ath9k_hw,cfg80211,ath
+retpoline:      Y
+intree:         Y
+name:           ath9k_common
+vermagic:       5.0.0-23-generic SMP mod_unload 
+signat:         PKCS#7
+signer:         
+sig_key:        
+sig_hashalgo:   md4
+
+[ath9k_hw]
+filename:       /lib/modules/5.0.0-23-generic/kernel/drivers/net/wireless/ath/ath9k/ath9k_hw.ko
+license:        Dual BSD/GPL
+description:    Support for Atheros 802.11n wireless LAN cards.
+author:         Atheros Communications
+srcversion:     2D019FCE9522A424D76DFC3
+depends:        ath
+retpoline:      Y
+intree:         Y
+name:           ath9k_hw
+vermagic:       5.0.0-23-generic SMP mod_unload 
+signat:         PKCS#7
+signer:         
+sig_key:        
+sig_hashalgo:   md4
+
+[ath]
+filename:       /lib/modules/5.0.0-23-generic/kernel/drivers/net/wireless/ath/ath.ko
+license:        Dual BSD/GPL
+description:    Shared library for Atheros wireless LAN cards.
+author:         Atheros Communications
+srcversion:     6472C44D3E1911E7AC15723
+depends:        cfg80211
+retpoline:      Y
+intree:         Y
+name:           ath
+vermagic:       5.0.0-23-generic SMP mod_unload 
+signat:         PKCS#7
+signer:         
+sig_key:        
+sig_hashalgo:   md4
+
+[mac80211]
+filename:       /lib/modules/5.0.0-23-generic/kernel/net/mac80211/mac80211.ko
+license:        GPL
+description:    IEEE 802.11 subsystem
+srcversion:     8B2F8954F7357ED172C9491
+depends:        cfg80211
+retpoline:      Y
+intree:         Y
+name:           mac80211
+vermagic:       5.0.0-23-generic SMP mod_unload 
+signat:         PKCS#7
+signer:         
+sig_key:        
+sig_hashalgo:   md4
+parm:           minstrel_vht_only:Use only VHT rates when VHT is supported by sta. (bool)
+parm:           max_nullfunc_tries:Maximum nullfunc tx tries before disconnecting (reason 4). (int)
+parm:           max_probe_tries:Maximum probe tries before disconnecting (reason 4). (int)
+parm:           beacon_loss_count:Number of beacon intervals before we decide beacon was lost. (int)
+parm:           probe_wait_ms:Maximum time(ms) to wait for probe response before disconnecting (reason 4). (int)
+parm:           ieee80211_default_rc_algo:Default rate control algorithm for mac80211 to use (charp)
+
+[cfg80211]
+filename:       /lib/modules/5.0.0-23-generic/kernel/net/wireless/cfg80211.ko
+description:    wireless configuration support
+license:        GPL
+author:         Johannes Berg
+srcversion:     2BD3ED72B421276E6C2918E
+depends:        
+retpoline:      Y
+intree:         Y
+name:           cfg80211
+vermagic:       5.0.0-23-generic SMP mod_unload 
+signat:         PKCS#7
+signer:         
+sig_key:        
+sig_hashalgo:   md4
+parm:           bss_entries_limit:limit to number of scan BSS entries (per wiphy, default 1000) (int)
+parm:           ieee80211_regdom:IEEE 802.11 regulatory domain code (charp)
+parm:           cfg80211_disable_40mhz_24ghz:Disable 40MHz support in the 2.4GHz band (bool)
+
+##### module parameters #################
+
+[ath9k]
+blink: 0
+bt_ant_diversity: 0
+btcoex_enable: 0
+led_active_high: -1
+nohwcrypt: 0
+ps_enable: 0
+use_chanctx: 0
+use_msi: 0
+
+[mac80211]
+beacon_loss_count: 7
+ieee80211_default_rc_algo: minstrel_ht
+max_nullfunc_tries: 2
+max_probe_tries: 5
+minstrel_vht_only: Y
+probe_wait_ms: 500
+
+[cfg80211]
+bss_entries_limit: 1000
+cfg80211_disable_40mhz_24ghz: N
+ieee80211_regdom: 00
+
+##### /etc/modules ######################
+
+##### modprobe options ##################
+
+[/etc/modprobe.d/amd64-microcode-blacklist.conf]
+blacklist microcode
+
+[/etc/modprobe.d/blacklist-ath_pci.conf]
+blacklist ath_pci
+
+[/etc/modprobe.d/blacklist.conf]
+blacklist evbug
+blacklist usbmouse
+blacklist usbkbd
+blacklist eepro100
+blacklist de4x5
+blacklist eth1394
+blacklist snd_intel8x0m
+blacklist snd_aw2
+blacklist i2c_i801
+blacklist prism54
+blacklist bcm43xx
+blacklist garmin_gps
+blacklist asus_acpi
+blacklist snd_pcsp
+blacklist pcspkr
+blacklist amd76x_edac
+
+[/etc/modprobe.d/blacklist-rare-network.conf]
+alias net-pf-3 off
+alias net-pf-6 off
+alias net-pf-9 off
+alias net-pf-11 off
+alias net-pf-12 off
+alias net-pf-19 off
+alias net-pf-21 off
+alias net-pf-36 off
+
+[/etc/modprobe.d/intel-microcode-blacklist.conf]
+blacklist microcode
+
+[/etc/modprobe.d/iwlwifi.conf]
+remove iwlwifi \
+(/sbin/lsmod | grep -o -e ^iwlmvm -e ^iwldvm -e ^iwlwifi | xargs /sbin/rmmod) \
+&& /sbin/modprobe -r mac80211
+
+##### rc.local ##########################
+
+grep: /etc/rc.local: No such file or directory
+
+##### pm-utils ##########################
+
+##### udev rules ########################
+
+##### dmesg #############################
+
+[40200.901024] ath: Country alpha2 being used: RU
+[40200.901024] ath: Regpair used: 0x3d
+[40200.901026] ath: regdomain 0x8283 dynamically updated by country element
+[40200.901420] IPv6: ADDRCONF(NETDEV_CHANGE): wlp3s0: link becomes ready
+[40200.971244] wlp3s0: Limiting TX power to 17 dBm as advertised by <MAC 'bmstu_lb' [AC1]>
+[40407.350431] wlp3s0: deauthenticating from <MAC 'bmstu_lb' [AC1]> by local choice (Reason: 3=DEAUTH_LEAVING)
+[40414.484624] wlp3s0: authenticate with <MAC 'bmstu_lb' [AC1]>
+[40414.499308] wlp3s0: send auth to <MAC 'bmstu_lb' [AC1]> (try 1/3)
+[40414.504574] wlp3s0: authenticated
+[40414.509150] wlp3s0: associate with <MAC 'bmstu_lb' [AC1]> (try 1/3)
+[40414.514422] wlp3s0: RX AssocResp from <MAC 'bmstu_lb' [AC1]> (capab=0x421 status=0 aid=85)
+[40414.514539] wlp3s0: associated
+[40414.514698] ath: EEPROM regdomain: 0x8283
+[40414.514699] ath: EEPROM indicates we should expect a country code
+[40414.514701] ath: doing EEPROM country->regdmn map search
+[40414.514703] ath: country maps to regdmn code: 0x3d
+[40414.514704] ath: Country alpha2 being used: RU
+[40414.514705] ath: Regpair used: 0x3d
+[40414.514707] ath: regdomain 0x8283 dynamically updated by country element
+[40414.515024] IPv6: ADDRCONF(NETDEV_CHANGE): wlp3s0: link becomes ready
+[40415.613068] wlp3s0: Limiting TX power to 17 dBm as advertised by <MAC 'bmstu_lb' [AC1]>
+[40532.096288] wlp3s0: authenticate with <MAC 'bmstu_lb' [AC1]>
+[40532.117450] wlp3s0: send auth to <MAC 'bmstu_lb' [AC1]> (try 1/3)
+[40532.125160] wlp3s0: authenticated
+[40532.127280] wlp3s0: associate with <MAC 'bmstu_lb' [AC1]> (try 1/3)
+[40532.132592] wlp3s0: RX AssocResp from <MAC 'bmstu_lb' [AC1]> (capab=0x421 status=0 aid=85)
+[40532.132821] wlp3s0: associated
+[40532.133336] ath: EEPROM regdomain: 0x8283
+[40532.133339] ath: EEPROM indicates we should expect a country code
+[40532.133341] ath: doing EEPROM country->regdmn map search
+[40532.133343] ath: country maps to regdmn code: 0x3d
+[40532.133345] ath: Country alpha2 being used: RU
+[40532.133346] ath: Regpair used: 0x3d
+[40532.133349] ath: regdomain 0x8283 dynamically updated by country element
+[40532.177997] wlp3s0: Limiting TX power to 17 dBm as advertised by <MAC 'bmstu_lb' [AC1]>
+[40603.228550] wlp3s0: deauthenticating from <MAC 'bmstu_lb' [AC1]> by local choice (Reason: 3=DEAUTH_LEAVING)
+[40605.831017] wlp3s0: authenticate with <MAC address>
+[40605.853247] wlp3s0: send auth to <MAC address> (try 1/3)
+[40605.866191] wlp3s0: authenticated
+[40605.868267] wlp3s0: associate with <MAC address> (try 1/3)
+[40605.896216] wlp3s0: RX AssocResp from <MAC address> (capab=0x1631 status=0 aid=4)
+[40605.896333] wlp3s0: associated
+[40605.896522] ath: EEPROM regdomain: 0x8283
+[40605.896524] ath: EEPROM indicates we should expect a country code
+[40605.896526] ath: doing EEPROM country->regdmn map search
+[40605.896528] ath: country maps to regdmn code: 0x3d
+[40605.896530] ath: Country alpha2 being used: RU
+[40605.896531] ath: Regpair used: 0x3d
+[40605.896534] ath: regdomain 0x8283 dynamically updated by country element
+[40606.093714] wlp3s0: Limiting TX power to 20 (20 - 0) dBm as advertised by <MAC address>
+[40705.154078] wlp3s0: deauthenticating from <MAC address> by local choice (Reason: 3=DEAUTH_LEAVING)
+[40708.512045] wlp3s0: authenticate with <MAC 'bmstu_lb' [AC1]>
+[40708.531783] wlp3s0: send auth to <MAC 'bmstu_lb' [AC1]> (try 1/3)
+[40708.533714] wlp3s0: authenticated
+[40708.537540] wlp3s0: associate with <MAC 'bmstu_lb' [AC1]> (try 1/3)
+[40708.544988] wlp3s0: RX AssocResp from <MAC 'bmstu_lb' [AC1]> (capab=0x421 status=0 aid=85)
+[40708.545104] wlp3s0: associated
+[40708.545246] ath: EEPROM regdomain: 0x8283
+[40708.545247] ath: EEPROM indicates we should expect a country code
+[40708.545249] ath: doing EEPROM country->regdmn map search
+[40708.545251] ath: country maps to regdmn code: 0x3d
+[40708.545252] ath: Country alpha2 being used: RU
+[40708.545253] ath: Regpair used: 0x3d
+[40708.545255] ath: regdomain 0x8283 dynamically updated by country element
+[40708.597532] wlp3s0: Limiting TX power to 17 dBm as advertised by <MAC 'bmstu_lb' [AC1]>
+[40759.001536] wlp3s0: deauthenticating from <MAC 'bmstu_lb' [AC1]> by local choice (Reason: 3=DEAUTH_LEAVING)
+[40766.361917] wlp3s0: authenticate with <MAC 'bmstu_lb' [AC1]>
+[40766.376738] wlp3s0: send auth to <MAC 'bmstu_lb' [AC1]> (try 1/3)
+[40766.379654] wlp3s0: authenticated
+[40766.386474] wlp3s0: associate with <MAC 'bmstu_lb' [AC1]> (try 1/3)
+[40766.392420] wlp3s0: RX AssocResp from <MAC 'bmstu_lb' [AC1]> (capab=0x421 status=0 aid=85)
+[40766.392534] wlp3s0: associated
+[40766.392683] ath: EEPROM regdomain: 0x8283
+[40766.392684] ath: EEPROM indicates we should expect a country code
+[40766.392686] ath: doing EEPROM country->regdmn map search
+[40766.392688] ath: country maps to regdmn code: 0x3d
+[40766.392689] ath: Country alpha2 being used: RU
+[40766.392691] ath: Regpair used: 0x3d
+[40766.392693] ath: regdomain 0x8283 dynamically updated by country element
+[40766.393428] IPv6: ADDRCONF(NETDEV_CHANGE): wlp3s0: link becomes ready
+[40771.157514] wlp3s0: Limiting TX power to 17 dBm as advertised by <MAC 'bmstu_lb' [AC1]>
+
+########## wireless info END ############
+
