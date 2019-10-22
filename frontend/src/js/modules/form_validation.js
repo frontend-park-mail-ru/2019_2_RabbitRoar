@@ -43,18 +43,18 @@ const _replaceTwoCssClasses = (elem, classOne, classTwo) => {
 };
 
 const _fieldValidation = (value, valueInputElement, errorElement, validFunction, emptyFieldError, unvalidValueError) => {
-    let fieldIsOk = false;
+    let fieldIsOk = true;
     if (!value) {
         _replaceTwoCssClasses(errorElement, "error-annotation", "error-visible");
         _replaceTwoCssClasses(valueInputElement, "input-valid", "input-error");
         errorElement.innerHTML = emptyFieldError;
-        fieldIsOk = true;
+        fieldIsOk = false;
     } else {
         if (!validFunction(value)) {
             _replaceTwoCssClasses(errorElement, "error-annotation", "error-visible");
             _replaceTwoCssClasses(valueInputElement, "input-valid", "input-error");
             errorElement.innerHTML = unvalidValueError;
-            fieldIsOk = true;
+            fieldIsOk = false;
         } else {
             _replaceTwoCssClasses(errorElement, "error-visible", "error-annotation");
             _replaceTwoCssClasses(valueInputElement, "input-error", "input-valid");

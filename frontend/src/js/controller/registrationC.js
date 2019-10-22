@@ -34,7 +34,7 @@ class RegistrationC {
             password: document.getElementById("password").value,
             email: document.getElementById("email").value,
         };
-        userValidator.doRegistration(user);
+        userValidatorF.doRegistration(user);
     }
 }
 
