@@ -69,7 +69,7 @@ export const registrationValidation = () => {
     const errorEmailElement = document.getElementById("error_email");
 
     let registrationError = _fieldValidation(document.getElementById("username").value, document.getElementById("username"),
-        errorUsernameElement, _usernameIsValid, c, "Логин должен содержать минимум 3 символа.");
+        errorUsernameElement, _usernameIsValid, "Введите логин.", "Логин должен содержать минимум 3 символа.");
 
     registrationError = _fieldValidation(document.getElementById("password").value, document.getElementById("password"),
         errorPasswordElement, _passwordIsValid, "Введите пароль.", "Пароль должен содержать от 5 до 12 символов, одну цифру и одну букву.");
