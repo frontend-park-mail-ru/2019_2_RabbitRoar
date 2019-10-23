@@ -4,9 +4,9 @@ import QuestionTableC from "../controller/questionsTableC.js";
 class QuestionTableE {
     constructor() {
         if (!!QuestionTableE.instance) {
-            return QuestionTableC.instance;
+            return QuestionTableE.instance;
         }
-        QuestionTableC.instance = this;
+        QuestionTableE.instance = this;
         this.controller = QuestionTableC;
         return this;
     }

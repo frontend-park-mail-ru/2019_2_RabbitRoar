@@ -8,7 +8,7 @@ class QuestionTableC {
         QuestionTableC.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
 
-        this.registerClassHandler("question_container__cost", "click", this._choseQuestion);
+        this.registerClassHandler(".question_container__cost", "click", this._choseQuestion);
 
         return this;
     }
