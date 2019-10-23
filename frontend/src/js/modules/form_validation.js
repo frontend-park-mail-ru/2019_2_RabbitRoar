@@ -18,20 +18,6 @@ const _passwordIsValid = (password) => {
     return re.test(String(password));
 };
 
-const _deleteCssClassesErrorField = (elem) => {
-    if (elem.classList.contains("error-annotation")) {
-        elem.classList.remove("error-annotation");
-    }
-    if (elem.classList.contains("error-visible")) {
-        elem.classList.remove("error-visible");
-    }
-    // the class using in profile editing
-    if (elem.classList.contains("file-downloaded")) {
-        elem.classList.remove("file-downloaded");
-    }
-
-};
-
 // delete classOne, add classTwo
 const _replaceTwoCssClasses = (elem, classOne, classTwo) => {
     if (elem.classList.contains(classOne)) {
@@ -83,66 +69,77 @@ export const registrationValidation = () => {
     return false;
 };
 
-export const fileVaildation = () => {
-    const input = document.querySelector(".profile__download-img");
-    if (!_checkFileSize(input.files[0])) {
-        return false;
-    }
+const _drawFileError = (errorText) => {
     const errorFileElement = document.getElementById("error_top");
-    if (!_checkFileType(input.files[0])) {
-        _deleteCssClassesFileInput(errorFileElement);
-        errorFileElement.classList.add("error-visible");
-        errorFileElement.innerHTML = "Файл недопустимого расширения и загружен не будет.";
-        return false;
-    }
-
     _deleteCssClassesFileInput(errorFileElement);
-    errorFileElement.classList.add("file-downloaded");
-    errorFileElement.innerHTML = "Файл загружен";
-    return true;
+    errorFileElement.classList.add("error-visible");
+    errorFileElement.innerHTML = "Размер файла не должен привышать 2МБ";
+}
+
+export const fileVaildation = () => {
+    return new Promise(function (resolve, reject) {
+        const input = document.querySelector(".profile__download-img");
+        const errorFileElement = document.getElementById("error_top");
+
+        if (!_checkFileSize(input.files[0])) {
+            _drawFileError("Размер файла не должен привышать 2МБ");
+            reject(Error("Неверный размер"));
+        } else {
+            type().then(function (result) {
+                _deleteCssClassesFileInput(errorFileElement);
+                errorFileElement.classList.add("file-downloaded");
+                errorFileElement.innerHTML = "Файл загружен";
+                resolve(input.files[0]);
+            },
+                function (err) {
+                    _drawFileError("Файл недопустимого расширения и загружен не будет.");
+                    reject(Error("Неверный тип"));
+                });
+        }
+    });
 };
+export const type = () => {
+    return new Promise(function (resolve, reject) {
+        const input = document.querySelector(".profile__download-img");
+        const blob = input.files[0];
+        const fileReader = new FileReader();
+        fileReader.onload = (e) => {
+            let type;
+            const arr = (new Uint8Array(e.target.result)).subarray(0, 4);
+            let header = "";
+            for (let i = 0; i < arr.length; i++) {
+                header += arr[i].toString(16);
+            }
+            switch (header) {
+                // png
+                case "89504e47":
+                    type = "png";
+                    break;
+
+                // jpeg
+                case "ffd8ffe0":
+                case "ffd8ffe1":
+                case "ffd8ffe2":
+                case "ffd8ffe3":
+                case "ffd8ffe8":
+                    type = "jpeg";
+                    break;
+                default:
+                    type = "wrong_type";
+                    break;
+            }
+            if (type === "wrong_type") {
+                reject("wrong type");
+            } else {
+                resolve("ok");
+            }
+        };
+        fileReader.readAsArrayBuffer(blob);
+    });
+}
 
 const _checkFileSize = (file) => {
     if (file.size > 2000000) {
-        const errorFileElement = document.getElementById("error_top");
-        _deleteCssClassesFileInput(errorFileElement);
-        errorFileElement.classList.add("error-visible");
-        errorFileElement.innerHTML = "Размер файла не должен привышать 2МБ";
-        return false;
-    }
-    return true;
-};
-
-const _checkFileType = (blob) => {
-    const fileReader = new FileReader();
-    let type;
-    fileReader.onloadend = (e) => {
-        const arr = (new Uint8Array(e.target.result)).subarray(0, 4);
-        let header = "";
-        for (let i = 0; i < arr.length; i++) {
-            header += arr[i].toString(16);
-        }
-        switch (header) {
-            // png
-            case "89504e47":
-                type = "png";
-                break;
-
-            // jpeg
-            case "ffd8ffe0":
-            case "ffd8ffe1":
-            case "ffd8ffe2":
-            case "ffd8ffe3":
-            case "ffd8ffe8":
-                type = "jpeg";
-                break;
-            default:
-                type = "wrong_type";
-                break;
-        }
-    };
-    fileReader.readAsArrayBuffer(blob);
-    if (type == "wrong_type") {
         return false;
     }
     return true;
@@ -152,11 +149,9 @@ const _deleteCssClassesFileInput = (elem) => {
     if (elem.classList.contains("error-annotation")) {
         elem.classList.remove("error-annotation");
     }
-
     if (elem.classList.contains("error-visible")) {
         elem.classList.remove("error-visible");
     }
-
     if (elem.classList.contains("file-downloaded")) {
         elem.classList.remove("file-downloaded");
     }

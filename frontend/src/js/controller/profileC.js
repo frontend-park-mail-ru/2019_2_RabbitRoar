@@ -67,13 +67,13 @@ class ProfileC {
     }
 
     _saveImage() {
-        let formData = new FormData();
-        const fileIsValid = fileVaildation();
-
-        if (fileIsValid) {
-            formData.append("userfile", input.files[0]);
+        fileVaildation().then(function (file) {
+            let formData = new FormData();
+            formData.append("userfile", file);
             UserValidatorF.changeUserAvatar(formData);
-        }
+        },
+            function (err) {
+            });
     }
 }
 
