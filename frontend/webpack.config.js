@@ -3,6 +3,7 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
@@ -47,6 +48,9 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './index.pug'
+    }),
+    new ServiceWorkerWebpackPlugin({
+      entry: path.join(__dirname, './src/js/sw.js'),
     }),
   ],
   devtool: 'source-map',  // Source map generations
