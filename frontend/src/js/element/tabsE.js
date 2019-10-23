@@ -20,7 +20,7 @@ class TabsE {
 
     create(root = document.getElementById("application")) {
         // console.log(`id listeners: ${this.controller.events.size}`);
-        console.log(`class listeners ${this.controller.classEvents.get(".tab").size}`);
+        //console.log(`class listeners ${this.controller.classEvents.get(".tab").size}`);
         this.root = root;
         this.controller.start();
         const id = ContentF.getCurrentTab();
@@ -44,7 +44,6 @@ class TabsE {
 
     _highlightChosen(chosenId) {
         const targetElems = document.querySelectorAll(".tab");
-        console.log(targetElems);
 
         if (targetElems) {
             targetElems.forEach(function (elem) {
