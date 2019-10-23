@@ -15,6 +15,7 @@ class ValidatorF {
     }
 
     getUserAutorise() {
+        console.log("autorisation returned", User.autorised);
         return User.autorised;
     }
 

@@ -1,21 +1,23 @@
 import "../css/style.scss";
 import {Router} from "./router.js";
-import {ROOT, LOGIN, SIGN_UP, PROFILE} from "./paths";
+import {ROOT, LOGIN, SIGN_UP, PROFILE, SINGLE_GAME} from "./paths";
 import {id} from "./modules/id.js";
 
 import MainMenuV from "./view/mainMenuV.js";
 import AutorisationV from "./view/autorisationV.js";
 import RegistrationV from "./view/registrationV.js";
 import ProfileV from "./view/profileV.js";
+import SingleGameV from "./view/singleGameV.js";
 
-if ("serviceWorker" in navigator) {
-    // Весь код регистрации у нас асинхронный.
-    navigator.serviceWorker.register("./sw.js")
-      .then(() => navigator.serviceWorker.ready.then((worker) => {
-        worker.sync.register("syncdata");
-      }))
-      .catch((err) => console.log(err));
-}
+
+// if ("serviceWorker" in navigator) {
+//     // Весь код регистрации у нас асинхронный.
+//     navigator.serviceWorker.register("./sw.js")
+//       .then(() => navigator.serviceWorker.ready.then((worker) => {
+//         worker.sync.register("syncdata");
+//       }))
+//       .catch((err) => console.log(err));
+// }
 
 window.id = id;
 
@@ -25,7 +27,7 @@ router.register(ROOT, MainMenuV);
 router.register(LOGIN, AutorisationV);
 router.register(SIGN_UP, RegistrationV);
 router.register(PROFILE, ProfileV);
-
+router.register(SINGLE_GAME, SingleGameV);
 router.start();
 
 

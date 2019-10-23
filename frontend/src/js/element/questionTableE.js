@@ -1,9 +1,14 @@
 import Template from "./templates/questionContainerT.pug";
-import QuestionContainerC from "../controller/navbarC.js";
+import QuestionTableC from "../controller/questionsTableC.js";
 
-class QuestionContainerE {
+class QuestionTableE {
     constructor() {
-        this.controller = QuestionContainerC;
+        if (!!QuestionTableE.instance) {
+            return QuestionTableC.instance;
+        }
+        QuestionTableC.instance = this;
+        this.controller = QuestionTableC;
+        return this;
     }
 
     create(root = document.getElementById("application")) {
@@ -13,12 +18,10 @@ class QuestionContainerE {
         this.controller.start();
     }
 
-
-
     destroy() {
         this.controller.drop();
         this.root.innerHTML = "";
     }
 }
 
-export default new QuestionContainerE();
+export default new QuestionTableE();
