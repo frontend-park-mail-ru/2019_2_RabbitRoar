@@ -39,9 +39,6 @@ module.exports = {
       },
     ],
   },
-  resolve: {
-    extensions: ['*', '.js']
-  },
   plugins: [
     new webpack.ProgressPlugin(),
     new CopyPlugin([
