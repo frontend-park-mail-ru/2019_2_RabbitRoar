@@ -8,21 +8,27 @@ import AutorisationV from "./view/autorisationV.js";
 import RegistrationV from "./view/registrationV.js";
 import ProfileV from "./view/profileV.js";
 import SingleGameV from "./view/singleGameV.js";
+import Worker from "./workers/gameLoader.worker.js";
 
-
+const worker = new Worker();
 
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./sw.js").then(function (registration) {
-        console.log("ServiceWorker registration successful with scope: ", registration.scope);
+    navigator.serviceWorker.register("./sw.js", {scope: "./"}).then(function (registration) {
+        console.log("sw.js registration successful with scope: ", registration.scope);
     }).catch(function (err) {
-        console.log("ServiceWorker registration failed: ", err);
+        console.log("sw.js registration failed: ", err);
     });
+
 }
 
+
+
 // navigator.serviceWorker.addEventListener("message", function handler(event) {
-//     console.log("first data");
-//     console.log(event.data.synSobaki);
+//     console.log("Ansver from SW");
+//     console.log(event.data);
 // });
+
+// navigator.serviceWorker.controller.postMessage(["gavno!"]);
 
 // navigator.serviceWorker.addEventListener("message", function handler(event) {
 //     console.log("second data");

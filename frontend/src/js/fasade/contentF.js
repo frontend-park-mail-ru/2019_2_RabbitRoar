@@ -32,6 +32,7 @@ class ContentF {
         Bus.emit(CHANGE_TAB);
     }
 
+    
 }
 
 export default new ContentF();

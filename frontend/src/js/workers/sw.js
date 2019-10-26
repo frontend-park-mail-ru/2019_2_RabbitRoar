@@ -1,4 +1,4 @@
-const CACHE_NAME = "svoyak-v1.0.2";
+const CACHE_NAME = "svoyak-v1.0.4";
 const urlsToCache = [
     "/",
     "/bundle.js"
@@ -9,6 +9,8 @@ const applicationPages = [
     "/signup",
 ];
 
+const packsId = [];
+
 
 async function cacheInitPromise() {
     try {
@@ -17,7 +19,7 @@ async function cacheInitPromise() {
     } catch (err) {
         console.log(`Cache init error ${err}`);
     }
-    console.log("Установлен успешно");
+    console.log("Установлен успешно!");
 }
 
 self.addEventListener("install", function (event) {
@@ -64,7 +66,7 @@ async function processPromise(event) {
 }
 
 self.addEventListener("fetch", function (event) {
-    event.respondWith(processPromise(event));
+    //event.respondWith(processPromise(event));
 });
 
 // ============================================================
@@ -87,4 +89,17 @@ self.addEventListener("activate", function (event) {
 });
 
 // ============================================================
+
+self.addEventListener("message", async function (event) {
+    // console.log("Recieve in SW");
+    // console.log(event.data[0]);
+    // const clients = await self.clients.matchAll();
+    // clients.forEach(client => {
+    //     console.log("Send from SW");
+    //     console.log(client.id);
+    //     console.log(client.type);
+    //     console.log(client.url);
+    //     client.postMessage("SAM TY GOVNO");
+    // });
+});
 

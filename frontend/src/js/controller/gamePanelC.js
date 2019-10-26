@@ -2,15 +2,10 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 
 class GamePanelC {
     constructor() {
-        if (!!GamePanelC.instance) {
-            return GamePanelC.instance;
-        }
-        GamePanelC.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
 
         this.registerClassHandler(".game-panel-button", "click", this._buttonPressed);
 
-        return this;
     }
 
     start() {
