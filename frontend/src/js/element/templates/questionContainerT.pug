@@ -1,18 +1,19 @@
 mixin cell(_id)
     - const cost = _id * 100;
-    div(class="question_container__cost" _id=id) #{cost}
+    div(class="question-container__cost" _id=id) #{cost}
 
 mixin line(theme_id, theme_name)
-    div(class="question_container__line" id=theme_id)
-        div(class="question_container__theme") #{theme_name}
+    div(class="question-container__line" id=theme_id)
+        div(class="question-container__theme") #{theme_name}
         +cell(1)
         +cell(2)
         +cell(3)
         +cell(4)
         +cell(5)
 
-
-div(class="question_container" id="MegaGiga pack by _^MotHerfaKKKKir^_228")
+div(id="progress-bar" class="progress-bar-hidden")
+    div(id="dynamic-bar" class="dynamic-bar")
+div(class="question-container" id="MegaGiga pack by _^MotHerfaKKKKir^_228")
     +line(1, "Марки")
     +line(2, "Марки")
     +line(3, "Марки")

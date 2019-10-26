@@ -1,11 +1,11 @@
-.question_container__cost {
+.question-container__cost {
     @extend %button;
     border-radius: 0px;
     border-width: 1px;
 }
 
 
-.question_container__cost:hover {
+.question-container__cost:hover {
     z-index: 1;
     color: var(--font-color-theme);
     background-color: $color-bg-dark;
@@ -14,7 +14,7 @@
     box-shadow: 0px 0px 10px 5px rgba(54,249,246,1);
 }
 
-.question_container__cost-hover {
+.question-container__cost-hover {
     z-index: 1;
     color: var(--font-color-theme);
     background-color: $color-bg-dark;

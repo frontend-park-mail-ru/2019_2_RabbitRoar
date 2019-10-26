@@ -21,10 +21,11 @@
 @import 'paginator/paginator';
 @import 'button/button';
 
-@import 'question_container/question_container';
-@import 'question_container/__line/question_container__line';
-@import 'question_container/__theme/question_container__theme';
-@import 'question_container/__cost/question_container__cost';
+@import 'question-container/question-container';
+@import 'question-container/__line/question-container__line';
+@import 'question-container/__theme/question-container__theme';
+@import 'question-container/__cost/question-container__cost';
+@import 'question-container/__progress-bar/question-container__progress-bar';
 
 
 :root {
