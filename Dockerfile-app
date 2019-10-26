@@ -1,5 +1,0 @@
-FROM node:12
-COPY frontend /app
-RUN cd /app/src/server && ls && npm install
-EXPOSE 3000/tcp
-CMD cd /app/src/server && npm start
