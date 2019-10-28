@@ -1,6 +1,5 @@
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import GameF from "../fasade/gameF.js";
-import ContentF from "../fasade/contentF.js";
 
 
 
@@ -25,7 +24,7 @@ class QuestionTableC {
         const themeId = event.target.parentNode.id;
         const cellId = event.target.id;
 
-        GameF.choseQuestion(packId, themeId, cellId);
+        // GameF.clickQuestion(packId, themeId, cellId);
     }
 }
 

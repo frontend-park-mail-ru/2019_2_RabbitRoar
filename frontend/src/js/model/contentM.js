@@ -1,8 +1,15 @@
 import { queryTabContent } from "../modules/requests.js";
+import Bus from "../event_bus.js";
+import { PACK_WORKER_MESSAGE } from "../modules/events.js";
 
 class ContentM {
     constructor() {
+        Bus.on(PACK_WORKER_MESSAGE, this._addPack.bind(this));
+    }
 
+    _addPack(pack) {
+        const key = pack.id.toString + 
+        window.localStorage.setItem("ключ", "значение")
     }
 
     async getTabContent(id) {
