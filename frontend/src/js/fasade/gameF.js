@@ -5,8 +5,9 @@ import {
 } from "../modules/events.js";
 import { 
     QUESTION_PANEL_UPDATE,
-    TIME_LINE_UPDATE,
+    ANSWER_PANEL_UPDATE,
 } from "../modules/events.js";
+
 
 class GameF {
     constructor() {
@@ -14,8 +15,13 @@ class GameF {
         Bus.on(QUESTION_CHANGE, this._questionChange);
     }
 
-    clickQuestion(packId, themeId, cellId) {
-        this.gameF.clickQuestion(packId, themeId, cellId);
+
+    clickQuestion(packId, cellId) {
+        this.gameF.clickQuestion(packId, cellId);
+    }
+
+    sendAnswer(answer) {
+        this.gameF.sendAnswer(answer);
     }
 
 
@@ -24,7 +30,11 @@ class GameF {
     }
 
     getQuestionInfo() {
-        return this.gameF.QuestionsM.getInfo();       
+        return this.gameF.getQuestionInfo();       
+    }
+
+    getLastClickedCells() {
+        return QuestionsM.chosedQuestionsId;
     }
 
 }
@@ -36,12 +46,17 @@ class OfflineGameF {
         
     }
 
-    clickQuestion(packId, themeId, cellId) {
-        QuestionsM.clickQuestion(packId, themeId, cellId);
+    clickQuestion(packId, cellId) {
+        QuestionsM.clickQuestion(packId, cellId);
     }
+
 
     getQuestionInfo() {
         return QuestionsM.getInfo();       
+    }
+
+    sendAnswer(answer) {
+        QuestionsM.sendAnswer(answer);
     }
 }
 

@@ -39,4 +39,4 @@ export const QUESTION_CHANGE = "questionChange";
 
 export const QUESTION_PANEL_UPDATE = "questPanelUpdate";
 
-export const TIME_LINE_UPDATE = "timeLineUpdate";
+export const ANSWER_PANEL_UPDATE = "answerPanelUpdate";

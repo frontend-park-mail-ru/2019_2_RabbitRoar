@@ -47,7 +47,6 @@ class ValidatorF {
     }
 
     async doRegistration(userStructure) {
-        alert("doRegistration");
         userM.signUp(userStructure).then(
             resolve => Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT)
         ).catch(

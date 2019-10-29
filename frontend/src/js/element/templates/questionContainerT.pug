@@ -1,38 +1,29 @@
-mixin cell(_id)
-    - const cost = (_id % 5) * 100;
-    if cost == 0
-        div(class="question-container__cost" id=_id) #{500}
-    else
-        div(class="question-container__cost" id=_id) #{cost}
+mixin cell(_id, theme)
+    - const cost = _id * 100;
+    - const modifyId = "" + theme + _id;
+    div(class="question-container__cost" id=modifyId) #{cost}
 
 mixin line(theme_id, theme_name)
     div(class="question-container__line" id=theme_id)
         div(class="question-container__theme") #{theme_name}
-        case theme_id
-            when "line1"
-               - var initial_id = 1
-            when "line2"
-               - var initial_id = 6
-            when "line3"
-                - var initial_id = 11
-            when "line4"
-                - var initial_id = 16
-            when "line5"
-                - var initial_id = 21
-            default
-                - var initial_id = 0
-        +cell(initial_id)
-        +cell(initial_id + 1)   
-        +cell(initial_id + 2)
-        +cell(initial_id + 3)
-        +cell(initial_id + 4)
+        +cell(1, theme_name)
+        +cell(2, theme_name)   
+        +cell(3, theme_name)
+        +cell(4, theme_name)
+        +cell(5, theme_name)
 
-
-div(id="progress-bar" class="progress-bar-hidden")
-    div(id="dynamic-bar" class="dynamic-bar")
-div(class="question-container" id="MegaGiga pack by _^MotHerfaKKKKir^_228")
-    +line("line1", "Марки")
-    +line("line2", "Дувейн Скола Жонсан")
-    +line("line3", "Об Обэме")
-    +line("line4", "Случай в казино")
-    +line("line5", "Кто я")
+if state.mode == "selected"
+    div(id="progress-bar" class="progress-bar-hidden")
+        div(id="dynamic-bar" class="dynamic-bar")
+    div(class="question-container")
+        div(class="question-container__question")
+            div() #{state.question.text}
+else
+    div(id="progress-bar" class="progress-bar-hidden")
+        div(id="dynamic-bar" class="dynamic-bar")
+    div(class="question-container" id=state.packId)
+        +line("Марки", "Марки")
+        +line("Дувейн Скола Жонсан", "Дувейн Скола Жонсан")
+        +line("Об Обэме", "Об Обэме")
+        +line("Случай в казино", "Случай в казино")
+        +line("Кто я", "Кто я")

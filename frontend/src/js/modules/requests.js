@@ -35,7 +35,6 @@ export async function changeAvatar(formData) {
     let response = await putRequest("/user/avatar", formData);
     if (!response.ok) {
         const obj = JSON.parse(response.json());
-        alert(obj.error);
     }
 }
 
@@ -43,7 +42,6 @@ export async function changeTextFields(changesMap) {
     let response = await putRequest("/user", JSON.stringify(changesMap));
     if (!response.ok) {
         const obj = JSON.parse(response.json());
-        alert(obj.error);
     }
 }
 
