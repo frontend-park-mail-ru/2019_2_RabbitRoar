@@ -6,13 +6,8 @@ import MainMenuM from "../model/mainMenuM.js";
 
 class ContentF {
     constructor() {
-        if (!!ContentF.instance) {
-            return ContentF.instance;
-        }
-        ContentF.instance = this;
-        return this;
+        
     }
-
 
     getCurrentTab() {
         return MainMenuM.currentTab;

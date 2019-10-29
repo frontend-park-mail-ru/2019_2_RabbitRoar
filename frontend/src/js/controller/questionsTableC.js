@@ -4,6 +4,7 @@ import ContentF from "../fasade/contentF.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
 
 
+
 class QuestionTableC {
     constructor() {
         QuestionTableC.instance = this;
@@ -39,6 +40,8 @@ class QuestionTableC {
         const packId = event.target.parentNode.parentNode.id;
         const themeId = event.target.parentNode.id;
         const cellId = event.target.id;
+
+        GameF.clickQuestion(packId, themeId, cellId);
     }
 
     _progressBarMoving(period) {

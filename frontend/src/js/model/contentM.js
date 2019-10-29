@@ -1,12 +1,34 @@
 import { queryTabContent } from "../modules/requests.js";
+import Bus from "../event_bus.js";
+import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
 
 class ContentM {
     constructor() {
+        Bus.on(PACK_WORKER_MESSAGE, this._workerHandler.bind(this));
+    }
 
+    _workerHandler(msg) {
+        console.log("message from worker");
+        if (msg.data.type === "pack") {
+            console.log("PACK");
+            console.log(msg.data.value);
+            console.log(msg.data.value.length);
+            localStorage.setItem(msg.data.key, msg.data.value)
+
+            // const fromLocal = JSON.parse(localStorage.getItem(msg.data.key));
+            // console.log(fromLocal);
+        } else if (msg.data.type === "question") {
+            console.log("QUESTION");
+            console.log(msg.data.value);
+            console.log(msg.data.value.length);
+            localStorage.setItem(msg.data.key, msg.data.value)
+
+            // const fromLocal = JSON.parse(localStorage.getItem(msg.data.key));
+            // console.log(fromLocal);
+        }
     }
 
     async getTabContent(id) {
-        //const content = await queryTabContent(id);
         if (id === window.id.tabRoom) {
             const mainContent = {
                 infoPanel: {
@@ -26,7 +48,7 @@ class ContentM {
 
 
             return mainContent;
-        } 
+        }
         if (id === window.id.tabTop) {
             const mainContent = {
                 infoPanel: {

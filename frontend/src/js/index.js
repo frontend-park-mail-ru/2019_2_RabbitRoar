@@ -1,5 +1,8 @@
 import "../css/style.scss";
 import { Router } from "./router.js";
+import Bus from "./event_bus.js";
+import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "./modules/events.js";
+import { SERVISE_WORKER_MESSAGE } from "./modules/events.js";
 import { ROOT, LOGIN, SIGN_UP, PROFILE, SINGLE_GAME } from "./paths";
 import { id } from "./modules/id.js";
 
@@ -10,10 +13,18 @@ import ProfileV from "./view/profileV.js";
 import SingleGameV from "./view/singleGameV.js";
 import Worker from "./workers/gameLoader.worker.js";
 
-const worker = new Worker();
+//if ("Worker" in navigator) {
+    const worker = new Worker();
+    window.packWorker = worker;
+    window.packWorker.onmessage = (msg) => Bus.emit(PACK_WORKER_MESSAGE, msg);
+
+    Bus.on(PACK_WORKER_COMMAND, (data) => window.packWorker.postMessage(data));
+    Bus.emit(PACK_WORKER_COMMAND, "update");
+//}
+
 
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./sw.js", {scope: "./"}).then(function (registration) {
+    navigator.serviceWorker.register("./sw.js", { scope: "./" }).then(function (registration) {
         console.log("sw.js registration successful with scope: ", registration.scope);
     }).catch(function (err) {
         console.log("sw.js registration failed: ", err);
@@ -21,19 +32,6 @@ if ("serviceWorker" in navigator) {
 
 }
 
-
-
-// navigator.serviceWorker.addEventListener("message", function handler(event) {
-//     console.log("Ansver from SW");
-//     console.log(event.data);
-// });
-
-// navigator.serviceWorker.controller.postMessage(["gavno!"]);
-
-// navigator.serviceWorker.addEventListener("message", function handler(event) {
-//     console.log("second data");
-//     console.log(event.data.synSobaki);
-// });
 
 // navigator.serviceWorker.getRegistrations().then(function (registrations) {
 //   for (let registration of registrations) {

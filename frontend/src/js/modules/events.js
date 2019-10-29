@@ -25,12 +25,18 @@ export const AUTORISATION_EVENT = {
 // ProfileE
 export const PROFILE_UPDATE = "profileUpdate";
 
+export const PACK_WORKER_MESSAGE = "packWorker";
+export const PACK_WORKER_COMMAND = "packWorkerCmd";
 
-export const USER_VALIDATE = {
-    LOGIN_OK: "userValidateLogin",
-    EXIT_OK: "userValidateExit",
-};
+export const SERVISE_WORKER_MESSAGE = "swMessage";
+
 
 export const CHANGE_TAB = "changeTab";
 
 export const REGISTRATION = "registration";
+
+export const QUESTION_CHANGE = "questionChange";
+
+export const QUESTION_PANEL_UPDATE = "questPanelUpdate";
+
+export const TIME_LINE_UPDATE = "timeLineUpdate";
