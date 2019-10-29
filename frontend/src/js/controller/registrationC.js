@@ -24,7 +24,6 @@ class RegistrationC {
 
     _registration() {
         const registrationError = registrationValidation();
-        alert(registrationError);
 
         if (registrationError) {
             return;

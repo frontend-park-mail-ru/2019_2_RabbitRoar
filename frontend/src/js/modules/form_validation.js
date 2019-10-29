@@ -1,3 +1,5 @@
+import { replaceTwoCssClasses } from "./css_operations";
+
 const _emailIsValid = (email) => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
@@ -18,32 +20,22 @@ const _passwordIsValid = (password) => {
     return re.test(String(password));
 };
 
-// delete classOne, add classTwo
-const _replaceTwoCssClasses = (elem, classOne, classTwo) => {
-    if (elem.classList.contains(classOne)) {
-        elem.classList.remove(classOne);
-    }
-    if (!elem.classList.contains(classTwo)) {
-        elem.classList.add(classTwo);
-    }
-};
-
 const _fieldValidation = (value, valueInputElement, errorElement, validFunction, emptyFieldError, unvalidValueError) => {
     let error = false;
     if (!value) {
-        _replaceTwoCssClasses(errorElement, "error-annotation", "error-visible");
-        _replaceTwoCssClasses(valueInputElement, "input-valid", "input-error");
+        replaceTwoCssClasses(errorElement, "error-annotation", "error-visible");
+        replaceTwoCssClasses(valueInputElement, "input-valid", "input-error");
         errorElement.innerHTML = emptyFieldError;
         error = true;
     } else {
         if (!validFunction(value)) {
-            _replaceTwoCssClasses(errorElement, "error-annotation", "error-visible");
-            _replaceTwoCssClasses(valueInputElement, "input-valid", "input-error");
+            replaceTwoCssClasses(errorElement, "error-annotation", "error-visible");
+            replaceTwoCssClasses(valueInputElement, "input-valid", "input-error");
             errorElement.innerHTML = unvalidValueError;
             error = true;
         } else {
-            _replaceTwoCssClasses(errorElement, "error-visible", "error-annotation");
-            _replaceTwoCssClasses(valueInputElement, "input-error", "input-valid");
+            replaceTwoCssClasses(errorElement, "error-visible", "error-annotation");
+            replaceTwoCssClasses(valueInputElement, "input-error", "input-valid");
         }
     }
     return error;
@@ -158,9 +150,9 @@ const _deleteCssClassesFileInput = (elem) => {
 };
 
 const _drawPasswordError = (errorPasswordElement) => {
-    _replaceTwoCssClasses(errorPasswordElement, "error-annotation", "error-visible");
-    _replaceTwoCssClasses(document.getElementById("password"), "input-valid", "input-error");
-    _replaceTwoCssClasses(document.getElementById("password-confirmation"), "input-valid", "input-error");
+    replaceTwoCssClasses(errorPasswordElement, "error-annotation", "error-visible");
+    replaceTwoCssClasses(document.getElementById("password"), "input-valid", "input-error");
+    replaceTwoCssClasses(document.getElementById("password-confirmation"), "input-valid", "input-error");
 };
 
 export const textFieldsVaildationProfile = (changedForms) => {
@@ -183,9 +175,9 @@ export const textFieldsVaildationProfile = (changedForms) => {
         if (_passwordsAreEqual(changedForms.get("password"), changedForms.get("password-confirmation"))) {
             if (_passwordIsValid(changedForms.get("password"))) {
                 changes["password"] = changedForms.get("password");
-                _replaceTwoCssClasses(errorPasswordElement, "error-visible", "error-annotation");
-                _replaceTwoCssClasses(document.getElementById("password"), "input-error", "input-valid");
-                _replaceTwoCssClasses(document.getElementById("password-confirmation"), "input-error", "input-valid");
+                replaceTwoCssClasses(errorPasswordElement, "error-visible", "error-annotation");
+                replaceTwoCssClasses(document.getElementById("password"), "input-error", "input-valid");
+                replaceTwoCssClasses(document.getElementById("password-confirmation"), "input-error", "input-valid");
             } else {
                 _drawPasswordError(errorPasswordElement);
                 errorPasswordElement.innerHTML = "Пароль должен содержать от 5 до 12 символов, одну цифру и одну букву.";
@@ -206,14 +198,14 @@ export const textFieldsVaildationProfile = (changedForms) => {
     if (changedForms.has("username")) {
         const username = changedForms.get("username");
         if (!_usernameIsValid(username)) {
-            _replaceTwoCssClasses(errorUsernameElement, "error-annotation", "error-visible");
-            _replaceTwoCssClasses(document.getElementById("username"), "input-valid", "input-error");
+            replaceTwoCssClasses(errorUsernameElement, "error-annotation", "error-visible");
+            replaceTwoCssClasses(document.getElementById("username"), "input-valid", "input-error");
             errorUsernameElement.innerHTML = "Логин должен содержать минимум 3 символа.";
             error = true;
         } else {
             changes["username"] = changedForms.get("username");
-            _replaceTwoCssClasses(errorUsernameElement, "error-visible", "error-annotation");
-            _replaceTwoCssClasses(document.getElementById("username"), "input-error", "input-valid");
+            replaceTwoCssClasses(errorUsernameElement, "error-visible", "error-annotation");
+            replaceTwoCssClasses(document.getElementById("username"), "input-error", "input-valid");
         }
     }
 
@@ -221,14 +213,14 @@ export const textFieldsVaildationProfile = (changedForms) => {
     if (changedForms.has("email")) {
         const email = changedForms.get("email");
         if (!_emailIsValid(email)) {
-            _replaceTwoCssClasses(errorEmailElement, "error-annotation", "error-visible");
-            _replaceTwoCssClasses(document.getElementById("email"), "input-valid", "input-error");
+            replaceTwoCssClasses(errorEmailElement, "error-annotation", "error-visible");
+            replaceTwoCssClasses(document.getElementById("email"), "input-valid", "input-error");
             errorEmailElement.innerHTML = "Недопустимый email.";
             error = true;
         } else {
             changes["email"] = changedForms.get("email");
-            _replaceTwoCssClasses(errorEmailElement, "error-visible", "error-annotation");
-            _replaceTwoCssClasses(document.getElementById("email"), "input-error", "input-valid");
+            replaceTwoCssClasses(errorEmailElement, "error-visible", "error-annotation");
+            replaceTwoCssClasses(document.getElementById("email"), "input-error", "input-valid");
         }
     }
 
@@ -248,23 +240,23 @@ export const autorizationVaildation = () => {
     let error = false;
 
     if (!username) {
-        _replaceTwoCssClasses(errorUsernameElement, "error-annotation", "error-visible");
-        _replaceTwoCssClasses(document.getElementById("username"), "input-valid", "input-error");
+        replaceTwoCssClasses(errorUsernameElement, "error-annotation", "error-visible");
+        replaceTwoCssClasses(document.getElementById("username"), "input-valid", "input-error");
         errorUsernameElement.innerHTML = "Введите логин.";
         error = true;
     } else {
-        _replaceTwoCssClasses(errorUsernameElement, "error-visible", "error-annotation");
-        _replaceTwoCssClasses(document.getElementById("username"), "input-error", "input-valid");
+        replaceTwoCssClasses(errorUsernameElement, "error-visible", "error-annotation");
+        replaceTwoCssClasses(document.getElementById("username"), "input-error", "input-valid");
     }
 
     if (!password) {
-        _replaceTwoCssClasses(errorPasswordElement, "error-annotation", "error-visible");
-        _replaceTwoCssClasses(document.getElementById("password"), "input-valid", "input-error");
+        replaceTwoCssClasses(errorPasswordElement, "error-annotation", "error-visible");
+        replaceTwoCssClasses(document.getElementById("password"), "input-valid", "input-error");
         errorPasswordElement.innerHTML = "Введите пароль.";
         error = true;
     } else {
-        _replaceTwoCssClasses(errorPasswordElement, "error-visible", "error-annotation");
-        _replaceTwoCssClasses(document.getElementById("password"), "input-error", "input-valid");
+        replaceTwoCssClasses(errorPasswordElement, "error-visible", "error-annotation");
+        replaceTwoCssClasses(document.getElementById("password"), "input-error", "input-valid");
     }
     return error;
 };

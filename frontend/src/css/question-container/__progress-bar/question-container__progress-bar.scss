@@ -1,0 +1,20 @@
+.progress-bar {
+  width: var(--main-width);
+  height: 30px;
+  background-color: grey;
+  display: grid;
+  margin: auto;
+  .dynamic-bar {
+    width: 1%;
+    height: 30px;
+    background-color: green;
+  }
+}
+
+.progress-bar-hidden {
+  width: var(--main-width);
+  height: 30px;
+  display: grid;
+  margin: auto;
+  // visibility: hidden;
+}
