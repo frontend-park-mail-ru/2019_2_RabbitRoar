@@ -11,7 +11,7 @@ class QuestionsM {
     }
 }
 
-
+// =============================================
 
 class OfflineQuestionsM {
     constructor() {
@@ -22,7 +22,7 @@ class OfflineQuestionsM {
 
 
     async clickQuestion(packId, themeId, cellId) {
-        const key = packId.toString() + themeId.toString() + cellId.toString();
+        const key = "" + packId + themeId + cellId;
         const question = localStorage.getItem(key);
         if (!question) {
             throw new Error("Need fetch request");

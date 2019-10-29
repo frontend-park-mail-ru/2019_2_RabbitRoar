@@ -1,4 +1,4 @@
-import GameM from "../model/questionsM.js";
+import QuestionsM from "../model/questionsM.js";
 import Bus from "../event_bus.js";
 import {
     QUESTION_CHANGE,
@@ -10,7 +10,7 @@ import {
 
 class GameF {
     constructor() {
-        this.gameF = new OfflineGameF();
+        this.gameF = new OfflineGameM();
         Bus.on(QUESTION_CHANGE, this._questionChange);
     }
 
@@ -24,17 +24,28 @@ class GameF {
     }
 
     getQuestionInfo() {
-        return QuestionsM.getInfo();       
+        return this.gameF.QuestionsM.getInfo();       
     }
 
 }
 
+// ===================================================
 
 class OfflineGameF {
     constructor() {
+        
+    }
 
+    clickQuestion(packId, themeId, cellId) {
+        QuestionsM.clickQuestion(packId, themeId, cellId);
+    }
+
+    getQuestionInfo() {
+        return QuestionsM.getInfo();       
     }
 }
+
+// ===================================================
 
 class OnlineGameF {
     constructor() {
