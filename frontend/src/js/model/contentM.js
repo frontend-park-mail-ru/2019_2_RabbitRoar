@@ -69,6 +69,14 @@ class ContentM {
 
             return mainContent;
         }
+        if (id === window.id.tabPack) {
+            const mainContent = {
+                text: "Добро пожаловать в Свою Игру!",
+                contentType: id,
+                content: []
+            };
+            return mainContent;
+        }
     }
 
 }
