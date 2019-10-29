@@ -43,7 +43,6 @@ class TabsC {
     }
 
     _startGame(){
-        alert("game");
         Bus.emit(ROUTER_EVENT.ROUTE_TO, SINGLE_GAME);
     }
 }

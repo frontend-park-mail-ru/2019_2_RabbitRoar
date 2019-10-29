@@ -44,9 +44,9 @@ function getPacks() {
                     for (let i = 0; i < 5; ++i) {
                         const question = {
                             id: i,
-                            text: `kto naxui`,
+                            text: `Кто проживает на дне океана?`,
                             media: "string",
-                            answer: "string",
+                            answer: "я",
                             rating: i + 10,
                             author: i,
                             tags: [

@@ -8,19 +8,12 @@ class ContentM {
     }
 
     _workerHandler(msg) {
-        console.log("message from worker");
         if (msg.data.type === "pack") {
-            console.log("PACK");
-            console.log(msg.data.value);
-            console.log(msg.data.value.length);
             localStorage.setItem(msg.data.key, msg.data.value)
 
             // const fromLocal = JSON.parse(localStorage.getItem(msg.data.key));
             // console.log(fromLocal);
         } else if (msg.data.type === "question") {
-            console.log("QUESTION");
-            console.log(msg.data.value);
-            console.log(msg.data.value.length);
             localStorage.setItem(msg.data.key, msg.data.value)
 
             // const fromLocal = JSON.parse(localStorage.getItem(msg.data.key));

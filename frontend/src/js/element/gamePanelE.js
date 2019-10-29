@@ -1,15 +1,13 @@
 import Template from "./templates/gamePanel.pug";
 import GamePanelC from "../controller/gamePanelC.js";
+import Bus from "../event_bus.js";
+import GameF from "../fasade/gameF.js";
 
 class GamePanelE {
     constructor() {
-        if (!!GamePanelE.instance) {
-            return GamePanelE.instance;
-        }
-        GamePanelE.instance = this;
         this.controller = GamePanelC;
-        return this;
     }
+
 
     create(root = document.getElementById("application")) {
         this.root = root;

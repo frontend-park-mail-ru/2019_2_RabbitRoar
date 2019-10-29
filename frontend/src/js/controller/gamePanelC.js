@@ -1,4 +1,5 @@
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
+import gameF from "../fasade/gameF.js";
 
 class GamePanelC {
     constructor() {
@@ -16,8 +17,12 @@ class GamePanelC {
         this.disableAll();
     }
 
-    _buttonPressed(){
-        alert("Кнопка");
+    _buttonPressed(event){
+        const string = document.getElementById("answer");
+        if (string) {
+            const answer = string.value;
+            gameF.sendAnswer(answer);
+        }
     }
 }
 
