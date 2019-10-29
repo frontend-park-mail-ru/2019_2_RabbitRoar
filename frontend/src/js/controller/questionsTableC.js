@@ -8,6 +8,7 @@ class QuestionTableC {
     constructor() {
         QuestionTableC.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
+        this.chosedQuestionsId = [];
 
         this.registerClassHandler(".question-container__cost", "click", this._choseQuestion.bind(this));
     }
@@ -21,24 +22,28 @@ class QuestionTableC {
     }
 
     _choseQuestion(event) {
+        if (this.chosedQuestionsId.includes(event.target.id)) {
+            alert("Вы уже выбирали вопрос");
+            return;
+        }
+        this.chosedQuestionsId.push(event.target.id);
+        replaceTwoCssClasses(event.target, "question-container__cost", "question-container__cost_chosen");
+
         const barElement = document.getElementById("progress-bar")
         replaceTwoCssClasses(barElement, "progress-bar-hidden", "progress-bar");
-        //const dynamic = document.getElementsByClassName("dynamic-bar");
+
         this._progressBarMoving()
-            .then((data) => { alert(data) })
+            .then((data) => { })
             .catch((error) => { });
-        // replaceTwoCssClasses(barElement, "progress-bar", "progress-bar-hidden");
 
         const packId = event.target.parentNode.parentNode.id;
         const themeId = event.target.parentNode.id;
         const cellId = event.target.id;
-
-        // GameF.choseQuestion(packId, themeId, cellId);
     }
 
     _progressBarMoving(period) {
         return new Promise((resolve, reject) => {
-            const period = 10;
+            const period = 50;
             let width = 0;
             let barElem = document.getElementById("dynamic-bar");
             const interval = setInterval(() => {
