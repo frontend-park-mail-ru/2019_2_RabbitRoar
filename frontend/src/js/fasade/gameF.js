@@ -10,7 +10,7 @@ import {
 
 class GameF {
     constructor() {
-        this.gameF = new OfflineGameM();
+        this.gameF = new OfflineGameF();
         Bus.on(QUESTION_CHANGE, this._questionChange);
     }
 
