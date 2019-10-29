@@ -1,21 +1,37 @@
 mixin cell(_id)
-    - const cost = _id * 100;
-    div(class="question-container__cost" _id=id) #{cost}
+    - const cost = (_id % 5) * 100;
+    if cost == 0
+        div(class="question-container__cost" id=_id) #{500}
+    else
+        div(class="question-container__cost" id=_id) #{cost}
 
 mixin line(theme_id, theme_name)
     div(class="question-container__line" id=theme_id)
         div(class="question-container__theme") #{theme_name}
-        +cell(1)
-        +cell(2)
-        +cell(3)
-        +cell(4)
-        +cell(5)
+        case theme_id
+            when "line1"
+               - var initial_id = 1
+            when "line2"
+               - var initial_id = 6
+            when "line3"
+                - var initial_id = 11
+            when "line4"
+                - var initial_id = 16
+            when "line5"
+                - var initial_id = 21
+            default
+                - var initial_id = 0
+        +cell(initial_id)
+        +cell(initial_id + 1)   
+        +cell(initial_id + 2)
+        +cell(initial_id + 3)
+        +cell(initial_id + 4)
 
 div(id="progress-bar" class="progress-bar-hidden")
     div(id="dynamic-bar" class="dynamic-bar")
 div(class="question-container" id="MegaGiga pack by _^MotHerfaKKKKir^_228")
-    +line(1, "Марки")
-    +line(2, "Марки")
-    +line(3, "Марки")
-    +line(4, "Марки")
-    +line(5, "Марки")
+    +line("line1", "Марки")
+    +line("line2", "Марки")
+    +line("line3", "Марки")
+    +line("line4", "Марки")
+    +line("line5", "Марки")
