@@ -1,11 +1,27 @@
 onmessage = function (event) {
     if (event.data === "update") {
         console.log("Worker: Message received UPDATE");
-        const result = {};
         if (event.data === "update") {
-            result.type = "packs";
-            result.packs = getPacks();
-            self.postMessage(result);
+            const pack = getPacks();
+            const key = pack.id;
+
+            const packMsg = {};
+            packMsg.type = "pack";
+            packMsg.value = JSON.stringify(pack);
+            packMsg.key = key;
+            self.postMessage(packMsg);
+
+            for (const theme in pack.questions) {
+                pack.questions[theme].forEach( (question, ind) => {
+                    const key = "" + pack.id + theme + ind;
+
+                    const questMsg = {};
+                    questMsg.type = "question";
+                    questMsg.value = JSON.stringify(question);
+                    questMsg.key = key;
+                    self.postMessage(questMsg);
+                });
+            }
         }
     }
 }
@@ -22,9 +38,9 @@ function getPacks() {
         pack.questions = function () {
             questions = {};
             themes = ["Марки", "Дувейн Скола Жонсан", "Об Обэме", "Случай в казино", "Кто я"];
-            for (const key in themes) {
+            themes.forEach( (key) => {
                 questions[key] = function () {
-                    concreteQuestions = {};
+                    concreteQuestions = new Array;
                     for (let i = 0; i < 5; ++i) {
                         const question = {
                             id: i,
@@ -37,14 +53,15 @@ function getPacks() {
                                 "string"
                             ]
                         }
-                        concreteQuestions[i] = question;
+                        concreteQuestions.push(question);
                     }
                     return concreteQuestions;
                 }();
-            }
+            });
             return questions;
         }();
     }
     return pack;
 }
+
 
