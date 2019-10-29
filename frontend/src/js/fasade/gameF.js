@@ -11,8 +11,7 @@ import {
 class GameF {
     constructor() {
         this.gameF = new OfflineGameF();
-
-        Bus.on(QUESTION_CHANGE, _questionChange);
+        Bus.on(QUESTION_CHANGE, this._questionChange);
     }
 
     clickQuestion(packId, themeId, cellId) {

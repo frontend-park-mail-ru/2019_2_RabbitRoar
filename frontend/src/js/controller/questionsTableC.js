@@ -24,7 +24,7 @@ class QuestionTableC {
         const themeId = event.target.parentNode.id;
         const cellId = event.target.id;
 
-        // GameF.clickQuestion(packId, themeId, cellId);
+        GameF.clickQuestion(packId, themeId, cellId);
     }
 }
 

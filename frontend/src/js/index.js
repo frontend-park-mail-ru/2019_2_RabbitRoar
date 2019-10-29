@@ -1,7 +1,7 @@
 import "../css/style.scss";
 import { Router } from "./router.js";
 import Bus from "./event_bus.js";
-import { PACK_WORKER_MESSAGE } from "./modules/events.js";
+import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "./modules/events.js";
 import { SERVISE_WORKER_MESSAGE } from "./modules/events.js";
 import { ROOT, LOGIN, SIGN_UP, PROFILE, SINGLE_GAME } from "./paths";
 import { id } from "./modules/id.js";
@@ -13,13 +13,14 @@ import ProfileV from "./view/profileV.js";
 import SingleGameV from "./view/singleGameV.js";
 import Worker from "./workers/gameLoader.worker.js";
 
-if ("Worker" in navigator) {
+//if ("Worker" in navigator) {
     const worker = new Worker();
     window.packWorker = worker;
-    Bus.on(PACK_WORKER_MESSAGE, (data)=>console.log(data));
-    window.packWorker.onmessage = () => Bus.emit(PACK_WORKER_MESSAGE);
-    window.packWorker.postMessage("update");
-}
+    window.packWorker.onmessage = (msg) => Bus.emit(PACK_WORKER_MESSAGE, msg);
+
+    Bus.on(PACK_WORKER_COMMAND, (data) => window.packWorker.postMessage(data));
+    Bus.emit(PACK_WORKER_COMMAND, "update");
+//}
 
 
 if ("serviceWorker" in navigator) {

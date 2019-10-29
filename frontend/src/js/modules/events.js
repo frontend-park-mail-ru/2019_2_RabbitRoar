@@ -26,6 +26,8 @@ export const AUTORISATION_EVENT = {
 export const PROFILE_UPDATE = "profileUpdate";
 
 export const PACK_WORKER_MESSAGE = "packWorker";
+export const PACK_WORKER_COMMAND = "packWorkerCmd";
+
 export const SERVISE_WORKER_MESSAGE = "swMessage";
 
 

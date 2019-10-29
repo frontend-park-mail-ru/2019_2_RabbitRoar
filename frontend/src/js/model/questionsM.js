@@ -44,4 +44,4 @@ class OfflineQuestionsM {
 
 }
 
-export default new GameM();
+export default new QuestionsM();

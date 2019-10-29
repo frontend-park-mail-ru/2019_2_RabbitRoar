@@ -1,15 +1,25 @@
 import { queryTabContent } from "../modules/requests.js";
 import Bus from "../event_bus.js";
-import { PACK_WORKER_MESSAGE } from "../modules/events.js";
+import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
 
 class ContentM {
     constructor() {
         Bus.on(PACK_WORKER_MESSAGE, this._addPack.bind(this));
     }
 
-    _addPack(pack) {
-        const key = pack.id.toString + 
-        window.localStorage.setItem("ключ", "значение")
+    _addPack(msg) {
+        console.log("message from worker");
+        for (const key in msg.data.packs.questions) {
+            console.log(`${key}: ${msg.data.packs.questions[key]}`);
+            const theme = msg.data.packs.questions[key];
+            for (const i in theme) {
+                console.log(`${i}: ${theme[i]}`);
+                const quest = theme[i];
+                for (const questField in quest) {
+                    console.log(`${questField}: ${quest[questField]}`);
+                }
+            }
+        }
     }
 
     async getTabContent(id) {
