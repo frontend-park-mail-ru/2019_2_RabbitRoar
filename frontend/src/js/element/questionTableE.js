@@ -16,15 +16,6 @@ class QuestionTableE {
     _redraw() {
         this.destroy();
         this.create(this.root);
-
-        const chosedId = GameF.getLastClickedCells();
-        for (id in chosedId) {
-            const lastClick = document.getElementById(id);
-            if (lastClick) {
-                replaceTwoCssClasses(lastClick, "question-container__cost", "question-container__cost_chosen");
-            }
-        }
-
     }
 
     create(root = document.getElementById("application")) {
@@ -34,6 +25,16 @@ class QuestionTableE {
 
         this.root.insertAdjacentHTML("beforeend", Template({ state }));
         this.controller.start();
+
+
+        const chosedId = GameF.getLastClickedCells();
+        for (const _id in chosedId) {
+            const lastClick = document.getElementById(_id);
+            if (lastClick) {
+                replaceTwoCssClasses(lastClick, "question-container__cost", "question-container__cost_chosen");
+            }
+        }
+        
 
         const barElement = document.getElementById("progress-bar");
         if (state.mode === "selected") {

@@ -17,6 +17,7 @@ class ContentF {
     async getTabContent(id = MainMenuM.currentTab) {
         if ((id === window.id.tabRoom) || (id === window.id.tabTop) || (id === window.id.tabPack)) {
             const content = await ContentM.getTabContent(id);
+
             return content;
         }
     }

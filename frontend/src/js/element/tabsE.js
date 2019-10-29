@@ -31,8 +31,6 @@ class TabsE {
                 this._highlightChosen(id);
                 this.controller.start();
             }
-        ).catch(
-            (error) => console.log(`ERROR at: tabsE.create - ${error}`)
         );
     }
 

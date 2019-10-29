@@ -21,11 +21,8 @@ class QuestionTableC {
     }
 
     _choseQuestion(event) {
-
-
         const packId = event.target.parentNode.parentNode.id;
         const cellId = event.target.id;
-
         GameF.clickQuestion(packId, cellId);
     }
 
