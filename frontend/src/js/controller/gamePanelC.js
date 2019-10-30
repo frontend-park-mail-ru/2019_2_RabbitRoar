@@ -1,11 +1,12 @@
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
-import gameF from "../fasade/gameF.js";
+import GameF from "../fasade/gameF.js";
 
 class GamePanelC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
+        this.iface = GameF.gamePanelCInterface;
 
-        this.registerClassHandler(".game-panel-button", "click", this._buttonPressed);
+        this.registerClassHandler(".game-panel-button", "click", this._buttonPressed.bind(this));
 
     }
 
@@ -21,7 +22,7 @@ class GamePanelC {
         const string = document.getElementById("answer");
         if (string) {
             const answer = string.value;
-            gameF.sendAnswer(answer);
+            this.iface.sendAnswer(answer);
         }
     }
 }

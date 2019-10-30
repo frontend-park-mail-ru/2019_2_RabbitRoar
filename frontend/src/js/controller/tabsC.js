@@ -1,23 +1,28 @@
 import ContentF from "../fasade/contentF.js";
+import GameF from "../fasade/gameF.js";
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
-import { id } from "../modules/id.js"; 
+import { id } from "../modules/id.js";
 import Bus from "../event_bus.js";
 import { ROUTER_EVENT } from "../modules/events.js";
 import { SINGLE_GAME } from "../paths";
 
 class TabsC {
-    constructor(){
+    constructor() {
         Object.assign(this, DomEventsWrapperMixin);
 
         this.registerHandler(id.tabRoom, "click", this._tabClick);
         this.registerHandler(id.tabTop, "click", this._tabClick);
         this.registerHandler(id.tabPack, "click", this._tabClick);
+        this.registerHandler(id.tabOffline, "click", this._tabClick);
+
         this.registerClassHandler(".tab", "mouseover", this._lightTab.bind(this));
         this.registerClassHandler(".tab", "mouseout", this._unLightTab.bind(this));
         this.registerClassHandler(".tab-click", "mouseover", this._lightTab.bind(this));
         this.registerClassHandler(".tab-click", "mouseout", this._unLightTab.bind(this));
 
         this.registerClassHandler(".join-button", "click", this._startGame.bind(this));
+
+        this.iface = GameF.tabsCInterface;
     }
 
     start() {
@@ -38,11 +43,14 @@ class TabsC {
     }
 
 
-    _tabClick(event){
+    _tabClick(event) {
         ContentF.setCurrentTab(event.target.id);
     }
 
-    _startGame(){
+    _startGame(event) {
+        const gameMode = event.target.parentNode.id;    // gameMode === "offline"
+        GameF.setMode(gameMode);
+        this.iface.setPack(event.target.id);
         Bus.emit(ROUTER_EVENT.ROUTE_TO, SINGLE_GAME);
     }
 }

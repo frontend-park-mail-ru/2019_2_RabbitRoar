@@ -1,6 +1,7 @@
 div(class="main-container")
     div(class="tab", id=window.id.tabRoom) Комнаты
     div(class="tab", id=window.id.tabTop) Зал славы
+    div(class="tab", id=window.id.tabOffline) Offline
     div(class="tab", id=window.id.tabPack) FAQ
 
     div(class="tab-content")
@@ -16,7 +17,7 @@ div(class="main-container")
                 div(class="rooms-panel")
                     div(class="panel-elem elem-justify-start") #{val.name}
                     div(class="panel-elem") #{val.currentPlayers}/#{val.maxPlayers}
-                    div(class="panel-elem")
+                    div(class="panel-elem" id="online")
                         div(class="join-button") Присоединиться
 
         else if templateContent.contentType == window.id.tabTop
@@ -41,12 +42,27 @@ div(class="main-container")
                         img(class="rank-avatar",
                         src = val.rankSrc,
                         alt="No exist")
-        else
+
+        else if templateContent.contentType == window.id.tabOffline
+            div(class="offline-panel")
+                div(class="panel-elem") Название:
+                div(class="panel-elem") Автор:
+                div(class="panel-elem") Рейтинг:
+                div(class="panel-elem") .
+            each pack, index in templateContent.content
+                div(class="offline-panel")
+                    div(class="panel-elem") #{pack.name}
+                    div(class="panel-elem") #{pack.author}
+                    div(class="panel-elem") #{pack.rating}
+                    div(class="panel-elem" id="offline")
+                        div(class="join-button" id=pack.id) Играть
+        else if templateContent.contentType == window.id.tabPack
             div(class="faq-text")
                 p Добро пожаловать в онлайн-викторину «Swoyak».
                 p Выбирайте вопросы из игрового табло и отвечайте на них. 
                 p Игра заканчивается, когда все вопросы выбраны.
                 p Играй и повышай уровень.
                 p Играйте с друзьями и создавайте индивидуальные тематические комнаты.
-                button(class="join-button") Сыграть в демо
+                div(class="panel-elem" id="offline")
+                    button(class="join-button" id=0) Сыграть в демо
 

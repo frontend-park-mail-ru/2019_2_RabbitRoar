@@ -14,11 +14,13 @@ class GamePanelE {
 
         this.root.insertAdjacentHTML("beforeend", Template());
         this.controller.start();
+        GameF.reincarnate();
     }
 
     destroy() {
         this.controller.drop();
         this.root.innerHTML = "";
+        GameF.annihilate();
     }
 }
 

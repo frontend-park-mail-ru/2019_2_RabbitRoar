@@ -9,6 +9,15 @@ class ContentM {
 
     _workerHandler(msg) {
         if (msg.data.type === "pack") {
+            let savePacks = {};
+            if (localStorage.getItem("packs_list")) {
+                savePacks = JSON.parse(localStorage.getItem("packs_list"));
+                localStorage.removeItem("packs_list");
+            }
+
+            savePacks[msg.data.key] = "";
+            localStorage.setItem("packs_list", JSON.stringify(savePacks));
+
             localStorage.setItem(msg.data.key, msg.data.value)
 
             // const fromLocal = JSON.parse(localStorage.getItem(msg.data.key));
@@ -62,11 +71,37 @@ class ContentM {
 
             return mainContent;
         }
+
         if (id === window.id.tabPack) {
             const mainContent = {
                 text: "Добро пожаловать в Свою Игру!",
                 contentType: id,
                 content: []
+            };
+            return mainContent;
+        }
+
+        if (id === window.id.tabOffline) {
+            const allId = JSON.parse(localStorage.getItem("packs_list"));
+            if (!allId) {
+                return;
+            }
+
+            const packs = (() => {
+                const packs = new Array;
+                for (const id in allId) {
+                    const pack = localStorage.getItem(id);
+                    if (pack) {
+                        packs.push(JSON.parse(pack));
+                    }
+                }
+                return packs;
+            })();
+
+            const mainContent = {
+                infoPanel: {},
+                contentType: id,
+                content: packs
             };
             return mainContent;
         }

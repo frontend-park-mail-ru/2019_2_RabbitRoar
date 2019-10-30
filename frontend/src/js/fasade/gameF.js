@@ -3,7 +3,7 @@ import Bus from "../event_bus.js";
 import {
     QUESTION_CHANGE,
 } from "../modules/events.js";
-import { 
+import {
     QUESTION_PANEL_UPDATE,
     ANSWER_PANEL_UPDATE,
 } from "../modules/events.js";
@@ -11,60 +11,116 @@ import {
 
 class GameF {
     constructor() {
-        this.gameF = new OfflineGameF();
+        this.current = new OfflineGameF();
+        this.livingElements = 0;
         Bus.on(QUESTION_CHANGE, this._questionChange);
     }
 
-
-    clickQuestion(packId, cellId) {
-        this.gameF.clickQuestion(packId, cellId);
+    setMode(mode = "offline") {
+        if (mode === "offline") {
+            this.current = new OfflineGameF();
+        } else {
+            this.current = new OnlineGameF();
+        }
     }
 
-    sendAnswer(answer) {
-        this.gameF.sendAnswer(answer);
+
+
+    reincarnate() {
+        this.livingElements++;
+        console.log(`add element: ${this.livingElements}`);
+    }
+
+    annihilate() {
+        this.livingElements--;
+        console.log(`delete element: ${this.livingElements}`);
+        if (this.livingElements === 0) {
+            this.current.annihilateGame();
+        }
+    }
+
+    get tabsCInterface() {
+        return this.current.tabsCInterface;
+    }
+
+
+    get questionTableEInterface() {
+        return this.current.questionTableEInterface;
+    }
+
+    get questionTableCInterface() {
+        return this.current.questionTableCInterface;
+    }
+
+    get gamePanelCInterface() {
+        return this.current.gamePanelCInterface;
     }
 
 
     _questionChange() {
         Bus.emit(QUESTION_PANEL_UPDATE);
     }
-
-    getQuestionInfo() {
-        return this.gameF.getQuestionInfo();       
-    }
-
-    getLastClickedCells() {
-        return QuestionsM.chosedQuestionsId;
-    }
-
 }
 
 // ===================================================
 
 class OfflineGameF {
     constructor() {
-        
+        QuestionsM.setMode("offline");
     }
 
-    clickQuestion(packId, cellId) {
-        QuestionsM.clickQuestion(packId, cellId);
+    get tabsCInterface() {
+        const iface = {
+            setPack(packId = 0) {
+                QuestionsM.setPack(packId);
+            }
+        };
+        return iface;
     }
 
 
-    getQuestionInfo() {
-        return QuestionsM.getInfo();       
+    get questionTableEInterface() {
+        const iface = {
+            get questionInfo() {
+                return QuestionsM.getInfo();
+            },
+            get lastClickedCells() {
+                return QuestionsM.chosedQuestionsId;
+            }
+        };
+        return iface;
+    };
+
+    get questionTableCInterface() {
+        const iface = {
+            clickQuestion(packId, cellId) {
+                QuestionsM.clickQuestion(packId, cellId);
+            }
+        };
+        return iface;
+    };
+
+    get gamePanelCInterface() {
+        const iface = {
+            sendAnswer(answer) {
+                QuestionsM.sendAnswer(answer);
+            }
+        };
+        return iface;
+    };
+
+
+    annihilateGame() {
+        QuestionsM.annihilate();
     }
 
-    sendAnswer(answer) {
-        QuestionsM.sendAnswer(answer);
-    }
 }
 
 // ===================================================
 
 class OnlineGameF {
     constructor() {
-
+        QuestionsM.setMode("online");
     }
 }
 
