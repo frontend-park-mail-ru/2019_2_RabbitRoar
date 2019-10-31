@@ -8,7 +8,7 @@
   }
 
 .tab-content {
-    overflow-y:scroll;
+    overflow-y:auto;
     overflow-x:hidden;
     grid-column-start: 1;
     grid-column-end: 5;

@@ -48,15 +48,12 @@ export const registrationValidation = () => {
 
     let registrationError = _fieldValidation(document.getElementById("username").value, document.getElementById("username"),
         errorUsernameElement, _usernameIsValid, "Введите логин.", "Логин должен содержать минимум 3 символа.");
-    //alert(registrationError);
 
-    registrationError = _fieldValidation(document.getElementById("password").value, document.getElementById("password"),
+    registrationError = registrationError || _fieldValidation(document.getElementById("password").value, document.getElementById("password"),
         errorPasswordElement, _passwordIsValid, "Введите пароль.", "Пароль должен содержать от 5 до 24 символов, одну цифру и одну букву.");
-    //alert(registrationError);
 
-    registrationError = _fieldValidation(document.getElementById("email").value, document.getElementById("email"),
+    registrationError = registrationError || _fieldValidation(document.getElementById("email").value, document.getElementById("email"),
         errorEmailElement, _emailIsValid, "Введите email.", "Недопустимый email.");
-    //alert(registrationError);
 
     if (registrationError) {
         return true;
