@@ -1,11 +1,10 @@
 import QuestionsM from "../model/questionsM.js";
 import Bus from "../event_bus.js";
 import {
-    QUESTION_CHANGE,
-} from "../modules/events.js";
-import {
     QUESTION_PANEL_UPDATE,
-    ANSWER_PANEL_UPDATE,
+    QUESTION_CHANGE,
+    QUESTION_WAS_CHOSEN,
+    TIMER_STOPPED
 } from "../modules/events.js";
 
 
@@ -23,7 +22,6 @@ class GameF {
             this.current = new OnlineGameF();
         }
     }
-
 
 
     reincarnate() {
@@ -56,9 +54,12 @@ class GameF {
         return this.current.gamePanelCInterface;
     }
 
-
     _questionChange() {
         Bus.emit(QUESTION_PANEL_UPDATE);
+    }
+
+    get stopTimer() {
+        return this.current.stopTimer();
     }
 }
 
@@ -78,7 +79,6 @@ class OfflineGameF {
         return iface;
     }
 
-
     get questionTableEInterface() {
         const iface = {
             get questionInfo() {
@@ -94,6 +94,7 @@ class OfflineGameF {
     get questionTableCInterface() {
         const iface = {
             clickQuestion(packId, cellId) {
+                Bus.emit(QUESTION_WAS_CHOSEN);
                 QuestionsM.clickQuestion(packId, cellId);
             }
         };
@@ -109,11 +110,15 @@ class OfflineGameF {
         return iface;
     };
 
-
     annihilateGame() {
         QuestionsM.annihilate();
     }
 
+    get stopTimer() {
+        QuestionsM.setDefaultMode();
+        Bus.emit(TIMER_STOPPED);
+        Bus.emit(QUESTION_PANEL_UPDATE);
+    };
 }
 
 // ===================================================

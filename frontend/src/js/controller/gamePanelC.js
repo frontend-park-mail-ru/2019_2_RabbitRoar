@@ -1,13 +1,18 @@
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import GameF from "../fasade/gameF.js";
+import Bus from "../event_bus.js";
+import { QUESTION_WAS_CHOSEN, TIMER_STOPPED } from "../modules/events.js";
+
 
 class GamePanelC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
         this.iface = GameF.gamePanelCInterface;
+        this.abilityToEnterAnswer = false;
         this.registerClassHandler(".game-panel-button", "click", this._buttonPressed.bind(this));
         document.addEventListener("keyup", this._answerEntered.bind(this));
-       // this.registerClassHandler(".game-panel-button", "keyup", this._answerEntered.bind(this));
+        Bus.on(QUESTION_WAS_CHOSEN, this._startListenQuestion.bind(this));
+        Bus.on(TIMER_STOPPED, this._stopListenQuestion.bind(this));
     }
 
     start() {
@@ -19,9 +24,23 @@ class GamePanelC {
     }
 
     _buttonPressed(event) {
+        if (this.abilityToEnterAnswer) {
+            const answer = document.getElementById("answer");
+            const answerValue = answer.value;
+            this.iface.sendAnswer(answerValue);
+            answer.value = "";
+        }
+    }
+
+    _startListenQuestion() {
+        this.abilityToEnterAnswer = true;
+    }
+
+    _stopListenQuestion() {
+        this.abilityToEnterAnswer = false;
         const answer = document.getElementById("answer");
-        const answerValue = answer.value;
-        this.iface.sendAnswer(answerValue);
+        // Вопрос не отправили, нужно снять очки
+        //this.iface.sendAnswer("");
         answer.value = "";
     }
 

@@ -1,5 +1,5 @@
 import Bus from "../event_bus.js";
-import { QUESTION_CHANGE } from "../modules/events.js";
+import { QUESTION_CHANGE, TIMER_STOPPED, TIMER_INTERRUPTION } from "../modules/events.js";
 
 class QuestionsM {
     constructor() {
@@ -42,7 +42,9 @@ class QuestionsM {
             this.current = new OnlineQuestionsM();
         }
     }
-
+    setDefaultMode() {
+        this.current.setDefaultMode();
+    }
 }
 
 // =============================================
@@ -55,6 +57,7 @@ class OfflineQuestionsM {
         this.questionTable.mode = "default";
         this.questionTable.selectedQuestion = undefined;
         this.chosedQuestionsId = {};
+        this.score = 0;
     }
 
 
@@ -71,6 +74,7 @@ class OfflineQuestionsM {
             return;
         }
 
+        this.currentQuestionScore = Number(document.getElementById(cellId).innerHTML);
         this.questionTable.mode = "selected";
         this.questionTable.selectedQuestion = question;
         this.chosedQuestionsId[cellId] = true;
@@ -87,11 +91,14 @@ class OfflineQuestionsM {
         if (trueAnswer === answer) {
             this.questionTable.mode = "default";
             this.questionTable.selectedQuestion = undefined;
+            this.score += this.currentQuestionScore;
             console.log("True answer");
             Bus.emit(QUESTION_CHANGE);
         } else {
-            return console.log("Wrong answer");
+            this.score -= this.currentQuestionScore;
+            Bus.emit(TIMER_INTERRUPTION);
         }
+        document.getElementById("score").innerHTML = this.score;
     }
 
 
@@ -103,7 +110,9 @@ class OfflineQuestionsM {
         };
     }
 
-
+    setDefaultMode() {
+        this.questionTable.mode = "default";
+    }
 }
 
 export default new QuestionsM();

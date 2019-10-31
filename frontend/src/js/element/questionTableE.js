@@ -2,7 +2,7 @@ import Template from "./templates/questionContainerT.pug";
 import QuestionTableC from "../controller/questionsTableC.js";
 import Bus from "../event_bus.js";
 import GameF from "../fasade/gameF.js";
-import { QUESTION_PANEL_UPDATE } from "../modules/events.js";
+import { QUESTION_PANEL_UPDATE, TIMER_STOPPED } from "../modules/events.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
 import gameF from "../fasade/gameF.js";
 
@@ -11,7 +11,6 @@ class QuestionTableE {
     constructor() {
         this.controller = QuestionTableC;
         this.iface = gameF.questionTableEInterface;
-
         Bus.on(QUESTION_PANEL_UPDATE, this._redraw.bind(this));
     }
 
@@ -43,7 +42,9 @@ class QuestionTableE {
             replaceTwoCssClasses(barElement, "progress-bar-hidden", "progress-bar");
 
             this._progressBarMoving()
-                .then((data) => { })
+                .then((data) => { 
+                    GameF.stopTimer;
+                })
                 .catch((error) => { });
         } else {
             replaceTwoCssClasses(barElement, "progress-bar", "progress-bar-hidden");

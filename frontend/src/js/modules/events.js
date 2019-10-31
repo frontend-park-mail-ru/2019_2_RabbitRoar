@@ -39,4 +39,8 @@ export const QUESTION_CHANGE = "questionChange";
 
 export const QUESTION_PANEL_UPDATE = "questPanelUpdate";
 
-export const ANSWER_PANEL_UPDATE = "answerPanelUpdate";
+export const QUESTION_WAS_CHOSEN = "questionWasChosen";
+
+export const TIMER_STOPPED = "timerStopped";
+
+export const TIMER_INTERRUPTION = "timerInterruption"

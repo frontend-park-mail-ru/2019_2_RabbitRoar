@@ -11,7 +11,6 @@ class GamePanelE {
 
     create(root = document.getElementById("application")) {
         this.root = root;
-
         this.root.insertAdjacentHTML("beforeend", Template());
         this.controller.start();
         GameF.reincarnate();
