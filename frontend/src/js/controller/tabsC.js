@@ -47,10 +47,37 @@ class TabsC {
         ContentF.setCurrentTab(event.target.id);
     }
 
+  
+
     _startGame(event) {
-        const gameMode = event.target.parentNode.id;    // gameMode === "offline"
+        let gameMode;
+
+        if (document.getElementById("offline_mode") !== null) {
+            gameMode = "offline";
+            if (event.target.id === "play") {
+                const continueButton = document.getElementById("continue");
+                if (continueButton) {
+                    const pack_id = event.target.getAttribute("pack_id");
+                    continueButton.setAttribute("pack_id", pack_id);
+                }
+
+                const popup = document.getElementById("popup");
+                if (popup) {
+                    popup.classList.toggle("popup_show");
+                    return;
+                }
+            } else if (event.target.id == "cansel") {
+                const popup = document.getElementById("popup");
+                if (popup) {
+                    popup.classList.toggle("popup_show");
+                    return;
+                }
+
+            }
+        }
+
         GameF.setMode(gameMode);
-        this.iface.setPack(event.target.id);
+        this.iface.setPack(event.target.getAttribute("pack_id"));
         Bus.emit(ROUTER_EVENT.ROUTE_TO, SINGLE_GAME);
     }
 }

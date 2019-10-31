@@ -15,7 +15,7 @@ class QuestionsM {
     }
 
     setPack(packId = 0) {
-        this.current.packId = packId;
+        this.current.setPack(packId);
     }
 
     clickQuestion(packId, themeId, cellId) {
@@ -55,6 +55,12 @@ class OfflineQuestionsM {
         this.questionTable.mode = "default";
         this.questionTable.selectedQuestion = undefined;
         this.chosedQuestionsId = {};
+        this.themes = this._getThemes(this.packId);
+    }
+
+    setPack(packId) {
+        this.packId = packId;
+        this.themes = this._getThemes(this.packId);
     }
 
 
@@ -100,7 +106,21 @@ class OfflineQuestionsM {
             packId: this.packId,
             mode: this.questionTable.mode,
             question: this.questionTable.selectedQuestion,
+            themes: this.themes,
         };
+    }
+
+
+
+
+
+
+    _getThemes(packId) {
+        const jsonObj = localStorage.getItem(packId);
+        if (jsonObj) {
+            return JSON.parse(jsonObj).themes;
+        }
+        return undefined;
     }
 
 

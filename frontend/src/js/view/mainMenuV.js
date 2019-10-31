@@ -21,7 +21,6 @@ class MainMenuV {
 
 
     create(data = "") {
-        console.log("Main view create");
         this.root.append(this.navbarDiv);
         this.root.append(this.tabsDiv);
 
@@ -30,7 +29,6 @@ class MainMenuV {
     }
 
     destroy() {
-        console.log("Main view destroy");
         NavbarE.destroy();
         TabsE.destroy();
     }
