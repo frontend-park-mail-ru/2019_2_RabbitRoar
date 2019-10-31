@@ -60,6 +60,7 @@ module.exports = {
   ],
   devtool: 'source-map',  // Source map generations
   devServer: {
+    https: true,
     contentBase: path.join(__dirname, 'dist'),
     historyApiFallback: true,
     liveReload: true,

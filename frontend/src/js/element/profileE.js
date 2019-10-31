@@ -18,10 +18,9 @@ class ProfileE {
         return this;
     }
 
-    create(root = document.getElementById("application")) {
+    async create(root = document.getElementById("application")) {
         this.root = root;
-        const userData = ValidatorF.getUserData();
-        
+        const userData = await ValidatorF.getUserData();
         this.root.insertAdjacentHTML("beforeend", Template({userData}));
         this.controller.start();
     }

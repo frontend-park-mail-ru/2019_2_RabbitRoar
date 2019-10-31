@@ -19,8 +19,9 @@ class ValidatorF {
         return User.autorised;
     }
 
-    getUserData() {
-        return User.getData();
+    async getUserData() {
+        const userInfo = await User.getData();
+        return userInfo;
     }
 
 

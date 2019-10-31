@@ -1,4 +1,4 @@
-import { signIn, logout, signUp, changeAvatar, changeTextFields } from "../modules/requests.js";
+import { signIn, logout, signUp, changeAvatar, changeTextFields, getUserInfo } from "../modules/requests.js";
 import Bus from "../event_bus.js";
 
 class User {
@@ -9,18 +9,15 @@ class User {
         User.instance = this;
 
         this.autorised = localStorage.getItem("autorized") || false;
-        this.email = "Kekos@mail.ru";
-        this.username = "Kekos";
-        this.password = "qwerty";
+        //this.email = "Kekos@mail.ru";
+        //this.username = "Kekos";
+        //this.password = "qwerty";
         return this;
     }
 
-    getData() {
-        return {
-            email: this.email,
-            username: this.username,
-            password: this.password
-        };
+    async getData() {
+        const userInfo = await getUserInfo();
+        return userInfo;
     }
 
     async changeAvatar(formData) {

@@ -1,6 +1,6 @@
 // Функции должны обязательно возвращать промис
 
-const base = "http://frontend.photocouple.space:3000";
+const base = "https://frontend.photocouple.space/api";
 
 export function postRequest(
     url = "/",
@@ -59,6 +59,5 @@ export function getRequest(
 			method: "GET",
             headers: headers,
 			credentials: "include",
-			body: body,
 		});
 }

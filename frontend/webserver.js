@@ -1,4 +1,4 @@
-const http = require('http');
+const http = require('https');
 const fs = require('fs');
 const path = require('path');
 
@@ -9,7 +9,7 @@ const options = {
 
 console.log(`Starting http server on ${options.port}.`);
 
-const server = http.createServer((req, res) => {
+const server = https.createServer((req, res) => {
     let file_path = req.url;
 
     if (file_path.endsWith('/')) {

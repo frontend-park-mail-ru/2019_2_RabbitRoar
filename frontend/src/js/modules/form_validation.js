@@ -16,7 +16,7 @@ const _passwordsAreEqual = (password1, password2) => {
 
 const _passwordIsValid = (password) => {
     // at least one letter and one number, 3 symbols minimum
-    const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,12}$/;
+    const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,24}$/;
     return re.test(String(password));
 };
 
@@ -48,12 +48,15 @@ export const registrationValidation = () => {
 
     let registrationError = _fieldValidation(document.getElementById("username").value, document.getElementById("username"),
         errorUsernameElement, _usernameIsValid, "Введите логин.", "Логин должен содержать минимум 3 символа.");
+    //alert(registrationError);
 
     registrationError = _fieldValidation(document.getElementById("password").value, document.getElementById("password"),
-        errorPasswordElement, _passwordIsValid, "Введите пароль.", "Пароль должен содержать от 5 до 12 символов, одну цифру и одну букву.");
+        errorPasswordElement, _passwordIsValid, "Введите пароль.", "Пароль должен содержать от 5 до 24 символов, одну цифру и одну букву.");
+    //alert(registrationError);
 
     registrationError = _fieldValidation(document.getElementById("email").value, document.getElementById("email"),
         errorEmailElement, _emailIsValid, "Введите email.", "Недопустимый email.");
+    //alert(registrationError);
 
     if (registrationError) {
         return true;
@@ -80,7 +83,7 @@ export const fileVaildation = () => {
             type().then(function (result) {
                 _deleteCssClassesFileInput(errorFileElement);
                 errorFileElement.classList.add("file-downloaded");
-                errorFileElement.innerHTML = "Файл загружен";
+                errorFileElement.innerHTML = "Аватарка обновлена";
                 resolve(input.files[0]);
             },
                 function (err) {
@@ -157,7 +160,7 @@ const _drawPasswordError = (errorPasswordElement) => {
 
 export const textFieldsVaildationProfile = (changedForms) => {
     if (changedForms.size == 0) {
-        const errorMain = document.getElementById("error_top");
+        const errorMain = document.getElementById("error_empty_fields");
         _deleteCssClassesFileInput(errorMain);
         errorMain.classList.add("error-visible");
 

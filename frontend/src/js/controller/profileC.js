@@ -68,6 +68,7 @@ class ProfileC {
 
     _saveImage() {
         fileVaildation().then(function (file) {
+            document.getElementById("profile__user-img").src = window.URL.createObjectURL(file)
             let formData = new FormData();
             formData.append("userfile", file);
             UserValidatorF.changeUserAvatar(formData);

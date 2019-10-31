@@ -34,7 +34,7 @@
     transition: background-color 500ms ease, border-bottom 500ms ease, box-shadow 1000ms ease;
   }
 
-  input[type="file"]{
+  input[type="file"] {
     width: 18%;
     font-size: 0.6em;
     margin: 10px;
@@ -59,20 +59,20 @@
   }
 
   .error-annotation {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: $color-danger;
     visibility: hidden;
     padding: 2px;
   }
 
   .error-visible {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: $color-danger;
     padding: 2px;
   }
 
   .file-downloaded {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: $color-success;
     padding: 2px;
   }
