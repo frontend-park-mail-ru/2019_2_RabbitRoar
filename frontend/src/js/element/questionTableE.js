@@ -4,11 +4,13 @@ import Bus from "../event_bus.js";
 import GameF from "../fasade/gameF.js";
 import { QUESTION_PANEL_UPDATE } from "../modules/events.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
+import gameF from "../fasade/gameF.js";
 
 
 class QuestionTableE {
     constructor() {
         this.controller = QuestionTableC;
+        this.iface = gameF.questionTableEInterface;
 
         Bus.on(QUESTION_PANEL_UPDATE, this._redraw.bind(this));
     }
@@ -21,13 +23,13 @@ class QuestionTableE {
     create(root = document.getElementById("application")) {
         this.root = root;
 
-        const state = GameF.getQuestionInfo();
+        const state = this.iface.questionInfo;
 
         this.root.insertAdjacentHTML("beforeend", Template({ state }));
         this.controller.start();
 
 
-        const chosedId = GameF.getLastClickedCells();
+        const chosedId = this.iface.lastClickedCells;
         for (const _id in chosedId) {
             const lastClick = document.getElementById(_id);
             if (lastClick) {
@@ -46,11 +48,14 @@ class QuestionTableE {
         } else {
             replaceTwoCssClasses(barElement, "progress-bar", "progress-bar-hidden");
         }
+
+        GameF.reincarnate();
     }
 
     destroy() {
         this.controller.drop();
         this.root.innerHTML = "";
+        GameF.annihilate();
     }
 
 

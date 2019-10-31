@@ -2,25 +2,35 @@ onmessage = function (event) {
     if (event.data === "update") {
         console.log("Worker: Message received UPDATE");
         if (event.data === "update") {
-            const pack = getPacks();
-            const key = pack.id;
+            const packs = getPacks();
+            for (const pack of packs) {
+                const key = pack.id;
 
-            const packMsg = {};
-            packMsg.type = "pack";
-            packMsg.value = JSON.stringify(pack);
-            packMsg.key = key;
-            self.postMessage(packMsg);
+                const packInfo = {
+                    id: pack.id,
+                    name: pack.name,
+                    img: pack.img,
+                    rating: pack.rating,
+                    author: pack.author
+                }
 
-            for (const theme in pack.questions) {
-                pack.questions[theme].forEach( (question, ind) => {
-                    const key = "" + pack.id + theme + ind;
+                const packMsg = {};
+                packMsg.type = "pack";
+                packMsg.value = JSON.stringify(packInfo);
+                packMsg.key = key;
+                self.postMessage(packMsg);
 
-                    const questMsg = {};
-                    questMsg.type = "question";
-                    questMsg.value = JSON.stringify(question);
-                    questMsg.key = key;
-                    self.postMessage(questMsg);
-                });
+                for (const theme in pack.questions) {
+                    pack.questions[theme].forEach((question, ind) => {
+                        const key = "" + pack.id + theme + ind;
+
+                        const questMsg = {};
+                        questMsg.type = "question";
+                        questMsg.value = JSON.stringify(question);
+                        questMsg.key = key;
+                        self.postMessage(questMsg);
+                    });
+                }
             }
         }
     }
@@ -28,25 +38,29 @@ onmessage = function (event) {
 
 
 function getPacks() {
-    const pack = {};
-    for (let i = 0; i < 1; ++i) {
-        pack.id = i;
-        pack.name = "MegaGiga pack by _^MotHerfaKKKKir^_228";
+    const packs = new Array;
+    const aut = ["MegaGiga pack by _^MotHerfaKKKKir^_228", "EgosKekos"];
+    const q = ["Кто ты такой блять чтоб это сделать?", "Где колоды заряжаете?"];
+    const a = ["диллер", "киоск"];
+    for (let j = 0; j < 2; ++j) {
+        const pack = {};
+        pack.id = j;
+        pack.name = aut[j];
         pack.img = "";
         pack.rating = 228;
-        pack.author = "_^MotHerfaKKKKir^_228";
+        pack.author = aut[j];
         pack.questions = function () {
             questions = {};
             themes = ["Марки", "Дувейн Скола Жонсан", "Об Обэме", "Случай в казино", "Кто я"];
-            themes.forEach( (key) => {
+            themes.forEach((key) => {
                 questions[key] = function () {
                     concreteQuestions = new Array;
                     for (let i = 0; i < 5; ++i) {
                         const question = {
                             id: i,
-                            text: `Кто проживает на дне океана?`,
+                            text: q[j],
                             media: "string",
-                            answer: "я",
+                            answer: a[j],
                             rating: i + 10,
                             author: i,
                             tags: [
@@ -60,8 +74,9 @@ function getPacks() {
             });
             return questions;
         }();
+        packs.push(pack);
     }
-    return pack;
+    return packs;
 }
 
 

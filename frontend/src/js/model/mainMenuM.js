@@ -14,7 +14,7 @@ class MainMenuM {
     }
 
     set currentTab(val) {
-        if ((val === id.tabRoom) || (val === id.tabTop) || (val === id.tabPack)) {
+        if ((val === id.tabRoom) || (val === id.tabTop) || (val === id.tabPack) || (val === id.tabOffline)) {
             this.currentTab_ = val;
         }
     }

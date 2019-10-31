@@ -6,6 +6,18 @@ class QuestionsM {
         this.current = new OfflineQuestionsM();
     }
 
+    setMode(mode = "offline") {
+        if (mode === "offline") {
+            this.current = new OfflineQuestionsM();
+        } else {
+            this.current = new OnlineQuestionsM();
+        }
+    }
+
+    setPack(packId = 0) {
+        this.current.packId = packId;
+    }
+
     clickQuestion(packId, themeId, cellId) {
         this.current.clickQuestion(packId, themeId, cellId);
     }
@@ -22,6 +34,14 @@ class QuestionsM {
         return this.current.chosedQuestionsId;
     }
 
+    annihilate() {
+        console.log("game restart");
+        if (this.current.mode === "offline") {
+            this.current = new OfflineQuestionsM();
+        } else {
+            this.current = new OnlineQuestionsM();
+        }
+    }
 
 }
 
@@ -29,6 +49,7 @@ class QuestionsM {
 
 class OfflineQuestionsM {
     constructor() {
+        this.mode = "offline";
         this.packId = 0;
         this.questionTable = {};
         this.questionTable.mode = "default";
@@ -38,8 +59,12 @@ class OfflineQuestionsM {
 
 
     clickQuestion(packId, cellId) {
-        const key = "" + packId + cellId;
+        if (!!this.chosedQuestionsId[cellId]) {
+            console.log("Вы уже выбирали вопрос");
+            return;
+        }
 
+        const key = "" + packId + cellId;
         const question = JSON.parse(localStorage.getItem(key));
         if (!question) {
             console.log("No question in cache");
@@ -48,15 +73,8 @@ class OfflineQuestionsM {
 
         this.questionTable.mode = "selected";
         this.questionTable.selectedQuestion = question;
-
-
-        if (!!this.chosedQuestionsId[cellId]) {
-            console.log("Вы уже выбирали вопрос");
-            return;
-        }
         this.chosedQuestionsId[cellId] = true;
 
-        
         Bus.emit(QUESTION_CHANGE);
     }
 

@@ -6,8 +6,9 @@ import { replaceTwoCssClasses } from "../modules/css_operations";
 
 class QuestionTableC {
     constructor() {
-        QuestionTableC.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
+        this.iface = GameF.questionTableCInterface;
+
 
         this.registerClassHandler(".question-container__cost", "click", this._choseQuestion.bind(this));
     }
@@ -23,7 +24,7 @@ class QuestionTableC {
     _choseQuestion(event) {
         const packId = event.target.parentNode.parentNode.id;
         const cellId = event.target.id;
-        GameF.clickQuestion(packId, cellId);
+        this.iface.clickQuestion(packId, cellId);
     }
 
 
