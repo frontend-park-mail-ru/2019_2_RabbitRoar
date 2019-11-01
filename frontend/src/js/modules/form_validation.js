@@ -209,21 +209,6 @@ export const textFieldsVaildationProfile = (changedForms) => {
         }
     }
 
-    const errorEmailElement = document.getElementById("error_email");
-    if (changedForms.has("email")) {
-        const email = changedForms.get("email");
-        if (!_emailIsValid(email)) {
-            replaceTwoCssClasses(errorEmailElement, "error-annotation", "error-visible");
-            replaceTwoCssClasses(document.getElementById("email"), "input-valid", "input-error");
-            errorEmailElement.innerHTML = "Недопустимый email.";
-            error = true;
-        } else {
-            changes["email"] = changedForms.get("email");
-            replaceTwoCssClasses(errorEmailElement, "error-visible", "error-annotation");
-            replaceTwoCssClasses(document.getElementById("email"), "input-error", "input-valid");
-        }
-    }
-
     if (error) {
         return { fieldsAreValid: false, changes: {} };
     }
