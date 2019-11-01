@@ -45,6 +45,10 @@ class QuestionsM {
     setDefaultMode() {
         this.current.setDefaultMode();
     }
+
+    removePointsForQuestion() {
+        this.current.removePointsForQuestion();
+    }
 }
 
 // =============================================
@@ -58,7 +62,6 @@ class OfflineQuestionsM {
         this.questionTable.selectedQuestion = undefined;
         this.chosedQuestionsId = {};
         this.score = 0;
-        Bus.on(TIMER_STOPPED, this._removePointsForQuestion.bind(this));
     }
 
 
@@ -83,7 +86,7 @@ class OfflineQuestionsM {
         Bus.emit(QUESTION_CHANGE);
     }
 
-    _removePointsForQuestion() {
+    removePointsForQuestion() {
         alert("вычли баллесы");
         this.score -= this.currentQuestionScore;
         document.getElementById("score").innerHTML = this.score;

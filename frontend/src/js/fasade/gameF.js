@@ -122,6 +122,7 @@ class OfflineGameF {
     stopTimer() {
         QuestionsM.setDefaultMode();
         alert("эмитим TIMER_STOPPED");
+        QuestionsM.removePointsForQuestion();
         Bus.emit(TIMER_STOPPED);
         Bus.emit(QUESTION_PANEL_UPDATE);
     }
