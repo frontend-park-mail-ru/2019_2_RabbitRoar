@@ -21,7 +21,6 @@ class AutorisationV {
 
 
     create(data = "") {
-        console.log("autorisation view create");
         this.root.append(this.navbarDiv);
         this.root.append(this.AutorisationDiv);
 
@@ -30,7 +29,6 @@ class AutorisationV {
     }
 
     destroy() {
-        console.log("autorisation view destroy");
         NavbarE.destroy();
         AutorisationE.destroy();
     }

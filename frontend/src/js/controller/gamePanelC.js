@@ -7,7 +7,6 @@ import { QUESTION_WAS_CHOSEN, TIMER_STOPPED, TIMER_INTERRUPTION } from "../modul
 class GamePanelC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
-        this.iface = GameF.gamePanelCInterface;
         this.abilityToEnterAnswer = false;
         this.registerClassHandler(".game-panel-button", "click", this._buttonPressed.bind(this));
         document.addEventListener("keyup", this._answerEntered.bind(this));
@@ -18,6 +17,7 @@ class GamePanelC {
     }
 
     start() {
+        this.gameIface = GameF.getInterface(this)();
         this.enableAll();
     }
 
@@ -29,7 +29,7 @@ class GamePanelC {
         if (this.abilityToEnterAnswer) {
             const answer = document.getElementById("answer");
             const answerValue = answer.value;
-            this.iface.sendAnswer(answerValue);
+            this.gameIface.sendAnswer(answerValue);
             answer.value = "";
         }
     }

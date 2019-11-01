@@ -21,8 +21,6 @@ class TabsC {
         this.registerClassHandler(".tab-click", "mouseout", this._unLightTab.bind(this));
 
         this.registerClassHandler(".join-button", "click", this._startGame.bind(this));
-
-        this.iface = GameF.tabsCInterface;
     }
 
     start() {
@@ -47,10 +45,37 @@ class TabsC {
         ContentF.setCurrentTab(event.target.id);
     }
 
+  
+
     _startGame(event) {
-        const gameMode = event.target.parentNode.id;    // gameMode === "offline"
-        GameF.setMode(gameMode);
-        this.iface.setPack(event.target.id);
+        let gameMode;
+
+        if (document.getElementById("offline_mode") !== null) {
+            gameMode = "offline";
+            if (event.target.id === "play") {
+                const continueButton = document.getElementById("continue");
+                if (continueButton) {
+                    const pack_id = event.target.getAttribute("pack_id");
+                    continueButton.setAttribute("pack_id", pack_id);
+                }
+
+                const popup = document.getElementById("popup");
+                if (popup) {
+                    popup.classList.toggle("popup_show");
+                    return;
+                }
+            } else if (event.target.id == "cansel") {
+                const popup = document.getElementById("popup");
+                if (popup) {
+                    popup.classList.toggle("popup_show");
+                    return;
+                }
+
+            }
+        }
+
+        const packId = event.target.getAttribute("pack_id");
+        GameF.CreateGame(gameMode, packId);
         Bus.emit(ROUTER_EVENT.ROUTE_TO, SINGLE_GAME);
     }
 }

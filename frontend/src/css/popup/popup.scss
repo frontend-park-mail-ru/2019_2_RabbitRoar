@@ -1,0 +1,14 @@
+.popup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    visibility: hidden;
+    top: 0px; left: 0px; bottom: 0px; right: 0px;
+}
+
+.popup_show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}

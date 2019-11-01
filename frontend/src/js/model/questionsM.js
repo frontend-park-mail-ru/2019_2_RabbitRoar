@@ -3,19 +3,14 @@ import { QUESTION_CHANGE, TIMER_STOPPED, TIMER_INTERRUPTION } from "../modules/e
 
 class QuestionsM {
     constructor() {
-        this.current = new OfflineQuestionsM();
     }
 
-    setMode(mode = "offline") {
+    CreateNew(mode = "offline", packId = 0) {
         if (mode === "offline") {
-            this.current = new OfflineQuestionsM();
+            this.current = new OfflineQuestionsM(packId);
         } else {
-            this.current = new OnlineQuestionsM();
+            this.current = new OnlineQuestionsM(packId);
         }
-    }
-
-    setPack(packId = 0) {
-        this.current.packId = packId;
     }
 
     clickQuestion(packId, themeId, cellId) {
@@ -54,14 +49,16 @@ class QuestionsM {
 // =============================================
 
 class OfflineQuestionsM {
-    constructor() {
+    constructor(packId = 0) {
+        console.log("GAME CREATED");
+        this.packId = packId;
         this.mode = "offline";
-        this.packId = 0;
         this.questionTable = {};
         this.questionTable.mode = "default";
         this.questionTable.selectedQuestion = undefined;
         this.chosedQuestionsId = {};
         this.score = 0;
+        this.themes = this._getThemes(this.packId);
     }
 
 
@@ -102,7 +99,7 @@ class OfflineQuestionsM {
             this.score += this.currentQuestionScore;
         } else {
             alert("неправильный ответ");
-            this._removePointsForQuestion();
+            this.removePointsForQuestion();
         }
         this.questionTable.selectedQuestion = undefined;
         Bus.emit(TIMER_INTERRUPTION);
@@ -116,12 +113,23 @@ class OfflineQuestionsM {
             packId: this.packId,
             mode: this.questionTable.mode,
             question: this.questionTable.selectedQuestion,
+            themes: this.themes,
         };
     }
 
     setDefaultMode() {
         this.questionTable.mode = "default";
     }
+
+
+    _getThemes(packId) {
+        const jsonObj = localStorage.getItem(packId);
+        if (jsonObj) {
+            return JSON.parse(jsonObj).themes;
+        }
+        return undefined;
+    }
+
 }
 
 export default new QuestionsM();

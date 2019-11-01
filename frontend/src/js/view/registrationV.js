@@ -21,7 +21,6 @@ class RegistrationV {
 
 
     create(data = "") {
-        console.log("registration view create");
         this.root.append(this.navbarDiv);
         this.root.append(this.RegistrationDiv);
 
@@ -30,7 +29,6 @@ class RegistrationV {
     }
 
     destroy() {
-        console.log("registration view destroy");
         NavbarE.destroy();
         RegistrationE.destroy();
     }

@@ -11,7 +11,14 @@ onmessage = function (event) {
                     name: pack.name,
                     img: pack.img,
                     rating: pack.rating,
-                    author: pack.author
+                    author: pack.author,
+                    themes: (() => {
+                        const themes = new Array;
+                        for (const theme in pack.questions) {
+                            themes.push(theme);
+                        }
+                        return themes;
+                    })()
                 }
 
                 const packMsg = {};
@@ -38,6 +45,10 @@ onmessage = function (event) {
 
 
 function getPacks() {
+    const globalThemes = [
+        ["Марки", "Дувейн Скола Жонсан", "Об Обэме", "Случай в казино", "Кто я"],
+        ["Шкварки", "Анита пуська", "Жъъужуъ", "Экзистенциальный кризис", "Зачем оно мне все надо?"]
+    ]
     const packs = new Array;
     const aut = ["MegaGiga pack by _^MotHerfaKKKKir^_228", "EgosKekos"];
     const q = ["Кто ты такой блять чтоб это сделать?", "Где колоды заряжаете?"];
@@ -51,7 +62,7 @@ function getPacks() {
         pack.author = aut[j];
         pack.questions = function () {
             questions = {};
-            themes = ["Марки", "Дувейн Скола Жонсан", "Об Обэме", "Случай в казино", "Кто я"];
+            themes = globalThemes[j];
             themes.forEach((key) => {
                 questions[key] = function () {
                     concreteQuestions = new Array;

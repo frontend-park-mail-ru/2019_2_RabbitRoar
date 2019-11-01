@@ -10,7 +10,6 @@ import gameF from "../fasade/gameF.js";
 class QuestionTableE {
     constructor() {
         this.controller = QuestionTableC;
-        this.iface = gameF.questionTableEInterface;
         this.progressBarInterrupt = false;
         Bus.on(TIMER_STOPPED, this._redraw.bind(this));
         Bus.on(QUESTION_PANEL_UPDATE, this._redraw.bind(this));
@@ -24,16 +23,17 @@ class QuestionTableE {
     }
 
     create(root = document.getElementById("application")) {
+        this.gameIface = GameF.getInterface(this)();
 
         this.root = root;
 
-        const state = this.iface.questionInfo;
+        const state = this.gameIface.questionInfo();
 
         this.root.insertAdjacentHTML("beforeend", Template({ state }));
         this.controller.start();
 
 
-        const chosedId = this.iface.lastClickedCells;
+        const chosedId = this.gameIface.lastClickedCells();
         for (const _id in chosedId) {
             const lastClick = document.getElementById(_id);
             if (lastClick) {
@@ -72,7 +72,7 @@ class QuestionTableE {
             let barElem = document.getElementById("dynamic-bar");
             const interval = setInterval(() => {
                 if (width >= 100) {
-                    GameF.stopTimer;
+                    this.gameIface.stopTimer();
                     clearInterval(interval);
                     resolve("done");
                 } else if (this.progressBarInterrupt) {

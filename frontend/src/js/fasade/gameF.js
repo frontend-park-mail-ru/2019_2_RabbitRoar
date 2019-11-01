@@ -8,22 +8,33 @@ import {
     TIMER_INTERRUPTION
 } from "../modules/events.js";
 
+import GamePanelC from "../controller/gamePanelC.js"
+import QuestionTableC from "../controller/questionsTableC.js"
+import QuestionTableE from "../element/questionTableE.js"
+
+
 
 class GameF {
     constructor() {
-        this.current = new OfflineGameF();
         this.livingElements = 0;
+        this.ifaces = new Map;
+        this.ifaces.set(GamePanelC, this._gamePanelCInterface.bind(this));
+        this.ifaces.set(QuestionTableC, this._questionTableCInterface.bind(this));
+        this.ifaces.set(QuestionTableE, this._questionTableEInterface.bind(this));
         Bus.on(QUESTION_CHANGE, this._questionChange);
     }
 
-    setMode(mode = "offline") {
-        if (mode === "offline") {
-            this.current = new OfflineGameF();
-        } else {
-            this.current = new OnlineGameF();
-        }
+    getInterface(consumer) {
+        return this.ifaces.get(consumer);
     }
 
+    CreateGame(mode = "offline", packId = 0) {
+        if (mode === "offline") {
+            this.current = new OfflineGameF(packId);
+        } else {
+            this.current = new OnlineGameF(packId);
+        }
+    }
 
     reincarnate() {
         this.livingElements++;
@@ -38,59 +49,52 @@ class GameF {
         }
     }
 
-    get tabsCInterface() {
-        return this.current.tabsCInterface;
-    }
-
-
-    get questionTableEInterface() {
-        return this.current.questionTableEInterface;
-    }
-
-    get questionTableCInterface() {
-        return this.current.questionTableCInterface;
-    }
-
-    get gamePanelCInterface() {
-        return this.current.gamePanelCInterface;
-    }
 
     _questionChange() {
         Bus.emit(QUESTION_PANEL_UPDATE);
     }
 
-    get stopTimer() {
-        this.current.stopTimer();
+    _questionTableEInterface() {
+        return this.current.questionTableEInterface;
     }
 
-    get interruptTimer() {
-        this.current.interruptTimer();
+    _questionTableCInterface() {
+        return this.current.questionTableCInterface;
+    }
+
+    _gamePanelCInterface() {
+        return this.current.gamePanelCInterface;
     }
 }
 
 // ===================================================
 
 class OfflineGameF {
-    constructor() {
-        QuestionsM.setMode("offline");
+    constructor(packId = 0) {
+        QuestionsM.CreateNew("offline", packId);
     }
 
-    get tabsCInterface() {
-        const iface = {
-            setPack(packId = 0) {
-                QuestionsM.setPack(packId);
-            }
-        };
-        return iface;
-    }
 
     get questionTableEInterface() {
         const iface = {
-            get questionInfo() {
+            questionInfo() {
                 return QuestionsM.getInfo();
             },
-            get lastClickedCells() {
+            lastClickedCells() {
                 return QuestionsM.chosedQuestionsId;
+            },
+            stopTimer() {
+                QuestionsM.setDefaultMode();
+                alert("эмитим TIMER_STOPPED");
+                QuestionsM.removePointsForQuestion();
+                Bus.emit(TIMER_STOPPED);
+                Bus.emit(QUESTION_PANEL_UPDATE);
+            },
+            interruptTimer() {
+                alert("!!!!!!")
+                QuestionsM.setDefaultMode();
+                Bus.emit(TIMER_INTERRUPTION);
+                Bus.emit(QUESTION_PANEL_UPDATE);
             }
         };
         return iface;
@@ -119,26 +123,13 @@ class OfflineGameF {
         QuestionsM.annihilate();
     }
 
-    stopTimer() {
-        QuestionsM.setDefaultMode();
-        alert("эмитим TIMER_STOPPED");
-        QuestionsM.removePointsForQuestion();
-        Bus.emit(TIMER_STOPPED);
-        Bus.emit(QUESTION_PANEL_UPDATE);
-    }
-
-    interruptTimer() {
-        QuestionsM.setDefaultMode();
-        Bus.emit(TIMER_INTERRUPTION);
-        Bus.emit(QUESTION_PANEL_UPDATE);
-    }
 }
 
 // ===================================================
 
 class OnlineGameF {
-    constructor() {
-        QuestionsM.setMode("online");
+    constructor(packId = 0) {
+        QuestionsM.CreateNew("online", packId);
     }
 }
 

@@ -13,14 +13,12 @@ import ProfileV from "./view/profileV.js";
 import SingleGameV from "./view/singleGameV.js";
 import Worker from "./workers/gameLoader.worker.js";
 
-//if ("Worker" in navigator) {
     const worker = new Worker();
     window.packWorker = worker;
     window.packWorker.onmessage = (msg) => Bus.emit(PACK_WORKER_MESSAGE, msg);
 
     Bus.on(PACK_WORKER_COMMAND, (data) => window.packWorker.postMessage(data));
     Bus.emit(PACK_WORKER_COMMAND, "update");
-//}
 
 
 if ("serviceWorker" in navigator) {

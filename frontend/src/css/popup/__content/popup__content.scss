@@ -1,0 +1,14 @@
+.popup__content {
+    display: grid;
+    width: 50%;
+    height: 50%;
+    visibility: inherit;
+    background-color: $color-bg-dark;
+    color: var(--font-color-theme);
+    text-align: center;
+    border-radius: 6px;
+    border-width: 2px;
+    z-index: 1;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr, 1fr;
+}

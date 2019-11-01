@@ -21,7 +21,6 @@ class ProfileV {
 
 
     create() {
-        console.log("Profile view create");
         this.root.append(this.navbarDiv);
         this.root.append(this.profileDiv);
 
@@ -31,7 +30,6 @@ class ProfileV {
     }
 
     destroy() {
-        console.log("Profile view destroy");
         NavbarE.destroy();
         ProfileE.destroy();
     }

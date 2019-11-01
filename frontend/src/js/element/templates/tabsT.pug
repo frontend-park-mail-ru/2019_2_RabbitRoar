@@ -44,18 +44,27 @@ div(class="main-container")
                         alt="No exist")
 
         else if templateContent.contentType == window.id.tabOffline
+            div(id="offline_mode")
             div(class="offline-panel")
                 div(class="panel-elem") Название:
                 div(class="panel-elem") Автор:
                 div(class="panel-elem") Рейтинг:
                 div(class="panel-elem") .
+
+            div(class="popup" id="popup")
+                div(class="popup__content")
+                    div(class="panel-elem") Вы переходите в offline игру, очки начислены не будут
+                    div(class="panel-elem")
+                        div(class="join-button" id="cansel") Отмена
+                        div(class="join-button" id="continue") Продолжить
             each pack, index in templateContent.content
+
                 div(class="offline-panel")
                     div(class="panel-elem") #{pack.name}
                     div(class="panel-elem") #{pack.author}
                     div(class="panel-elem") #{pack.rating}
-                    div(class="panel-elem" id="offline")
-                        div(class="join-button" id=pack.id) Играть
+                    div(class="panel-elem")
+                        div(class="join-button" id="play" pack_id=pack.id) Играть
         else if templateContent.contentType == window.id.tabPack
             div(class="faq-text")
                 p Добро пожаловать в онлайн-викторину «Swoyak».
@@ -63,6 +72,6 @@ div(class="main-container")
                 p Игра заканчивается, когда все вопросы выбраны.
                 p Играй и повышай уровень.
                 p Играйте с друзьями и создавайте индивидуальные тематические комнаты.
-                div(class="panel-elem" id="offline")
+                div(class="panel-elem")
                     button(class="join-button" id=0) Сыграть в демо
 

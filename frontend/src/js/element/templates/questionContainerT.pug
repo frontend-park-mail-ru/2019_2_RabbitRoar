@@ -22,8 +22,5 @@ else
     div(id="progress-bar" class="progress-bar-hidden")
         div(id="dynamic-bar" class="dynamic-bar")
     div(class="question-container" id=state.packId)
-        +line("Марки", "Марки")
-        +line("Дувейн Скола Жонсан", "Дувейн Скола Жонсан")
-        +line("Об Обэме", "Об Обэме")
-        +line("Случай в казино", "Случай в казино")
-        +line("Кто я", "Кто я")
+        each theme, index in state.themes
+            +line(theme, theme)
