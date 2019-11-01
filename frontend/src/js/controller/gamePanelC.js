@@ -1,7 +1,7 @@
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import GameF from "../fasade/gameF.js";
 import Bus from "../event_bus.js";
-import { QUESTION_WAS_CHOSEN, TIMER_STOPPED } from "../modules/events.js";
+import { QUESTION_WAS_CHOSEN, TIMER_STOPPED, TIMER_INTERRUPTION } from "../modules/events.js";
 
 
 class GamePanelC {
@@ -13,6 +13,8 @@ class GamePanelC {
         document.addEventListener("keyup", this._answerEntered.bind(this));
         Bus.on(QUESTION_WAS_CHOSEN, this._startListenQuestion.bind(this));
         Bus.on(TIMER_STOPPED, this._stopListenQuestion.bind(this));
+        Bus.on(TIMER_INTERRUPTION, this._stopListenQuestion.bind(this));
+        
     }
 
     start() {
@@ -37,10 +39,9 @@ class GamePanelC {
     }
 
     _stopListenQuestion() {
+        alert("сработал stopListenQuestion");
         this.abilityToEnterAnswer = false;
         const answer = document.getElementById("answer");
-        // Вопрос не отправили, нужно снять очки
-        //this.iface.sendAnswer("");
         answer.value = "";
     }
 

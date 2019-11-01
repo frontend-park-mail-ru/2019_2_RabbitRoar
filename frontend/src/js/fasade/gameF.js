@@ -4,7 +4,8 @@ import {
     QUESTION_PANEL_UPDATE,
     QUESTION_CHANGE,
     QUESTION_WAS_CHOSEN,
-    TIMER_STOPPED
+    TIMER_STOPPED,
+    TIMER_INTERRUPTION
 } from "../modules/events.js";
 
 
@@ -59,7 +60,11 @@ class GameF {
     }
 
     get stopTimer() {
-        return this.current.stopTimer();
+        this.current.stopTimer();
+    }
+
+    get interruptTimer() {
+        this.current.interruptTimer();
     }
 }
 
@@ -114,11 +119,18 @@ class OfflineGameF {
         QuestionsM.annihilate();
     }
 
-    get stopTimer() {
+    stopTimer() {
         QuestionsM.setDefaultMode();
+        alert("эмитим TIMER_STOPPED");
         Bus.emit(TIMER_STOPPED);
         Bus.emit(QUESTION_PANEL_UPDATE);
-    };
+    }
+
+    interruptTimer() {
+        QuestionsM.setDefaultMode();
+        Bus.emit(TIMER_INTERRUPTION);
+        Bus.emit(QUESTION_PANEL_UPDATE);
+    }
 }
 
 // ===================================================

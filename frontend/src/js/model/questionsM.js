@@ -58,6 +58,7 @@ class OfflineQuestionsM {
         this.questionTable.selectedQuestion = undefined;
         this.chosedQuestionsId = {};
         this.score = 0;
+        Bus.on(TIMER_STOPPED, this._removePointsForQuestion.bind(this));
     }
 
 
@@ -82,6 +83,11 @@ class OfflineQuestionsM {
         Bus.emit(QUESTION_CHANGE);
     }
 
+    _removePointsForQuestion() {
+        alert("вычли баллесы");
+        this.score -= this.currentQuestionScore;
+        document.getElementById("score").innerHTML = this.score;
+    }
 
     sendAnswer(answer) {
         if (this.questionTable.mode !== "selected") {
@@ -89,18 +95,18 @@ class OfflineQuestionsM {
         }
         const trueAnswer = this.questionTable.selectedQuestion.answer;
         if (trueAnswer === answer) {
-            this.questionTable.mode = "default";
-            this.questionTable.selectedQuestion = undefined;
+            alert("правильный ответ");
             this.score += this.currentQuestionScore;
-            console.log("True answer");
-            Bus.emit(QUESTION_CHANGE);
         } else {
-            this.score -= this.currentQuestionScore;
-            Bus.emit(TIMER_INTERRUPTION);
+            alert("неправильный ответ");
+            this._removePointsForQuestion();
         }
+        this.questionTable.selectedQuestion = undefined;
+        Bus.emit(TIMER_INTERRUPTION);
+        this.questionTable.mode = "default";
+        Bus.emit(QUESTION_CHANGE);
         document.getElementById("score").innerHTML = this.score;
     }
-
 
     getInfo() {
         return {
