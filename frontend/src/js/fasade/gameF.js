@@ -38,12 +38,10 @@ class GameF {
 
     reincarnate() {
         this.livingElements++;
-        console.log(`add element: ${this.livingElements}`);
     }
 
     annihilate() {
         this.livingElements--;
-        console.log(`delete element: ${this.livingElements}`);
         if (this.livingElements === 0) {
             this.current.annihilateGame();
         }
