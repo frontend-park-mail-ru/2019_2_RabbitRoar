@@ -76,7 +76,6 @@ class QuestionTableE {
                     clearInterval(interval);
                     resolve("done");
                 } else if (this.progressBarInterrupt) {
-                    GameF.interruptTimer;
                     this.progressBarInterrupt = false;
                     clearInterval(interval);
                     resolve("done");

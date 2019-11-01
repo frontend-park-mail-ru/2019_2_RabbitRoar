@@ -39,7 +39,6 @@ class GamePanelC {
     }
 
     _stopListenQuestion() {
-        alert("сработал stopListenQuestion");
         this.abilityToEnterAnswer = false;
         const answer = document.getElementById("answer");
         answer.value = "";

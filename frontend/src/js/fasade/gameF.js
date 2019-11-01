@@ -51,7 +51,12 @@ class GameF {
 
 
     _questionChange() {
-        Bus.emit(QUESTION_PANEL_UPDATE);
+        if (QuestionsM.current.questionTable.mode === "default") {
+            Bus.emit(TIMER_INTERRUPTION);
+            Bus.emit(QUESTION_PANEL_UPDATE);
+        } else {
+            Bus.emit(QUESTION_PANEL_UPDATE);
+        }
     }
 
     _questionTableEInterface() {
@@ -85,17 +90,10 @@ class OfflineGameF {
             },
             stopTimer() {
                 QuestionsM.setDefaultMode();
-                alert("эмитим TIMER_STOPPED");
                 QuestionsM.removePointsForQuestion();
                 Bus.emit(TIMER_STOPPED);
                 Bus.emit(QUESTION_PANEL_UPDATE);
             },
-            interruptTimer() {
-                alert("!!!!!!")
-                QuestionsM.setDefaultMode();
-                Bus.emit(TIMER_INTERRUPTION);
-                Bus.emit(QUESTION_PANEL_UPDATE);
-            }
         };
         return iface;
     };

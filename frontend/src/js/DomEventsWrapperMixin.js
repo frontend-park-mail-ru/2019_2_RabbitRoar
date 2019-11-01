@@ -44,14 +44,6 @@ export const DomEventsWrapperMixin = {
     },
 
 
-    deleteAll() {
-        this.events.clear();
-    },
-
-    delete(id) {
-        this.events.delete(id);
-    },
-
     disableAll() {
         if (this.events !== undefined) {
             this.events.forEach(function (idHandler, id) {

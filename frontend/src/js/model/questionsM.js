@@ -61,7 +61,6 @@ class OfflineQuestionsM {
         this.themes = this._getThemes(this.packId);
     }
 
-
     clickQuestion(packId, cellId) {
         if (!!this.chosedQuestionsId[cellId]) {
             console.log("Вы уже выбирали вопрос");
@@ -84,7 +83,6 @@ class OfflineQuestionsM {
     }
 
     removePointsForQuestion() {
-        alert("вычли баллесы");
         this.score -= this.currentQuestionScore;
         document.getElementById("score").innerHTML = this.score;
     }
@@ -95,17 +93,14 @@ class OfflineQuestionsM {
         }
         const trueAnswer = this.questionTable.selectedQuestion.answer;
         if (trueAnswer === answer) {
-            alert("правильный ответ");
             this.score += this.currentQuestionScore;
         } else {
-            alert("неправильный ответ");
             this.removePointsForQuestion();
         }
         this.questionTable.selectedQuestion = undefined;
-        Bus.emit(TIMER_INTERRUPTION);
         this.questionTable.mode = "default";
-        Bus.emit(QUESTION_CHANGE);
         document.getElementById("score").innerHTML = this.score;
+        Bus.emit(QUESTION_CHANGE);
     }
 
     getInfo() {
