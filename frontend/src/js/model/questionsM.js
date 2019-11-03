@@ -91,8 +91,9 @@ class OfflineQuestionsM {
         if (this.questionTable.mode !== "selected") {
             return console.log("Select question");
         }
-        const trueAnswer = this.questionTable.selectedQuestion.answer;
-        if (trueAnswer === answer) {
+        const trueAnswer = this.questionTable.selectedQuestion.answer.toLowerCase();
+        const userAnswer = answer.toLowerCase();
+        if (this._checkAnswer(answer)) {
             this.score += this.currentQuestionScore;
         } else {
             this.removePointsForQuestion();
@@ -125,6 +126,55 @@ class OfflineQuestionsM {
         return undefined;
     }
 
+
+    _checkAnswer(answer) {
+        const trueAnswer = this.questionTable.selectedQuestion.answer.toLowerCase();
+        const userAnswer = answer.toLowerCase();
+
+        const trueWords = trueAnswer.split(" ");
+        const userWords = userAnswer.split(" ");
+
+        if (userWords.length === 0 || trueWords.length === 0) {
+            return false;
+        }
+
+        if ((userWords.length / trueWords.length < 0.5)) {
+            return false;
+        }
+
+        const needMatches = Math.floor((trueWords.length / 2) + 1);
+        console.log(`NEED MATHES ${needMatches}`);
+        const needEqual = 0.8;
+        let matches = 0;
+
+        for (const trueWord of trueWords) {
+            let maxEqual = 0.0;
+            for (const userWord of userWords) {
+                if (userWord.length !== trueWord.length) {
+                    continue;
+                }
+
+                let localMatches = 0;
+                console.log(trueWord);
+                const trueWordObj = trueWord.split("");
+                trueWordObj.forEach( (val, ind) => {
+                    if (val === userWord[ind]) {
+                        localMatches++;
+                    }
+                });
+                const localEqual = localMatches / trueWord.length;
+                if (localEqual > maxEqual) {
+                    maxEqual = localEqual;
+                }
+            }
+            console.log(maxEqual);
+            if (maxEqual >= needEqual) {
+                matches++;
+            }
+        }
+        console.log(matches);
+        return (matches >= needMatches);
+    }
 }
 
 class OnlineQuestionsM {

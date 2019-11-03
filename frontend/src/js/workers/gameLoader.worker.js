@@ -52,7 +52,7 @@ function getPacks() {
     const packs = new Array;
     const aut = ["MegaGiga pack by _^MotHerfaKKKKir^_228", "EgosKekos"];
     const q = ["Кто ты такой блять чтоб это сделать?", "Где колоды заряжаете?"];
-    const a = ["диллер", "киоск"];
+    const a = ["диллер", "в киоске заряжаем"];
     for (let j = 0; j < 2; ++j) {
         const pack = {};
         pack.id = j;

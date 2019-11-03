@@ -4,6 +4,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const Worker = require('worker-loader');
 
 module.exports = {
@@ -54,9 +55,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './index.pug'
     }),
-    new ServiceWorkerWebpackPlugin({
-      entry: path.join(__dirname, './src/js/workers/sw.js'),
-    }),
+    new WorkboxWebpackPlugin.InjectManifest({
+      swSrc: path.join(__dirname, './src/js/workers/sw.js'),
+      include: [/\.html$/, /\.js$/]
+    })
   ],
   devtool: 'source-map',  // Source map generations
   devServer: {

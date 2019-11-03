@@ -19,12 +19,13 @@ const worker = new Worker();
 window.packWorker = worker;
 window.packWorker.onmessage = (msg) => Bus.emit(PACK_WORKER_MESSAGE, msg);
 
+
 Bus.on(PACK_WORKER_COMMAND, (data) => window.packWorker.postMessage(data));
-Bus.emit(PACK_WORKER_COMMAND, "update");
+Bus.emit(PACK_WORKER_COMMAND, "update!!");
 
 
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./sw.js", { scope: "./" }).then(function (registration) {
+    navigator.serviceWorker.register("./sw.js").then(function (registration) {
         console.log("sw.js registration successful with scope: ", registration.scope);
     }).catch(function (err) {
         console.log("sw.js registration failed: ", err);
