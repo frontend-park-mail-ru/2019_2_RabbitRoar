@@ -1,0 +1,64 @@
+div(id="form-part-1")
+    form(class="form")
+        p Создание комнаты
+            div(class="form-group")
+                label(for="room-name") Название
+                input(class="input-valid" name="room-name", id="room-name", type="text")
+                span(class="error-annotation" id="error_room_name") Отображение ошибки
+
+            div(class="form-group")
+                label(for="checkbox") Пароль
+                input(class="checkbox" type="checkbox" id="checkbox")
+
+            div(class="form-group")
+                label(for="password")
+                input(class="input-valid" name="password", id="password", type="password", disabled)
+                span(class="error-annotation" id="error_password") Отображение ошибки
+
+            div(class="form-group")
+                label(for="users-number") Количество игроков
+                input(type="number" id="users-number" size="3" name="num" min="2" max="6" value="2")
+
+            button(type="submit", id="further") Далее
+            button(type="submit", class="back") Назад
+
+div(id="form-part-2")
+    div(class="main-room-container")
+        div(class="tab") Toп
+        div(class="tab") Избранные
+        div(class="tab") Поиск
+        
+        div(class="tab-content")
+            p(class="pack-number" id="pack-id") Выбранный пак
+            span(class="error-annotation" id="error_pack") Отображение ошибки
+
+            div(class="panel-elem")
+                div(class="pack-button" id="1") pack
+            div(class="panel-elem")
+                div(class="pack-button" id="2") pack
+            div(class="panel-elem")
+                div(class="pack-button" id="3") pack
+            div(class="panel-elem")
+                div(class="pack-button" id="4") pack
+            div(class="panel-elem")
+                div(class="pack-button" id="5") pack
+            div(class="panel-elem")
+                div(class="pack-button" id="6") pack
+            div(class="panel-elem")
+                div(class="pack-button" id="7") pack
+            div(class="panel-elem")
+                div(class="pack-button" id="8") pack
+            div(class="panel-elem")
+                div(class="pack-button" id="9") pack
+            div(class="panel-elem")
+                div(class="pack-button" id="10") pack
+            div(class="panel-elem")
+                div(class="pack-button" id="11") pack
+            div(class="panel-elem")
+                div(class="pack-button" id="12") pack
+
+
+    form(class="form")
+        button(type="submit", id="finish") Завершить
+        button(type="submit", class="back") Назад
+        

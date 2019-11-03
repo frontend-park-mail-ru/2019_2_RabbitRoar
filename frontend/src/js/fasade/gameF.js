@@ -28,11 +28,11 @@ class GameF {
         return this.ifaces.get(consumer);
     }
 
-    CreateGame(mode = "offline", packId = 0) {
+    CreateGame(mode = "offline", obj) {
         if (mode === "offline") {
-            this.current = new OfflineGameF(packId);
+            this.current = new OfflineGameF(obj.packId);
         } else {
-            this.current = new OnlineGameF(packId);
+            this.current = new OnlineGameF(obj);
         }
     }
 
@@ -75,8 +75,8 @@ class GameF {
 // ===================================================
 
 class OfflineGameF {
-    constructor(packId = 0) {
-        QuestionsM.CreateNew("offline", packId);
+    constructor(obj) {
+        QuestionsM.CreateNew("offline", obj.packId);
     }
 
 
@@ -126,8 +126,8 @@ class OfflineGameF {
 // ===================================================
 
 class OnlineGameF {
-    constructor(packId = 0) {
-        QuestionsM.CreateNew("online", packId);
+    constructor(obj) {
+        QuestionsM.CreateNew("online", obj.packId);
     }
 }
 

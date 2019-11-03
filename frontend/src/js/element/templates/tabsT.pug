@@ -10,9 +10,7 @@ div(class="main-container")
                 div(class="panel-elem elem-justify-start") Название:
                 div(class="panel-elem") Количество:
                 div(class="panel-elem")
-                    img(class="room-join-img",
-                    src=templateContent.infoPanel.src,
-                    alt="ok")
+                    div(class="create-room-btn") Создать комнату
             each val, index in templateContent.content
                 div(class="rooms-panel")
                     div(class="panel-elem elem-justify-start") #{val.name}
@@ -23,12 +21,9 @@ div(class="main-container")
         else if templateContent.contentType == window.id.tabTop
             div(class="best-players-panel")
                 div(class="panel-elem")
-                    img(class="best-avatar",
-                    src=templateContent.infoPanel.src,
-                    alt="No exist")
-                div(class="panel-elem") Имя:
-                div(class="panel-elem") Рейтинг:
-                div(class="panel-elem") Звание:
+                div(class="panel-elem") Имя
+                div(class="panel-elem") Рейтинг
+                div(class="panel-elem") Звание
             each val, index in templateContent.content
                 div(class="best-players-panel")
                     div(class="panel-elem")

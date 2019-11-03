@@ -1,0 +1,33 @@
+#form-part-2 {
+  display: none;
+}
+
+.main-room-container {
+  width: var(--main-width);
+  margin: var(--main-content-vertical-margin) auto;
+  color: var(--font-color-theme);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 55vh;
+
+  .error-annotation {
+    font-size: 0.8rem;
+    color: $color-danger;
+    visibility: hidden;
+    padding: 0px;
+  }
+  
+  .error-visible {
+    font-size: 0.8rem;
+    color: $color-danger;
+    padding: 0px;
+  }
+}
+
+.pack-number {
+  display: block;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}

@@ -44,3 +44,5 @@ export const QUESTION_WAS_CHOSEN = "questionWasChosen";
 export const TIMER_STOPPED = "timerStopped";
 
 export const TIMER_INTERRUPTION = "timerInterruption"
+
+export const FORM_CHANGED = "formChanged"

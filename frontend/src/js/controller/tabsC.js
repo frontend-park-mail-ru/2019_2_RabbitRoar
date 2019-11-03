@@ -4,7 +4,7 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import { id } from "../modules/id.js";
 import Bus from "../event_bus.js";
 import { ROUTER_EVENT } from "../modules/events.js";
-import { SINGLE_GAME } from "../paths";
+import { SINGLE_GAME, ROOM_CREATOR } from "../paths";
 
 class TabsC {
     constructor() {
@@ -21,6 +21,7 @@ class TabsC {
         this.registerClassHandler(".tab-click", "mouseout", this._unLightTab.bind(this));
 
         this.registerClassHandler(".join-button", "click", this._startGame.bind(this));
+        this.registerClassHandler(".create-room-btn", "click", this._routeToRoomCreation.bind(this));
     }
 
     start() {
@@ -44,8 +45,6 @@ class TabsC {
     _tabClick(event) {
         ContentF.setCurrentTab(event.target.id);
     }
-
-  
 
     _startGame(event) {
         let gameMode;
@@ -73,10 +72,17 @@ class TabsC {
 
             }
         }
-
+        
         const packId = event.target.getAttribute("pack_id");
-        GameF.CreateGame(gameMode, packId);
+        var obj = new Object();
+        obj.packId = packId;
+
+        GameF.CreateGame(gameMode, obj);
         Bus.emit(ROUTER_EVENT.ROUTE_TO, SINGLE_GAME);
+    }
+
+    _routeToRoomCreation(){
+        Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOM_CREATOR);
     }
 }
 

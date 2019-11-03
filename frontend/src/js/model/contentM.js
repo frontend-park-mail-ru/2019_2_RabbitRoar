@@ -107,5 +107,8 @@ class ContentM {
         }
     }
 
+    getPackTabContent(id){
+        
+    }
 }
 export default new ContentM();

@@ -5,11 +5,11 @@ class QuestionsM {
     constructor() {
     }
 
-    CreateNew(mode = "offline", packId = 0) {
+    CreateNew(mode = "offline", obj) {
         if (mode === "offline") {
-            this.current = new OfflineQuestionsM(packId);
+            this.current = new OfflineQuestionsM(obj.packId);
         } else {
-            this.current = new OnlineQuestionsM(packId);
+            this.current = new OnlineQuestionsM(obj);
         }
     }
 

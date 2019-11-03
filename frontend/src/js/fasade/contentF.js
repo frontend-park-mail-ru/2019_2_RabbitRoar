@@ -6,7 +6,7 @@ import MainMenuM from "../model/mainMenuM.js";
 
 class ContentF {
     constructor() {
-        
+
     }
 
     getCurrentTab() {
@@ -28,7 +28,11 @@ class ContentF {
         Bus.emit(CHANGE_TAB);
     }
 
-    
+    async getPackTabContent(id) {
+        const content = await ContentM.getPackTabContent(id);
+        return content;
+    }
+
 }
 
 export default new ContentF();
