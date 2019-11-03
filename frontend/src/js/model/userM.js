@@ -8,10 +8,11 @@ class User {
         }
         User.instance = this;
 
-        this.autorised = localStorage.getItem("autorized") || false;
-        //this.email = "Kekos@mail.ru";
-        //this.username = "Kekos";
-        //this.password = "qwerty";
+        if (localStorage.getItem("autorized") === "true"){
+            this.autorised = true;
+        } else {
+            this.autorised = false;
+        }
         return this;
     }
 
