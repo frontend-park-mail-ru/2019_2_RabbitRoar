@@ -120,7 +120,7 @@ class RoomConstructorC {
         obj.gamePassword = this.gamePassword;
         obj.packId = this.packId;
 
-        //GameF.CreateGame("online", obj);
+        GameF.CreateGame("online", obj);
         Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING);
     }
 }

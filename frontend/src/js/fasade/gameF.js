@@ -127,7 +127,7 @@ class OfflineGameF {
 
 class OnlineGameF {
     constructor(obj) {
-        QuestionsM.CreateNew("online", obj.packId);
+        QuestionsM.CreateNew("online", obj);
     }
 }
 

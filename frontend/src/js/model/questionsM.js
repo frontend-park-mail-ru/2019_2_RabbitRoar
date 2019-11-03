@@ -127,4 +127,10 @@ class OfflineQuestionsM {
 
 }
 
+class OnlineQuestionsM {
+    constructor(obj) {
+        console.log("ONLINE GAME CREATED");
+    }
+}
+
 export default new QuestionsM();
