@@ -47,7 +47,7 @@ async function processPromise(event) {
         const cache = await caches.open(CACHE_NAME);
         try {
             const response = await cache.match(_getUrlRevision(event.request.url));
-            console.log(`OFFLINE Страница найдена в кэше!: ${response.url}`);
+            console.log(`OFFLINE Страница найдена в кэше!!!: ${response.url}`);
             return response;  
         } catch {
             return;
@@ -80,7 +80,7 @@ async function processPromise(event) {
 
 self.addEventListener("fetch", function (event) {
     if (event.request.method === "GET") {
-        event.respondWith(processPromise(event));
+        //event.respondWith(processPromise(event));
     }
 });
 

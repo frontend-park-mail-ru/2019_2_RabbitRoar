@@ -24,14 +24,11 @@ class QuestionTableE {
 
     create(root = document.getElementById("application")) {
         this.gameIface = GameF.getInterface(this)();
-
         this.root = root;
-
         const state = this.gameIface.questionInfo();
 
         this.root.insertAdjacentHTML("beforeend", Template({ state }));
         this.controller.start();
-
 
         const chosedId = this.gameIface.lastClickedCells();
         for (const _id in chosedId) {

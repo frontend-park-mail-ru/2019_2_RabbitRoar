@@ -5,11 +5,11 @@ class QuestionsM {
     constructor() {
     }
 
-    CreateNew(mode = "offline", obj) {
+    CreateNew(mode = "offline", clickId) {
         if (mode === "offline") {
-            this.current = new OfflineQuestionsM(obj.packId);
+            this.current = new OfflineQuestionsM(clickId);
         } else {
-            this.current = new OnlineQuestionsM(obj);
+            this.current = new OnlineQuestionsM(clickId);
         }
     }
 
@@ -50,8 +50,9 @@ class QuestionsM {
 
 class OfflineQuestionsM {
     constructor(packId = 0) {
-        console.log("GAME CREATED");
+        console.log("GAME CREATED");    
         this.packId = packId;
+        this.result = undefined;
         this.mode = "offline";
         this.questionTable = {};
         this.questionTable.mode = "default";
@@ -91,18 +92,29 @@ class OfflineQuestionsM {
         if (this.questionTable.mode !== "selected") {
             return console.log("Select question");
         }
-        const trueAnswer = this.questionTable.selectedQuestion.answer.toLowerCase();
-        const userAnswer = answer.toLowerCase();
+
         if (this._checkAnswer(answer)) {
             this.score += this.currentQuestionScore;
+            this.result = true;
         } else {
+            this.result = false;
             this.removePointsForQuestion();
         }
-        this.questionTable.selectedQuestion = undefined;
-        this.questionTable.mode = "default";
+        
+        this.questionTable.mode = "result";
         document.getElementById("score").innerHTML = this.score;
         Bus.emit(QUESTION_CHANGE);
+
+        setTimeout(this._showResult.bind(this), 2000)
+
     }
+
+
+    _showResult() {
+        this.questionTable.mode = "default";
+        Bus.emit(QUESTION_CHANGE);
+    }
+
 
     getInfo() {
         return {
@@ -110,6 +122,8 @@ class OfflineQuestionsM {
             mode: this.questionTable.mode,
             question: this.questionTable.selectedQuestion,
             themes: this.themes,
+            result: this.result,
+            currentQuestionScore: this.currentQuestionScore,
         };
     }
 

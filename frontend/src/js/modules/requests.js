@@ -72,3 +72,26 @@ export async function getUserInfo() {
     const obj = await response.json();
     return obj;
 }
+
+export async function getWS() {
+    let response = await getRequest("/game/ws");
+    if (!response.ok) {
+        throw new Error(`Cannot install websocket connection: ${response.statusText}`);
+    }
+    const obj = await response.json();
+    return obj;
+}
+
+export async function postCreateRoom(roomOptions) {
+    let response = await postRequest("/game/create", JSON.stringify(roomOptions));
+    if (!response.ok) {
+        throw new Error(`Cannot create game: ${response.statusText}`);
+    }
+}
+
+export async function postJoinRoom(uuid) {
+    let response = await postRequest("/game/join" + uuid);
+    if (!response.ok) {
+        throw new Error(`Cannot join game: ${response.statusText}`);
+    }
+}

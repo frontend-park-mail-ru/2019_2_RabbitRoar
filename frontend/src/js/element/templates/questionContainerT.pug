@@ -18,9 +18,21 @@ if state.mode == "selected"
     div(class="question-container")
         div(class="question-container__question")
             div() #{state.question.text}
-else
+else if state.mode == "default"
     div(id="progress-bar" class="progress-bar-hidden")
         div(id="dynamic-bar" class="dynamic-bar")
     div(class="question-container" id=state.packId)
         each theme, index in state.themes
             +line(theme, theme)
+else if state.mode == "result"
+    div(id="progress-bar" class="progress-bar-hidden")
+        div(id="dynamic-bar" class="dynamic-bar")
+    div(class="question-container")
+        if state.result === true
+            div(class="question-container__result_true")
+                div() Правильно! Вы заработали #{state.currentQuestionScore} Очков
+        else
+            div(class="question-container__result_false") Неправильный ответ! 
+                div() Неверно!     Правильный ответ: "#{state.question.answer}".    Вы потеряли #{state.currentQuestionScore} Очков
+
+

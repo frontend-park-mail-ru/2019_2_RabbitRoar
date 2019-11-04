@@ -1,4 +1,5 @@
 import QuestionsM from "../model/questionsM.js";
+import RoomM from "../model/roomM.js";
 import Bus from "../event_bus.js";
 import {
     QUESTION_PANEL_UPDATE,
@@ -28,13 +29,24 @@ class GameF {
         return this.ifaces.get(consumer);
     }
 
-    CreateGame(mode = "offline", obj) {
+    async CreateGame(mode = "offline", clickId = 0, roomOptions = undefined) {
         if (mode === "offline") {
-            this.current = new OfflineGameF(obj.packId);
+            this.current = await this._createOfflineGame(clickId);
         } else {
-            this.current = new OnlineGameF(obj);
+            this.current = await this._createOnlineGame(clickId, roomOptions);
         }
     }
+
+    async _createOfflineGame(clickId) {
+        return new OfflineGameF(clickId);
+    }
+
+    async _createOnlineGame(clickId, roomOptions) {
+        const onlineGame = new OnlineGameF(clickId, roomOptions);
+        await onlineGame.sendData();
+        return onlineGame;
+    }
+
 
     reincarnate() {
         this.livingElements++;
@@ -43,21 +55,25 @@ class GameF {
     annihilate() {
         this.livingElements--;
         if (this.livingElements === 0) {
-            this.current.annihilateGame();
+            this.current.annihilate();
+            this.current = undefined;
         }
     }
 
 
     _questionChange() {
         if (QuestionsM.current.questionTable.mode === "default") {
-            Bus.emit(TIMER_INTERRUPTION);
             Bus.emit(QUESTION_PANEL_UPDATE);
-        } else {
+        } else if (QuestionsM.current.questionTable.mode === "selected") {
+            Bus.emit(QUESTION_PANEL_UPDATE);
+        } else if (QuestionsM.current.questionTable.mode === "result") {
+            Bus.emit(TIMER_INTERRUPTION);
             Bus.emit(QUESTION_PANEL_UPDATE);
         }
     }
 
     _questionTableEInterface() {
+        console.log(this.current)
         return this.current.questionTableEInterface;
     }
 
@@ -73,8 +89,8 @@ class GameF {
 // ===================================================
 
 class OfflineGameF {
-    constructor(obj) {
-        QuestionsM.CreateNew("offline", obj.packId);
+    constructor(clickId) {
+        QuestionsM.CreateNew("offline", clickId);
     }
 
 
@@ -115,7 +131,7 @@ class OfflineGameF {
         return iface;
     };
 
-    annihilateGame() {
+    annihilate() {
         QuestionsM.annihilate();
     }
 
@@ -124,9 +140,49 @@ class OfflineGameF {
 // ===================================================
 
 class OnlineGameF {
-    constructor(obj) {
-        QuestionsM.CreateNew("online", obj);
+    constructor(clickId, roomOptions) {
+        console.log(clickId, roomOptions);
+        QuestionsM.CreateNew("online", clickId);
+        RoomM.CreateNew(clickId, roomOptions);
     }
+
+    async sendData() {
+        await RoomM.sendData();
+    }
+
+    annihilate() {
+        QuestionsM.annihilate();
+        RoomM.annihilate();
+    }
+
+
+    get questionTableEInterface() {
+        const iface = {
+            questionInfo() {
+            },
+            lastClickedCells() {
+            },
+            stopTimer() {
+            },
+        };
+        return iface;
+    };
+
+    get questionTableCInterface() {
+        const iface = {
+            clickQuestion(packId, cellId) {
+            }
+        };
+        return iface;
+    };
+
+    get gamePanelCInterface() {
+        const iface = {
+            sendAnswer(answer) {
+            }
+        };
+        return iface;
+    };
 }
 
 
