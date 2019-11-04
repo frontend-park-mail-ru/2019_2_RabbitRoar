@@ -19,21 +19,26 @@ class ValidatorF {
         return User.autorised;
     }
 
+    checkLocalstorageAutorization(){
+        const result = userM.checkLocalstorageAutorization();
+        return result;
+    }
+
     async getUserData() {
         const userInfo = await User.getData();
         return userInfo;
     }
 
 
-    changeTextFields(changesMap) {
-        userM.changeTextFields(changesMap).then(
+    changeTextFields(changesMap, csrf) {
+        userM.changeTextFields(changesMap, csrf).then(
             resolve => Bus.emit(PROFILE_UPDATE)
         ).catch(
             (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
     }
 
-    changeUserAvatar(formData) {
-        userM.changeAvatar(formData).then(
+    changeUserAvatar(formData, csrf) {
+        userM.changeAvatar(formData, csrf).then(
             resolve => Bus.emit(PROFILE_UPDATE)
         ).catch(
             (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
@@ -60,6 +65,15 @@ class ValidatorF {
         ).catch(
             (error) => console.log(`ERROR at: userValidatorF.doExit - ${error}`)
         );
+    }
+
+    async getCSRF(){
+        const csrf = await User.getCSRF();
+        return csrf;
+    }
+
+    unAutorise(){
+        userM.unAutorise();
     }
 
 }

@@ -30,6 +30,7 @@ class AutorisationC {
 
 
     _autorise() {
+        
         const autorizationError = autorizationVaildation();
 
         if (autorizationError) {

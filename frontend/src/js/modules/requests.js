@@ -1,9 +1,9 @@
-import { postRequest, deleteRequest, getRequest } from "./ajax.js";
+import { postRequest, deleteRequest, getRequest, putRequest } from "./ajax.js";
 
 export async function signIn(login, password) {
     const body = JSON.stringify({
-        username: login,
-        password: password
+        "username": login,
+        "password": password
     });
 
     let response = await postRequest("/login", body);
@@ -29,18 +29,29 @@ export async function signUp(userStructure) {
     }
 }
 
-export async function changeAvatar(formData) {
+export async function changeAvatar(formData, csrf) {
+    // выставить csrf header
+
     let response = await putRequest("/user/avatar", formData);
     if (!response.ok) {
         const obj = JSON.parse(response.json());
     }
 }
 
-export async function changeTextFields(changesMap) {
-    let response = await putRequest("/user", JSON.stringify(changesMap));
+export async function changeTextFields(changesMap, csrf) {
+    // выставить csrf header
+    const headers = {
+        "Content-type": "application/json",
+        "X-Csrf-Token": csrf,
+    }
+
+    alert(changesMap);
+    
+    let response = await putRequest("/user/", JSON.stringify(changesMap), headers);
     if (!response.ok) {
         throw new Error(`Content error: ${response.statusText}`);
     }
+    alert("after put");
     const obj = JSON.parse(response.json());
     return obj;
 }
@@ -66,6 +77,20 @@ export async function queryTabContent(id) {
 
 export async function getUserInfo() {
     let response = await getRequest("/user/");
+
+    if (response.status === 401) {
+        localStorage.removeItem("autorized");
+    }
+    if (!response.ok) {
+        throw new Error(`Cannot get user info: ${response.statusText}`);
+    }
+    const obj = await response.json();
+    return obj;
+}
+
+export async function getCSRF() {
+    let response = await getRequest("/csrf");
+    
     if (!response.ok) {
         throw new Error(`Cannot get user info: ${response.statusText}`);
     }

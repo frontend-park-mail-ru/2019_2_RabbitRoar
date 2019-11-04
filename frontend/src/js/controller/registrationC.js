@@ -29,9 +29,9 @@ class RegistrationC {
         }
 
         let user = {
-            username: document.getElementById("username").value,
-            password: document.getElementById("password").value,
-            email: document.getElementById("email").value,
+            "username": document.getElementById("username").value,
+            "password": document.getElementById("password").value,
+            "email": document.getElementById("email").value,
         };
         userValidatorF.doRegistration(user);
     }

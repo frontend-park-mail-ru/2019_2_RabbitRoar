@@ -31,10 +31,13 @@ class ProfileC {
         this.changedForms.clear();
     }
 
-    _saveTextFields() {
+    async _saveTextFields() {
         const result = textFieldsVaildationProfile(this.changedForms);
         if (result.fieldsAreValid) {
-            UserValidatorF.changeTextFields(result.changes);
+            const csrfJson = await UserValidatorF.getCSRF();
+            const csrf = csrfJson.CSRF;
+            //alert(csrf);
+            UserValidatorF.changeTextFields(result.changes, csrf);
             this.changedForms.clear();
             Bus.emit(PROFILE_UPDATE);
         }
@@ -67,11 +70,15 @@ class ProfileC {
     }
 
     _saveImage() {
-        fileVaildation().then(function (file) {
+        fileVaildation().then(async function (file) {
             document.getElementById("profile__user-img").src = window.URL.createObjectURL(file)
             let formData = new FormData();
             formData.append("userfile", file);
-            UserValidatorF.changeUserAvatar(formData);
+
+            const csrfJson = await UserValidatorF.getCSRF();
+            const csrf = csrfJson.CSRF;
+
+            UserValidatorF.changeUserAvatar(formData, csrf);
         },
             function (err) {
             });

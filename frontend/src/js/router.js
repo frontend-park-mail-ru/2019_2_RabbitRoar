@@ -1,6 +1,7 @@
 import Bus from "./event_bus.js";
 import {ROUTER_EVENT} from "./modules/events.js";
 import {ROOT} from "./paths";
+import ValidatorF from "./fasade/userValidatorF";
 
 export class Router {
     constructor(root = document.getElementById("application")) {
@@ -25,6 +26,12 @@ export class Router {
 
     routeTo(path = "/", firtsTime = false) {
         let newView;
+        const autorized = ValidatorF.checkLocalstorageAutorization();
+        if (!autorized){
+            // Срабатывает на каждый роут
+            //alert("разавторизовались");
+            ValidatorF.unAutorise();
+        }
         if ((newView = this.routes.get(path)) != undefined) {
             if (!firtsTime) {
                 this.currentView.destroy();
