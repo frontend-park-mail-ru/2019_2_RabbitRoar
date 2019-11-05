@@ -1,5 +1,6 @@
 import NavbarE from "../element/navbarE.js";
 import TabsE from "../element/tabsE.js";
+import UsersPanelE from "../element/usersPanelE.js";
 
 class GameWaitingV {
     constructor(root = document.getElementById("application")) {
@@ -12,6 +13,9 @@ class GameWaitingV {
         this.navbarDiv = document.createElement("div");
         this.navbarDiv.id = "navbar_container";
 
+        this.usersPanelDiv = document.createElement("div");
+        this.usersPanelDiv.id = "user_panel_container";
+
         GameWaitingV.instance = this;
         return this;
     }
@@ -19,6 +23,7 @@ class GameWaitingV {
     create(data = "") {
         this.root.append(this.navbarDiv);
         NavbarE.create(this.navbarDiv);
+        UsersPanelE.create(this.navbarDiv);
 
         // const count = ValidatorF.getUsersCount();
 
@@ -27,7 +32,7 @@ class GameWaitingV {
 
     destroy() {
         NavbarE.destroy();
-        TabsE.destroy();
+        UsersPanelE.destroy();
     }
 }
 export default new GameWaitingV();

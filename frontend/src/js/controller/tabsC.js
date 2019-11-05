@@ -4,7 +4,7 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import { id } from "../modules/id.js";
 import Bus from "../event_bus.js";
 import { ROUTER_EVENT } from "../modules/events.js";
-import { SINGLE_GAME, ROOM_CREATOR } from "../paths";
+import { SINGLE_GAME, ROOM_CREATOR, WAITING } from "../paths";
 import gameF from "../fasade/gameF.js";
 
 class TabsC {
@@ -80,7 +80,7 @@ class TabsC {
         const clickId = event.target.getAttribute("join_id");
 
         GameF.CreateGame(gameMode, clickId).then(
-            () => Bus.emit(ROUTER_EVENT.ROUTE_TO, SINGLE_GAME)
+            () => Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING)
         );
     }
 
