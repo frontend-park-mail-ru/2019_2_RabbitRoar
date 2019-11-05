@@ -7,6 +7,7 @@ import TabsC from "../controller/tabsC.js";
 
 class TabsE {
     constructor() {
+        this.root = document.getElementById("application");
         this.controller = TabsC;
         Bus.on(CHANGE_TAB, this._restartListener.bind(this));
     }

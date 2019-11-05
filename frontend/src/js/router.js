@@ -25,6 +25,8 @@ export class Router {
 
 
     routeTo(path = "/", firtsTime = false) {
+        const parseUrl = new URL("https://localhost:8080" + path);
+        path = parseUrl.pathname;
         let newView;
         const autorized = ValidatorF.checkLocalstorageAutorization();
         if (!autorized){

@@ -1,15 +1,14 @@
 import NavbarE from "../element/navbarE.js";
 import QuestionTableE from "../element/questionTableE.js";
 import GamePanelE from "../element/gamePanelE.js";
-
+import GameF from "../fasade/gameF.js";
+import Bus from "../event_bus.js";
+import { ROOT } from "../paths";
+import { ROUTER_EVENT } from "../modules/events.js";
 
 
 class SingleGameV {
     constructor(root = document.getElementById("application")) {
-        if (!!SingleGameV.instance) {
-            this.root = root;
-            return SingleGameV.instance;;
-        }
         this.root = root;
 
         this.navbarDiv = document.createElement("div");
@@ -26,6 +25,10 @@ class SingleGameV {
     }
 
     create(data = "") {
+        if (!GameF.gameExist()) {
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+            return;
+        }
         this.root.append(this.navbarDiv);
         this.root.append(this.questionsDiv);
         this.root.append(this.gamePanelDiv);

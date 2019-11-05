@@ -80,7 +80,7 @@ async function processPromise(event) {
 
 self.addEventListener("fetch", function (event) {
     if (event.request.method === "GET") {
-        event.respondWith(processPromise(event));
+        //event.respondWith(processPromise(event));
     }
 });
 

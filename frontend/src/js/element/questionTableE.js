@@ -9,6 +9,7 @@ import gameF from "../fasade/gameF.js";
 
 class QuestionTableE {
     constructor() {
+        this.root = document.getElementById("application");
         this.controller = QuestionTableC;
         this.progressBarInterrupt = false;
         Bus.on(TIMER_STOPPED, this._redraw.bind(this));

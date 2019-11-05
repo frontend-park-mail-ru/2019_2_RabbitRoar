@@ -4,13 +4,9 @@ import NavbarC from "../controller/navbarC.js";
 
 class NavbarE {
     constructor() {
-        if (!!NavbarE.instance) {
-            return NavbarE.instance;
-        }
+        this.root = document.getElementById("application");
         NavbarE.instance = this;
         this.controller = NavbarC;
-
-        return this;
     }
 
     create(root = document.getElementById("application")) {
