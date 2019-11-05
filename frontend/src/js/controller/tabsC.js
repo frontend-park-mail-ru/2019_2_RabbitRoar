@@ -76,7 +76,7 @@ class TabsC {
             }
 
         }
-        
+
         const clickId = event.target.getAttribute("join_id");
 
         GameF.CreateGame(gameMode, clickId).then(
@@ -84,7 +84,7 @@ class TabsC {
         );
     }
 
-    _routeToRoomCreation(){
+    _routeToRoomCreation() {
         Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOM_CREATOR);
     }
 }

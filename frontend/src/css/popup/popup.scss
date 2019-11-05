@@ -5,10 +5,14 @@
     position: absolute;
     visibility: hidden;
     top: 0px; left: 0px; bottom: 0px; right: 0px;
+    z-index: 0;
 }
 
 .popup_show {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
+    z-index: 1;
+    opacity: 1;
+    background: rgba(36, 27, 47, 0.8);
 }

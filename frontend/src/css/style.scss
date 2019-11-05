@@ -50,12 +50,14 @@
 
     --question-container-border-width: 1px;
     --question-container-gap-width: 2px;
+
+
 }
 
 body {
     background-color: $color-bg-dark;
     font-family: "Open Sans",Arial,Helvetica,sans-serif;
     font-feature-settings: "kern";
-    font-size: $font-size;
+    font-size: var(--font-size);
     font-weight: 600;
 }

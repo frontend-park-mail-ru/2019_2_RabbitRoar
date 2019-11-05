@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 7vh;
+    height: var(--tab-height);
     border-color: $color-border-primary-low;
     color: $color-border-primary-low;
     border-width: 1px;

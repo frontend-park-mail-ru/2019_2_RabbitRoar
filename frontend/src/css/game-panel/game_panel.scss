@@ -1,6 +1,6 @@
 .panel-text {
   color: white;
-  font-size: 1vw;
+  font-size: var(--font-size);
 
   display: flex;
   justify-content: center;
@@ -22,7 +22,7 @@
   grid-column-start: 3;
   grid-column-end: 4;
 
-  font-size: $font-size;
+  font-size: var(--font-size);
 }
 
 .profile {

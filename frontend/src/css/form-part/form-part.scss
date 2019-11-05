@@ -11,14 +11,14 @@
   grid-template-rows: 1fr 55vh;
 
   .error-annotation {
-    font-size: 0.8rem;
+    font-size: var(--font-size);
     color: $color-danger;
     visibility: hidden;
     padding: 0px;
   }
   
   .error-visible {
-    font-size: 0.8rem;
+    font-size: var(--font-size);
     color: $color-danger;
     padding: 0px;
   }

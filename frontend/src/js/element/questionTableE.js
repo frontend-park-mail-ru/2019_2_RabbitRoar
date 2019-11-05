@@ -65,7 +65,7 @@ class QuestionTableE {
 
     _progressBarMoving(period) {
         return new Promise((resolve, reject) => {
-            const period = 200;
+            const period = 50;
             let width = 0;
             let barElem = document.getElementById("dynamic-bar");
             const interval = setInterval(() => {
@@ -74,15 +74,19 @@ class QuestionTableE {
                     clearInterval(interval);
                     resolve("done");
                 } else if (this.progressBarInterrupt) {
-                    this.progressBarInterrupt = false;
-                    clearInterval(interval);
-                    resolve("done");
+                    this._interruptImmediatly(interval, resolve);
                 } else {
                     width++;
                     barElem.style.width = width + "%";
                 }
             }, period);
         });
+    }
+
+    _interruptImmediatly(interval, resolve) {
+        this.progressBarInterrupt = false;
+        clearInterval(interval);
+        resolve("done");
     }
 }
 
