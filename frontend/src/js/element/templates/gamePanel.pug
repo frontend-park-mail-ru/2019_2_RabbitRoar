@@ -2,14 +2,18 @@ div(class="game-panel-container")
     label(for="answer")
     input(class="input-answer" id="answer", type="text")
     div(class="profile")
-        div(class="logo-div")
-            img(class="game-panel__user-logo",
-            src="https://pngimage.net/wp-content/uploads/2018/06/user-logo-png-4.png",
-            alt="User")
         if authorized == true
+            div(class="logo-div")
+                img(class="game-panel__user-logo",
+                src="https://pngimage.net/wp-content/uploads/2018/06/user-logo-png-4.png",
+                alt="User")
             div(class="panel-text") #{userData.username}
         else 
             div(class="panel-text") Anon
+            div(class="logo-div")
+                img(class="game-panel__user-logo",
+                src="https://pngimage.net/wp-content/uploads/2018/06/user-logo-png-4.png",
+                alt="User")
     div(id="changing-element" class="control")
         button(class="game-panel-button" id="game-panel-button" type="submit") Ответить
     div(class="score")
