@@ -36,7 +36,6 @@ class ProfileC {
         if (result.fieldsAreValid) {
             const csrfJson = await UserValidatorF.getCSRF();
             const csrf = csrfJson.CSRF;
-            //alert(csrf);
             UserValidatorF.changeTextFields(result.changes, csrf);
             this.changedForms.clear();
             Bus.emit(PROFILE_UPDATE);

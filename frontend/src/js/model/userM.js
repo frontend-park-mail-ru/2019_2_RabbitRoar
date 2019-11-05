@@ -13,7 +13,6 @@ class User {
         } else {
             this.autorised = false;
         }
-        //alert(this.autorised);
         return this;
     }
 

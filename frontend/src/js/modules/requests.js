@@ -44,14 +44,10 @@ export async function changeTextFields(changesMap, csrf) {
         "Content-type": "application/json",
         "X-Csrf-Token": csrf,
     }
-
-    alert(changesMap);
-    
     let response = await putRequest("/user/", JSON.stringify(changesMap), headers);
     if (!response.ok) {
         throw new Error(`Content error: ${response.statusText}`);
     }
-    alert("after put");
     const obj = JSON.parse(response.json());
     return obj;
 }

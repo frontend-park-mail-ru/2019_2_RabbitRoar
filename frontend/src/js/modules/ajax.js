@@ -44,6 +44,7 @@ export function putRequest(
         headers: headers,
         credentials: "include",
         mode: "cors",
+        body: body,
     });
 }
 
