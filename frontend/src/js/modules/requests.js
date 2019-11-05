@@ -30,16 +30,17 @@ export async function signUp(userStructure) {
 }
 
 export async function changeAvatar(formData, csrf) {
-    // выставить csrf header
-
-    let response = await putRequest("/user/avatar", formData);
+    const headers = {
+        "Content-type": "application/json",
+        "X-Csrf-Token": csrf,
+    }
+    let response = await putRequest("/user/avatar", formData, headers);
     if (!response.ok) {
         const obj = JSON.parse(response.json());
     }
 }
 
 export async function changeTextFields(changesMap, csrf) {
-    // выставить csrf header
     const headers = {
         "Content-type": "application/json",
         "X-Csrf-Token": csrf,

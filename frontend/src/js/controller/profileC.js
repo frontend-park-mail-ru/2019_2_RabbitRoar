@@ -72,7 +72,7 @@ class ProfileC {
         fileVaildation().then(async function (file) {
             document.getElementById("profile__user-img").src = window.URL.createObjectURL(file)
             let formData = new FormData();
-            formData.append("userfile", file);
+            formData.append("avatar", file);
 
             const csrfJson = await UserValidatorF.getCSRF();
             const csrf = csrfJson.CSRF;
