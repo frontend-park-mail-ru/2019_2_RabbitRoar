@@ -14,7 +14,7 @@ async function cacheInitPromise() {
             if (response === undefined) {
                 const allKeys = await cache.keys();
                 await allKeys.forEach(
-                    async function(request) {
+                    async function (request) {
                         const requestURL = new URL(request.url);
                         if ((key.pathname === requestURL.pathname) && (key.search !== requestURL.search)) {
                             await cache.delete(request.url);
@@ -29,7 +29,7 @@ async function cacheInitPromise() {
             } else {
                 console.log(`ALREADY EXIST: ${key}`);
             }
-        } catch(err) {
+        } catch (err) {
             console.log(`Cache init error! ${err}`);
         }
     }
@@ -48,7 +48,7 @@ async function processPromise(event) {
         try {
             const response = await cache.match(_getUrlRevision(event.request.url));
             console.log(`OFFLINE Страница найдена в кэше!!!: ${response.url}`);
-            return response;  
+            return response;
         } catch {
             return;
         }
@@ -57,7 +57,7 @@ async function processPromise(event) {
             const cache = await caches.open(CACHE_NAME);
             const response = await cache.match(_getUrlRevision(event.request.url));
             console.log(`Найдено в статическом кэше: ${_getUrlRevision(event.request.url)}`);
-            return response; 
+            return response;
         }
 
         let fetchRequest = event.request.clone();
@@ -65,7 +65,7 @@ async function processPromise(event) {
 
         if (response.headers.get("Content-Length") === null || response.headers.get("Content-Length") === 0) {
             console.log("no cache trash!");
-            return response; 
+            return response;
         }
 
 
@@ -74,13 +74,13 @@ async function processPromise(event) {
         const cache = await caches.open(CACHE_NAME);
         cache.put(event.request, responseToCache);
         console.log(`ONLINE Страница загружена и сохранена в кэше: ${event.request.url}`);
-        return response; 
+        return response;
     }
 }
 
 self.addEventListener("fetch", function (event) {
     if (event.request.method === "GET") {
-        //event.respondWith(processPromise(event));
+        event.respondWith(processPromise(event));
     }
 });
 
