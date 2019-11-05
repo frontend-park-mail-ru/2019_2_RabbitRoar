@@ -5,6 +5,7 @@ import { id } from "../modules/id.js";
 import Bus from "../event_bus.js";
 import { ROUTER_EVENT } from "../modules/events.js";
 import { SINGLE_GAME, ROOM_CREATOR } from "../paths";
+import gameF from "../fasade/gameF.js";
 
 class TabsC {
     constructor() {
@@ -51,34 +52,36 @@ class TabsC {
 
         if (document.getElementById("offline_mode") !== null) {
             gameMode = "offline";
-            if (event.target.id === "play") {
-                const continueButton = document.getElementById("continue");
-                if (continueButton) {
-                    const pack_id = event.target.getAttribute("pack_id");
-                    continueButton.setAttribute("pack_id", pack_id);
-                }
+        } else {
+            gameMode = "online";
+        }
 
-                const popup = document.getElementById("popup");
-                if (popup) {
-                    popup.classList.toggle("popup_show");
-                    return;
-                }
-            } else if (event.target.id == "cansel") {
-                const popup = document.getElementById("popup");
-                if (popup) {
-                    popup.classList.toggle("popup_show");
-                    return;
-                }
-
+        if (event.target.id === "play") {
+            const continueButton = document.getElementById("continue");
+            if (continueButton) {
+                const join_id = event.target.getAttribute("join_id");
+                continueButton.setAttribute("join_id", join_id);
             }
+
+            const popup = document.getElementById("popup");
+            if (popup) {
+                popup.classList.toggle("popup_show");
+                return;
+            }
+        } else if (event.target.id == "cansel") {
+            const popup = document.getElementById("popup");
+            if (popup) {
+                popup.classList.toggle("popup_show");
+                return;
+            }
+
         }
         
-        const packId = event.target.getAttribute("pack_id");
-        var obj = new Object();
-        obj.packId = packId;
+        const clickId = event.target.getAttribute("join_id");
 
-        GameF.CreateGame(gameMode, obj);
-        Bus.emit(ROUTER_EVENT.ROUTE_TO, SINGLE_GAME);
+        GameF.CreateGame(gameMode, clickId).then(
+            () => Bus.emit(ROUTER_EVENT.ROUTE_TO, SINGLE_GAME)
+        );
     }
 
     _routeToRoomCreation(){

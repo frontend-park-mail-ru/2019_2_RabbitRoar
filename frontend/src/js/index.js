@@ -21,7 +21,7 @@ window.packWorker.onmessage = (msg) => Bus.emit(PACK_WORKER_MESSAGE, msg);
 
 
 Bus.on(PACK_WORKER_COMMAND, (data) => window.packWorker.postMessage(data));
-Bus.emit(PACK_WORKER_COMMAND, "update!!");
+Bus.emit(PACK_WORKER_COMMAND, "update");
 
 
 if ("serviceWorker" in navigator) {

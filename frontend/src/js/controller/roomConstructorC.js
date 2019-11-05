@@ -116,12 +116,13 @@ class RoomConstructorC {
         }
 
         var obj = new Object();
-        obj.usersCount = this.usersCount;
-        obj.gamePassword = this.gamePassword;
-        obj.packId = this.packId;
+        obj.playersCapacity = this.usersCount;
+        obj.password = this.gamePassword;
+        obj.name = this.roomName;
 
-        GameF.CreateGame("online", obj);
-        Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING);
+        GameF.CreateGame("online", this.packId, obj).then(
+            () => Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING)
+        );
     }
 }
 

@@ -5,18 +5,28 @@ div(class="main-container")
     div(class="tab", id=window.id.tabPack) FAQ
 
     div(class="tab-content")
+
         if templateContent.contentType == window.id.tabRoom
+            div(id="online_mode")
             div(class="rooms-panel")
                 div(class="panel-elem elem-justify-start") Название:
                 div(class="panel-elem") Количество:
                 div(class="panel-elem")
                     div(class="create-room-btn") Создать комнату
+                
+                div(class="popup" id="popup")
+                    div(class="popup__content")
+                        div(class="panel-elem") Вы переходите в online игру.
+                        div(class="panel-elem")
+                            div(class="join-button" id="cansel") Отмена
+                            div(class="join-button" id="continue") Продолжить
+
             each val, index in templateContent.content
                 div(class="rooms-panel")
                     div(class="panel-elem elem-justify-start") #{val.name}
                     div(class="panel-elem") #{val.currentPlayers}/#{val.maxPlayers}
-                    div(class="panel-elem" id="online")
-                        div(class="join-button") Присоединиться
+                    div(class="panel-elem" id=index)
+                        div(class="join-button" id="play" join_id=index) Присоединиться
 
         else if templateContent.contentType == window.id.tabTop
             div(class="best-players-panel")
@@ -59,7 +69,7 @@ div(class="main-container")
                     div(class="panel-elem") #{pack.author}
                     div(class="panel-elem") #{pack.rating}
                     div(class="panel-elem")
-                        div(class="join-button" id="play" pack_id=pack.id) Играть
+                        div(class="join-button" id="play" join_id=pack.id) Играть
         else if templateContent.contentType == window.id.tabPack
             div(class="faq-text")
                 p Добро пожаловать в онлайн-викторину «Swoyak».

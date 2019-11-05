@@ -49,8 +49,24 @@ function getPacks() {
         ["Марки", "Дувейн Скола Жонсан", "Об Обэме", "Случай в казино", "Кто я"],
         ["Шкварки", "Анита пуська", "Жъъужуъ", "Экзистенциальный кризис", "Зачем оно мне все надо?"]
     ]
+    const globalQuestions = [
+        [
+            [], 
+            [], 
+            [], 
+            [], 
+            []
+        ],
+        [
+            [], 
+            [], 
+            [], 
+            [], 
+            []
+        ],
+    ]
     const packs = new Array;
-    const aut = ["MegaGiga pack by _^MotHerfaKKKKir^_228", "EgosKekos"];
+    const aut = ["MegaGiga patau pack", "EgosKekos"];
     const q = ["Кто ты такой блять чтоб это сделать?", "Где колоды заряжаете?"];
     const a = ["диллер", "в киоске заряжаем"];
     for (let j = 0; j < 2; ++j) {
@@ -63,6 +79,7 @@ function getPacks() {
         pack.questions = function () {
             questions = {};
             themes = globalThemes[j];
+            let themeNum = 0;
             themes.forEach((key) => {
                 questions[key] = function () {
                     concreteQuestions = new Array;
@@ -82,6 +99,7 @@ function getPacks() {
                     }
                     return concreteQuestions;
                 }();
+                themeNum++;
             });
             return questions;
         }();
