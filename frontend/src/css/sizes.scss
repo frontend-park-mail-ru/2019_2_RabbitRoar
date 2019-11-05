@@ -1,9 +1,33 @@
 //  Размеры best_players
 $table-slash-height: 6vh;       // Высота разделителя между элементами (разделитель невидимый)
-$table-vertical-margin: 1vh;    // Отступ элемента панели от панели
-$table-elem-height: 10vh;       // Высота элемента панели
 $rank-margin: 4vw;              // Отступ у значка звания справа
-$font-size: 1.4vw;              // Размер шрифта
+
+:root{
+    @media all and (orientation: landscape) {
+        --font-size: 1.4vw;              // Размер шрифта
+        --big-font-size: 2vw;            // Размер большого шрифта
+        --small-font-size: 1vw;          // Размер малого шрифта
+        --table-elem-height: 5vw;        // Высота элемента панели
+        --best-avatar-size: 3.33vw;        // Высота аватарки в панели топ 100
+        --rank-avatar-size: 2.5vw;        // Высота ачивки
+        --table-vertical-margin: 0.4vw;    // Отступ панелей
+        --tab-height: 4vw;
+    }
+    @media all and (orientation: portrait) {
+        --font-size: 1.4vh;
+        --big-font-size: 2vh;
+        --small-font-size: 1vh;
+        --table-elem-height: 5vh;
+        --best-avatar-size: 3.33vh;
+        --rank-avatar-size: 2.5vw; 
+        --table-vertical-margin: 0.4vh;
+        --tab-height: 4vh;
+    }
+}
+
+$table-vertical-margin: var(--table-vertical-margin);
+$table-elem-height: var(--table-elem-height);
+
 
 
 //  Размеры rooms

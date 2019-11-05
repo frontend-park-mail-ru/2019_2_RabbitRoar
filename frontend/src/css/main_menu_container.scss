@@ -16,10 +16,19 @@
     grid-row-end: 3;
 }
 
-::-webkit-scrollbar {
-  width: 1.5vh;
-  height: 1.5vh;
+@media all and (orientation: landscape) {
+  ::-webkit-scrollbar {
+    width: 1.5vh;
+    height: 1.5vh;
+  }
 }
+@media all and (orientation: portrait) {
+  ::-webkit-scrollbar {
+    width: 1.5vw;
+    height: 1.5vw;  }
+}
+
+
 ::-webkit-scrollbar-button {
   width: 1.5vh;
   height: 1.5vh;

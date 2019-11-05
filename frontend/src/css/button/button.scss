@@ -59,7 +59,7 @@
 
 .game-panel-button {
   @extend %button;
-  font-size: 1vw;
+  font-size: var(--small-font-size);
   border-radius: 0px;
 }
 

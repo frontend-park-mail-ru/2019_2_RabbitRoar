@@ -6,14 +6,14 @@
 
 
 .best-avatar {
-    height: ($table-elem-height/1.5);
-    width: ($table-elem-height/1.5);
+    height: var(--best-avatar-size);
+    width: var(--best-avatar-size);
 }
 
 .rank-avatar {
     border-radius: 100px;
-    width: ($table-elem-height / 2);
-    height: ($table-elem-height / 2);
+    width: var(--rank-avatar-size);
+    height: var(--rank-avatar-size);
     margin-right: $rank-margin;
 }
 

@@ -21,7 +21,7 @@
     width: 80%;
     padding-top: 10px;
     padding-bottom: 10px;
-    font-size: 0.6em;
+    font-size: var(--font-size);
   }
 
   input {
@@ -36,7 +36,7 @@
 
   input[type="file"] {
     width: 18%;
-    font-size: 0.6em;
+    font-size: var(--small-font-size);
     margin: 10px;
   }
 
@@ -59,27 +59,27 @@
   }
 
   .error-annotation {
-    font-size: 0.8rem;
+    font-size: var(--font-size);
     color: $color-danger;
     visibility: hidden;
     padding: 2px;
   }
 
   .error-visible {
-    font-size: 0.8rem;
+    font-size: var(--font-size);
     color: $color-danger;
     padding: 2px;
   }
 
   .file-downloaded {
-    font-size: 0.8rem;
+    font-size: var(--font-size);
     color: $color-success;
     padding: 2px;
   }
 
   label {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: var(--font-size);
   }
 
   button {

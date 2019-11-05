@@ -6,6 +6,7 @@ import GameF from "../fasade/gameF.js";
 
 class GamePanelE {
     constructor() {
+        this.root = document.getElementById("application");
         this.controller = GamePanelC;
     }
 

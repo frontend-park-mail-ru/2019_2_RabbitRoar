@@ -25,6 +25,10 @@ class GameF {
         Bus.on(QUESTION_CHANGE, this._questionChange);
     }
 
+    gameExist() {
+        return (!!this.current);
+    }
+
     getInterface(consumer) {
         return this.ifaces.get(consumer);
     }
