@@ -31,7 +31,6 @@ export async function signUp(userStructure) {
 
 export async function changeAvatar(formData, csrf) {
     const headers = {
-        "Content-type": "application/json",
         "X-Csrf-Token": csrf,
     }
     let response = await putRequest("/user/avatar", formData, headers);
@@ -76,7 +75,7 @@ export async function getUserInfo() {
     let response = await getRequest("/user/");
 
     if (response.status === 401) {
-        localStorage.removeItem("autorized");
+        localStorage.removeItem("authorized");
     }
     if (!response.ok) {
         throw new Error(`Cannot get user info: ${response.statusText}`);

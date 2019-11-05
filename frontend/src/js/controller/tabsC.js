@@ -76,15 +76,21 @@ class TabsC {
             }
 
         }
-        
+
         const clickId = event.target.getAttribute("join_id");
 
         GameF.CreateGame(gameMode, clickId).then(
-            () => Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING)
+            () => {
+                if (gameMode === "online") {
+                    Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING);
+                } else {
+                    Bus.emit(ROUTER_EVENT.ROUTE_TO, SINGLE_GAME);
+                }
+            }
         );
     }
 
-    _routeToRoomCreation(){
+    _routeToRoomCreation() {
         Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOM_CREATOR);
     }
 }

@@ -8,7 +8,7 @@ class User {
         }
         User.instance = this;
 
-        if (localStorage.getItem("autorized") === "true"){
+        if (localStorage.getItem("authorized") === "true"){
             this.autorised = true;
         } else {
             this.autorised = false;
@@ -31,7 +31,7 @@ class User {
 
     autorise() {
         this.autorised = true;
-        localStorage.setItem("autorized", this.autorised);
+        localStorage.setItem("authorized", this.autorised);
     }
 
     unAutorise() {
@@ -39,7 +39,7 @@ class User {
     }
 
     checkLocalstorageAutorization(){
-        if (localStorage.getItem("autorized") === "true"){
+        if (localStorage.getItem("authorized") === "true"){
             return true;
         } else {
             return false;
@@ -49,21 +49,21 @@ class User {
     async exit() {
         await logout();
         this.autorised = false;
-        localStorage.removeItem("autorized");
+        localStorage.removeItem("authorized");
     }
 
 
     async signIn(username, password) {
         await signIn(username, password);
         this.autorised = true;
-        localStorage.setItem("autorized", this.autorised);
+        localStorage.setItem("authorized", this.autorised);
     }
 
 
     async signUp(userStructure) {
         let response = await signUp(userStructure);
         this.autorised = true;
-        localStorage.setItem("autorized", this.autorised);
+        localStorage.setItem("authorized", this.autorised);
     }
 
     async getCSRF(){

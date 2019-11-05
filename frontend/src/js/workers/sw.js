@@ -73,7 +73,7 @@ async function processPromise(event) {
 
         const cache = await caches.open(CACHE_NAME);
         cache.put(event.request, responseToCache);
-        console.log(`ONLINE Страница загружена и сохранена в кэше: ${event.request.url}`);
+        console.log(`ONLINE Страница загружена и сохранена в кэше!: ${event.request.url}`);
         return response;
     }
 }

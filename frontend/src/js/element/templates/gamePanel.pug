@@ -6,7 +6,10 @@ div(class="game-panel-container")
             img(class="game-panel__user-logo",
             src="https://pngimage.net/wp-content/uploads/2018/06/user-logo-png-4.png",
             alt="User")
-        div(class="panel-text") Lvl: 3000kk
+        if authorized == true
+            div(class="panel-text") #{userData.username}
+        else 
+            div(class="panel-text") Anon
     div(id="changing-element" class="control")
         button(class="game-panel-button" id="game-panel-button" type="submit") Ответить
     div(class="score")

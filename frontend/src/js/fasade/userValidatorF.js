@@ -19,7 +19,7 @@ class ValidatorF {
         return User.autorised;
     }
 
-    checkLocalstorageAutorization(){
+    checkLocalstorageAutorization() {
         const result = userM.checkLocalstorageAutorization();
         return result;
     }
@@ -45,16 +45,22 @@ class ValidatorF {
     }
 
 
-    doAutorise(username, password) {
+    async doAutorise(username, password) {
         userM.signIn(username, password).then(
-            resolve => Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT)
+            async resolve => {
+                const currentUserData = await this.getUserData();
+                Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+            }
         ).catch(
             (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
     }
 
     async doRegistration(userStructure) {
         userM.signUp(userStructure).then(
-            resolve => Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT)
+            async resolve => {
+                const currentUserData = await this.getUserData();
+                Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT)
+            }
         ).catch(
             (error) => console.log(`ERROR at: userValidatorF.doRegistration - ${error}`));
     }
@@ -67,12 +73,12 @@ class ValidatorF {
         );
     }
 
-    async getCSRF(){
+    async getCSRF() {
         const csrf = await User.getCSRF();
         return csrf;
     }
 
-    unAutorise(){
+    unAutorise() {
         userM.unAutorise();
     }
 

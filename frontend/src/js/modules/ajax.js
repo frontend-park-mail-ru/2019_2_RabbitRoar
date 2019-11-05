@@ -34,9 +34,7 @@ export function deleteRequest(
 export function putRequest(
     url = "/",
     body = {},
-    headers = {
-        "Content-type": "application/json",
-    },
+    headers = {},
 ) {
     url = base + url;
     return fetch(url, {

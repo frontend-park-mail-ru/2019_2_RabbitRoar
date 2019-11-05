@@ -19,8 +19,11 @@ class UsersPanelE {
     async create(root = document.getElementById("application")) {
         this.root = root;
         const currentUserData = await ValidatorF.getUserData();
-        console.log(currentUserData);
-        this.root.insertAdjacentHTML("beforeend", Template({userData: currentUserData}));
+        
+        const authorized = ValidatorF.checkLocalstorageAutorization();
+
+        console.log("СОЗДАНИЕ ПАНЕЛИ ЮЗЕРОВ", authorized);
+        this.root.insertAdjacentHTML("beforeend", Template({userData: currentUserData, authorized: authorized}));
         this.controller.start();
     }
 
