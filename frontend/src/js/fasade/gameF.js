@@ -70,6 +70,7 @@ class GameF {
             Bus.emit(QUESTION_PANEL_UPDATE);
         } else if (QuestionsM.current.questionTable.mode === "selected") {
             Bus.emit(QUESTION_PANEL_UPDATE);
+            Bus.emit(QUESTION_WAS_CHOSEN);
         } else if (QuestionsM.current.questionTable.mode === "result") {
             Bus.emit(TIMER_INTERRUPTION);
             Bus.emit(QUESTION_PANEL_UPDATE);
@@ -119,7 +120,6 @@ class OfflineGameF {
     get questionTableCInterface() {
         const iface = {
             clickQuestion(packId, cellId) {
-                Bus.emit(QUESTION_WAS_CHOSEN);
                 QuestionsM.clickQuestion(packId, cellId);
             }
         };

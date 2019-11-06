@@ -1,5 +1,5 @@
 import Bus from "../event_bus.js";
-import { QUESTION_CHANGE, TIMER_STOPPED, TIMER_INTERRUPTION } from "../modules/events.js";
+import { QUESTION_CHANGE, TIMER_STOPPED, TIMER_INTERRUPTION, QUESTION_WAS_CHOSEN } from "../modules/events.js";
 
 class QuestionsM {
     constructor() {
