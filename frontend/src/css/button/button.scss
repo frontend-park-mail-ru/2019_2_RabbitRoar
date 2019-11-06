@@ -71,6 +71,12 @@
   cursor: pointer;
 }
 
+.game-panel-button-without-hover {
+  @extend %button;
+  font-size: var(--small-font-size);
+  border-radius: 0px;
+}
+
 .create-room-btn {
   @extend %button;
   border-width: 1px;
