@@ -16,9 +16,10 @@ export async function signIn(login, password) {
 export async function logout() {
     let response = await deleteRequest("/logout");
 
-    if (!response.ok) {
-        throw new Error(`Logout error: ${response.statusText}`);
-    }
+    if (response.status === 401) {
+        localStorage.removeItem("authorized");
+        //throw new Error(`Logout error: ${response.statusText}`);
+    } 
 }
 
 export async function signUp(userStructure) {

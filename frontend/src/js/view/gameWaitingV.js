@@ -27,7 +27,7 @@ class GameWaitingV {
 
         // const count = ValidatorF.getUsersCount();
 
-        // this.root.insertAdjacentHTML("beforeend", Template({ autorised: autorised }));
+        // this.root.insertAdjacentHTML("beforeend", Template({ authorized: authorized }));
     }
 
     destroy() {

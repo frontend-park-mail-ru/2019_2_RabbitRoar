@@ -1,6 +1,8 @@
 // Функции должны обязательно возвращать промис
 
-const base = "https://frontend.photocouple.space/api";
+const base = "https://svoyak.fun/api";
+
+export const basePhotoUrl = "http://svoyak.fun:3000";
 
 export function postRequest(
     url = "/",

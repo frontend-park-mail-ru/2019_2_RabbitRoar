@@ -23,8 +23,8 @@ class AutorisationE {
         this.controller.start();
     }
 
-    _signIn(autorised = false) {
-        if (autorised) {
+    _signIn(authorized = false) {
+        if (authorized) {
             Bus.emit(AUTORISATION_EVENT.ROUTE_TO, ROOT);
         } else {
             console.log("autorisationE._signIn: AUTORISE ERROR");

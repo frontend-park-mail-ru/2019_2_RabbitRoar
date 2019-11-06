@@ -45,7 +45,7 @@ class NavbarC {
     }
 
     _routeToProfile() {
-        if (ValidatorF.getUserAutorise()) {
+        if (ValidatorF.checkLocalstorageAutorization()) {
             Bus.emit(ROUTER_EVENT.ROUTE_TO, PROFILE);
         }
     }

@@ -9,12 +9,17 @@ class NavbarE {
         this.controller = NavbarC;
     }
 
-    create(root = document.getElementById("application")) {
+    async create(root = document.getElementById("application")) {
         this.root = root;
 
-        const autorised = ValidatorF.getUserAutorise();
+        let avatar;
+        const authorized = ValidatorF.checkLocalstorageAutorization();
 
-        this.root.insertAdjacentHTML("beforeend", Template({ autorised: autorised }));
+        if (authorized === true) {
+            const currentUserData = await ValidatorF.getUserData();
+            avatar = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
+        }
+        this.root.insertAdjacentHTML("beforeend", Template({ authorized: authorized, avatar: avatar }));
         this.controller.start();
     }
 

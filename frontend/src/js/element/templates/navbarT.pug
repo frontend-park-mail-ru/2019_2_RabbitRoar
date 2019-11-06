@@ -1,11 +1,11 @@
 nav(class="navbar")
     a(class="navbar__game-logo", id="nav_logo", href="#") Своя игра
-    if autorised == false
+    if authorized == false
         a(class="navbar__exit", id="nav_login", href="#") Вход
         a(class="navbar__exit", id='nav_registration', href="#") Регистрация
     else
         a(id="nav_profile", href="#")
             img(class="navbar__user-logo",
-            src="https://pngimage.net/wp-content/uploads/2018/06/user-logo-png-4.png",
+            src=avatar,
             alt="User")
         a(class="navbar__exit", id="nav_exit", href="#") Выход

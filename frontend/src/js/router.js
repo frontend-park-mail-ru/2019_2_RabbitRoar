@@ -30,9 +30,7 @@ export class Router {
         let newView;
         const authorized = ValidatorF.checkLocalstorageAutorization();
         if (!authorized){
-            // Срабатывает на каждый роут
-            //alert("разавторизовались");
-            ValidatorF.unAutorise();
+            // ValidatorF.unAutorise();
         }
         if ((newView = this.routes.get(path)) != undefined) {
             if (!firtsTime) {

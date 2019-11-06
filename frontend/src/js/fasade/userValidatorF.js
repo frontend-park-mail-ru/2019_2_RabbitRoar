@@ -3,7 +3,9 @@ import User from "../model/userM.js";
 import { USER_VALIDATE, ROUTER_EVENT, PROFILE_UPDATE } from "../modules/events.js";
 import { LOGIN, SIGN_UP, ROOT } from "../paths";
 import userM from "../model/userM.js";
+import {basePhotoUrl} from "../modules/ajax.js"
 
+const defaultAvatar = "https://pngimage.net/wp-content/uploads/2018/06/user-logo-png-4.png";
 
 class ValidatorF {
     constructor() {
@@ -15,8 +17,8 @@ class ValidatorF {
     }
 
     getUserAutorise() {
-        console.log("autorisation returned", User.autorised);
-        return User.autorised;
+        console.log("autorisation returned", User.authorized);
+        return User.authorized;
     }
 
     checkLocalstorageAutorization() {
@@ -78,9 +80,16 @@ class ValidatorF {
         return csrf;
     }
 
-    unAutorise() {
-        userM.unAutorise();
+    getFullImageUrl(avatarUrlFromServer){
+        if (avatarUrlFromServer == "") {
+            return defaultAvatar;
+        } else {
+            return basePhotoUrl + avatarUrlFromServer;
+        }
     }
 
+    getDefaultAvatar(){
+        return defaultAvatar;
+    }
 }
 export default new ValidatorF();

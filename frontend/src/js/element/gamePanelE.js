@@ -13,15 +13,19 @@ class GamePanelE {
 
     async create(root = document.getElementById("application")) {
         this.root = root;
+
         let currentUserData;
         const authorized = ValidatorF.checkLocalstorageAutorization();
+        
         if (authorized === true) {
             currentUserData = await ValidatorF.getUserData();
+            currentUserData.avatar_url = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
         } else {
-            currentUserData = undefined;
+            const defaultAvavtar = ValidatorF.getDefaultAvatar();
+            currentUserData = {username: "Anon", avatar_url: defaultAvavtar};
         }
-        console.log("СОЗДАНИЕ ПАНЕЛИ ИГРЫ", authorized);
-        this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData, authorized: authorized }));
+        
+        this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData}));
         this.controller.start();
         GameF.reincarnate();
     }
