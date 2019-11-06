@@ -35,6 +35,6 @@ else if state.mode == "result"
         else
             div(class="question-container__result_false") Неправильный ответ!
             div(class="question-container__answer_false") Ответ: "#{state.question.answer}"
-            div(class="question-container__score_false") + #{state.currentQuestionScore} Очков
+            div(class="question-container__score_false") - #{state.currentQuestionScore} Очков
 
 

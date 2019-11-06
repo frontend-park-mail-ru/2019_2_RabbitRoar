@@ -36,12 +36,17 @@ class GamePanelC {
 
     _startListenQuestion() {
         this.abilityToEnterAnswer = true;
+        document.getElementById("answer").style.visibility = "visible" ;
+        document.getElementById("game-panel-button").innerHTML = "Ответить";
     }
 
     _stopListenQuestion() {
         this.abilityToEnterAnswer = false;
         const answer = document.getElementById("answer");
+        answer.style.visibility = "hidden";
         answer.value = "";
+
+        document.getElementById("game-panel-button").innerHTML = "Выберите вопрос";
     }
 
     _answerEntered(event) {
