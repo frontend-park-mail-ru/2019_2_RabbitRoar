@@ -27,13 +27,13 @@ class GamePanelE {
         
         this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData}));
         this.controller.start();
-        GameF.reincarnate();
+        GameF.removeElement();
     }
 
     destroy() {
         this.controller.drop();
         this.root.innerHTML = "";
-        GameF.annihilate();
+        GameF.addElement();
     }
 }
 

@@ -29,7 +29,7 @@ class QuestionsM {
         return this.current.chosedQuestionsId;
     }
 
-    annihilate() {
+    addElement() {
         console.log("game restart");
         if (this.current.mode === "offline") {
             this.current = new OfflineQuestionsM();

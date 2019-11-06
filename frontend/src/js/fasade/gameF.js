@@ -52,14 +52,14 @@ class GameF {
     }
 
 
-    reincarnate() {
+    removeElement() {
         this.livingElements++;
     }
 
-    annihilate() {
+    addElement() {
         this.livingElements--;
         if (this.livingElements === 0) {
-            this.current.annihilate();
+            this.current.addElement();
             this.current = undefined;
         }
     }
@@ -135,8 +135,8 @@ class OfflineGameF {
         return iface;
     };
 
-    annihilate() {
-        QuestionsM.annihilate();
+    addElement() {
+        QuestionsM.addElement();
     }
 
 }
@@ -154,9 +154,9 @@ class OnlineGameF {
         await RoomM.sendData();
     }
 
-    annihilate() {
-        QuestionsM.annihilate();
-        RoomM.annihilate();
+    addElement() {
+        QuestionsM.addElement();
+        RoomM.addElement();
     }
 
 

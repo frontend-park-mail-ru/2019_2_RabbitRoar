@@ -12,6 +12,8 @@ class QuestionTableE {
         this.root = document.getElementById("application");
         this.controller = QuestionTableC;
         this.progressBarInterrupt = false;
+        this.timerIsWorking = false;
+
         Bus.on(TIMER_STOPPED, this._redraw.bind(this));
         Bus.on(QUESTION_PANEL_UPDATE, this._redraw.bind(this));
         Bus.on(TIMER_INTERRUPTION, this._interruptProgressBar.bind(this));
@@ -45,25 +47,30 @@ class QuestionTableE {
 
             this._progressBarMoving()
                 .then((data) => {
+                    this.timerIsWorking = false;
                 })
                 .catch((error) => { });
         } else {
             replaceTwoCssClasses(barElement, "progress-bar", "progress-bar-hidden");
         }
-        GameF.reincarnate();
+        GameF.removeElement();
     }
 
     destroy() {
+        if (this.timerIsWorking) {
+            Bus.emit(TIMER_INTERRUPTION);
+        }
         this.controller.drop();
         this.root.innerHTML = "";
-        GameF.annihilate();
+        GameF.addElement();
     }
 
     _interruptProgressBar() {
         this.progressBarInterrupt = true;
     }
 
-    _progressBarMoving(period) {
+    _progressBarMoving() {
+        this.timerIsWorking = true;
         return new Promise((resolve, reject) => {
             const period = 50;
             let width = 0;
