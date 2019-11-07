@@ -25,7 +25,7 @@ Bus.emit(PACK_WORKER_COMMAND, "update");
 
 
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./sw.js").then(function (registration) {
+    navigator.serviceWorker.register("/sw.js").then(function (registration) {
         console.log("sw.js registration successful with scope: ", registration.scope);
     }).catch(function (err) {
         console.log("sw.js registration failed: ", err);
