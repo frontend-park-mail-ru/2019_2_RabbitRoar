@@ -199,7 +199,7 @@ function getPacks() {
     ]
 
     const packs = new Array;
-    const aut = ["Real pack", "EgosKekos"];
+    const aut = ["real pack", "EgosKekos"];
     const q = ["Кто ты такой блять чтоб это сделать?", "Где колоды заряжаете?"];
     const a = ["диллер", "киоск"];
     for (let j = 0; j < 2; ++j) {

@@ -8,13 +8,7 @@ import AutorisationC from "../controller/autorisationC";
 
 class AutorisationE {
     constructor() {
-        if (!!AutorisationE.instance) {
-            return AutorisationE.instance;
-        }
-        AutorisationE.instance = this;
         this.controller = AutorisationC;
-
-        return this;
     }
 
     create(root = document.getElementById("application")) {

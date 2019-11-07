@@ -6,14 +6,23 @@ import userM from "../model/userM.js";
 import {basePhotoUrl} from "../modules/ajax.js"
 
 const defaultAvatar = "https://pngimage.net/wp-content/uploads/2018/06/user-logo-png-4.png";
+//PUBLUC:
+//getUserAutorise()
+//checkLocalstorageAutorization()
+//async getUserData()
+//changeTextFields()
+//changeUserAvatar()
+//async doAutorise()
+//async doRegistration()
+//doExit()
+//async getCSRF()
+//unAutorise()
+//PRIVATE:
+
 
 class ValidatorF {
     constructor() {
-        if (!!ValidatorF.instance) {
-            return ValidatorF.instance;
-        }
-        ValidatorF.instance = this;
-        return this;
+        this.networkState = window.navigator.onLine;
     }
 
     checkLocalstorageAutorization() {
@@ -86,5 +95,6 @@ class ValidatorF {
     getDefaultAvatar(){
         return defaultAvatar;
     }
+
 }
 export default new ValidatorF();

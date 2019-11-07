@@ -3,7 +3,6 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const Worker = require('worker-loader');
 
@@ -42,7 +41,10 @@ module.exports = {
       },
       {
         test: /\.worker\.js$/,
-        use: { loader: 'worker-loader' }
+        use: {
+          loader: 'worker-loader',
+          options: { name: 'gameLoader.worker.js' }
+            },
       },
     ],
   },

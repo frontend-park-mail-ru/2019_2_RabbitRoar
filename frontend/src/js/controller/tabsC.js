@@ -59,6 +59,12 @@ class TabsC {
             }
             this._showOrHidePopUp();
             this._startGame(event);
+
+            // const popup = document.getElementById("popup");
+            // if (popup) {
+            //     popup.classList.toggle("popup_show");
+            // }
+            // return;
         } else if (event.target.id == "cansel") {
             this._showOrHidePopUp();
         } else if (event.target.id == "login") {

@@ -1,0 +1,13 @@
+.warning {
+    display: flex;
+    color: $color-danger;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    z-index: 0;
+}
+
+.warning_show {
+    visibility: visible;
+    z-index: 1;
+}
