@@ -1,0 +1,22 @@
+.user-panel-container {
+  display: grid;
+  margin: auto;
+  width: 60vw;
+  height: 10vh;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr, 1fr, 1fr, 1fr, 1fr, 1fr;
+}
+
+.other-user {
+  grid-row: 1;
+  border-color: $color-bg-light;
+  border: 2px solid $color-border-primary-low;
+}
+
+#main-user {
+  grid-row: 1;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  background-color: $color-bg-light;
+  border: 2px solid $color-border-primary-low;
+}

@@ -19,15 +19,7 @@ class PackInfoE {
         
         this.root = root;
         let currentUserData;
-        
-        // if (authorized === true) {
-        //     currentUserData = await ValidatorF.getUserData();
-        //     currentUserData.avatar_url = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
-        // } else {
-        //     const defaultAvavtar = ValidatorF.getDefaultAvatar();
-        //     currentUserData = {username: "Anon", avatar_url: defaultAvavtar};
-        // }
-        
+                
         this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData}));
 
         this.controller.start();

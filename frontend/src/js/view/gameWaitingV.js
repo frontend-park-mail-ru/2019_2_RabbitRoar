@@ -10,10 +10,6 @@ export default new GameWaitingV(
     document.getElementById("application"),
     NavbarE,
     UsersPanelE,
-    NetworkWarningE
+    NetworkWarningE,
+    PackInfoE
 );
-
-
-// const count = ValidatorF.getUsersCount();
-
-// this.root.insertAdjacentHTML("beforeend", Template({ autorised: autorised }));
