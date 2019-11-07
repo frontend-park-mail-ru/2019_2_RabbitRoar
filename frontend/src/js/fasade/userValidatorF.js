@@ -16,11 +16,6 @@ class ValidatorF {
         return this;
     }
 
-    getUserAutorise() {
-        console.log("autorisation returned", User.authorized);
-        return User.authorized;
-    }
-
     checkLocalstorageAutorization() {
         const result = userM.checkLocalstorageAutorization();
         return result;

@@ -42,6 +42,20 @@
   cursor: pointer;
 }
 
+.popup-button {
+  @extend %button;
+  width: 75%;
+  height: 75%;
+}
+
+.popup-button:hover {
+  border-width: 1px;
+  border-color: var(--border-color-theme);
+  color: var(--font-color-theme);
+  background-color: $color-bg-dark;
+  cursor: pointer;
+}
+
 .pg-button {
   @extend %button;
   border-radius: 0px;

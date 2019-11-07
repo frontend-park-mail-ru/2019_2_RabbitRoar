@@ -16,10 +16,10 @@ div(class="main-container")
                 
                 div(class="popup" id="popup")
                     div(class="popup__content")
-                        div(class="popup-elem-top") Вы переходите в online игру.
+                        div(class="popup-elem-top" id="popup-elem-top") Вы переходите в online игру.
                         div(class="popup-elem-bottom")
-                            div(class="join-button" id="cansel") Отмена
-                            div(class="join-button" id="continue") Продолжить
+                            div(class="popup-button" id="cansel") Отмена
+                            div(class="popup-button" id="continue") Продолжить
 
             each val, index in templateContent.content
                 div(class="rooms-panel")

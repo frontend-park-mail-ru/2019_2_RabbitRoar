@@ -1,5 +1,4 @@
 import Template from "./templates/usersPanelT.pug";
-import Bus from "../event_bus.js";
 import ValidatorF from "../fasade/userValidatorF.js";
 import UsersPanelC from "../controller/usersPanelC.js";
 
@@ -19,15 +18,20 @@ class UsersPanelE {
     async create(root = document.getElementById("application")) {
         
         this.root = root;
-        let avatar;        
+        let currentUserData;
         const authorized = ValidatorF.checkLocalstorageAutorization();
+        
         if (authorized === true) {
             currentUserData = await ValidatorF.getUserData();
-            avatar = currentUserData.avatar_url;
+            currentUserData.avatar_url = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
         } else {
-            avatar = ValidatorF.getDefaultAvatar();
+            const defaultAvavtar = ValidatorF.getDefaultAvatar();
+            currentUserData = {username: "Anon", avatar_url: defaultAvavtar};
         }
-        this.root.insertAdjacentHTML("beforeend", Template({avatar: avatar, authorized: authorized}));
+        console.log(currentUserData);
+
+        this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData}));
+
         this.controller.start();
     }
 
