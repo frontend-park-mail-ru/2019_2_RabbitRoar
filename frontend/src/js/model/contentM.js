@@ -19,6 +19,7 @@ class ContentM {
             localStorage.setItem("packs_list", JSON.stringify(savePacks));
 
             localStorage.setItem(msg.data.key, msg.data.value)
+            console
 
             // const fromLocal = JSON.parse(localStorage.getItem(msg.data.key));
             // console.log(fromLocal);
@@ -27,6 +28,8 @@ class ContentM {
 
             // const fromLocal = JSON.parse(localStorage.getItem(msg.data.key));
             // console.log(fromLocal);
+        } else if (msg.data.type === "full") {
+            console.log(msg.data.value);
         }
     }
 
