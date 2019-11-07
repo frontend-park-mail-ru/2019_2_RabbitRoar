@@ -4,14 +4,23 @@ import { USER_VALIDATE, ROUTER_EVENT, PROFILE_UPDATE } from "../modules/events.j
 import { LOGIN, SIGN_UP, ROOT } from "../paths";
 import userM from "../model/userM.js";
 
+//PUBLUC:
+//getUserAutorise()
+//checkLocalstorageAutorization()
+//async getUserData()
+//changeTextFields()
+//changeUserAvatar()
+//async doAutorise()
+//async doRegistration()
+//doExit()
+//async getCSRF()
+//unAutorise()
+//PRIVATE:
+
 
 class ValidatorF {
     constructor() {
-        if (!!ValidatorF.instance) {
-            return ValidatorF.instance;
-        }
-        ValidatorF.instance = this;
-        return this;
+        this.networkState = window.navigator.onLine;
     }
 
     getUserAutorise() {
@@ -81,6 +90,7 @@ class ValidatorF {
     unAutorise() {
         userM.unAutorise();
     }
+
 
 }
 export default new ValidatorF();

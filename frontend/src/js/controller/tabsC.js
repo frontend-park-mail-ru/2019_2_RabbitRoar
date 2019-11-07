@@ -66,8 +66,8 @@ class TabsC {
             const popup = document.getElementById("popup");
             if (popup) {
                 popup.classList.toggle("popup_show");
-                return;
             }
+            return;
         } else if (event.target.id == "cansel") {
             const popup = document.getElementById("popup");
             if (popup) {

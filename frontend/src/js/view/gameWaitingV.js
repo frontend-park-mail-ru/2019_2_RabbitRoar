@@ -1,38 +1,19 @@
 import NavbarE from "../element/navbarE.js";
 import TabsE from "../element/tabsE.js";
 import UsersPanelE from "../element/usersPanelE.js";
+import NetworkWarningE from "../element/networkWarningE.js";
+import { View } from "./view.js";
 
-class GameWaitingV {
-    constructor(root = document.getElementById("application")) {
-        if (!!GameWaitingV.instance) {
-            this.root = root;
-            return GameWaitingV.instance;
-        }
-        this.root = root;
+class GameWaitingV extends View {};
 
-        this.navbarDiv = document.createElement("div");
-        this.navbarDiv.id = "navbar_container";
+export default new GameWaitingV(
+    document.getElementById("application"),
+    NavbarE,
+    UsersPanelE,
+    NetworkWarningE
+);
 
-        this.usersPanelDiv = document.createElement("div");
-        this.usersPanelDiv.id = "user_panel_container";
 
-        GameWaitingV.instance = this;
-        return this;
-    }
+// const count = ValidatorF.getUsersCount();
 
-    create(data = "") {
-        this.root.append(this.navbarDiv);
-        NavbarE.create(this.navbarDiv);
-        UsersPanelE.create(this.navbarDiv);
-
-        // const count = ValidatorF.getUsersCount();
-
-        // this.root.insertAdjacentHTML("beforeend", Template({ autorised: autorised }));
-    }
-
-    destroy() {
-        NavbarE.destroy();
-        UsersPanelE.destroy();
-    }
-}
-export default new GameWaitingV();
+// this.root.insertAdjacentHTML("beforeend", Template({ autorised: autorised }));
