@@ -52,14 +52,14 @@ class GameF {
     }
 
 
-    removeElement() {
+    addElement() {
         this.livingElements++;
     }
 
-    addElement() {
+    removeElement() {
         this.livingElements--;
         if (this.livingElements === 0) {
-            this.current.addElement();
+            this.current.restart();
             this.current = undefined;
         }
     }
@@ -135,8 +135,8 @@ class OfflineGameF {
         return iface;
     };
 
-    addElement() {
-        QuestionsM.addElement();
+    restart() {
+        QuestionsM.restart();
     }
 
 }

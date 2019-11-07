@@ -53,7 +53,7 @@ class QuestionTableE {
         } else {
             replaceTwoCssClasses(barElement, "progress-bar", "progress-bar-hidden");
         }
-        GameF.removeElement();
+        GameF.addElement();
     }
 
     destroy() {
@@ -62,7 +62,7 @@ class QuestionTableE {
         }
         this.controller.drop();
         this.root.innerHTML = "";
-        GameF.addElement();
+        GameF.removeElement();
     }
 
     _interruptProgressBar() {

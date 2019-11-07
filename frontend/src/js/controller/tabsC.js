@@ -5,7 +5,6 @@ import { id } from "../modules/id.js";
 import Bus from "../event_bus.js";
 import { ROUTER_EVENT } from "../modules/events.js";
 import { SINGLE_GAME, ROOM_CREATOR, WAITING, LOGIN } from "../paths";
-import gameF from "../fasade/gameF.js";
 import ValidatorF from "../fasade/userValidatorF.js";
 
 
@@ -23,7 +22,7 @@ class TabsC {
         this.registerClassHandler(".tab-click", "mouseover", this._lightTab.bind(this));
         this.registerClassHandler(".tab-click", "mouseout", this._unLightTab.bind(this));
 
-        this.registerClassHandler(".join-button", "click", this._showOrHidePopUp.bind(this));
+        this.registerClassHandler(".join-button", "click", this._joinClick.bind(this));
         this.registerClassHandler(".popup-button", "click", this._processPopUp.bind(this));
         this.registerClassHandler(".create-room-btn", "click", this._routeToRoomCreation.bind(this));
     }
@@ -52,11 +51,6 @@ class TabsC {
 
     _processPopUp(event) {
         if (event.target.id === "continue") {
-            const continueButton = document.getElementById("continue");
-            if (continueButton) {
-                const join_id = event.target.getAttribute("join_id");
-                continueButton.setAttribute("join_id", join_id);
-            }
             this._showOrHidePopUp();
             this._startGame(event);
 
@@ -74,15 +68,27 @@ class TabsC {
 
 
     _showOrHidePopUp() {
-        if (!ValidatorF.checkLocalstorageAutorization()) {
-            document.getElementById("continue").id = "login";
-            document.getElementById("popup-elem-top").innerHTML = "Для игры необходимо авторизоваться";
-        }
         const popup = document.getElementById("popup");
         if (popup) {
             popup.classList.toggle("popup_show");
             return;
         }
+    }
+
+    _joinClick() {
+        const continueBtn = document.getElementById("continue");
+
+        if (continueBtn) {
+            if (!ValidatorF.checkLocalstorageAutorization()) {
+                continueBtn.id = "login";
+                document.getElementById("popup-elem-top").innerHTML = "Для игры необходимо авторизоваться";
+            } else {
+                const join_id = event.target.getAttribute("join_id");
+                continueBtn.setAttribute("join_id", join_id);
+            }
+        }
+
+        this._showOrHidePopUp();
     }
 
     _startGame(event) {

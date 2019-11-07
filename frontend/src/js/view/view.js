@@ -20,7 +20,6 @@ export class View {
     create() {
         for (const container of this.containers) {
             this.root.append(container.root);
-            console.log(`root: ${container.root.id}`);
             container.content.create(container.root);
         }
     }
