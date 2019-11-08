@@ -17,20 +17,12 @@ import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
 class ContentM {
     constructor() {
         this.downloadList = new Array();
+        this.packList = ["default_pack"];
         Bus.on(PACK_WORKER_MESSAGE, this._workerHandler.bind(this));
     }
 
     _workerHandler(msg) {
         if (msg.data.type === "pack") {
-            let savePacks = {};
-            if (localStorage.getItem("packs_list")) {
-                savePacks = JSON.parse(localStorage.getItem("packs_list"));
-                localStorage.removeItem("packs_list");
-            }
-
-            savePacks[msg.data.key] = "";
-            localStorage.setItem("packs_list", JSON.stringify(savePacks));
-
             localStorage.setItem(msg.data.key, msg.data.value)
         } else if (msg.data.type === "question") {
             localStorage.setItem(msg.data.key, msg.data.value)
@@ -41,7 +33,8 @@ class ContentM {
 
     async updatePackList() {
         //this.packList = await getPackList();
-        this.packList = [0, 1];
+        this.packList.push(0);
+        this.packList.push(1);
 
         if (localStorage.getItem("packs_list")) {
             const savedPacks = JSON.parse(localStorage.getItem("packs_list"));
@@ -78,17 +71,22 @@ class ContentM {
 
         for (const saveId of savedPacks) {
             if (countList[saveId] === undefined) {
-                this.downloadList.push(saveId);
+                if (saveId !== "default_pack") {
+                    this.downloadList.push(saveId);
+                }
             }
         }
 
 
         for (const packId in countList) {
             if (countList[packId] !== keysForOnePack) {
-                this.downloadList.push(packId);
+                if (packId !== "default_pack") {
+                    this.downloadList.push(packId);
+                }
                 this._deletePack(packId);
             }
         }
+
     }
 
     getDownloadList() {
@@ -170,7 +168,7 @@ class ContentM {
 
             const packs = (() => {
                 const packs = new Array;
-                for (const id in allId) {
+                for (const id of allId) {   
                     const pack = localStorage.getItem(id);
                     if (pack) {
                         packs.push(JSON.parse(pack));
