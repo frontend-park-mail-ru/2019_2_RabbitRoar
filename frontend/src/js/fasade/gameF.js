@@ -92,6 +92,7 @@ class GameF {
 
     // shity place
     getPackName() {
+        console.log(this.current);
         const name = this.current.getPackName();
         return name;
     }
@@ -198,7 +199,7 @@ class OnlineGameF {
     };
 
     getPackName() {
-        return this.RoomM.getRoomName();
+        return RoomM.getRoomName();
     }
 }
 
