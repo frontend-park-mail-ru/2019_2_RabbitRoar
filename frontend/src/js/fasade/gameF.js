@@ -113,6 +113,10 @@ class OfflineGameF {
                 Bus.emit(TIMER_STOPPED);
                 Bus.emit(QUESTION_PANEL_UPDATE);
             },
+            sendAnswer(answer = "") {
+                answer = "";
+                QuestionsM.sendAnswer(answer);
+            }
         };
         return iface;
     };
