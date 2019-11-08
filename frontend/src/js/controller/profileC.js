@@ -60,8 +60,8 @@ class ProfileC {
             elem.classList.remove("error-visible");
         }
 
-        if (elem.classList.contains("file-downloaded")) {
-            elem.classList.remove("file-downloaded");
+        if (elem.classList.contains("info-message")) {
+            elem.classList.remove("info-message");
         }
         if (elem.classList.contains("input-error")) {
             elem.classList.remove("input-error");

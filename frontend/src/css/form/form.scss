@@ -59,20 +59,20 @@
   }
 
   .error-annotation {
-    font-size: var(--font-size);
+    font-size: var(--small-font-size);
     color: $color-danger;
     visibility: hidden;
     padding: 2px;
   }
 
   .error-visible {
-    font-size: var(--font-size);
+    font-size: var(--small-font-size);
     color: $color-danger;
     padding: 2px;
   }
 
-  .file-downloaded {
-    font-size: var(--font-size);
+  .info-message {
+    font-size: var(--small-font-size);
     color: $color-success;
     padding: 2px;
   }

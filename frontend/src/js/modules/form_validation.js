@@ -79,7 +79,7 @@ export const fileVaildation = () => {
         } else {
             type().then(function (result) {
                 _deleteCssClassesFileInput(errorFileElement);
-                errorFileElement.classList.add("file-downloaded");
+                errorFileElement.classList.add("info-message");
                 errorFileElement.innerHTML = "Аватарка обновлена";
                 resolve(input.files[0]);
             },
@@ -144,8 +144,8 @@ const _deleteCssClassesFileInput = (elem) => {
     if (elem.classList.contains("error-visible")) {
         elem.classList.remove("error-visible");
     }
-    if (elem.classList.contains("file-downloaded")) {
-        elem.classList.remove("file-downloaded");
+    if (elem.classList.contains("info-message")) {
+        elem.classList.remove("info-message");
     }
 };
 
@@ -251,21 +251,6 @@ export const roomCreatureVaildation = () => {
     const errorRoomNameElement = document.getElementById("error_room_name");
 
     let error = false;
-    if (!document.getElementById("password").disabled) {
-        const password = document.getElementById("password").value;
-        if (!password) {
-            replaceTwoCssClasses(errorPasswordElement, "error-annotation", "error-visible");
-            replaceTwoCssClasses(document.getElementById("password"), "input-valid", "input-error");
-            errorPasswordElement.innerHTML = "Введите пароль.";
-            error = true;
-        } else {
-            replaceTwoCssClasses(errorPasswordElement, "error-visible", "error-annotation");
-            replaceTwoCssClasses(document.getElementById("password"), "input-error", "input-valid");
-        }
-    } else {
-        replaceTwoCssClasses(errorPasswordElement, "error-visible", "error-annotation");
-        replaceTwoCssClasses(document.getElementById("password"), "input-error", "input-valid");
-    }
     const roomName = document.getElementById("room-name").value;
     if (!roomName) {
         replaceTwoCssClasses(errorRoomNameElement, "error-annotation", "error-visible");

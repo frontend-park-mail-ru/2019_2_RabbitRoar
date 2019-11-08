@@ -89,6 +89,12 @@ class GameF {
     _gamePanelCInterface() {
         return this.current.gamePanelCInterface;
     }
+
+    // shity place
+    getPackName() {
+        const name = this.current.getPackName();
+        return name;
+    }
 }
 
 // ===================================================
@@ -139,6 +145,9 @@ class OfflineGameF {
         QuestionsM.restart();
     }
 
+    getPackName(){
+
+    }
 }
 
 // ===================================================
@@ -187,6 +196,10 @@ class OnlineGameF {
         };
         return iface;
     };
+
+    getPackName() {
+        return this.RoomM.getRoomName();
+    }
 }
 
 

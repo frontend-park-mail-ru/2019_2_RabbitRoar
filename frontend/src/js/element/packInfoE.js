@@ -1,6 +1,7 @@
 import Template from "./templates/packInfoT.pug";
 import ValidatorF from "../fasade/userValidatorF.js";
 import PackInfoC from "../controller/packInfoC.js";
+import GameF from "../fasade/gameF.js";
 
 
 class PackInfoE {
@@ -18,9 +19,9 @@ class PackInfoE {
     async create(root = document.getElementById("application")) {
         
         this.root = root;
-        let currentUserData;
-                
-        this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData}));
+       // const packName = GameF.getPackName();
+        const packName = "real pack"; 
+        this.root.insertAdjacentHTML("beforeend", Template({packName: packName}));
 
         this.controller.start();
     }

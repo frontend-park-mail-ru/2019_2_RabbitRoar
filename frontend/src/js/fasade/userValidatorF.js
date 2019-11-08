@@ -38,14 +38,14 @@ class ValidatorF {
 
     changeTextFields(changesMap, csrf) {
         userM.changeTextFields(changesMap, csrf).then(
-            resolve => Bus.emit(PROFILE_UPDATE)
+            resolve => {}
         ).catch(
             (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
     }
 
     changeUserAvatar(formData, csrf) {
         userM.changeAvatar(formData, csrf).then(
-            resolve => Bus.emit(PROFILE_UPDATE)
+            resolve => {}
         ).catch(
             (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
     }

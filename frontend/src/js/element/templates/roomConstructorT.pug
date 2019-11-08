@@ -9,11 +9,7 @@ div(id="form-part-1")
             div(class="form-group")
                 label(for="checkbox") Пароль
                 input(class="checkbox" type="checkbox" id="checkbox")
-
-            div(class="form-group")
-                label(for="password")
-                input(class="input-valid" name="password", id="password", type="password", disabled)
-                span(class="error-annotation" id="error_password") Отображение ошибки
+                span(class="error-annotation" id="password_info") Для присоединения в комнату будет сгенерирована ссылка
 
             div(class="form-group")
                 label(for="users-number") Количество игроков
@@ -29,33 +25,23 @@ div(id="form-part-2")
         div(class="tab") Поиск
         
         div(class="tab-content")
-            p(class="pack-number" id="pack-id") Выбранный пак
+            p(class="pack-number" id="pack-id") Выбранный пак:
             span(class="error-annotation" id="error_pack") Отображение ошибки
 
-            div(class="panel-elem")
-                div(class="pack-button" id="1") pack
-            div(class="panel-elem")
-                div(class="pack-button" id="2") pack
-            div(class="panel-elem")
-                div(class="pack-button" id="3") pack
-            div(class="panel-elem")
-                div(class="pack-button" id="4") pack
-            div(class="panel-elem")
-                div(class="pack-button" id="5") pack
-            div(class="panel-elem")
-                div(class="pack-button" id="6") pack
-            div(class="panel-elem")
-                div(class="pack-button" id="7") pack
-            div(class="panel-elem")
-                div(class="pack-button" id="8") pack
-            div(class="panel-elem")
-                div(class="pack-button" id="9") pack
-            div(class="panel-elem")
-                div(class="pack-button" id="10") pack
-            div(class="panel-elem")
-                div(class="pack-button" id="11") pack
-            div(class="panel-elem")
-                div(class="pack-button" id="12") pack
+            div(id="offline_mode")
+            div(class="offline-panel")
+                div(class="panel-elem") Название:
+                div(class="panel-elem") Автор:
+                div(class="panel-elem") Рейтинг:
+                div(class="panel-elem") 
+            each pack, index in templateContent.content
+                div(class="offline-panel")
+                    div(class="panel-elem") #{pack.name}
+                    div(class="panel-elem") #{pack.author}
+                    div(class="panel-elem") #{pack.rating}
+                    div(class="panel-elem")
+                        div(class="pack-button" id=pack.name) Выбрать
+
     form(class="form")
         button(type="submit", id="finish") Завершить
         button(type="submit", class="back") Назад

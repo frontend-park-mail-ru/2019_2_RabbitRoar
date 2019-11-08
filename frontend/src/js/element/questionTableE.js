@@ -72,7 +72,7 @@ class QuestionTableE {
     _progressBarMoving() {
         this.timerIsWorking = true;
         return new Promise((resolve, reject) => {
-            const period = 50;
+            const period = 100;
             let width = 0;
             let barElem = document.getElementById("dynamic-bar");
             const interval = setInterval(() => {

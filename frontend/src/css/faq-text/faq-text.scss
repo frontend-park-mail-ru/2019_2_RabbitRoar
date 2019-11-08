@@ -1,21 +1,22 @@
-.faq-text{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin: 7vh;
-    width: 70vw;
+.faq-text {
+    display: table;
+    margin: 0 auto;
 
-    p{
-        display: block;
-        margin-top: 1em;
-        margin-bottom: 0.5em;
-        margin-right: 0.5em;
-    }
+  p {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    margin-right: 0.5em;
+  }
 
-    .join-button{
-        margin-top: 1em;
-        font-size: var(--font-size);
-    }
+  .join-button {
+    margin-top: 1em;
+    font-size: var(--font-size);
+  }
+  
+  .line {
+    width: 100%;
+    text-align: center;
+    margin: 2.5vh;
+  }
 }

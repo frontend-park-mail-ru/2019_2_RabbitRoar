@@ -1,11 +1,10 @@
 div(class="main-container")
     div(class="tab", id=window.id.tabRoom) Комнаты
     div(class="tab", id=window.id.tabTop) Зал славы
-    div(class="tab", id=window.id.tabOffline) Offline
-    div(class="tab", id=window.id.tabPack) FAQ
+    div(class="tab", id=window.id.tabOffline) Тренировка
+    div(class="tab", id=window.id.tabPack) Об игре
 
     div(class="tab-content")
-
         if templateContent.contentType == window.id.tabRoom
             div(id="online_mode")
             div(class="rooms-panel")
@@ -63,7 +62,6 @@ div(class="main-container")
                         div(class="popup-button" id="cansel") Отмена
                         div(class="popup-button" id="continue") Продолжить
             each pack, index in templateContent.content
-
                 div(class="offline-panel")
                     div(class="panel-elem") #{pack.name}
                     div(class="panel-elem") #{pack.author}
@@ -72,11 +70,11 @@ div(class="main-container")
                         div(class="join-button" id="play" join_id=pack.id) Играть
         else if templateContent.contentType == window.id.tabPack
             div(class="faq-text")
-                p Добро пожаловать в онлайн-викторину «Swoyak».
-                p Выбирайте вопросы из игрового табло и отвечайте на них. 
-                p Игра заканчивается, когда все вопросы выбраны.
-                p Играй и повышай уровень.
-                p Играйте с друзьями и создавайте индивидуальные тематические комнаты.
+                div(class="line") Добро пожаловать в онлайн-викторину «Swoyak»!
+                div(class="line") Выбирайте вопросы из игрового табло и отвечайте на них. 
+                div(class="line") Игра заканчивается, когда все вопросы выбраны.
+                div(class="line") Играй и повышай уровень.
+                div(class="line") Играйте с друзьями и создавайте индивидуальные тематические комнаты.
                 div(class="panel-elem")
                     button(class="join-button" id=0) Сыграть в демо
 

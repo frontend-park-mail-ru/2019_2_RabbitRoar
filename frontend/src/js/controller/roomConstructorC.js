@@ -9,7 +9,6 @@ import { roomCreatureVaildation } from "../modules/form_validation";
 class RoomConstructorC {
     constructor() {
         this.usersCount = 0;
-        this.gamePassword = "";
         this.roomName = "";
         this.currentFormPart = 1;
         this.packId = -1;
@@ -49,7 +48,7 @@ class RoomConstructorC {
         const errorPackElement = document.getElementById("error_pack");
         replaceTwoCssClasses(errorPackElement, "error-visible", "error-annotation");
         this.packId = event.target.id;
-        document.getElementById("pack-id").innerHTML = "Выбранный пак " + String(this.packId);
+        document.getElementById("pack-id").innerHTML = "Выбранный пак: " + String(this.packId);
     }
 
     _processForm(form_number) {
@@ -63,11 +62,14 @@ class RoomConstructorC {
         document.getElementById("form-part-2").style.display = "none";
         document.getElementById("form-part-1").style.display = "block";
     }
+
     _checkboxChanged() {
+        const messageElement = document.getElementById("password_info");
         if (document.getElementById("checkbox").checked) {
-            document.getElementById("password").disabled = false;
+            replaceTwoCssClasses(messageElement, "error-annotation", "info-message");
+
         } else {
-            document.getElementById("password").disabled = true;
+            replaceTwoCssClasses(messageElement, "info-message", "error-annotation");
         }
     }
 
@@ -79,17 +81,12 @@ class RoomConstructorC {
 
         this.usersCount = parseInt(document.getElementById("users-number").value);
 
-        if (!document.getElementById("password").disabled) {
-            this.gamePassword = document.getElementById("password").value;
-        }
-
         this.roomName = document.getElementById("room-name").value;
         Bus.emit(FORM_CHANGED, 2);
     }
 
     _goBack() {
         this.usersCount = 0;
-        this.gamePassword = "";
         this.roomName = "";
         if (this.currentFormPart == 1) {
             Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
@@ -111,13 +108,12 @@ class RoomConstructorC {
         const errorPackElement = document.getElementById("error_pack");
         if (this.packId == -1) {
             replaceTwoCssClasses(errorPackElement, "error-annotation", "error-visible");
-            errorPackElement.innerHTML = "Выберите пак.";
+            errorPackElement.innerHTML = "Необходимо выбрать пак для игры.";
             return;
         }
 
         var obj = new Object();
         obj.playersCapacity = this.usersCount;
-        obj.password = this.gamePassword;
         obj.name = this.roomName;
 
         GameF.CreateGame("online", this.packId, obj).then(

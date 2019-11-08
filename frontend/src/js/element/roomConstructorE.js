@@ -15,16 +15,15 @@ class RoomConstructorE {
 
     create(root = document.getElementById("application")) {
         this.root = root;
-        this.root.insertAdjacentHTML("beforeend", Template());
-        this.controller.start();
 
-        // ContentF.getPackTabContent(id).then(
-        //     templateContent => {
-        //         this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
-        //         this._highlightChosen(id);
-        //         this.controller.start();
-        //     }
-        // );
+        const id = "offline_id";
+        ContentF.getTabContent(id).then(
+            templateContent => {
+                console.log(templateContent);
+                this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
+                this.controller.start();
+            }
+        );
     }
 
     destroy() {
