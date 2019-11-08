@@ -5,55 +5,63 @@ onmessage = async function (event) {
         console.log("Worker: Message received UPDATE");
 
         for (const packId of event.data.packList) {
-            const pack = await getPackById(packId);
-
-            const fullPackMsg = {};
-            fullPackMsg.type = "full";
-            fullPackMsg.value = JSON.stringify(pack);
-            self.postMessage(fullPackMsg);
-
-
-            const key = pack.id;
-
-            const packInfo = {
-                id: pack.id,
-                name: pack.name,
-                img: pack.img,
-                rating: pack.rating,
-                author: pack.author,
-                themes: (() => {
-                    const themes = new Array;
-                    for (const theme in pack.questions) {
-                        themes.push(theme);
-                    }
-                    return themes;
-                })()
+            try {
+                const pack = await getPackById(packId);
+                parsePack(pack);
+            } catch (err) {
+                console.log(err);
             }
-
-            const packMsg = {};
-            packMsg.type = "pack";
-            packMsg.value = JSON.stringify(packInfo);
-            packMsg.key = key;
-            self.postMessage(packMsg);
-
-            for (const theme in pack.questions) {
-                pack.questions[theme].forEach((question, ind) => {
-                    const key = "" + pack.id + theme + ind;
-
-                    const questMsg = {};
-                    questMsg.type = "question";
-                    questMsg.value = JSON.stringify(question);
-                    questMsg.key = key;
-                    self.postMessage(questMsg);
-                });
-            }
-
         }
+        const defaultPack = getDefaultPack();
+        parsePack(defaultPack);
+    }
+}
+
+function parsePack(pack) {
+    const fullPackMsg = {};
+    fullPackMsg.type = "full";
+    fullPackMsg.value = JSON.stringify(pack);
+    self.postMessage(fullPackMsg);
+
+
+    const key = pack.id;
+
+    const packInfo = {
+        id: pack.id,
+        name: pack.name,
+        img: pack.img,
+        rating: pack.rating,
+        author: pack.author,
+        themes: (() => {
+            const themes = new Array;
+            for (const theme in pack.questions) {
+                themes.push(theme);
+            }
+            return themes;
+        })()
+    }
+
+    const packMsg = {};
+    packMsg.type = "pack";
+    packMsg.value = JSON.stringify(packInfo);
+    packMsg.key = key;
+    self.postMessage(packMsg);
+
+    for (const theme in pack.questions) {
+        pack.questions[theme].forEach((question, ind) => {
+            const key = "" + pack.id + theme + ind;
+
+            const questMsg = {};
+            questMsg.type = "question";
+            questMsg.value = JSON.stringify(question);
+            questMsg.key = key;
+            self.postMessage(questMsg);
+        });
     }
 }
 
 
-function getPacks() {
+function getDefaultPack() {
     const globalThemes = [
         ["..ты..", "день Х", "история успеха", "статья Lurkmore", "международные меры"],
         ["Шутерки", "РПГ", "Гоночки", "Сурвайвал", "Отечественный игрострой"]
@@ -207,24 +215,23 @@ function getPacks() {
         ],
     ]
 
-    const packs = new Array;
-    const aut = ["AnitaKanita", "EgosKekos"];
-    const name = ["Пак для лоуреатов", "Об играх"];
-    for (let j = 0; j < 2; ++j) {
+    const aut = ["Noname", "EgosKekos"];
+    const name = ["Default Pack", "Об играх"];
+    for (let j = 0; j < 1; ++j) {
         const pack = {};
-        pack.id = j;
+        pack.id = "default_pack";
         pack.name = name[j];
         pack.img = "";
-        pack.rating = 50 + j * 25;
+        pack.rating = 0;
         pack.author = aut[j];
         pack.authorId = j;
         pack.questions = function () {
-            questions = {};
-            themes = globalThemes[j];
+            const questions = {};
+            const themes = globalThemes[j];
             let themeNum = 0;
             themes.forEach((key) => {
                 questions[key] = function () {
-                    concreteQuestions = new Array;
+                    const concreteQuestions = new Array;
                     for (let i = 0; i < 5; ++i) {
                         const question = {
                             id: i,
@@ -246,9 +253,8 @@ function getPacks() {
             return questions;
         }();
         pack.tags = "tags string";
-        packs.push(pack);
+        return pack;
     }
-    return packs;
 }
 
 

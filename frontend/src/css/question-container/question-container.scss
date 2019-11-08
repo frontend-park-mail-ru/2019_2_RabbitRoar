@@ -1,6 +1,7 @@
 .question-container {
     display: grid;
     margin: auto;
+    text-align: center;
     width: var(--main-width);
     color: var(--font-color-theme);
     grid-template-columns: 1fr;
