@@ -117,3 +117,13 @@ export async function postJoinRoom(uuid) {
         throw new Error(`Cannot join game: ${response.statusText}`);
     }
 }
+
+export async function getPackById(packId) {
+    let response = await getRequest("/pack/" + packId);
+    if (!response.ok) {
+        throw new Error(`Cannot get pack with id ${packId}: ${response.statusText}`);
+    }
+
+    const pack = await response.json();
+    return pack;
+}

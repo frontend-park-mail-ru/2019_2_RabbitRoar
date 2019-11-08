@@ -1,44 +1,53 @@
-onmessage = function (event) {
-    if (event.data === "update") {
+import { getPackById } from "../modules/requests.js"
+
+onmessage = async function (event) {
+    if (event.data.command === "update") {
         console.log("Worker: Message received UPDATE");
-        if (event.data === "update") {
-            const packs = getPacks();
-            for (const pack of packs) {
-                const key = pack.id;
 
-                const packInfo = {
-                    id: pack.id,
-                    name: pack.name,
-                    img: pack.img,
-                    rating: pack.rating,
-                    author: pack.author,
-                    themes: (() => {
-                        const themes = new Array;
-                        for (const theme in pack.questions) {
-                            themes.push(theme);
-                        }
-                        return themes;
-                    })()
-                }
+        for (const packId of event.data.packList) {
+            const pack = await getPackById(packId);
 
-                const packMsg = {};
-                packMsg.type = "pack";
-                packMsg.value = JSON.stringify(packInfo);
-                packMsg.key = key;
-                self.postMessage(packMsg);
+            const fullPackMsg = {};
+            fullPackMsg.type = "full";
+            fullPackMsg.value = JSON.stringify(pack);
+            self.postMessage(fullPackMsg);
 
-                for (const theme in pack.questions) {
-                    pack.questions[theme].forEach((question, ind) => {
-                        const key = "" + pack.id + theme + ind;
 
-                        const questMsg = {};
-                        questMsg.type = "question";
-                        questMsg.value = JSON.stringify(question);
-                        questMsg.key = key;
-                        self.postMessage(questMsg);
-                    });
-                }
+            const key = pack.id;
+
+            const packInfo = {
+                id: pack.id,
+                name: pack.name,
+                img: pack.img,
+                rating: pack.rating,
+                author: pack.author,
+                themes: (() => {
+                    const themes = new Array;
+                    for (const theme in pack.questions) {
+                        themes.push(theme);
+                    }
+                    return themes;
+                })()
             }
+
+            const packMsg = {};
+            packMsg.type = "pack";
+            packMsg.value = JSON.stringify(packInfo);
+            packMsg.key = key;
+            self.postMessage(packMsg);
+
+            for (const theme in pack.questions) {
+                pack.questions[theme].forEach((question, ind) => {
+                    const key = "" + pack.id + theme + ind;
+
+                    const questMsg = {};
+                    questMsg.type = "question";
+                    questMsg.value = JSON.stringify(question);
+                    questMsg.key = key;
+                    self.postMessage(questMsg);
+                });
+            }
+
         }
     }
 }
@@ -47,7 +56,7 @@ onmessage = function (event) {
 function getPacks() {
     const globalThemes = [
         ["..ты..", "день Х", "история успеха", "статья Lurkmore", "международные меры"],
-        ["Шкварки", "Анита пуська", "Жъъужуъ", "Экзистенциальный кризис", "Зачем оно мне все надо?"]
+        ["Шутерки", "РПГ", "Гоночки", "Сурвайвал", "Отечественный игрострой"]
     ]
 
     const globalQuestions = [
@@ -90,36 +99,36 @@ function getPacks() {
         ],
         [
             [
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
+                "Модом к какой игре изначально была CS?",
+                "Кто является компанией издателем небезызвестной Call of Duty",
+                "Первая игра из серии Battlefield",
+                "Эта игра соединившая в себе черты рпг и шутера, известна своим генератором оружия",
+                "Стелс шутер от 3го лица, симулятор отстрела яиц фрицев",
             ],
             [
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-            ],            [
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-            ],            [
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-            ],            [
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
-                "Где колоды заряжаете?",
+                "RPG разработанная канадской студией BioWare в 2009 г, как они сами ее называли «темное героическое фэнтези»",
+                "Назови все ведьмачьи знаки из серии игр Ведьмак (их пять)",
+                "Слабо назвать все номерные части The Elder Scrolls?",
+                "BioWare анонсировала эту RPG на выставке Electronic Entertainment Expo 2015(E3)",
+                "Первая игра позволявшая вступить в однополый брак. Считается олдфагами лучшей в серии.",
+            ], [
+                "Вторая часть безумной гоночной аркады где можно 'выстреливать' водителем из лобового стекла, стараясь забросить его как можно дальше. ",
+                "Гоночная игра с открытым миром, где картой выступает вся Америка от Юбейсофт",
+                "Последняя часть игрой серии Colin McRae Rally, с надписью Colin McRae в названии",
+                "Оттуда все узнали бело-синюю бэху",
+                "Гоночный краш тест симулятор",
+            ], [
+                "Один убийца, 4 выжившых и куча генераторов",
+                "В этой игре вы работник психиатрической лечебницы, один из пациентов которой очень хочет видеть вас в качестве своей невесты ",
+                "В этой игре можно угрожать пустым пистолетом",
+                "Основной геймплей этой игры - гребля и сбор кокосов",
+                "ИГРА очень похожая на королевскую битву или голодные игры, вышедшая 8 марта 2016 ",
+            ], [
+                "Компьютерная игра, изобретённая в СССР Алексеем Пажитновым в 1984г",
+                "Лучший авиасимулятор, из всех, когда-либо выпускавшихся на PC",
+                "Йо-хо-хо, и бутылка рому! Главный симулятор пиратских нескучных будней",
+                "Чики-брики и в дамки",
+                "Часть одной из самых известных серий пошаговых стратегий, разработаная российской компанией Nival Interactive",
             ],
         ],
     ]
@@ -164,51 +173,51 @@ function getPacks() {
         ],
         [
             [
-                "киоск",
-                "киоск",
-                "киоск",
-                "киоск",
-                "киоск",
+                "Half-Life",
+                "Activision",
+                "Battlefield 1942",
+                "Borderlands",
+                "Sniper Elite",
             ],
             [
-                "киоск",
-                "киоск",
-                "киоск",
-                "киоск",
-                "киоск",
-            ],            [
-                "киоск",
-                "киоск",
-                "киоск",
-                "киоск",
-                "киоск",
-            ],            [
-                "киоск",
-                "киоск",
-                "киоск",
-                "киоск",
-                "киоск",
-            ],            [
-                "киоск",
-                "киоск",
-                "киоск",
-                "киоск",
-                "киоск",
+                "Dragon Age: Origins",
+                "Аард Ирден Игни Квен Аксий",
+                "Arena Daggerfall Morrowind Oblivion Skyrim",
+                "Mass Effect Andromeda",
+                "Fallout 2",
+            ], [
+                "FlatOut 2",
+                "The Crew",
+                "Colin McRae: DiRT",
+                "Need for speed most wanted",
+                "BeamNG",
+            ], [
+                "Dead by Daylight",
+                "Outlast Whistleblower",
+                "I Am Alive",
+                "STRANDED DEEP",
+                "The Culling",
+            ], [
+                "Тетрис",
+                "Ил-2 Штурмовик",
+                "Корсары",
+                "stalker",
+                "Heroes of Might and Magic 5",
             ],
         ],
     ]
 
     const packs = new Array;
-    const aut = ["real pack", "EgosKekos"];
-    const q = ["Кто ты такой блять чтоб это сделать?", "Где колоды заряжаете?"];
-    const a = ["диллер", "киоск"];
+    const aut = ["AnitaKanita", "EgosKekos"];
+    const name = ["Пак для лоуреатов", "Об играх"];
     for (let j = 0; j < 2; ++j) {
         const pack = {};
         pack.id = j;
-        pack.name = aut[j];
+        pack.name = name[j];
         pack.img = "";
-        pack.rating = 228;
+        pack.rating = 50 + j * 25;
         pack.author = aut[j];
+        pack.authorId = j;
         pack.questions = function () {
             questions = {};
             themes = globalThemes[j];
@@ -236,6 +245,7 @@ function getPacks() {
             });
             return questions;
         }();
+        pack.tags = "tags string";
         packs.push(pack);
     }
     return packs;
