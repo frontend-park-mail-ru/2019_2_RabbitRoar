@@ -19,8 +19,7 @@ class PackInfoE {
     async create(root = document.getElementById("application")) {
         
         this.root = root;
-       // const packName = GameF.getPackName();
-        const packName = "real pack"; 
+        const packName = GameF.getPackName();
         this.root.insertAdjacentHTML("beforeend", Template({packName: packName}));
 
         this.controller.start();

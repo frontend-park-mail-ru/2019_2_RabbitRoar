@@ -50,7 +50,7 @@ class QuestionsM {
 
 class OfflineQuestionsM {
     constructor(packId = 0) {
-        console.log("GAME CREATED");    
+        console.log("OfflineQuestionsM CREATED");    
         this.packId = packId;
         this.result = undefined;
         this.mode = "offline";

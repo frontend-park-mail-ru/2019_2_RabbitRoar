@@ -23,6 +23,8 @@ class TabsC {
         this.registerClassHandler(".tab-click", "mouseout", this._unLightTab.bind(this));
 
         this.registerClassHandler(".join-button", "click", this._joinClick.bind(this));
+       // this.registerClassHandler(".join-button-training", "click", this._joinTraining.bind(this));
+
         this.registerClassHandler(".popup-button", "click", this._processPopUp.bind(this));
         this.registerClassHandler(".create-room-btn", "click", this._routeToRoomCreation.bind(this));
     }
@@ -68,12 +70,11 @@ class TabsC {
             return;
         }
     }
-
+    
     _joinClick() {
         const continueBtn = document.getElementById("continue");
-
         if (continueBtn) {
-            if (!ValidatorF.checkLocalstorageAutorization()) {
+            if (!ValidatorF.checkLocalstorageAutorization() && !document.getElementById("offline_mode")) {
                 continueBtn.id = "login";
                 document.getElementById("popup-elem-top").innerHTML = "Для игры необходимо авторизоваться";
             } else {
