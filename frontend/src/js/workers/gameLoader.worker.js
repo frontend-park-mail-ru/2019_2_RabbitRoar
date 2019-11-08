@@ -1,50 +1,53 @@
-onmessage = function (event) {
-    if (event.data === "update") {
+import { getPackById } from "../modules/requests.js"
+
+onmessage = async function (event) {
+    if (event.data.command === "update") {
         console.log("Worker: Message received UPDATE");
-        if (event.data === "update") {
-            const packs = getPacks();
-            for (const pack of packs) {
-                const fullPackMsg = {};
-                fullPackMsg.type = "full";
-                fullPackMsg.value = JSON.stringify(pack);
-                self.postMessage(fullPackMsg);
+
+        for (const packId of event.data.packList) {
+            const pack = await getPackById(packId);
+
+            const fullPackMsg = {};
+            fullPackMsg.type = "full";
+            fullPackMsg.value = JSON.stringify(pack);
+            self.postMessage(fullPackMsg);
 
 
-                const key = pack.id;
+            const key = pack.id;
 
-                const packInfo = {
-                    id: pack.id,
-                    name: pack.name,
-                    img: pack.img,
-                    rating: pack.rating,
-                    author: pack.author,
-                    themes: (() => {
-                        const themes = new Array;
-                        for (const theme in pack.questions) {
-                            themes.push(theme);
-                        }
-                        return themes;
-                    })()
-                }
-
-                const packMsg = {};
-                packMsg.type = "pack";
-                packMsg.value = JSON.stringify(packInfo);
-                packMsg.key = key;
-                self.postMessage(packMsg);
-
-                for (const theme in pack.questions) {
-                    pack.questions[theme].forEach((question, ind) => {
-                        const key = "" + pack.id + theme + ind;
-
-                        const questMsg = {};
-                        questMsg.type = "question";
-                        questMsg.value = JSON.stringify(question);
-                        questMsg.key = key;
-                        self.postMessage(questMsg);
-                    });
-                }
+            const packInfo = {
+                id: pack.id,
+                name: pack.name,
+                img: pack.img,
+                rating: pack.rating,
+                author: pack.author,
+                themes: (() => {
+                    const themes = new Array;
+                    for (const theme in pack.questions) {
+                        themes.push(theme);
+                    }
+                    return themes;
+                })()
             }
+
+            const packMsg = {};
+            packMsg.type = "pack";
+            packMsg.value = JSON.stringify(packInfo);
+            packMsg.key = key;
+            self.postMessage(packMsg);
+
+            for (const theme in pack.questions) {
+                pack.questions[theme].forEach((question, ind) => {
+                    const key = "" + pack.id + theme + ind;
+
+                    const questMsg = {};
+                    questMsg.type = "question";
+                    questMsg.value = JSON.stringify(question);
+                    questMsg.key = key;
+                    self.postMessage(questMsg);
+                });
+            }
+
         }
     }
 }
@@ -108,19 +111,19 @@ function getPacks() {
                 "Слабо назвать все номерные части The Elder Scrolls?",
                 "BioWare анонсировала эту RPG на выставке Electronic Entertainment Expo 2015(E3)",
                 "Первая игра позволявшая вступить в однополый брак. Считается олдфагами лучшей в серии.",
-            ],            [
+            ], [
                 "Вторая часть безумной гоночной аркады где можно 'выстреливать' водителем из лобового стекла, стараясь забросить его как можно дальше. ",
                 "Гоночная игра с открытым миром, где картой выступает вся Америка от Юбейсофт",
                 "Последняя часть игрой серии Colin McRae Rally, с надписью Colin McRae в названии",
                 "Оттуда все узнали бело-синюю бэху",
                 "Гоночный краш тест симулятор",
-            ],            [
+            ], [
                 "Один убийца, 4 выжившых и куча генераторов",
                 "В этой игре вы работник психиатрической лечебницы, один из пациентов которой очень хочет видеть вас в качестве своей невесты ",
                 "В этой игре можно угрожать пустым пистолетом",
                 "Основной геймплей этой игры - гребля и сбор кокосов",
                 "ИГРА очень похожая на королевскую битву или голодные игры, вышедшая 8 марта 2016 ",
-            ],            [
+            ], [
                 "Компьютерная игра, изобретённая в СССР Алексеем Пажитновым в 1984г",
                 "Лучший авиасимулятор, из всех, когда-либо выпускавшихся на PC",
                 "Йо-хо-хо, и бутылка рому! Главный симулятор пиратских нескучных будней",
@@ -182,19 +185,19 @@ function getPacks() {
                 "Arena Daggerfall Morrowind Oblivion Skyrim",
                 "Mass Effect Andromeda",
                 "Fallout 2",
-            ],            [
+            ], [
                 "FlatOut 2",
                 "The Crew",
                 "Colin McRae: DiRT",
                 "Need for speed most wanted",
                 "BeamNG",
-            ],            [
+            ], [
                 "Dead by Daylight",
                 "Outlast Whistleblower",
                 "I Am Alive",
                 "STRANDED DEEP",
                 "The Culling",
-            ],            [
+            ], [
                 "Тетрис",
                 "Ил-2 Штурмовик",
                 "Корсары",

@@ -15,13 +15,17 @@ import RoomCreatorV from "./view/roomCreatorV";
 import GameWaitingV from "./view/gameWaitingV"
 import Worker from "./workers/gameLoader.worker.js";
 
+import ContentF from "./fasade/contentF.js";
+
+
 const worker = new Worker();
 window.packWorker = worker;
 window.packWorker.onmessage = (msg) => Bus.emit(PACK_WORKER_MESSAGE, msg);
-
-
 Bus.on(PACK_WORKER_COMMAND, (data) => window.packWorker.postMessage(data));
-Bus.emit(PACK_WORKER_COMMAND, "update");
+
+ContentF.updateLocalPacks().then(
+    () => console.log("Current packs was updated")
+);
 
 
 if ("serviceWorker" in navigator) {
