@@ -2,7 +2,7 @@
 
 const base = "https://svoyak.fun/api";
 
-export const basePhotoUrl = "http://svoyak.fun/api";
+export const basePhotoUrl = "https://svoyak.fun/api";
 
 export function postRequest(
     url = "/",
