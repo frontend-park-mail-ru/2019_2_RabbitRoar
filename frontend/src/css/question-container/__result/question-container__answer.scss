@@ -1,0 +1,23 @@
+%question-container__answer {
+    @extend %button;
+    // border-radius: 10px;
+    // border-width: 2px;
+
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 4;
+}
+
+
+.question-container__answer_true {
+    @extend %question-container__answer;
+    color: $color-success;
+    border-color: $color-success;
+}
+
+.question-container__answer_false {
+    @extend %question-container__answer;
+    color: $color-danger;
+    border-color: $color-danger;
+}

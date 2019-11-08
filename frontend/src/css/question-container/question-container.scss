@@ -1,0 +1,22 @@
+.question-container {
+    display: grid;
+    margin: auto;
+    text-align: center;
+    width: var(--main-width);
+    color: var(--font-color-theme);
+    grid-template-columns: 1fr;
+    grid-template-rows:  10vh 10vh 10vh 10vh 10vh 10vh;
+}
+
+
+@media all and (orientation: landscape) {
+    .question-container {
+        grid-template-rows:  10vh 10vh 10vh 10vh 10vh 10vh;
+    }
+}
+@media all and (orientation: portrait) {
+    .question-container {
+        margin-top: 10vh;
+        grid-template-rows:  10vw 10vw 10vw 10vw 10vw 10vw;
+    }
+}

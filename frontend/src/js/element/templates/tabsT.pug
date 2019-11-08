@@ -1,0 +1,79 @@
+div(class="main-container")
+    div(class="tab", id=window.id.tabRoom) Комнаты
+    div(class="tab", id=window.id.tabTop) Зал славы
+    div(class="tab", id=window.id.tabOffline) Тренировка
+    div(class="tab", id=window.id.tabPack) Об игре
+
+    div(class="tab-content")
+        if templateContent.contentType == window.id.tabRoom
+            div(id="online_mode")
+            div(class="rooms-panel")
+                div(class="panel-elem elem-justify-start") Название:
+                div(class="panel-elem") Количество:
+                div(class="panel-elem")
+                    div(class="create-room-btn") Создать комнату
+                
+                div(class="popup" id="popup")
+                    div(class="popup__content")
+                        div(class="popup-elem-top" id="popup-elem-top") Вы переходите в online игру.
+                        div(class="popup-elem-bottom")
+                            div(class="popup-button" id="cansel") Отмена
+                            div(class="popup-button" id="continue") Продолжить
+
+            each val, index in templateContent.content
+                div(class="rooms-panel")
+                    div(class="panel-elem elem-justify-start") #{val.name}
+                    div(class="panel-elem") #{val.currentPlayers}/#{val.maxPlayers}
+                    div(class="panel-elem" id=index)
+                        div(class="join-button" id="play" join_id=index) Присоединиться
+
+        else if templateContent.contentType == window.id.tabTop
+            div(class="best-players-panel")
+                div(class="panel-elem")
+                div(class="panel-elem") Имя
+                div(class="panel-elem") Рейтинг
+                div(class="panel-elem") Звание
+            each val, index in templateContent.content
+                div(class="best-players-panel")
+                    div(class="panel-elem")
+                        img(class="best-avatar",
+                        src = val.userSrc,
+                        alt="No exist")
+                    div(class="panel-elem") #{val.name}
+                    div(class="panel-elem") #{val.raiting}
+                    div(class="panel-elem")
+                        div(class="rank-text") #{val.rankDescr}
+                        img(class="rank-avatar",
+                        src = val.rankSrc,
+                        alt="No exist")
+
+        else if templateContent.contentType == window.id.tabOffline
+            div(id="offline_mode")
+            div(class="offline-panel")
+                div(class="panel-elem") Название:
+                div(class="panel-elem") Автор:
+                div(class="panel-elem") Рейтинг:
+                div(class="panel-elem") 
+
+            div(class="popup " id="popup")
+                div(class="popup__content " id="popup_content")
+                    div(class="popup-elem-top" id="popup-elem-top") Вы переходите в offline игру, очки начислены не будут
+                    div(class="popup-elem-bottom ")
+                        div(class="popup-button" id="cansel") Отмена
+                        div(class="popup-button" id="continue") Продолжить
+            each pack, index in templateContent.content
+                div(class="offline-panel")
+                    div(class="panel-elem") #{pack.name}
+                    div(class="panel-elem") #{pack.author}
+                    div(class="panel-elem") #{pack.rating}
+                    div(class="panel-elem")
+                        div(class="join-button" id="play" join_id=pack.id) Играть
+        else if templateContent.contentType == window.id.tabPack
+            div(class="faq-text")
+                div(class="line") Добро пожаловать в онлайн-викторину «Swoyak»!
+                div(class="line") Выбирайте вопросы из игрового табло и отвечайте на них.
+                div(class="line") В игре присутствует ТАЙМЕР - вы должны успеть ответить на вопрос.  
+                div(class="line") Игра заканчивается, когда все вопросы выбраны.
+                div(class="line") Играй и повышай уровень.
+                div(class="line") Играйте с друзьями и создавайте индивидуальные тематические комнаты.
+

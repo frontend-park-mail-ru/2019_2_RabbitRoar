@@ -1,0 +1,26 @@
+.panel-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.info {
+  background-color: $color-bg-light;
+  width: 60vw;
+  height: 160vh;
+  margin: 5px;
+  text-align: center;
+
+  .header-text {
+    color: white;
+    font-size: var(--font-size);
+    margin-bottom: 3vh;
+  }
+
+  .text {
+    color: white;
+    font-size: var(--small-font-size);
+  }
+}

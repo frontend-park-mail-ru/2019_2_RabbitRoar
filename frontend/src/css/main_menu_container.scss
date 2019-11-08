@@ -1,30 +1,34 @@
 .main-container {
-    width: 90vw;
-    margin: $panels-margin auto;
-    color: aqua;
+    width: var(--main-width);
+    margin: var(--main-content-vertical-margin) auto;
+    color: var(--font-color-theme);
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 70vh;
   }
 
 .tab-content {
-    overflow-y:scroll;
+    overflow-y:auto;
     overflow-x:hidden;
     grid-column-start: 1;
-    grid-column-end: 4;
+    grid-column-end: 5;
     grid-row-start: 2;
     grid-row-end: 3;
 }
 
-.const-height {
-    height: 200px;
+@media all and (orientation: landscape) {
+  ::-webkit-scrollbar {
+    width: 1.5vh;
+    height: 1.5vh;
+  }
+}
+@media all and (orientation: portrait) {
+  ::-webkit-scrollbar {
+    width: 1.5vw;
+    height: 1.5vw;  }
 }
 
 
-::-webkit-scrollbar {
-  width: 1.5vh;
-  height: 1.5vh;
-}
 ::-webkit-scrollbar-button {
   width: 1.5vh;
   height: 1.5vh;

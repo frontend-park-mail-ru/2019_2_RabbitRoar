@@ -1,0 +1,9 @@
+.warning__elem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-bg-light;
+    border-style: solid;
+    border-color: $color-danger;;
+    border-width: 2px;
+}

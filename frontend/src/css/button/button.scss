@@ -1,55 +1,117 @@
 %button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-color: $color-border-primary;
-    color: $color-border-primary;
-    border-width: 0px;
-    border-style: solid;
-    border-radius: 5px;
-    background-color: $color-bg-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-color: var(--border-color-theme);
+  color: var(--font-color-theme);
+  border-width: 0px;
+  border-style: solid;
+  border-radius: 5px;
+  background-color: $color-bg-light;
 
-    text-transform: uppercase;
+  text-transform: uppercase;
 
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
-
 
 .btn {
-    @extend %button;
-}
-.btn:hover {
-    border-width: 1px;
-    border-color: $color-border-primary;
-    color: $color-border-primary;
-    background-color: $color-bg-dark;
-    border-bottom-width: 0px;
+  @extend %button;
 }
 
+.btn:hover {
+  border-width: 1px;
+  border-color: var(--border-color-theme);
+  color: var(--font-color-theme);
+  background-color: $color-bg-dark;
+  border-bottom-width: 0px;
+  cursor: pointer;
+}
 
 .join-button {
-    @extend %button;
-    width: 75%;
-    height: 75%;
-}
-.join-button:hover {
-    border-width: 1px;
-    border-color: $color-border-primary;
-    color: $color-border-primary;
-    background-color: $color-bg-dark;
+  @extend %button;
+  width: 75%;
+  height: 75%;
 }
 
+.join-button:hover {
+  border-width: 1px;
+  border-color: var(--border-color-theme);
+  color: var(--font-color-theme);
+  background-color: $color-bg-dark;
+  cursor: pointer;
+}
+
+.popup-button {
+  @extend %button;
+  width: 75%;
+  height: 75%;
+}
+
+.popup-button:hover {
+  border-width: 1px;
+  border-color: var(--border-color-theme);
+  color: var(--font-color-theme);
+  background-color: $color-bg-dark;
+  cursor: pointer;
+}
 
 .pg-button {
-    @extend %button;
-    border-radius: 0px;
-    background-color: $color-bg-dark;
+  @extend %button;
+  border-radius: 0px;
+  background-color: $color-bg-dark;
 }
+
 .pg-button:hover {
-    border-width: 1px;
-    border-color: $color-border-primary;
-    color: $color-border-primary;
-    background-color: $color-bg-light;
-    border-width: 0px;
+  border-width: 1px;
+  border-color: var(--border-color-theme);
+  color: var(--font-color-theme);
+  background-color: $color-bg-light;
+  border-width: 0px;
+  cursor: pointer;
+}
+
+.game-panel-button {
+  @extend %button;
+  font-size: var(--small-font-size);
+  border-radius: 0px;
+}
+
+.game-panel-button:hover {
+  border-width: 1px;
+  border-color: var(--border-color-theme);
+  color: var(--border-color-theme);
+  background-color: $color-bg-dark;
+  cursor: pointer;
+}
+
+.game-panel-button-without-hover {
+  @extend %button;
+  font-size: var(--small-font-size);
+  border-radius: 0px;
+}
+
+.create-room-btn {
+  @extend %button;
+  border-width: 1px;
+  border-color: $color-border-alter;
+}
+
+.create-room-btn:hover {
+  border-width: 1px;
+  color: var(--font-color-theme);
+  background-color: $color-bg-dark;
+  cursor: pointer;
+}
+
+.pack-button {
+  @extend %button;
+}
+
+.pack-button:hover {
+  border-width: 1px;
+  border-color: var(--border-color-theme);
+  color: var(--font-color-theme);
+  background-color: $color-bg-dark;
+  cursor: pointer;
 }

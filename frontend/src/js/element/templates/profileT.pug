@@ -1,0 +1,34 @@
+form(class="form")
+    div
+        img(class="profile__user-img", id="profile__user-img",
+        src=userData.avatar_url
+        alt="User")
+    div(class="form-group")
+        input(type="file", class="profile__download-img" accept="image/jpeg, image/png")
+        span(class="error-annotation" id="error_top") Отображение ошибки
+
+    div(class="form-group")
+        label(for="email") Email
+        input(class="input-valid", name="email", id="email", type="email", disabled, value=userData.email)
+        span(class="error-annotation" id="error_email") Отображение ошибки
+
+
+    div(class="form-group")
+        label(for="username") Логин
+        input(class="input-valid", name="username", id="username", type="text", value=userData.username)
+        span(class="error-annotation" id="error_username") Отображение ошибки           
+
+
+    div(class="form-group")
+        label(for="password") Новый пароль
+        input(class="input-valid", name="password", id="password", type="password", placeholder="Пароль должен содержать от 5 до 24 символов, одну цифру и одну букву", onfocus="this.placeholder=''", onblur="this.placeholder='Пароль должен содержать от 5 до 24 символов, одну цифру и одну букву'")
+        span(class="error-annotation" id="error_password") Отображение ошибки
+
+
+    div(class="form-group")
+        label(for="password-confirmation") Подтвердите пароль
+        input(class="input-valid", name="password-confirmation", id="password-confirmation", type="password", placeholder="Пароль должен содержать от 5 до 24 символов, одну цифру и одну букву", onfocus="this.placeholder=''", onblur="this.placeholder='Пароль должен содержать от 5 до 24 символов, одну цифру и одну букву'")
+    span(class="error-annotation" id="error_empty_fields") Отображение ошибки    
+
+    button(id="save_button", type="submit") Сохранить
+    button(id="cancel_button", type="reset") Сбросить изменения

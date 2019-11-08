@@ -1,0 +1,11 @@
+nav(class="navbar")
+    a(class="navbar__game-logo", id="nav_logo", href="#") Своя игра
+    if authorized == false
+        a(class="navbar__exit", id="nav_login", href="#") Вход
+        a(class="navbar__exit", id='nav_registration', href="#") Регистрация
+    else
+        a(id="nav_profile", href="#")
+            img(class="navbar__user-logo",
+            src=avatar,
+            alt="User")
+        a(class="navbar__exit", id="nav_exit", href="#") Выход
