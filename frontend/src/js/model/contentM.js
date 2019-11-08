@@ -124,7 +124,7 @@ class ContentM {
                 mainContent.content.push({
                     name: "Название комнаты",
                     maxPlayers: 4,
-                    currentPlayers: Math.floor(Math.random() * (4 - 0 + 1)) + 0,
+                    currentPlayers: Math.floor(Math.random() * (3 - 0 + 1)) + 0,
                     roomId: i + 1,
                 });
             }

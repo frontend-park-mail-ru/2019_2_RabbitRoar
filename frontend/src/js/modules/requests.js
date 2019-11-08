@@ -9,6 +9,7 @@ export async function signIn(login, password) {
     let response = await postRequest("/login", body);
 
     if (!response.ok) {
+        console.log("zaloopa");
         throw new Error(`Signin error: ${response.statusText}`);
     }
 }

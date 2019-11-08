@@ -30,13 +30,11 @@ class AutorisationC {
 
 
     _autorise() {
-        
         const autorizationError = autorizationVaildation();
-
         if (autorizationError) {
             return;
         }
-        ValidatorF.doAutorise(document.getElementById("username").value, document.getElementById("password").value);
+        const result = ValidatorF.doAutorise(document.getElementById("username").value, document.getElementById("password").value);
     }
 
 
