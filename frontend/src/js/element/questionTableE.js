@@ -42,6 +42,9 @@ class QuestionTableE {
         }
 
         const barElement = document.getElementById("progress-bar");
+        if (!barElement) {
+            alert("FATAL");
+        }
         if (state.mode === "selected") {
             replaceTwoCssClasses(barElement, "progress-bar-hidden", "progress-bar");
 
@@ -58,6 +61,7 @@ class QuestionTableE {
 
     destroy() {
         if (this.timerIsWorking) {
+            this.timerIsWorking = false;
             Bus.emit(TIMER_INTERRUPTION);
         }
         this.controller.drop();
@@ -77,10 +81,10 @@ class QuestionTableE {
             let barElem = document.getElementById("dynamic-bar");
             const interval = setInterval(() => {
                 if (width >= 100) {
-                    this.gameIface.stopTimer();
-                    clearInterval(interval);
-                    resolve("done");
+                    this.gameIface.sendAnswer();
+                    this._interruptImmediatly(interval, resolve);
                 } else if (this.progressBarInterrupt) {
+                    console.log("interrupt in table");
                     this._interruptImmediatly(interval, resolve);
                 } else {
                     width++;
