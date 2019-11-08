@@ -77,7 +77,7 @@ class ContentM {
             }
         }
 
-
+        //console.log(countList)
         for (const packId in countList) {
             if (countList[packId] !== keysForOnePack) {
                 if (packId !== "default_pack") {
@@ -86,6 +86,7 @@ class ContentM {
                 this._deletePack(packId);
             }
         }
+        //console.log(this.downloadList)
 
     }
 
