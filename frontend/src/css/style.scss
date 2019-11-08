@@ -13,6 +13,10 @@
 @import '/game-panel/game_panel';
 @import '/game-panel/__user-logo/game-panel__user-logo';
 
+@import '/users-panel/users-panel';
+
+@import '/pack-info/pack-info';
+
 @import 'main_menu_container';
 @import 'tab';
 @import 'best_players_panel';
@@ -35,8 +39,6 @@
 @import 'warning/warning';
 @import 'warning/__content/warning__content';
 @import 'warning/__content/warning__elem';
-
-
 
 @import 'popup/popup';
 @import 'popup/__content/popup__content';
