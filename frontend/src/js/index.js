@@ -24,7 +24,7 @@ window.packWorker.onmessage = (msg) => Bus.emit(PACK_WORKER_MESSAGE, msg);
 Bus.on(PACK_WORKER_COMMAND, (data) => window.packWorker.postMessage(data));
 
 ContentF.updateLocalPacks().then(
-    () => console.log("Current packs was updated")
+    () => console.log() 
 );
 
 

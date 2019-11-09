@@ -43,26 +43,31 @@ self.addEventListener("install", function (event) {
 //  ===========================================================
 
 async function processPromise(event) {
+    let requestUrl = new URL(event.request.url);
+    requestUrl = _transformApiUrl(requestUrl);
+
+
     if (!navigator.onLine) {
         const cache = await caches.open(CACHE_NAME);
         try {
-            const response = await cache.match(_getUrlRevision(event.request.url));
+            const response = await cache.match(_getUrlRevision(requestUrl));
             console.log(`OFFLINE Страница найдена в кэше!!!: ${response.url}`);
             return response;
         } catch {
+            console.log(`Страница не найдена!`);
             return;
         }
     } else {
-        if (_isPreCacheUrl(event.request.url)) {
+        if (_isPreCacheUrl(requestUrl)) {
             const cache = await caches.open(CACHE_NAME);
-            let response = await cache.match(_getUrlRevision(event.request.url));
+            let response = await cache.match(_getUrlRevision(requestUrl));
 
             if (response) {
-                console.log(`Найдено в статическом кэше: ${_getUrlRevision(event.request.url)}`);
+                console.log(`Найдено в статическом кэше: ${_getUrlRevision(requestUrl)}`);
             } else {
-                console.log(`Был удален: ${_getUrlRevision(event.request.url)}`);
-                await cache.add(_getUrlRevision(event.request.url));
-                response = await cache.match(_getUrlRevision(event.request.url));
+                console.log(`Был удален: ${_getUrlRevision(requestUrl)}`);
+                await cache.add(_getUrlRevision(requestUrl));
+                response = await cache.match(_getUrlRevision(requestUrl));
                 console.log("Восстановлен успешно");
                 console.log(response);
             }
@@ -73,7 +78,7 @@ async function processPromise(event) {
         const response = await fetch(fetchRequest);
 
         if (response.headers.get("Content-Length") === null || response.headers.get("Content-Length") === 0) {
-            console.log("no cache trash!");
+            console.log("Response not have Content-Lenght");
             console.log(response);
             return response;
         }
@@ -83,13 +88,14 @@ async function processPromise(event) {
 
         const cache = await caches.open(CACHE_NAME);
         cache.put(event.request, responseToCache);
-        console.log(`ONLINE Страница загружена и сохранена в кэше!: ${event.request.url}`);
+        console.log(`ONLINE Страница загружена и сохранена в кэше!: ${requestUrl}`);
         return response;
     }
 }
 
 self.addEventListener("fetch", function (event) {
     if (event.request.method === "GET") {
+        console.log(event);
         event.respondWith(processPromise(event));
     }
 });
@@ -129,8 +135,7 @@ self.addEventListener("message", async function (event) {
 });
 
 
-function _isPreCacheUrl(url) {
-    const requestUrl = new URL(url);
+function _isPreCacheUrl(requestUrl) {
     if (requestUrl.pathname === "/") {
         return true;
     }
@@ -143,8 +148,7 @@ function _isPreCacheUrl(url) {
 }
 
 
-function _getUrlRevision(url) {
-    const requestUrl = new URL(url);
+function _getUrlRevision(requestUrl) {
     if (requestUrl.pathname === "/") {
         for (const cacheObj of self.__precacheManifest) {
             if (cacheObj.url === "/index.html") {
@@ -159,6 +163,20 @@ function _getUrlRevision(url) {
         }
         return url;
     }
+}
+
+
+function _transformApiUrl(requestUrl) {
+    const appPages = ["/", "/login", "/profile", "/signup", "/single_game"];
+
+    for (const page of appPages) {
+        if (requestUrl.pathname === page) {
+            requestUrl.pathname = "/index.html";
+            return requestUrl;
+        }
+    }
+
+    return requestUrl;
 }
 
 

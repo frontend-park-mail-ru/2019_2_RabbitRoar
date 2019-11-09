@@ -27,7 +27,7 @@ class ContentM {
         } else if (msg.data.type === "question") {
             localStorage.setItem(msg.data.key, msg.data.value)
         } else if (msg.data.type === "full") {
-            console.log(msg.data.value);
+            //console.log(msg.data.value);
         }
     }
 
@@ -38,7 +38,6 @@ class ContentM {
 
         if (localStorage.getItem("packs_list")) {
             const savedPacks = JSON.parse(localStorage.getItem("packs_list"));
-            console.log(savedPacks);
             for (const savedPackId of savedPacks) {     // Удалит паки которых нет у пользователя в профиле
                 if (!this.packList.includes(savedPackId)) {
                     console.log(`delete pack with id: ${savedPackId}`);
