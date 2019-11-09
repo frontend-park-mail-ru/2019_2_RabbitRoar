@@ -9,7 +9,7 @@ import {
     TIMER_INTERRUPTION
 } from "../modules/events.js";
 
-import GamePanelC from "../controller/gamePanelC.js"
+import GamePanelC from "../controller/gamePanelC.js";
 import QuestionTableC from "../controller/questionsTableC.js"
 import QuestionTableE from "../element/questionTableE.js"
 

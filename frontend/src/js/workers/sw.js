@@ -25,7 +25,7 @@ async function cacheInitPromise() {
                     }
                 );
                 await cache.add(findKey);
-                console.log(`CACHED: ${findKey}`);
+                console.log(`CACHED!: ${findKey}`);
             } else {
                 console.log(`ALREADY EXIST: ${key}`);
             }
@@ -55,8 +55,17 @@ async function processPromise(event) {
     } else {
         if (_isPreCacheUrl(event.request.url)) {
             const cache = await caches.open(CACHE_NAME);
-            const response = await cache.match(_getUrlRevision(event.request.url));
-            console.log(`Найдено в статическом кэше: ${_getUrlRevision(event.request.url)}`);
+            let response = await cache.match(_getUrlRevision(event.request.url));
+
+            if (response) {
+                console.log(`Найдено в статическом кэше: ${_getUrlRevision(event.request.url)}`);
+            } else {
+                console.log(`Был удален: ${_getUrlRevision(event.request.url)}`);
+                await cache.add(_getUrlRevision(event.request.url));
+                response = await cache.match(_getUrlRevision(event.request.url));
+                console.log("Восстановлен успешно");
+                console.log(response);
+            }
             return response;
         }
 
@@ -65,6 +74,7 @@ async function processPromise(event) {
 
         if (response.headers.get("Content-Length") === null || response.headers.get("Content-Length") === 0) {
             console.log("no cache trash!");
+            console.log(response);
             return response;
         }
 
@@ -150,4 +160,6 @@ function _getUrlRevision(url) {
         return url;
     }
 }
+
+
 
