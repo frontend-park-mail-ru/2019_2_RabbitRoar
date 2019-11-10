@@ -8,17 +8,13 @@ import { roomCreatureVaildation } from "../modules/form_validation";
 
 class RoomConstructorC {
     constructor() {
+        Object.assign(this, DomEventsWrapperMixin);
+
         this.usersCount = 0;
         this.roomName = "";
         this.currentFormPart = 1;
         this.packId = -1;
 
-        if (!!RoomConstructorC.instance) {
-            console.log("ERROR: RoomConstructorC must be import only ones");
-            return RoomConstructorC.instance;
-        }
-        RoomConstructorC.instance = this;
-        Object.assign(this, DomEventsWrapperMixin);
 
         this.registerClassHandler(".checkbox", "change", this._checkboxChanged.bind(this));
         this.registerHandler("further", "click", this._goFurther.bind(this));

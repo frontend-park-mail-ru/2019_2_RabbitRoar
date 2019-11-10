@@ -5,13 +5,7 @@ import UsersPanelC from "../controller/usersPanelC.js";
 
 class UsersPanelE {
     constructor() {
-        if (!!UsersPanelE.instance) {
-            return UsersPanelE.instance;
-        }
-        UsersPanelE.instance = this;
         this.controller = UsersPanelC;
-
-
         return this;
     }
 

@@ -5,10 +5,6 @@ import ContentF from "../fasade/contentF.js";
 
 class RoomConstructorE {
     constructor() {
-        if (!!RoomConstructorE.instance) {
-            return RoomConstructorE.instance;
-        }
-        RoomConstructorE.instance = this;
         this.controller = RoomConstructorC;
         return this;
     }

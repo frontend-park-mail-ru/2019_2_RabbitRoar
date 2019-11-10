@@ -7,10 +7,6 @@ import {DomEventsWrapperMixin} from "../DomEventsWrapperMixin.js";
 
 class RegistrationE {
     constructor() {
-        if (!!RegistrationE.instance) {
-            return RegistrationE.instance;
-        }
-        RegistrationE.instance = this;
         this.controller = RegistrationC;
         
         //Bus.on(REGISTRATION, this._restartListener.bind(this));

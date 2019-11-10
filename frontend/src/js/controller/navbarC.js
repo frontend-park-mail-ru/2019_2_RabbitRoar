@@ -7,11 +7,6 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 
 class NavbarC {
     constructor() {
-        if (!!NavbarC.instance) {
-            console.log("ERROR: NavbarC must be import only ones");
-            return NavbarC.instance;
-        }
-        NavbarC.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
 
         this.registerHandler("nav_exit", "click", ValidatorF.doExit);

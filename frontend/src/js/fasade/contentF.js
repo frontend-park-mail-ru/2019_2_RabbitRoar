@@ -24,15 +24,13 @@ class ContentF {
 
 
     getCurrentTab() {
-        console.log("getCurrenttab ", MainMenuM.currentTab);
         return MainMenuM.currentTab;
     }
 
 
     async getTabContent(id = MainMenuM.currentTab) {
-            
-            const content = await ContentM.getTabContent(id);
-            return content;
+        const content = await ContentM.getTabContent(id);
+        return content;
     }
 
 

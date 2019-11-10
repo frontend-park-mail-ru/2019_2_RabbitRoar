@@ -8,11 +8,6 @@ import { autorizationVaildation } from "../modules/form_validation.js";
 
 class AutorisationC {
     constructor() {
-        if (!!AutorisationC.instance) {
-            console.log("ERROR: AutorisationC must be import only ones");
-            return AutorisationC.instance;
-        }
-        AutorisationC.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
 
         this.registerHandler("autorisation", "click", this._autorise.bind(this));

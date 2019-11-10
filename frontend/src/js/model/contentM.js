@@ -110,7 +110,6 @@ class ContentM {
 
 
     async getTabContent(id) {
-        console.log("in getTabContent ", id);
         if (id === window.id.tabRoom) {
             const mainContent = {
                 infoPanel: {
@@ -152,6 +151,7 @@ class ContentM {
             return mainContent;
         }
 
+        // empty content
         if (id === window.id.tabPack) {
             const mainContent = {
                 text: "Добро пожаловать в Свою Игру!",
@@ -161,9 +161,8 @@ class ContentM {
             return mainContent;
         }
 
-
+        // empty content
         if (id === window.id.tabAboutGame) {
-            console.log("privet");
             const mainContent = {
                 text: "Добро пожаловать в Свою Игру!",
                 contentType: id,
@@ -180,7 +179,7 @@ class ContentM {
 
             const packs = (() => {
                 const packs = new Array;
-                for (const id of allId) {   
+                for (const id of allId) {
                     const pack = localStorage.getItem(id);
                     if (pack) {
                         packs.push(JSON.parse(pack));

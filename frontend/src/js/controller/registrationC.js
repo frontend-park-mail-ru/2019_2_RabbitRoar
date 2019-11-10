@@ -5,11 +5,6 @@ import { registrationValidation } from "../modules/form_validation.js";
 
 class RegistrationC {
     constructor() {
-        if (!!RegistrationC.instance) {
-            return RegistrationC.instance;
-        }
-
-        RegistrationC.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
         this.registerHandler("registration", "click", this._registration.bind(this));
     }

@@ -4,11 +4,6 @@ import Bus from "../event_bus.js";
 
 class UsersPanelC {
     constructor() {
-        if (!!UsersPanelC.instance) {
-            return UsersPanelC.instance;
-        }
-
-        UsersPanelC.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
     }
 

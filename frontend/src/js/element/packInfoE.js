@@ -6,13 +6,7 @@ import GameF from "../fasade/gameF.js";
 
 class PackInfoE {
     constructor() {
-        if (!!PackInfoE.instance) {
-            return PackInfoE.instance;
-        }
-        PackInfoE.instance = this;
         this.controller = PackInfoC;
-
-
         return this;
     }
 

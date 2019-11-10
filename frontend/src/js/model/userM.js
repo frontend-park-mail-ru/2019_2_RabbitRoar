@@ -3,11 +3,6 @@ import Bus from "../event_bus.js";
 
 class User {
     constructor() {
-        if (!!User.instance) {
-            return User.instance;
-        }
-        User.instance = this;
-        return this;
     }
 
     async getData() {

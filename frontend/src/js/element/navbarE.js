@@ -5,7 +5,6 @@ import NavbarC from "../controller/navbarC.js";
 class NavbarE {
     constructor() {
         this.root = document.getElementById("application");
-        NavbarE.instance = this;
         this.controller = NavbarC;
     }
 

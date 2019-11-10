@@ -7,11 +7,6 @@ import { fileVaildation, textFieldsVaildationProfile } from "../modules/form_val
 
 class ProfileC {
     constructor() {
-        if (!!ProfileC.instance) {
-            return ProfileC.instance;
-        }
-
-        ProfileC.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
 
         this.changedForms = new Map();

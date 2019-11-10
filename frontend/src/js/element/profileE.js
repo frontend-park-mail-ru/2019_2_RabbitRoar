@@ -7,10 +7,6 @@ import { PROFILE_UPDATE } from "../modules/events.js";
 
 class ProfileE {
     constructor() {
-        if (!!ProfileE.instance) {
-            return ProfileE.instance;
-        }
-        ProfileE.instance = this;
         this.controller = ProfileC;
 
         Bus.on(PROFILE_UPDATE, this._restartListener.bind(this));
