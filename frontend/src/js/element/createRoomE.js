@@ -1,11 +1,11 @@
-import RoomConstructorC from "../controller/roomConstructorC.js";
-import Template from "./templates/roomConstructorT.pug";
+import CreateRoomC from "../controller/createRoomC.js";
+import Template from "./templates/createRoomT.pug";
 import ContentF from "../fasade/contentF.js";
 
 
-class RoomConstructorE {
+class CreateRoomE {
     constructor() {
-        this.controller = RoomConstructorC;
+        this.controller = CreateRoomC;
         return this;
     }
 
@@ -28,4 +28,4 @@ class RoomConstructorE {
     }
 }
 
-export default new RoomConstructorE();
+export default new CreateRoomE();

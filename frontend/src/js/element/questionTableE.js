@@ -42,9 +42,6 @@ class QuestionTableE {
         }
 
         const barElement = document.getElementById("progress-bar");
-        if (!barElement) {
-            alert("FATAL");
-        }
         if (state.mode === "selected") {
             replaceTwoCssClasses(barElement, "progress-bar-hidden", "progress-bar");
 

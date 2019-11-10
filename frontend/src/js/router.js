@@ -29,9 +29,6 @@ export class Router {
         path = parseUrl.pathname;
         let newView;
         const authorized = ValidatorF.checkLocalstorageAutorization();
-        if (!authorized){
-            // ValidatorF.unAutorise();
-        }
         if ((newView = this.routes.get(path)) != undefined) {
             if (!firtsTime) {
                 this.currentView.destroy();

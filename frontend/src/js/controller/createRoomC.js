@@ -6,7 +6,7 @@ import GameF from "../fasade/gameF.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
 import { roomCreatureVaildation } from "../modules/form_validation";
 
-class RoomConstructorC {
+class CreateRoomC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
 
@@ -118,4 +118,4 @@ class RoomConstructorC {
     }
 }
 
-export default new RoomConstructorC();
+export default new CreateRoomC();

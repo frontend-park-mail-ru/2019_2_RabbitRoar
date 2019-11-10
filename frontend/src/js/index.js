@@ -3,7 +3,7 @@ import { Router } from "./router.js";
 import Bus from "./event_bus.js";
 import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "./modules/events.js";
 import { SERVISE_WORKER_MESSAGE } from "./modules/events.js";
-import { ROOT, LOGIN, SIGN_UP, PROFILE, SINGLE_GAME, ROOM_CREATOR, WAITING } from "./paths";
+import { ROOT, LOGIN, SIGN_UP, PROFILE, SINGLE_GAME, ROOM_CREATOR, WAITING, PACK_CREATION } from "./paths";
 import { id } from "./modules/id.js";
 
 import MainMenuV from "./view/mainMenuV.js";
@@ -13,6 +13,8 @@ import ProfileV from "./view/profileV.js";
 import SingleGameV from "./view/singleGameV.js";
 import RoomCreatorV from "./view/roomCreatorV";
 import GameWaitingV from "./view/gameWaitingV"
+import PackCreatorV from "./view/packCreatorV"
+
 import Worker from "./workers/gameLoader.worker.js";
 
 import ContentF from "./fasade/contentF.js";
@@ -56,5 +58,7 @@ router.register(PROFILE, ProfileV);
 router.register(SINGLE_GAME, SingleGameV);
 router.register(ROOM_CREATOR, RoomCreatorV);
 router.register(WAITING, GameWaitingV);
+router.register(PACK_CREATION, PackCreatorV);
+
 
 router.start();

@@ -22,8 +22,6 @@ class NavbarE {
         this.controller.start();
     }
 
-
-
     destroy() {
         this.controller.drop();
         this.root.innerHTML = "";

@@ -52,6 +52,7 @@ module.exports = {
     new webpack.ProgressPlugin(),
     new CopyPlugin([
       { from: 'index.pug', to: '' },
+      { from: 'static', to: 'static' },
     ]),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({

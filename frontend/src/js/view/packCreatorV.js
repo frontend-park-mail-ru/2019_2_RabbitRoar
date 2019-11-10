@@ -1,14 +1,17 @@
 import NavbarE from "../element/navbarE.js";
-import createRoomE from "../element/createRoomE.js";
+import CreatePackE from "../element/createPackE.js";
 import NetworkWarningE from "../element/networkWarningE.js";
+import QuestionTableE from "../element/questionTableE.js";
+
 import { View } from "./view.js";
 
 
-class createRoomV extends View {};
+class MainMenuV extends View{};
 
-export default new createRoomV(
+export default new MainMenuV(
     document.getElementById("application"),
     NavbarE,
-    createRoomE,
+    CreatePackE,
+    QuestionTableE,
     NetworkWarningE
 );

@@ -1,12 +1,17 @@
 import userValidatorF from "../fasade/userValidatorF.js";
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import { registrationValidation } from "../modules/form_validation.js";
+import Bus from "../event_bus.js";
+import { ROOT } from "../paths.js";
+import { ROUTER_EVENT } from "../modules/events.js";
+
 
 
 class RegistrationC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
         this.registerHandler("registration", "click", this._registration.bind(this));
+        this.registerHandler("back", "click", this._goBack.bind(this));
     }
 
     start() {
@@ -30,6 +35,11 @@ class RegistrationC {
         };
         userValidatorF.doRegistration(user);
     }
+
+    _goBack() {
+        Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+    }
+
 }
 
 export default new RegistrationC();

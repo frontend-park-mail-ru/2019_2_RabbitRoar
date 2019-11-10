@@ -4,7 +4,7 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import { id } from "../modules/id.js";
 import Bus from "../event_bus.js";
 import { ROUTER_EVENT } from "../modules/events.js";
-import { SINGLE_GAME, ROOM_CREATOR, WAITING, LOGIN } from "../paths";
+import { SINGLE_GAME, ROOM_CREATOR, WAITING, LOGIN, PACK_CREATION } from "../paths";
 import ValidatorF from "../fasade/userValidatorF.js";
 
 
@@ -24,7 +24,7 @@ class TabsC {
         this.registerClassHandler(".tab-click", "mouseout", this._unLightTab.bind(this));
 
         this.registerClassHandler(".join-button", "click", this._joinClick.bind(this));
-        // this.registerClassHandler(".join-button-training", "click", this._joinTraining.bind(this));
+        this.registerHandler("create-pack-button", "click", this._createPack.bind(this));
 
         this.registerClassHandler(".popup-button", "click", this._processPopUp.bind(this));
         this.registerClassHandler(".create-room-btn", "click", this._routeToRoomCreation.bind(this));
@@ -69,6 +69,16 @@ class TabsC {
         if (popup) {
             popup.classList.toggle("popup_show");
             return;
+        }
+    }
+
+    _createPack(){
+        if (!ValidatorF.checkLocalstorageAutorization()){
+            alert("ne avtorizovan epta");
+            document.getElementById("popup-elem-top").innerHTML = "Для игры необходимо авторизоваться";
+            this._showOrHidePopUp();
+        } else {
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, PACK_CREATION);
         }
     }
 

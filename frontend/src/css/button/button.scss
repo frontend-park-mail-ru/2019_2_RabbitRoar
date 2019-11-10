@@ -93,12 +93,12 @@
 
 .create-room-btn {
   @extend %button;
-  border-width: 1px;
-  border-color: $color-border-alter;
+  border-width: 2px;
+  border-color: $color-danger;
 }
 
 .create-room-btn:hover {
-  border-width: 1px;
+  border-width: 2px;
   color: var(--font-color-theme);
   background-color: $color-bg-dark;
   cursor: pointer;
