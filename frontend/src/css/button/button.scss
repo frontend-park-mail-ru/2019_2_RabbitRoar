@@ -115,3 +115,25 @@
   background-color: $color-bg-dark;
   cursor: pointer;
 }
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+}
+
+.create-pack-button {
+  @extend %button;
+  width: 30%;
+  height: 50%;
+  font-size: var(--font-size);
+}
+
+.create-pack-button:hover {
+  border-width: 1px;
+  border-color: var(--border-color-theme);
+  color: var(--font-color-theme);
+  background-color: $color-bg-dark;
+  cursor: pointer;
+}
