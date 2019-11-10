@@ -1,5 +1,5 @@
 import {postCreateRoom, postJoinRoom, getWS} from "../modules/requests.js"
- 
+import WebSocketIface from "../modules/webSocketIface.js"
 
 class RoomM {
     constructor(packName) {
@@ -21,12 +21,14 @@ class RoomM {
         console.log("ROOM JOIN");
         //await postJoinRoom(this.roomId);
         //await getWS();
+        WebSocketIface.connect();
     }
 
     async _create() {
         console.log("ROOM CREATED");
         //await postCreateRoom(this.roomOptions);
         //await getWS();
+        //WebSocketIface.connect();
     }
 
     getRoomName() {

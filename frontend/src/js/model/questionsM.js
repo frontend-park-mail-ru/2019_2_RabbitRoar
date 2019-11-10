@@ -1,5 +1,7 @@
 import Bus from "../event_bus.js";
 import { QUESTION_CHANGE, TIMER_STOPPED, TIMER_INTERRUPTION, QUESTION_WAS_CHOSEN } from "../modules/events.js";
+import WebSocketIface from "../modules/webSocketIface.js"
+
 
 class QuestionsM {
     constructor() {
@@ -50,7 +52,7 @@ class QuestionsM {
 
 class OfflineQuestionsM {
     constructor(packId = 0) {
-        console.log("OfflineQuestionsM CREATED");    
+        console.log("OfflineQuestionsM CREATED");
         this.packId = packId;
         this.result = undefined;
         this.mode = "offline";
@@ -100,7 +102,7 @@ class OfflineQuestionsM {
             this.result = false;
             this.removePointsForQuestion();
         }
-        
+
         this.questionTable.mode = "result";
         document.getElementById("score").innerHTML = this.score;
         Bus.emit(QUESTION_CHANGE);
@@ -117,14 +119,25 @@ class OfflineQuestionsM {
 
 
     getInfo() {
-        return {
-            packId: this.packId,
-            mode: this.questionTable.mode,
-            question: this.questionTable.selectedQuestion,
-            themes: this.themes,
-            result: this.result,
-            currentQuestionScore: this.currentQuestionScore,
-        };
+        if (this.questionTable.mode === "default") {
+            return {
+                packId: this.packId,
+                mode: this.questionTable.mode,
+                themes: this.themes,
+            };
+        } else if (this.questionTable.mode === "selected") {
+            return {
+                mode: this.questionTable.mode,
+                questionText: this.questionTable.selectedQuestion.text,
+            };
+        } else if (this.questionTable.mode === "result") {
+            return {
+                mode: this.questionTable.mode,
+                answer: this.questionTable.selectedQuestion.answer,
+                result: this.result,
+                currentQuestionScore: this.currentQuestionScore,
+            };
+        }
     }
 
     setDefaultMode() {
@@ -171,7 +184,7 @@ class OfflineQuestionsM {
                 let localMatches = 0;
                 console.log(trueWord);
                 const trueWordObj = trueWord.split("");
-                trueWordObj.forEach( (val, ind) => {
+                trueWordObj.forEach((val, ind) => {
                     if (val === userWord[ind]) {
                         localMatches++;
                     }

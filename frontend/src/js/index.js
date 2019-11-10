@@ -16,6 +16,24 @@ import GameWaitingV from "./view/gameWaitingV"
 import Worker from "./workers/gameLoader.worker.js";
 
 import ContentF from "./fasade/contentF.js";
+let socket = new WebSocket("wss://svoyak.fun/game/ws");
+
+socket.onopen = function (e) {
+    console.log("[open] Соединение установлено");
+};
+
+socket.onclose = function (event) {
+    if (event.wasClean) {
+        console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+    } else {
+        console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
+    }
+};
+
+socket.onerror = function (error) {
+    console.log(`[error] ${error}`);
+    console.log(error);
+};
 
 
 const worker = new Worker();
@@ -24,7 +42,7 @@ window.packWorker.onmessage = (msg) => Bus.emit(PACK_WORKER_MESSAGE, msg);
 Bus.on(PACK_WORKER_COMMAND, (data) => window.packWorker.postMessage(data));
 
 ContentF.updateLocalPacks().then(
-    () => console.log() 
+    () => console.log()
 );
 
 

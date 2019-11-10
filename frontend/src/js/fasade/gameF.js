@@ -45,7 +45,7 @@ class GameF {
         return new OfflineGameF(clickId);
     }
 
-    async _createOnlineGame(clickId, roomOptions) {
+    async _createOnlineGame(clickId, roomOptions = undefined) {
         const onlineGame = new OnlineGameF(clickId, roomOptions);
         await onlineGame.sendData();
         return onlineGame;
