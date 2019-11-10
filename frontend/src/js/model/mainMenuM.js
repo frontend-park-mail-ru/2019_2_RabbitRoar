@@ -8,17 +8,15 @@ class MainMenuM {
     }
 
 
-    
+
     get currentTab() {
         return this.currentTab_;
     }
 
     set currentTab(val) {
-        if ((val === id.tabRoom) || (val === id.tabTop) || (val === id.tabPack) || (val === id.tabOffline)) {
-            this.currentTab_ = val;
-        }
+        this.currentTab_ = val;
     }
-    
-    
+
+
 }
 export default new MainMenuM();

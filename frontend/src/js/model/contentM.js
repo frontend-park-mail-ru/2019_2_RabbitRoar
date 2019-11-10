@@ -110,6 +110,7 @@ class ContentM {
 
 
     async getTabContent(id) {
+        console.log("in getTabContent ", id);
         if (id === window.id.tabRoom) {
             const mainContent = {
                 infoPanel: {
@@ -152,6 +153,17 @@ class ContentM {
         }
 
         if (id === window.id.tabPack) {
+            const mainContent = {
+                text: "Добро пожаловать в Свою Игру!",
+                contentType: id,
+                content: []
+            };
+            return mainContent;
+        }
+
+
+        if (id === window.id.tabAboutGame) {
+            console.log("privet");
             const mainContent = {
                 text: "Добро пожаловать в Свою Игру!",
                 contentType: id,

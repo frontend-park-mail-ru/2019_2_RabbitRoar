@@ -15,6 +15,7 @@ class TabsC {
         this.registerHandler(id.tabRoom, "click", this._tabClick);
         this.registerHandler(id.tabTop, "click", this._tabClick);
         this.registerHandler(id.tabPack, "click", this._tabClick);
+        this.registerHandler(id.tabAboutGame, "click", this._tabClick);
         this.registerHandler(id.tabOffline, "click", this._tabClick);
 
         this.registerClassHandler(".tab", "mouseover", this._lightTab.bind(this));

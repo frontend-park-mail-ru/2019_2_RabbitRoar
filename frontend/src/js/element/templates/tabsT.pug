@@ -2,7 +2,8 @@ div(class="main-container")
     div(class="tab", id=window.id.tabRoom) Комнаты
     div(class="tab", id=window.id.tabTop) Зал славы
     div(class="tab", id=window.id.tabOffline) Тренировка
-    div(class="tab", id=window.id.tabPack) Об игре
+    div(class="tab", id=window.id.tabPack) Паки
+    div(class="tab", id=window.id.tabAboutGame) Об игре
 
     div(class="tab-content")
         if templateContent.contentType == window.id.tabRoom
@@ -70,10 +71,16 @@ div(class="main-container")
                         div(class="join-button" id="play" join_id=pack.id) Играть
         else if templateContent.contentType == window.id.tabPack
             div(class="faq-text")
+                div(class="line") ПАКК
+                div(class="join-button" id="create-room-button") Создать пак 
+
+        else if templateContent.contentType == window.id.tabAboutGame
+            div(class="faq-text")
                 div(class="line") Добро пожаловать в онлайн-викторину «Swoyak»!
                 div(class="line") Выбирайте вопросы из игрового табло и отвечайте на них.
                 div(class="line") В игре присутствует ТАЙМЕР - вы должны успеть ответить на вопрос.  
                 div(class="line") Игра заканчивается, когда все вопросы выбраны.
                 div(class="line") Играй и повышай уровень.
                 div(class="line") Играйте с друзьями и создавайте индивидуальные тематические комнаты.
+
 

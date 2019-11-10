@@ -24,16 +24,15 @@ class ContentF {
 
 
     getCurrentTab() {
+        console.log("getCurrenttab ", MainMenuM.currentTab);
         return MainMenuM.currentTab;
     }
 
 
     async getTabContent(id = MainMenuM.currentTab) {
-        if ((id === window.id.tabRoom) || (id === window.id.tabTop) || (id === window.id.tabPack) || (id === window.id.tabOffline)) {
+            
             const content = await ContentM.getTabContent(id);
-
             return content;
-        }
     }
 
 
