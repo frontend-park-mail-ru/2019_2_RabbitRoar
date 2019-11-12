@@ -74,7 +74,7 @@ class TabsC {
 
     _createPack(){
         if (!ValidatorF.checkLocalstorageAutorization()){
-            document.getElementById("popup-elem-top").innerHTML = "Для игры необходимо авторизоваться";
+            document.getElementById("popup-elem-top").innerHTML = "Для создания пака необходимо авторизоваться";
             this._showOrHidePopUp();
         } else {
             Bus.emit(ROUTER_EVENT.ROUTE_TO, PACK_CREATION);
