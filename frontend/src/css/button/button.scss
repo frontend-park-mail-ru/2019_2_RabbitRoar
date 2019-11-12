@@ -91,19 +91,6 @@
   border-radius: 0px;
 }
 
-.create-room-btn {
-  @extend %button;
-  border-width: 2px;
-  border-color: $color-danger;
-}
-
-.create-room-btn:hover {
-  border-width: 2px;
-  color: var(--font-color-theme);
-  background-color: $color-bg-dark;
-  cursor: pointer;
-}
-
 .pack-button {
   @extend %button;
 }
@@ -116,23 +103,14 @@
   cursor: pointer;
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 30vh;
-}
-
-.create-pack-button {
+.tab__create-room-btn {
   @extend %button;
-  width: 30%;
-  height: 50%;
-  font-size: var(--font-size);
+  border-width: 2px;
+  border-color: $color-danger;
 }
 
-.create-pack-button:hover {
-  border-width: 1px;
-  border-color: var(--border-color-theme);
+.tab__create-room-btn:hover {
+  border-width: 2px;
   color: var(--font-color-theme);
   background-color: $color-bg-dark;
   cursor: pointer;

@@ -1,0 +1,22 @@
+.button-container-create-pack {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8vh;
+  height: 15vh;
+}
+
+.create-pack-button {
+  @extend %button;
+  font-size: var(--font-size);
+  width: 50%;
+  height: 80%;
+}
+
+.create-pack-button:hover {
+  border-width: 1px;
+  border-color: var(--border-color-theme);
+  color: var(--font-color-theme);
+  background-color: $color-bg-dark;
+  cursor: pointer;
+}

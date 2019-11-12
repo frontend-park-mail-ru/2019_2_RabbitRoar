@@ -6,12 +6,11 @@ import QuestionTableE from "../element/questionTableE.js";
 import { View } from "./view.js";
 
 
-class MainMenuV extends View{};
+class PackCreatorV extends View{};
 
-export default new MainMenuV(
+export default new PackCreatorV(
     document.getElementById("application"),
     NavbarE,
     CreatePackE,
-    QuestionTableE,
     NetworkWarningE
 );

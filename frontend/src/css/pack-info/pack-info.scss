@@ -14,13 +14,13 @@
   text-align: center;
 
   .header-text {
-    color: white;
+    color: $color-font;
     font-size: var(--font-size);
     margin-bottom: 3vh;
   }
 
   .text {
-    color: white;
+    color: $color-font;
     font-size: var(--small-font-size);
   }
 }

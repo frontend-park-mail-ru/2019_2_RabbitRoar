@@ -12,16 +12,6 @@ class CreatePackE {
         this.root = root;
         this.root.insertAdjacentHTML("beforeend", Template({}));
         this.controller.start();
-
-        // let avatar;
-        // const authorized = ValidatorF.checkLocalstorageAutorization();
-
-        // if (authorized === true) {
-        //     const currentUserData = await ValidatorF.getUserData();
-        //     avatar = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
-        // }
-        // this.root.insertAdjacentHTML("beforeend", Template({ authorized: authorized, avatar: avatar }));
-
     }
 
     destroy() {

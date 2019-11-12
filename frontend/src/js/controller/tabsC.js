@@ -74,7 +74,6 @@ class TabsC {
 
     _createPack(){
         if (!ValidatorF.checkLocalstorageAutorization()){
-            alert("ne avtorizovan epta");
             document.getElementById("popup-elem-top").innerHTML = "Для игры необходимо авторизоваться";
             this._showOrHidePopUp();
         } else {
