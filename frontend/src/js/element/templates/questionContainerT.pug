@@ -17,13 +17,15 @@ if state.mode == "selected"
         div(id="dynamic-bar" class="dynamic-bar")
     div(class="question-container")
         div(class="question-container__question")
-            div() #{state.question.text}
+            div() #{state.questionText}
+
 else if state.mode == "default"
     div(id="progress-bar" class="progress-bar-hidden")
         div(id="dynamic-bar" class="dynamic-bar")
     div(class="question-container" id=state.packId)
         each theme, index in state.themes
             +line(theme, theme)
+
 else if state.mode == "result"
     div(id="progress-bar" class="progress-bar-hidden")
         div(id="dynamic-bar" class="dynamic-bar")
@@ -34,7 +36,7 @@ else if state.mode == "result"
             div(class="question-container__score_true") + #{state.currentQuestionScore} Очков
         else
             div(class="question-container__result_false") Неправильный ответ!
-            div(class="question-container__answer_false") Ответ: "#{state.question.answer}"
+            div(class="question-container__answer_false") Ответ: "#{state.answer}"
             div(class="question-container__score_false") - #{state.currentQuestionScore} Очков
 
 

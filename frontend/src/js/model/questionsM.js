@@ -1,5 +1,7 @@
 import Bus from "../event_bus.js";
 import { QUESTION_CHANGE, TIMER_STOPPED, TIMER_INTERRUPTION, QUESTION_WAS_CHOSEN } from "../modules/events.js";
+import WebSocketIface from "../modules/webSocketIface.js"
+
 
 class QuestionsM {
     constructor() {
@@ -25,32 +27,13 @@ class QuestionsM {
         return this.current.sendAnswer(answer);
     }
 
-    get chosedQuestionsId() {
-        return this.current.chosedQuestionsId;
-    }
-
-    restart() {
-        console.log("game restart");
-        if (this.current.mode === "offline") {
-            this.current = new OfflineQuestionsM();
-        } else {
-            this.current = new OnlineQuestionsM();
-        }
-    }
-    setDefaultMode() {
-        this.current.setDefaultMode();
-    }
-
-    removePointsForQuestion() {
-        this.current.removePointsForQuestion();
-    }
 }
 
 // =============================================
 
 class OfflineQuestionsM {
     constructor(packId = 0) {
-        console.log("OfflineQuestionsM CREATED");    
+        console.log("OfflineQuestionsM CREATED");
         this.packId = packId;
         this.result = undefined;
         this.mode = "offline";
@@ -100,7 +83,7 @@ class OfflineQuestionsM {
             this.result = false;
             this.removePointsForQuestion();
         }
-        
+
         this.questionTable.mode = "result";
         document.getElementById("score").innerHTML = this.score;
         Bus.emit(QUESTION_CHANGE);
@@ -117,18 +100,26 @@ class OfflineQuestionsM {
 
 
     getInfo() {
-        return {
-            packId: this.packId,
-            mode: this.questionTable.mode,
-            question: this.questionTable.selectedQuestion,
-            themes: this.themes,
-            result: this.result,
-            currentQuestionScore: this.currentQuestionScore,
-        };
-    }
-
-    setDefaultMode() {
-        this.questionTable.mode = "default";
+        if (this.questionTable.mode === "default") {
+            return {
+                packId: this.packId,
+                mode: this.questionTable.mode,
+                themes: this.themes,
+                chosedCells: this.chosedQuestionsId,
+            };
+        } else if (this.questionTable.mode === "selected") {
+            return {
+                mode: this.questionTable.mode,
+                questionText: this.questionTable.selectedQuestion.text,
+            };
+        } else if (this.questionTable.mode === "result") {
+            return {
+                mode: this.questionTable.mode,
+                answer: this.questionTable.selectedQuestion.answer,
+                result: this.result,
+                currentQuestionScore: this.currentQuestionScore,
+            };
+        }
     }
 
 
@@ -171,7 +162,7 @@ class OfflineQuestionsM {
                 let localMatches = 0;
                 console.log(trueWord);
                 const trueWordObj = trueWord.split("");
-                trueWordObj.forEach( (val, ind) => {
+                trueWordObj.forEach((val, ind) => {
                     if (val === userWord[ind]) {
                         localMatches++;
                     }
