@@ -33,8 +33,8 @@ class QuestionTableE {
         this.root.insertAdjacentHTML("beforeend", Template({ state }));
         this.controller.start();
 
-        const chosedId = this.gameIface.lastClickedCells();
-        for (const _id in chosedId) {
+        
+        for (const _id in state.chosedCells) {
             const lastClick = document.getElementById(_id);
             if (lastClick) {
                 replaceTwoCssClasses(lastClick, "question-container__cost", "question-container__cost_chosen");

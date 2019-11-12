@@ -13,11 +13,19 @@ import { View } from "./view.js";
 class SingleGameV extends View {
     create() {
         if (!GameF.gameExist()) {
-            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+            return false;
+        }
+
+        return super.create();
+    }
+
+    destroy() {
+        if (!GameF.gameExist()) {
             return;
         }
 
-        super.create();
+        console.log("GAME VIEW DESTROY");
+        super.destroy();
     }
 };
 

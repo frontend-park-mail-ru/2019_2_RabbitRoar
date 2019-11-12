@@ -27,25 +27,6 @@ class QuestionsM {
         return this.current.sendAnswer(answer);
     }
 
-    get chosedQuestionsId() {
-        return this.current.chosedQuestionsId;
-    }
-
-    restart() {
-        console.log("game restart");
-        if (this.current.mode === "offline") {
-            this.current = new OfflineQuestionsM();
-        } else {
-            this.current = new OnlineQuestionsM();
-        }
-    }
-    setDefaultMode() {
-        this.current.setDefaultMode();
-    }
-
-    removePointsForQuestion() {
-        this.current.removePointsForQuestion();
-    }
 }
 
 // =============================================
@@ -124,6 +105,7 @@ class OfflineQuestionsM {
                 packId: this.packId,
                 mode: this.questionTable.mode,
                 themes: this.themes,
+                chosedCells: this.chosedQuestionsId,
             };
         } else if (this.questionTable.mode === "selected") {
             return {
@@ -138,10 +120,6 @@ class OfflineQuestionsM {
                 currentQuestionScore: this.currentQuestionScore,
             };
         }
-    }
-
-    setDefaultMode() {
-        this.questionTable.mode = "default";
     }
 
 

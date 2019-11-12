@@ -58,8 +58,10 @@ class GameF {
 
     removeElement() {
         this.livingElements--;
+        if (this.livingElements < 0) {
+            console.log("Warning!");
+        }
         if (this.livingElements === 0) {
-            this.current.restart();
             this.current = undefined;
         }
     }
@@ -78,7 +80,6 @@ class GameF {
     }
 
     _questionTableEInterface() {
-        console.log(this.current)
         return this.current.questionTableEInterface;
     }
 
@@ -111,15 +112,6 @@ class OfflineGameF {
             questionInfo() {
                 return QuestionsM.getInfo();
             },
-            lastClickedCells() {
-                return QuestionsM.chosedQuestionsId;
-            },
-            stopTimer() {
-                QuestionsM.setDefaultMode();
-                QuestionsM.removePointsForQuestion();
-                Bus.emit(TIMER_STOPPED);
-                Bus.emit(QUESTION_PANEL_UPDATE);
-            },
             sendAnswer(answer = "") {
                 answer = "";
                 QuestionsM.sendAnswer(answer);
@@ -146,9 +138,6 @@ class OfflineGameF {
         return iface;
     };
 
-    restart() {
-        QuestionsM.restart();
-    }
 
     getPackName(){
 
@@ -179,8 +168,6 @@ class OnlineGameF {
             questionInfo() {
             },
             lastClickedCells() {
-            },
-            stopTimer() {
             },
         };
         return iface;
