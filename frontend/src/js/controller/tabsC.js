@@ -3,7 +3,7 @@ import GameF from "../fasade/gameF.js";
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import { id } from "../modules/id.js";
 import Bus from "../event_bus.js";
-import { ROUTER_EVENT } from "../modules/events.js";
+import { ROUTER_EVENT, WEBSOCKET_CONNECTION } from "../modules/events.js";
 import { SINGLE_GAME, ROOM_CREATOR, WAITING, LOGIN, ROOT } from "../paths";
 import ValidatorF from "../fasade/userValidatorF.js";
 import WebSocketIface from "../modules/webSocketIface.js"
@@ -29,6 +29,8 @@ class TabsC {
 
         this.registerClassHandler(".popup-button", "click", this._processPopUp.bind(this));
         this.registerClassHandler(".create-room-btn", "click", this._routeToRoomCreation.bind(this));
+
+        Bus.on(WEBSOCKET_CONNECTION, this._onlineCreateResult.bind(this));
     }
 
     start() {
@@ -103,32 +105,28 @@ class TabsC {
             options.action = "join";
             options.roomId = clickId;
         }
-        
-
 
         GameF.CreateGame(gameMode, options).then(
             () => {
                 if (gameMode === "online") {
-
-                    const connectDone = () => {
-                        Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING);
-                        WebSocketIface.removeOpenHandler(connectDone);
-                    };
-
-                    const connectError = () => {
-                        alert("Не удалось подключиться к комнате");
-                        Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
-                        WebSocketIface.removeCloseHandler(connectError);
-                    };
-
-                    WebSocketIface.addOpenHandler(connectDone);
-                    WebSocketIface.addCloseHandler(connectError);
+                    //SEE: this._onlineCreateResult()
+                    return;
                 } else {
                     Bus.emit(ROUTER_EVENT.ROUTE_TO, SINGLE_GAME);
                 }
             }
         );
     }
+
+    _onlineCreateResult(connect) {
+        if (connect) {
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING);
+        } else {
+            alert("Не удалось подключиться к комнате");
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+        }
+    }
+
 
     _routeToRoomCreation() {
         if (ValidatorF.checkLocalstorageAutorization()) {

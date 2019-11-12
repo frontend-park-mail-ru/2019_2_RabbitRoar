@@ -4,13 +4,11 @@ import Bus from "../event_bus.js";
 import {
     QUESTION_PANEL_UPDATE,
     QUESTION_CHANGE,
+    WEBSOCKET_CONNECTION,
     ROOM_CHANGE,
     QUESTION_WAS_CHOSEN,
     TIMER_INTERRUPTION
 } from "../modules/events.js";
-
-import { ROUTER_EVENT } from "../modules/events.js";
-import { ROOT } from "../paths";
 
 import GamePanelC from "../controller/gamePanelC.js";
 import QuestionTableC from "../controller/questionsTableC.js"
@@ -93,8 +91,9 @@ class GameF {
             console.log("F crash");
             this.current.clear();
             this.current = undefined;
+            Bus.emit(WEBSOCKET_CONNECTION, false);
         } else if (RoomM.mode === "waiting") {
-
+            Bus.emit(WEBSOCKET_CONNECTION, true);
         }
     }
 
