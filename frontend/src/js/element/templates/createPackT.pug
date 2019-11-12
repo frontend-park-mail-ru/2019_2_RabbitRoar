@@ -18,3 +18,6 @@ mixin line(theme_id, theme_name)
 div(class="question-container")
     each theme, index in ['тема1', 'тема2', 'тема3', 'тема4', 'тема5']
         +line(theme, theme)
+form(class="form")
+    button(type="submit", id="save-pack") Сохранить пак
+    button(type="submit", id="back") Назад

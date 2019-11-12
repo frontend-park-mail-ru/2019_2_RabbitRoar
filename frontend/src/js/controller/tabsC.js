@@ -27,7 +27,7 @@ class TabsC {
         this.registerHandler("create-pack-button", "click", this._createPack.bind(this));
 
         this.registerClassHandler(".popup-button", "click", this._processPopUp.bind(this));
-        this.registerClassHandler(".create-room-btn", "click", this._routeToRoomCreation.bind(this));
+        this.registerClassHandler(".tab__create-room-btn", "click", this._routeToRoomCreation.bind(this));
     }
 
     start() {
