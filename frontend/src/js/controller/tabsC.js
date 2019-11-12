@@ -4,8 +4,10 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import { id } from "../modules/id.js";
 import Bus from "../event_bus.js";
 import { ROUTER_EVENT } from "../modules/events.js";
-import { SINGLE_GAME, ROOM_CREATOR, WAITING, LOGIN } from "../paths";
+import { SINGLE_GAME, ROOM_CREATOR, WAITING, LOGIN, ROOT } from "../paths";
 import ValidatorF from "../fasade/userValidatorF.js";
+import WebSocketIface from "../modules/webSocketIface.js"
+
 
 
 class TabsC {
@@ -87,17 +89,40 @@ class TabsC {
     }
 
     _startGame(event) {
+        const clickId = event.target.getAttribute("join_id");
+        const options = {};
+
         let gameMode;
         if (document.getElementById("offline_mode") !== null) {
             gameMode = "offline";
+
+            options.packId = clickId;
         } else {
             gameMode = "online";
+
+            options.action = "join";
+            options.roomId = clickId;
         }
-        const clickId = event.target.getAttribute("join_id");
-        GameF.CreateGame(gameMode, clickId).then(
+        
+
+
+        GameF.CreateGame(gameMode, options).then(
             () => {
                 if (gameMode === "online") {
-                    Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING);
+
+                    const connectDone = () => {
+                        Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING);
+                        WebSocketIface.removeOpenHandler(connectDone);
+                    };
+
+                    const connectError = () => {
+                        alert("Не удалось подключиться к комнате");
+                        Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+                        WebSocketIface.removeCloseHandler(connectError);
+                    };
+
+                    WebSocketIface.addOpenHandler(connectDone);
+                    WebSocketIface.addCloseHandler(connectError);
                 } else {
                     Bus.emit(ROUTER_EVENT.ROUTE_TO, SINGLE_GAME);
                 }

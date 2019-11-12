@@ -4,15 +4,17 @@ import Bus from "../event_bus.js";
 import {
     QUESTION_PANEL_UPDATE,
     QUESTION_CHANGE,
+    ROOM_CHANGE,
     QUESTION_WAS_CHOSEN,
-    TIMER_STOPPED,
     TIMER_INTERRUPTION
 } from "../modules/events.js";
+
+import { ROUTER_EVENT } from "../modules/events.js";
+import { ROOT } from "../paths";
 
 import GamePanelC from "../controller/gamePanelC.js";
 import QuestionTableC from "../controller/questionsTableC.js"
 import QuestionTableE from "../element/questionTableE.js"
-
 
 
 class GameF {
@@ -22,7 +24,8 @@ class GameF {
         this.ifaces.set(GamePanelC, this._gamePanelCInterface.bind(this));
         this.ifaces.set(QuestionTableC, this._questionTableCInterface.bind(this));
         this.ifaces.set(QuestionTableE, this._questionTableEInterface.bind(this));
-        Bus.on(QUESTION_CHANGE, this._questionChange);
+        Bus.on(QUESTION_CHANGE, this._questionChange.bind(this));
+        Bus.on(ROOM_CHANGE, this._roomChange.bind(this));
     }
 
     gameExist() {
@@ -33,11 +36,16 @@ class GameF {
         return this.ifaces.get(consumer);
     }
 
-    async CreateGame(mode = "offline", clickId = 0, roomOptions = undefined) {
+    //packId = null, roomId = null, roomOptions = null
+    async CreateGame(mode = "offline", options) {
         if (mode === "offline") {
-            this.current = await this._createOfflineGame(clickId);
+            this.current = await this._createOfflineGame(options.packId);
         } else {
-            this.current = await this._createOnlineGame(clickId, roomOptions);
+            if (options.action === "join") {
+                this.current = await this._createOnlineGame(options.roomId, null);
+            } else if (options.action === "create") {
+                this.current = await this._createOnlineGame(null, options.roomOptions);
+            }
         }
     }
 
@@ -47,7 +55,7 @@ class GameF {
 
     async _createOnlineGame(clickId, roomOptions = undefined) {
         const onlineGame = new OnlineGameF(clickId, roomOptions);
-        await onlineGame.sendData();
+        await onlineGame.connect();
         return onlineGame;
     }
 
@@ -62,6 +70,7 @@ class GameF {
             console.log("Warning!");
         }
         if (this.livingElements === 0) {
+            this.current.clear();
             this.current = undefined;
         }
     }
@@ -76,6 +85,16 @@ class GameF {
         } else if (QuestionsM.current.questionTable.mode === "result") {
             Bus.emit(TIMER_INTERRUPTION);
             Bus.emit(QUESTION_PANEL_UPDATE);
+        }
+    }
+
+    _roomChange() {
+        if (RoomM.mode === "crash") {
+            console.log("F crash");
+            this.current.clear();
+            this.current = undefined;
+        } else if (RoomM.mode === "waiting") {
+
         }
     }
 
@@ -104,6 +123,10 @@ class GameF {
 class OfflineGameF {
     constructor(clickId) {
         QuestionsM.CreateNew("offline", clickId);
+    }
+
+    clear() {
+
     }
 
 
@@ -147,15 +170,21 @@ class OfflineGameF {
 // ===================================================
 
 class OnlineGameF {
-    constructor(clickId, roomOptions) {
-        console.log(clickId, roomOptions);
-        QuestionsM.CreateNew("online", clickId);
-        RoomM.CreateNew(clickId, roomOptions);
+    constructor(roomId, roomOptions) {
+        console.log(roomId, roomOptions);
+        QuestionsM.CreateNew("online");
+        RoomM.CreateNew(roomId, roomOptions);
     }
 
-    async sendData() {
-        await RoomM.sendData();
+    clear() {
+
     }
+
+    async connect() {
+        await RoomM.connect();
+    }
+
+    
 
     addElement() {
         QuestionsM.addElement();

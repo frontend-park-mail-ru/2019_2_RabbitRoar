@@ -115,8 +115,15 @@ class RoomConstructorC {
         var obj = new Object();
         obj.playersCapacity = this.usersCount;
         obj.name = this.roomName;
+        obj.pack = this.packId;
+        obj.private = false;
 
-        GameF.CreateGame("online", this.packId, obj).then(
+        const options = {
+            action: "create",
+            roomOptions: obj
+        }
+
+        GameF.CreateGame("online", options).then(
             () => Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING)
         );
     }
