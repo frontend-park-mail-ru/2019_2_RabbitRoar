@@ -88,7 +88,7 @@ class OfflineQuestionsM {
         document.getElementById("score").innerHTML = this.score;
         Bus.emit(QUESTION_CHANGE);
 
-        setTimeout(this._showResult.bind(this), 1000)
+        setTimeout(this._showResult.bind(this), 4000)
 
     }
 
