@@ -41,6 +41,8 @@ export const ROOM_CHANGE = "roomChange";
 
 export const WEBSOCKET_CONNECTION = "websocketConnection";
 
+export const WEBSOCKET_CLOSE = "websocketClose";
+
 export const QUESTION_PANEL_UPDATE = "questPanelUpdate";
 
 export const QUESTION_WAS_CHOSEN = "questionWasChosen";

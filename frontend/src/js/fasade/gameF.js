@@ -2,17 +2,21 @@ import QuestionsM from "../model/questionsM.js";
 import RoomM from "../model/roomM.js";
 import Bus from "../event_bus.js";
 import {
+    ROUTER_EVENT,
     QUESTION_PANEL_UPDATE,
     QUESTION_CHANGE,
     WEBSOCKET_CONNECTION,
+    WEBSOCKET_CLOSE,
     ROOM_CHANGE,
     QUESTION_WAS_CHOSEN,
     TIMER_INTERRUPTION
 } from "../modules/events.js";
+import { ROOT } from "../paths";
 
 import GamePanelC from "../controller/gamePanelC.js";
 import QuestionTableC from "../controller/questionsTableC.js"
 import QuestionTableE from "../element/questionTableE.js"
+
 
 
 class GameF {
@@ -87,13 +91,19 @@ class GameF {
     }
 
     _roomChange() {
-        if (RoomM.mode === "crash") {
-            console.log("F crash");
+        if (RoomM.state === "waiting") {
+            Bus.emit(WEBSOCKET_CONNECTION, true);
+        } else if (RoomM.state === "closed") {
+            const closeCode = RoomM.closeCode;
+            const lastState = RoomM.lastState;
+
             this.current.clear();
             this.current = undefined;
-            Bus.emit(WEBSOCKET_CONNECTION, false);
-        } else if (RoomM.mode === "waiting") {
-            Bus.emit(WEBSOCKET_CONNECTION, true);
+
+            Bus.emit(WEBSOCKET_CLOSE, {
+                code: closeCode,
+                lastState: lastState,
+            });
         }
     }
 

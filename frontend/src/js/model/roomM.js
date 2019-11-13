@@ -6,34 +6,43 @@ import { ROOM_CHANGE } from "../modules/events.js";
 class RoomM {
     constructor(packName) {
         WebSocketIface.addMessageHandler("room_created", this._roomCreated.bind(this));
-        WebSocketIface.addMessageHandler("room_to_delete", this._roomToDelete.bind(this));
+        WebSocketIface.addMessageHandler("room_to_delete", this._roomToDeleted.bind(this));
 
         WebSocketIface.addErrorHandler(this._crashConnection.bind(this));
-
         WebSocketIface.addOpenHandler(this._doneConnection.bind(this));
+        WebSocketIface.addCloseHandler(this._closeConnection.bind(this));
     }
 
     _roomCreated() {
 
     }
 
-    _roomToDelete() {
+    _roomToDeleted() {
 
     }
 
-    _crashConnection() {
-        this.mode = "crash";
-        Bus.emit(ROOM_CHANGE);
+    _crashConnection(error) {
+        // this.lastState = this.state;
+        // this.state = "crashed";
+        // Bus.emit(ROOM_CHANGE);
     }
 
     _doneConnection() {
-        this.mode = "waiting";
+        this.lastState = this.state;
+        this.state = "waiting";
+        Bus.emit(ROOM_CHANGE);
+    }
+
+    _closeConnection(event) {
+        this.lastState = this.state;
+        this.state = "closed";
+        this.closeCode = event.code;
         Bus.emit(ROOM_CHANGE);
     }
 
 
     CreateNew(roomId, roomOptions) {
-        this.mode = "created";
+        this.state = "inited";
         this.roomOptions = roomOptions;
         this.roomId = roomId;
 
@@ -43,7 +52,7 @@ class RoomM {
 
     async connect() {
         if (this.roomOptions) {
-            const response =  await postCreateRoom(this.roomOptions);
+            const response = await postCreateRoom(this.roomOptions);
             this.roomId = response.id;
         }
 

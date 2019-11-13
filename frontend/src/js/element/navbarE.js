@@ -27,7 +27,6 @@ class NavbarE {
                     image.classList.add("navbar__user-logo");
 
                     avatarContainer.insertAdjacentElement("beforeend", image);
-                    //this.root.insertAdjacentHTML("beforeend", Template({ authorized: authorized, avatar: avatar }));
                 }
             );
         }
