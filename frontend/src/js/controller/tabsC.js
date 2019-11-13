@@ -3,9 +3,13 @@ import GameF from "../fasade/gameF.js";
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import { id } from "../modules/id.js";
 import Bus from "../event_bus.js";
-import { ROUTER_EVENT } from "../modules/events.js";
-import { SINGLE_GAME, ROOM_CREATOR, WAITING, LOGIN, PACK_CREATION } from "../paths";
+
+import { ROUTER_EVENT, WEBSOCKET_CONNECTION } from "../modules/events.js";
+import { SINGLE_GAME, ROOM_CREATOR, WAITING, LOGIN, ROOT, PACK_CREATION } from "../paths";
+
 import ValidatorF from "../fasade/userValidatorF.js";
+import WebSocketIface from "../modules/webSocketIface.js"
+
 
 
 class TabsC {
@@ -28,6 +32,8 @@ class TabsC {
 
         this.registerClassHandler(".popup-button", "click", this._processPopUp.bind(this));
         this.registerClassHandler(".tab__create-room-btn", "click", this._routeToRoomCreation.bind(this));
+
+        Bus.on(WEBSOCKET_CONNECTION, this._onlineCreateResult.bind(this));
     }
 
     start() {
@@ -60,12 +66,14 @@ class TabsC {
             this._showOrHidePopUp();
         } else if (event.target.id == "login") {
             Bus.emit(ROUTER_EVENT.ROUTE_TO, LOGIN);
+        } else if (event.target.id == "main") {
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
         }
     }
 
 
-    _showOrHidePopUp() {
-        const popup = document.getElementById("popup");
+    _showOrHidePopUp(popupId = "popup") {
+        const popup = document.getElementById(popupId);
         if (popup) {
             popup.classList.toggle("popup_show");
             return;
@@ -97,23 +105,41 @@ class TabsC {
     }
 
     _startGame(event) {
+        const clickId = event.target.getAttribute("join_id");
+        const options = {};
+
         let gameMode;
         if (document.getElementById("offline_mode") !== null) {
             gameMode = "offline";
+
+            options.packId = clickId;
         } else {
             gameMode = "online";
+
+            options.action = "join";
+            options.roomId = clickId;
         }
-        const clickId = event.target.getAttribute("join_id");
-        GameF.CreateGame(gameMode, clickId).then(
+
+        GameF.CreateGame(gameMode, options).then(
             () => {
                 if (gameMode === "online") {
-                    Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING);
+                    //SEE: this._onlineCreateResult()
+                    return;
                 } else {
                     Bus.emit(ROUTER_EVENT.ROUTE_TO, SINGLE_GAME);
                 }
             }
         );
     }
+
+    _onlineCreateResult(connect) {
+        if (connect) {
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING);
+        } else {
+            this._showOrHidePopUp("popup_error");
+        }
+    }
+
 
     _routeToRoomCreation() {
         if (ValidatorF.checkLocalstorageAutorization()) {

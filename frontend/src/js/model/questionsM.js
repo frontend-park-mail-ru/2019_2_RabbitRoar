@@ -184,8 +184,14 @@ class OfflineQuestionsM {
 
 class OnlineQuestionsM {
     constructor(obj) {
-        console.log("ONLINE GAME CREATED");
+        //WebSocketIface.addHandler("game_start", this._gameStart.bind(this));
+        console.log("ONLINE QUESTION CREATED");
     }
+
+    _gameStart() {
+
+    }
+
 }
 
 export default new QuestionsM();
