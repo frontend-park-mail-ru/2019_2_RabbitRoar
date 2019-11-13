@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 20px 20px;
-  color: $color-font;
+  color: var(--color-headers-font);
 
   .form-group {
     display: flex;
@@ -17,7 +17,7 @@
   button {
     background-color: rgba(0, 0, 0, 0);
     margin: 10px 0px;
-    width: 55%;
+    width: 65%;
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: var(--font-size);
@@ -26,8 +26,8 @@
   input {
     border: 0px;
     margin-bottom: 1px;
-    color: $color-font;
-    background-color: $color-bg-light;
+    color: var(--color-headers-font);
+    background-color: var(--color-bg-light);
     text-align: center;
     border-bottom: 2px solid transparent;
     transition: background-color 500ms ease, border-bottom 500ms ease, box-shadow 1000ms ease;
@@ -46,33 +46,33 @@
 
   .input-error,
   input:invalid {
-    box-shadow: 0 5px 5px -5px $color-danger;
-    border-bottom: 2px solid $color-danger;
-    color: $color-danger;
+    box-shadow: 0 5px 5px -5px var(--color-danger);
+    border-bottom: 2px solid var(--color-danger);
+    color: var(--color-danger);
   }
 
   .input-valid:focus {
-    color: $color-success;
-    box-shadow: 0 5px 5px -5px $color-success;
-    border-bottom: 2px solid $color-success;
+    color: var(--color-input-valid);
+    box-shadow: 0 5px 5px -5px var(--color-input-valid);
+    border-bottom: 2px solid var(--color-input-valid);
   }
 
   .error-annotation {
     font-size: var(--small-font-size);
-    color: $color-danger;
+    color: var(--color-danger);
     visibility: hidden;
     padding: 2px;
   }
 
   .error-visible {
     font-size: var(--small-font-size);
-    color: $color-danger;
+    color: var(--color-danger);
     padding: 2px;
   }
 
   .info-message {
     font-size: var(--small-font-size);
-    color: $color-success;
+    color: var(--color-success);
     padding: 2px;
   }
 
@@ -82,7 +82,7 @@
   }
 
   button {
-    color: $color-font;
+    color: var(--color-headers-font);
     cursor: pointer;
   }
 }

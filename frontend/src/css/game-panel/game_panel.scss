@@ -1,5 +1,5 @@
 .panel-text {
-  color: $color-font;
+  color: var(--color-headers-font);
   font-size: var(--font-size);
 
   display: flex;
@@ -32,11 +32,11 @@
   
   grid-column-start: 3;
   grid-column-end: 4;
-  background-color: $color-bg-light;
+  background-color: var(--color-bg-light);
 
-  border-bottom: 2px solid $color-border-primary-low;
-  border-left: 2px solid $color-border-primary-low;
-  border-top: 2px solid $color-border-primary-low;
+  border-bottom: 2px solid var(--color-border-primary-low);
+  border-left: 2px solid var(--color-border-primary-low);
+  border-top: 2px solid var(--color-border-primary-low);
 }
 
 .control {
@@ -44,12 +44,12 @@
   grid-row-end: 3;
   grid-column-start: 4;
   grid-column-end: 5;
-  background-color: $color-bg-light;
+  background-color: var(--color-bg-light);
 
-  border-bottom: 2px solid $color-border-primary-low;
-  border-left: 2px solid $color-border-primary-low;
-  border-top: 2px solid $color-border-primary-low;
-  border-right: 2px solid $color-border-primary-low;
+  border-bottom: 2px solid var(--color-border-primary-low);
+  border-left: 2px solid var(--color-border-primary-low);
+  border-top: 2px solid var(--color-border-primary-low);
+  border-right: 2px solid var(--color-border-primary-low);
 }
 
 .score {
@@ -60,11 +60,11 @@
   grid-row-end: 3;
   grid-column-start: 5;
   grid-column-end: 6;
-  background-color: $color-bg-light;
+  background-color: var(--color-bg-light);
 
-  border-bottom: 2px solid $color-border-primary-low;
-  border-top: 2px solid $color-border-primary-low;
-  border-right: 2px solid $color-border-primary-low;
+  border-bottom: 2px solid var(--color-border-primary-low);
+  border-top: 2px solid var(--color-border-primary-low);
+  border-right: 2px solid var(--color-border-primary-low);
 }
 
 .exit-button{

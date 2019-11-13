@@ -69,7 +69,7 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),
     historyApiFallback: true,
     liveReload: true,
-    port: 8080,
+    port: 8000,
   }
   // watch: true`
 };

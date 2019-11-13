@@ -7,7 +7,7 @@
   border-width: 0px;
   border-style: solid;
   border-radius: 5px;
-  background-color: $color-bg-light;
+  background-color: var(--color-bg-light);
   transition: all 250ms ease-out;
   text-transform: uppercase;
 
@@ -23,7 +23,7 @@
   border-width: 1px;
   border-color: var(--border-color-theme);
   color: var(--font-color-theme);
-  background-color: $color-bg-dark;
+  background-color: var(--color-bg-dark);
   border-bottom-width: 0px;
   cursor: pointer;
 }
@@ -38,12 +38,14 @@
   border-width: 1px;
   border-color: var(--border-color-theme);
   color: var(--font-color-theme);
-  background-color: $color-bg-dark;
+  background-color: var(--color-bg-dark);
   cursor: pointer;
 }
 
 .popup-button {
   @extend %button;
+  transition: none;
+  border: 1px solid transparent;
   width: 75%;
   height: 75%;
 }
@@ -52,21 +54,21 @@
   border-width: 1px;
   border-color: var(--border-color-theme);
   color: var(--font-color-theme);
-  background-color: $color-bg-dark;
+  background-color: var(--color-bg-dark);
   cursor: pointer;
 }
 
 .pg-button {
   @extend %button;
   border-radius: 0px;
-  background-color: $color-bg-dark;
+  background-color: var(--color-bg-dark);
 }
 
 .pg-button:hover {
   border-width: 1px;
   border-color: var(--border-color-theme);
   color: var(--font-color-theme);
-  background-color: $color-bg-light;
+  background-color: var(--color-bg-light);
   border-width: 0px;
   cursor: pointer;
 }
@@ -81,7 +83,7 @@
   border-width: 1px;
   border-color: var(--border-color-theme);
   color: var(--border-color-theme);
-  background-color: $color-bg-dark;
+  background-color: var(--color-bg-dark);
   cursor: pointer;
 }
 
@@ -99,20 +101,20 @@
   border-width: 1px;
   border-color: var(--border-color-theme);
   color: var(--font-color-theme);
-  background-color: $color-bg-dark;
+  background-color: var(--color-bg-dark);
   cursor: pointer;
 }
 
 .tab__create-room-btn {
   @extend %button;
   border-width: 2px;
-  border-color: $color-danger;
+  border-color: var(--forth-color);
 }
 
 .tab__create-room-btn:hover {
   border-width: 2px;
   color: var(--font-color-theme);
-  background-color: $color-bg-dark;
+  background-color: var(--color-bg-dark);
   cursor: pointer;
 }
 
@@ -127,6 +129,6 @@
   border-width: 1px;
   border-color: var(--border-color-theme);
   color: var(--font-color-theme);
-  background-color: $color-bg-dark;
+  background-color: var(--color-bg-dark);
   cursor: pointer;
 }

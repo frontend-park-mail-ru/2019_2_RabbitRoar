@@ -8,7 +8,7 @@ mixin cell(_id, theme)
 
 mixin line(theme_id, theme_name)
     div(class="question-container__line" id=theme_id)
-        div(class="question-container__theme") #{theme_name}
+        div(class="question-container__theme-hover") #{theme_name}
         +cell(0, theme_name)
         +cell(1, theme_name)   
         +cell(2, theme_name)
@@ -16,8 +16,17 @@ mixin line(theme_id, theme_name)
         +cell(4, theme_name)
 
 div(class="question-container")
-    each theme, index in ['тема1', 'тема2', 'тема3', 'тема4', 'тема5']
+    each theme, index in ['Тема 1', 'Тема 2', 'Тема 3', 'Тема 4', 'Тема 5']
         +line(theme, theme)
 form(class="form")
     button(type="submit", id="save-pack") Сохранить пак
     button(type="submit", id="back") Назад
+
+div(class="popup" id="popup")
+    div(class="popup__content " id="popup_content")
+        div(class="popup-elem-top" id="popup-elem-top") Дефолтный текст
+        div(class="popup-elem-top")
+            textarea(class="input-textarea" maxlength="150")
+        div(class="popup-elem-bottom ")
+            div(class="popup-button" id="cansel") Отмена
+            div(class="popup-button" id="save") Сохранить

@@ -12,12 +12,12 @@
 
 .question-container__answer_true {
     @extend %question-container__answer;
-    color: $color-success;
-    border-color: $color-success;
+    color: var(--color-success);
+    border-color: var(--color-success);
 }
 
 .question-container__answer_false {
     @extend %question-container__answer;
-    color: $color-danger;
-    border-color: $color-danger;
+    color: var(--color-danger);
+    border-color: var(--color-danger);
 }

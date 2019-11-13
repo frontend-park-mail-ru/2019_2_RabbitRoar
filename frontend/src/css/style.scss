@@ -1,4 +1,3 @@
-@import 'colors';
 @import 'sizes';
 @import 'TEMPLATE_PANEL';
 
@@ -20,11 +19,12 @@
 @import '/tab/__question-img/tab__question-img';
 @import '/tab/__info-container/tab__info-container';
 
+@import '/pack-creation/pack-creation';
+@import '/pack-creation/__input/pack-creation__input';
 
 
 @import '/users-panel/users-panel';
 @import '/pack-info/pack-info';
-@import '/pack-creation/pack-creation';
 
 
 @import '/main-menu-container/main-menu-container';
@@ -57,22 +57,38 @@
 
 
 :root {
-    --question-theme-bg: $color-bg-dark;
-    --main-width: 90vw;
-    --main-content-vertical-margin: 2vh;
+    --color-bg-dark: rgb(23, 21, 32);
+    --color-bg-light: rgba(38, 35, 53, 1);
 
+    --color-success: #72f1b8;
+    --color-input-valid: #c5aee0;
+    --color-danger: #920031;
 
-    --font-color-theme: rgba(54, 249, 246, 1);
-    --border-color-theme: rgba(54, 249, 246, 1);
+    // Эти две переменные были rgba(54, 249, 246, 1);
+    --font-color-theme: #c5aee0;
+    --border-color-theme:  #c5aee0;
 
+    --scroll-background: var(--color-bg-light);
+    --scroll: #c5aee0 ;
+
+    --color-headers-font: white;
+    --color-border-primary-low: #B497D6;
+    --forth-color: #EFBCD5;
+
+    // дублирование цвета
+    --question-theme-bg: rgb(23, 21, 32);
+    
     --question-container-border-width: 1px;
     --question-container-gap-width: 2px;
 
-
+    --main-width: 90vw;
+    --main-content-vertical-margin: 2vh;
 }
 
 body {
-    background-color: $color-bg-dark;
+    // дублирование цвета
+    background-color: rgb(23, 21, 32);
+
     font-family: "Open Sans",Arial,Helvetica,sans-serif;
     font-feature-settings: "kern";
     font-size: var(--font-size);

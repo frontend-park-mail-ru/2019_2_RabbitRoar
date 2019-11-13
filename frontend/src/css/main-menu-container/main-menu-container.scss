@@ -4,15 +4,6 @@
   color: var(--font-color-theme);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 65vh;
-}
-
-.main-container-two-rows {
-  width: var(--main-width);
-  margin: var(--main-content-vertical-margin) auto;
-  color: var(--font-color-theme);
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 60vh 4vh 8vh;
 }
 
@@ -43,7 +34,7 @@
   height: 1.5vh;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(54, 249, 246, 1);
+  background: var(--scroll);
   border: 0px none #ffffff;
   border-radius: 100px;
 }
@@ -51,18 +42,18 @@
   background: #ffffff;
 }
 ::-webkit-scrollbar-thumb:active {
-  background: rgba(54, 249, 246, 1);
+  background: var(--scroll);
 }
 ::-webkit-scrollbar-track {
-  background: $color-danger;
+  background:  var(--scroll-background);
   border: 0px none #ffffff;
   border-radius: 100px;
 }
 ::-webkit-scrollbar-track:hover {
-  background: $color-danger;
+  background: var(--scroll-background);
 }
 ::-webkit-scrollbar-track:active {
-  background: $color-danger;
+  background: var(--scroll-background);
 }
 ::-webkit-scrollbar-corner {
   background: transparent;

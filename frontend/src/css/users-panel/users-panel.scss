@@ -9,14 +9,14 @@
 
 .other-user {
   grid-row: 1;
-  border-color: $color-bg-light;
-  border: 2px solid $color-border-primary-low;
+  border-color: var(--color-bg-light);
+  border: 2px solid var(--color-border-primary-low);
 }
 
 #main-user {
   grid-row: 1;
   grid-column-start: 1;
   grid-column-end: 2;
-  background-color: $color-bg-light;
-  border: 2px solid $color-border-primary-low;
+  background-color: var(--color-bg-light);
+  border: 2px solid var(--color-border-primary-low);
 }
