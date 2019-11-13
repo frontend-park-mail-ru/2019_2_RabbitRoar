@@ -1,96 +1,96 @@
-@import 'sizes';
-@import 'TEMPLATE_PANEL';
+@import "sizes";
+@import "TEMPLATE_PANEL";
 
-@import '/navbar/navbar';
-@import '/navbar/__exit/navbar__exit';
-@import '/navbar/__game-logo/navbar__game-logo';
-@import '/navbar/__user-logo/navbar__user-logo';
+@import "/navbar/navbar";
+@import "/navbar/__exit/navbar__exit";
+@import "/navbar/__game-logo/navbar__game-logo";
+@import "/navbar/__user-logo/navbar__user-logo";
 
-@import '/profile/__download-img/profile__download-img';
-@import '/profile/__user-img/profile__user-img';
+@import "/profile/__download-img/profile__download-img";
+@import "/profile/__user-img/profile__user-img";
 
-@import '/game-panel/game_panel';
-@import '/game-panel/__user-logo/game-panel__user-logo';
+@import "/game-panel/game_panel";
+@import "/game-panel/__user-logo/game-panel__user-logo";
 
-@import '/tab/tab';
-@import '/tab/__text/tab__text';
-@import '/tab/__сreate-pack-button/tab__create-pack-button';
-@import '/tab/__create-room-button/tab__create-room-button';
-@import '/tab/__question-img/tab__question-img';
-@import '/tab/__info-container/tab__info-container';
+@import "/tab/tab";
+@import "/tab/__text/tab__text";
+@import "/tab/__сreate-pack-button/tab__create-pack-button";
+@import "/tab/__create-room-button/tab__create-room-button";
+@import "/tab/__question-img/tab__question-img";
+@import "/tab/__info-container/tab__info-container";
 
-@import '/pack-creation/pack-creation';
-@import '/pack-creation/__input/pack-creation__input';
+@import "/pack-creation/pack-creation";
+@import "/pack-creation/__input/pack-creation__input";
 
+@import "/users-panel/users-panel";
+@import "/pack-info/pack-info";
 
-@import '/users-panel/users-panel';
-@import '/pack-info/pack-info';
+@import "/main-menu-container/main-menu-container";
+@import "/best-players-panel/best-players-panel";
+@import "/offline-panel/offline-panel";
+@import "form/form";
+@import "/rooms-panel/rooms-panel";
+@import "paginator/paginator";
+@import "button/button";
 
+@import "question-container/question-container";
+@import "question-container/__line/question-container__line";
+@import "question-container/__theme/question-container__theme";
+@import "question-container/__cost/question-container__cost";
+@import "question-container/__progress-bar/question-container__progress-bar";
+@import "question-container/__question/question-container__question";
+@import "question-container/__result/question-container__result";
+@import "question-container/__result/question-container__answer";
+@import "question-container/__result/question-container__score";
 
-@import '/main-menu-container/main-menu-container';
-@import '/best-players-panel/best-players-panel';
-@import '/offline-panel/offline-panel';
-@import 'form/form';
-@import '/rooms-panel/rooms-panel';
-@import 'paginator/paginator';
-@import 'button/button';
+@import "warning/warning";
 
+@import "popup/popup";
+@import "popup/__content/popup__content";
 
-@import 'question-container/question-container';
-@import 'question-container/__line/question-container__line';
-@import 'question-container/__theme/question-container__theme';
-@import 'question-container/__cost/question-container__cost';
-@import 'question-container/__progress-bar/question-container__progress-bar';
-@import 'question-container/__question/question-container__question';
-@import 'question-container/__result/question-container__result';
-@import 'question-container/__result/question-container__answer';
-@import 'question-container/__result/question-container__score';
+@import "form-part/form-part";
 
-@import 'warning/warning';
-
-@import 'popup/popup';
-@import 'popup/__content/popup__content';
-
-@import 'form-part/form-part';
-
-@import 'faq-text/faq-text';
-
+@import "faq-text/faq-text";
 
 :root {
-    --color-bg-dark: rgb(23, 21, 32);
-    --color-bg-light: rgba(38, 35, 53, 1);
+  // main colors
+  --color-bg-dark: rgb(23, 21, 32);
+  --color-bg-light: rgba(38, 35, 53, 1);
 
-    --color-success: #72f1b8;
-    --color-input-valid: #c5aee0;
-    --color-danger: #920031;
+  // form
+  --color-success: #72f1b8;
+  --color-input-valid: #c5aee0;
+  --color-danger: #920031;
 
-    // Эти две переменные были rgba(54, 249, 246, 1);
-    --font-color-theme: #c5aee0;
-    --border-color-theme:  #c5aee0;
+  // старый цвет - rgba(54, 249, 246, 1);
+  --border-color-theme: #c5aee0;
 
-    --scroll-background: var(--color-bg-light);
-    --scroll: #c5aee0 ;
+  // scroll
+  --scroll-background: var(--color-bg-light);
+  --scroll: #c5aee0;
 
-    --color-headers-font: white;
-    --color-border-primary-low: #B497D6;
-    --forth-color: #EFBCD5;
+  // text
+  --color-headers-font: white;
+  --font-color-theme: #c5aee0;
 
-    // дублирование цвета
-    --question-theme-bg: rgb(23, 21, 32);
-    
-    --question-container-border-width: 1px;
-    --question-container-gap-width: 2px;
+  // questions
+  --question-theme-bg: var(--color-bg-dark);
+  --question-container-border-width: 1px;
+  --question-container-gap-width: 2px;
 
-    --main-width: 90vw;
-    --main-content-vertical-margin: 2vh;
+  --color-border-primary-low: #b497d6;
+  --forth-color: #efbcd5;
+
+  --main-width: 90vw;
+  --main-content-vertical-margin: 2vh;
 }
 
 body {
-    // дублирование цвета
-    background-color: rgb(23, 21, 32);
+  // дублирование цвета
+  background-color: rgb(23, 21, 32);
 
-    font-family: "Open Sans",Arial,Helvetica,sans-serif;
-    font-feature-settings: "kern";
-    font-size: var(--font-size);
-    font-weight: 600;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-feature-settings: "kern";
+  font-size: var(--font-size);
+  font-weight: 600;
 }
