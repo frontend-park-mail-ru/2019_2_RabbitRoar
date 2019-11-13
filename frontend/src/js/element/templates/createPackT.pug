@@ -1,46 +1,75 @@
-div(class="text-container")
-    div(class="text") Для создания пака выберите ячейку с темой и вопросом! 
+div(id="form-part-1")
+    form(class="form")
+        div(class="form-group")
+            label(for="pack-name") Название пака
+            input(class="input-valid", id="pack-name", type="text")
+            span(class="error-annotation" id="error_pack-name") Отображение ошибки
 
-mixin cell(_id, theme)
-    - const cost = (_id + 1) * 100;
-    - const modifyId = "" + theme + _id;
-    div(class="question-container__cost" id=modifyId) #{cost}
+            label(for="theme_1") Тема вопросов 1
+            input(class="input-valid", id="theme_1", type="text")
+            span(class="error-annotation" id="error_theme_1") Отображение ошибки
 
-mixin line(theme_id, theme_name)
-    div(class="question-container__line" id=theme_id)
-        div(class="question-container__theme-hover") #{theme_name}
-        +cell(0, theme_name)
-        +cell(1, theme_name)   
-        +cell(2, theme_name)
-        +cell(3, theme_name)
-        +cell(4, theme_name)
+            label(for="theme_2") Тема вопросов 2
+            input(class="input-valid", id="theme_2", type="text")
+            span(class="error-annotation" id="error_theme_2") Отображение ошибки
 
-div(class="question-container")
-    each theme, index in ['Тема 1', 'Тема 2', 'Тема 3', 'Тема 4', 'Тема 5']
-        +line(theme, theme)
-form(class="form")
-    button(type="submit", id="save-pack") Сохранить пак
-    button(type="submit", id="back") Назад
+            label(for="theme_3") Тема вопросов 3
+            input(class="input-valid", id="theme_3", type="text")
+            span(class="error-annotation" id="error_theme_3") Отображение ошибки
 
-div(class="popup" id="popup-question")
-    div(class="popup__content-question " id="popup_content")
-        div(class="popup-elem-top") Введите вопрос
-        div(class="popup-elem-without-border" id="theme") Тема
-        div(class="popup-elem-without-border" id="cost")
-        div(class="popup-elem-top")
-            textarea(class="textarea-question" maxlength="165")
-        div(class="popup-elem-without-border") Ответ
-        div(class="popup-elem-bottom")
-            textarea(class="textarea-answer" maxlength="33")
-        div(class="popup-elem-bottom")
-            div(class="popup-button" id="cansel-question") Отмена
-            div(class="popup-button" id="save-question") Сохранить
+            label(for="theme_4") Тема вопросов 4
+            input(class="input-valid", id="theme_4", type="text")
+            span(class="error-annotation" id="error_theme_4") Отображение ошибки
 
-div(class="popup" id="popup-theme")
-    div(class="popup__content-theme " id="popup_content")
-        div(class="popup-elem-top") Введите тему
-        div(class="popup-elem-bottom")
-            textarea(class="textarea-answer" maxlength="33")
-        div(class="popup-elem-bottom")
-            div(class="popup-button" id="cansel-theme") Отмена
-            div(class="popup-button" id="save-theme") Сохранить
+            label(for="theme_5") Тема вопросов 5
+            input(class="input-valid", id="theme_5", type="text")
+            span(class="error-annotation" id="error_theme_5") Отображение ошибки
+
+        button(type="submit", id="further") Далее
+        button(type="submit", class="back") Назад
+div(id="form-part-2")
+    div(class="text-container")
+        div(class="text") Для создания пака выберите ячейку с темой и вопросом! 
+    mixin cell(_id, theme)
+        - const cost = (_id + 1) * 100;
+        - const modifyId = "" + theme + _id;
+        div(class="question-container__cost" id=modifyId) #{cost}
+
+    mixin line(theme_id, theme_name)
+        div(class="question-container__line" id=theme_id)
+            div(class="question-container__theme-hover") #{theme_name}
+            +cell(0, theme_name)
+            +cell(1, theme_name)   
+            +cell(2, theme_name)
+            +cell(3, theme_name)
+            +cell(4, theme_name)
+
+    div(class="question-container")
+        each theme, index in ['Тема 1', 'Тема 2', 'Тема 3', 'Тема 4', 'Тема 5']
+            +line(theme, theme)
+    form(class="form")
+        button(type="submit", id="save-pack") Сохранить пак
+        button(type="submit", id="back") Назад
+
+    div(class="popup" id="popup-question")
+        div(class="popup__content-question " id="popup_content")
+            div(class="popup-elem-top") Введите вопрос
+            div(class="popup-elem-without-border" id="theme") Тема
+            div(class="popup-elem-without-border" id="cost")
+            div(class="popup-elem-top")
+                textarea(class="textarea-question" id="input-question" maxlength="165")
+            div(class="popup-elem-without-border") Ответ
+            div(class="popup-elem-bottom")
+                textarea(class="textarea-answer" id="input-answer" maxlength="33")
+            div(class="popup-elem-bottom")
+                div(class="popup-button" id="cansel-question") Отмена
+                div(class="popup-button" id="save-question") Сохранить
+
+    div(class="popup" id="popup-theme")
+        div(class="popup__content-theme " id="popup_content")
+            div(class="popup-elem-top") Введите тему
+            div(class="popup-elem-bottom")
+                textarea(class="textarea-answer" id="input-theme" maxlength="33")
+            div(class="popup-elem-bottom")
+                div(class="popup-button" id="cansel-theme") Отмена
+                div(class="popup-button" id="save-theme") Сохранить

@@ -264,3 +264,38 @@ export const roomCreatureVaildation = () => {
 
     return error;
 };
+
+export const packCreationVaildationForm1 = () => {
+    let error = false;
+
+    const errorPackNameElement = document.getElementById("error_pack-name");
+    const packName = document.getElementById("pack-name").value;
+    if (!packName) {
+        replaceTwoCssClasses(errorPackNameElement, "error-annotation", "error-visible");
+        replaceTwoCssClasses(document.getElementById("pack-name"), "input-valid", "input-error");
+        errorPackNameElement.innerHTML = "Введите название пака.";
+        error = true;
+    } else {
+        replaceTwoCssClasses(errorPackNameElement, "error-visible", "error-annotation");
+        replaceTwoCssClasses(document.getElementById("pack-name"), "input-error", "input-valid");
+    }
+
+    var inputsId = ["theme_1", "theme_2", "theme_3", "theme_4", "theme_5"];
+    inputsId.forEach(
+        id => {
+            // const errorThemeElement = document.getElementById("error_" + "theme_" + id);
+            // const theme = document.getElementById(id).value;
+            // if (!theme) {
+            //     replaceTwoCssClasses(errorThemeElement, "error-annotation", "error-visible");
+            //     replaceTwoCssClasses(document.getElementById(id), "input-valid", "input-error");
+            //     errorThemeElement.innerHTML = "Введите название темы " + id + ".";
+            //     error = true;
+            // } else {
+            //     replaceTwoCssClasses(errorThemeElement, "error-visible", "error-annotation");
+            //     replaceTwoCssClasses(document.getElementById(id), "input-error", "input-valid");
+            // }
+        }
+    );
+
+    return error;
+};
