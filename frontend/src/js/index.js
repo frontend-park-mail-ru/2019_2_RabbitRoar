@@ -2,7 +2,7 @@ import "../css/style.scss";
 import { Router } from "./router.js";
 import Bus from "./event_bus.js";
 import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "./modules/events.js";
-import { SERVISE_WORKER_MESSAGE } from "./modules/events.js";
+import { SERVICE_WORKER_CMD } from "./modules/events.js";
 import { ROOT, LOGIN, SIGN_UP, PROFILE, SINGLE_GAME, ROOM_CREATOR, WAITING } from "./paths";
 import { id } from "./modules/id.js";
 
@@ -18,22 +18,22 @@ import Worker from "./workers/gameLoader.worker.js";
 import ContentF from "./fasade/contentF.js";
 //let socket = new WebSocket("wss://svoyak.fun:3010/game/ws");
 
-    // socket.onopen = function (e) {
-    //     console.log("[open] Соединение установлено");
-    // };
+// socket.onopen = function (e) {
+//     console.log("[open] Соединение установлено");
+// };
 
-    // socket.onclose = function (event) {
-    //     if (event.wasClean) {
-    //         console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
-    //     } else {
-    //         console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
-    //     }
-    // };
+// socket.onclose = function (event) {
+//     if (event.wasClean) {
+//         console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+//     } else {
+//         console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
+//     }
+// };
 
-    // socket.onerror = function (error) {
-    //     console.log(`[error] ${error}`);
-    //     console.log(error);
-    // };
+// socket.onerror = function (error) {
+//     console.log(`[error] ${error}`);
+//     console.log(error);
+// };
 
 
 const worker = new Worker();
@@ -55,6 +55,11 @@ if ("serviceWorker" in navigator) {
 
 }
 
+Bus.on(SERVICE_WORKER_CMD, (cmd) => navigator.serviceWorker.controller.postMessage(cmd));
+
+// navigator.serviceWorker.addEventListener("message", function handler(event) {
+//     console.log(event.data);
+// });
 
 // navigator.serviceWorker.getRegistrations().then(function (registrations) {
 //   for (let registration of registrations) {

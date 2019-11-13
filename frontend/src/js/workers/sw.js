@@ -58,35 +58,37 @@ async function processPromise(event) {
             return;
         }
     } else {
-        if (_isPreCacheUrl(requestUrl)) {
-            const cache = await caches.open(CACHE_NAME);
-            let response = await cache.match(_getUrlRevision(requestUrl));
+        const cache = await caches.open(CACHE_NAME);
+        let response = await cache.match(_getUrlRevision(requestUrl));
 
-            if (response) {
-                console.log(`Найдено в статическом кэше: ${_getUrlRevision(requestUrl)}`);
-            } else {
-                console.log(`Был удален: ${_getUrlRevision(requestUrl)}`);
-                await cache.add(_getUrlRevision(requestUrl));
-                response = await cache.match(_getUrlRevision(requestUrl));
-                console.log("Восстановлен успешно");
-                console.log(response);
-            }
+        if (response) {
+            console.log(`Найдено в статическом кэше: ${_getUrlRevision(requestUrl)}`);
+            return response;
+        } else if (_isPreCacheUrl(requestUrl)) {
+            console.log(`Был удален: ${_getUrlRevision(requestUrl)}`);
+            await cache.add(_getUrlRevision(requestUrl));
+            response = await cache.match(_getUrlRevision(requestUrl));
+            //TO_DO: Добавить защиту если не восстановил
+            console.log("Восстановлен успешно");
+            console.log(response);
             return response;
         }
 
         let fetchRequest = event.request.clone();
-        const response = await fetch(fetchRequest);
+        response = await fetch(fetchRequest);
 
         if (response.headers.get("Content-Length") === null || response.headers.get("Content-Length") === 0) {
             console.log("Response not have Content-Lenght");
             console.log(response);
             return response;
         }
+        if (requestUrl.pathname === "/api/csrf") {
+            return response;
+        }
 
 
         const responseToCache = response.clone();
 
-        const cache = await caches.open(CACHE_NAME);
         cache.put(event.request, responseToCache);
         console.log(`ONLINE Страница загружена и сохранена в кэше!: ${requestUrl}`);
         return response;
@@ -95,7 +97,7 @@ async function processPromise(event) {
 
 self.addEventListener("fetch", function (event) {
     if (event.request.method === "GET") {
-        //event.respondWith(processPromise(event));
+        event.respondWith(processPromise(event));
     }
 });
 
@@ -121,15 +123,21 @@ self.addEventListener("activate", function (event) {
 // ============================================================
 
 self.addEventListener("message", async function (event) {
-    // console.log("Recieve in SW");
-    // console.log(event.data[0]);
+    console.log(event.data);
+
+    if (event.data.command === "delete") {
+        const cache = await caches.open(CACHE_NAME);
+        console.log(`DELETE ${event.data.url}`);    
+        await cache.delete(event.data.url);
+    }
+
     // const clients = await self.clients.matchAll();
     // clients.forEach(client => {
     //     console.log("Send from SW");
     //     console.log(client.id);
     //     console.log(client.type);
     //     console.log(client.url);
-    //     client.postMessage("SAM TY GOVNO");
+    //     client.postMessage("!!!!!");
     // });
 });
 
@@ -160,7 +168,7 @@ function _getUrlRevision(requestUrl) {
                 return requestUrl.pathname + "?" + cacheObj.revision;
             }
         }
-        return url;
+        return requestUrl;
     }
 }
 

@@ -28,7 +28,7 @@ export const PROFILE_UPDATE = "profileUpdate";
 export const PACK_WORKER_MESSAGE = "packWorker";
 export const PACK_WORKER_COMMAND = "packWorkerCmd";
 
-export const SERVISE_WORKER_MESSAGE = "swMessage";
+export const SERVICE_WORKER_CMD = "swCmd";
 
 
 export const CHANGE_TAB = "changeTab";

@@ -63,12 +63,14 @@ class TabsC {
             this._showOrHidePopUp();
         } else if (event.target.id == "login") {
             Bus.emit(ROUTER_EVENT.ROUTE_TO, LOGIN);
+        } else if (event.target.id == "main") {
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
         }
     }
 
 
-    _showOrHidePopUp() {
-        const popup = document.getElementById("popup");
+    _showOrHidePopUp(popupId = "popup") {
+        const popup = document.getElementById(popupId);
         if (popup) {
             popup.classList.toggle("popup_show");
             return;
@@ -122,8 +124,7 @@ class TabsC {
         if (connect) {
             Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING);
         } else {
-            alert("Не удалось подключиться к комнате");
-            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+            this._showOrHidePopUp("popup_error");
         }
     }
 

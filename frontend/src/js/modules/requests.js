@@ -1,4 +1,7 @@
 import { postRequest, deleteRequest, getRequest, putRequest } from "./ajax.js";
+import { SERVICE_WORKER_CMD } from "../modules/events.js";
+import Bus from "../event_bus.js";
+
 
 export async function signIn(login, password) {
     const body = JSON.stringify({
@@ -42,6 +45,11 @@ export async function changeAvatar(formData, csrf) {
 }
 
 export async function changeTextFields(changesMap, csrf) {
+    Bus.emit(SERVICE_WORKER_CMD, {
+        command: "delete",
+        url: "/user/"
+    });
+
     const headers = {
         "Content-type": "application/json",
         "X-Csrf-Token": csrf,
