@@ -4,14 +4,27 @@ div(class="popup " id="popup")
         div(class="popup-elem-bottom ")
             div(class="popup-button" id="continue") На главную
 
-div(class="panel-text") #{userData.username}, ожидайте других игроков!
-div(class="user-panel-container")
-    div(id="main-user")
-        div(class="logo-div")
-            img(class="game-panel__user-logo",
-            src=userData.avatar_url,
-            alt="User")
-        div(class="panel-text") #{userData.username}
-    div(class="other-user")
-    div(class="other-user")
-    div(class="other-user")
+if roomState === "done_connection"
+    div(class="panel-text") #{userData.username}, ожидайте других игроков!
+    div(class="user-panel-container")
+        div(id="main-user")
+            div(class="player-avatar")
+                div(class="logo-div")
+                    img(class="game-panel__user-logo",
+                    src=userData.avatar_url,
+                    alt="User")
+                div(class="panel-text") #{userData.username}
+            button(class="user-button", id="capitan-ready") Готов
+        div(class="other-user")
+            div(class="player-avatar")
+            button(class="indicator-outher", id="ready") Готов
+        div(class="other-user")
+            div(class="player-avatar")
+            button(class="indicator-outher", id="ready") Готов
+        div(class="other-user")
+            div(class="player-avatar")
+            button(class="indicator-outher", id="ready") Готов
+
+else if roomState === "waiting"
+
+else if roomState === "game"

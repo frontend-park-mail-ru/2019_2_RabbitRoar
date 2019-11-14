@@ -15,9 +15,23 @@ class UsersPanelE {
 
     async create(root = document.getElementById("application")) {        
         this.root = root;
+        this.gameIface = GameF.getInterface(this)();
+
+
+        let playersInfo;
+        const roomState = this.gameIface.getRoomState();
+        if (roomState === "done_connection") {
+        } else if (roomState === "waiting") {
+            playersInfo = this.gameIface.getPlayersWaiting();
+        } else if (roomState === "game") {
+            playersInfo = this.gameIface.getPlayersGaming();
+        } else {
+            console.log("Warning!");
+            return
+        }
+
         let currentUserData;
         const authorized = ValidatorF.checkLocalstorageAutorization();
-        
         if (authorized === true) {
             currentUserData = await ValidatorF.getUserData();
             currentUserData.avatar_url = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
@@ -27,8 +41,14 @@ class UsersPanelE {
         }
         console.log(currentUserData);
 
-        this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData}));
 
+
+
+        this.root.insertAdjacentHTML("beforeend", Template({
+            userData: currentUserData,
+            roomState: roomState,
+            playersInfo: playersInfo
+        }));
         this.controller.start();
     }
 

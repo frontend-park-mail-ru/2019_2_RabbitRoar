@@ -3,9 +3,20 @@ import WebSocketIface from "../modules/webSocketIface.js"
 import Bus from "../event_bus.js";
 import { ROOM_CHANGE } from "../modules/events.js";
 
+// "created" - Игра создана как объект в памяти
+// "done_connection" - Удалось установить соединение по вебсоккету
+// "waiting" - Ожидание игроков
+// "game" - Процесс игры
+// "closed" - Вебсоккет закрылся
+
+
 class RoomM {
     constructor() {
         this.current = undefined;
+    }
+
+    get state() {
+        return this.current.state;
     }
 
     CreateNew(roomId, roomOptions) {
@@ -52,6 +63,7 @@ class RealRoomM {
         this.playersCap = data.players_cap;
         this.private = data.private;
         this.packId = data.pack_id;
+        this.players = data.players;
 
         this.lastState = this.state;
         this.state = "waiting";
@@ -78,15 +90,6 @@ class RealRoomM {
         Bus.emit(ROOM_CHANGE);
     }
 
-
-    CreateNew(roomId, roomOptions) {
-        this.state = "inited";
-        this.roomOptions = roomOptions;
-        this.roomId = roomId;
-
-        console.log("комната создалась");
-        console.log(this.roomId);
-    }
 
     async connect() {
         if (this.roomOptions) {

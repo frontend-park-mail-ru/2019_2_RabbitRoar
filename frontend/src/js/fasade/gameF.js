@@ -17,6 +17,7 @@ import { WAITING, SINGLE_GAME, ONLINE_GAME } from "../paths";
 import GamePanelC from "../controller/gamePanelC.js";
 import QuestionTableC from "../controller/questionsTableC.js"
 import QuestionTableE from "../element/questionTableE.js"
+import UsersPanelE from "../element/usersPanelE.js"
 
 
 
@@ -31,6 +32,7 @@ class GameF {
         this.ifaces.set(GamePanelC, this._gamePanelCInterface.bind(this));
         this.ifaces.set(QuestionTableC, this._questionTableCInterface.bind(this));
         this.ifaces.set(QuestionTableE, this._questionTableEInterface.bind(this));
+        this.ifaces.set(UsersPanelE, this._usersPanelEInterface.bind(this));
 
         Bus.on(QUESTION_CHANGE, this._questionChange.bind(this));
         Bus.on(ROOM_CHANGE, this._roomChange.bind(this));
@@ -124,6 +126,10 @@ class GameF {
 
     _gamePanelCInterface() {
         return this.current.gamePanelCInterface;
+    }
+
+    _usersPanelEInterface() {
+        return this.current.usersPanelEInterface;
     }
 
     // shity place
@@ -222,6 +228,32 @@ class OnlineGameF {
         };
         return iface;
     };
+
+    get usersPanelEInterface() {
+        const iface = {
+            getRoomState() {
+                return RoomM.state;
+            },
+
+            getPlayersWaiting() {
+                const playersInfo = new Array;
+
+                for (const player of RoomM.players) {
+                    playersInfo.push({
+                        url: player.url,
+                        name: player.name,
+                        uuid: player.uuid
+                    });
+                }
+            },
+
+            getPlayersGaming() {
+
+            }
+        };
+        return iface;
+    }
+
 
     getPackName() {
         return RoomM.getRoomName();
