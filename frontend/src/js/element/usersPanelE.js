@@ -4,6 +4,9 @@ import UsersPanelC from "../controller/usersPanelC.js";
 
 import GameF from "../fasade/gameF.js";
 
+import Bus from "../event_bus.js";
+import { USERS_PANEL_UPDATE } from "../modules/events.js";
+
 class UsersPanelE {
     constructor() {
         this.controller = UsersPanelC;

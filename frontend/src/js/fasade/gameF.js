@@ -9,7 +9,8 @@ import {
     WEBSOCKET_CLOSE,
     ROOM_CHANGE,
     QUESTION_WAS_CHOSEN,
-    TIMER_INTERRUPTION
+    TIMER_INTERRUPTION,
+    USERS_PANEL_UPDATE
 } from "../modules/events.js";
 import { WAITING, SINGLE_GAME, ONLINE_GAME } from "../paths";
 
@@ -93,15 +94,18 @@ class GameF {
         }
     }
 
+    // created->done_connection->waiting->closed (success)
+    // created->closed (crash)
+
     _roomChange() {
         if (RoomM.current.state === "waiting") {
+            // Bus.emit(UESERS_PANEL_UPDATE);
+            // Bus.emit(PACK_INFO_UPDATE);
+        } else if (RoomM.current.state === "done_connection") {
             Bus.emit(WEBSOCKET_CONNECTION, true);
         } else if (RoomM.current.state === "closed") {
             const closeCode = RoomM.current.closeCode;
             const lastState = RoomM.current.lastState;
-
-            this.current.clear();
-            this.current = undefined;
 
             Bus.emit(WEBSOCKET_CLOSE, {
                 code: closeCode,

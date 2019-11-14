@@ -59,9 +59,11 @@ class WebSocketIface {
 
         this.socket.onmessage = (event) => {
             if (this.handlersMap) {
-                for (const [type, handler] of this.handlersMap) {
+                for (const type in this.handlersMap) {
                     if (event.data.type === type) {
-                        handler(event.data.value);
+                        for (const handler in this.handlersMap[type]) {
+                            handler(event.data.payload);
+                        }
                     }
                 }
             }
@@ -77,10 +79,27 @@ class WebSocketIface {
 
     addMessageHandler(type, handler) {
         if (!this.handlersMap) {
-            this.handlersMap = new Map;
+            this.handlersMap = {};
         }
 
-        this.handlersMap.set(type, handler);
+        if (!this.handlersMap[type]) {
+            this.handlersMap[type] = new Array;
+        }
+
+        this.handlersMap[type].push(handler);
+    }
+
+    removeMessageHandler(type, removing) {
+        if (!this.handlersMap) {
+            return;
+        }
+
+        if (!this.handlersMap[type]) {
+            return;
+        }
+
+        this.handlersMap[type] = this.handlersMap[type]
+        .filter((handler) => handler !== removing);
     }
 
 
@@ -141,7 +160,7 @@ class WebSocketIface {
 
 
     clearHandlers() {
-        this.handlersMap.clear();
+        this.handlersMap = {};
         this.errHandlers = new Array;
         this.closeHandlers = new Array;
         this.openHandlers = new Array;

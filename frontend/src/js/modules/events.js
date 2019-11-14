@@ -40,15 +40,13 @@ export const QUESTION_CHANGE = "questionChange";
 export const ROOM_CHANGE = "roomChange";
 
 export const WEBSOCKET_CONNECTION = "websocketConnection";
-
 export const WEBSOCKET_CLOSE = "websocketClose";
 
 export const QUESTION_PANEL_UPDATE = "questPanelUpdate";
-
+export const USERS_PANEL_UPDATE = "usersPanelUpdate";
 export const QUESTION_WAS_CHOSEN = "questionWasChosen";
 
 export const TIMER_STOPPED = "timerStopped";
-
 export const TIMER_INTERRUPTION = "timerInterruption"
 
 export const FORM_CHANGED = "formChanged"

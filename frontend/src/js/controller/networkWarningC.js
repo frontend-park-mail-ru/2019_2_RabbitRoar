@@ -25,7 +25,7 @@ class NetworkWarningC {
 
     _wsClose(close) {
         if (close.code !== 1000) {
-            if (close.lastState === "inited") {
+            if (close.lastState === "created") {
                 this._showOrHidePopUp("popup_connection_error");
             }
         }

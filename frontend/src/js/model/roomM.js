@@ -29,12 +29,13 @@ class RoomM {
 
 class RealRoomM {
     constructor(roomId, roomOptions) {
-        this.mode = "created";
+        this.state = "created";
         this.roomOptions = roomOptions;
         this.roomId = roomId;
 
-        WebSocketIface.addMessageHandler("room_created", this._roomCreated.bind(this));
-        WebSocketIface.addMessageHandler("room_to_delete", this._roomToDeleted.bind(this));
+        this.createHandler = this._roomCreated.bind(this);
+
+        WebSocketIface.addMessageHandler("room_created", this.createHandler);
 
         WebSocketIface.addErrorHandler(this._crashConnection.bind(this));
         WebSocketIface.addOpenHandler(this._doneConnection.bind(this));
@@ -45,13 +46,18 @@ class RealRoomM {
     }
 
 
-    _roomCreated() {
+    _roomCreated(data) {
+        console.log("Room init data recieve");
+        this.roomName = data.room_name;
+        this.playersCap = data.players_cap;
+        this.private = data.private;
+        this.packId = data.pack_id;
 
+        this.lastState = this.state;
+        this.state = "waiting";
+        Bus.emit(ROOM_CHANGE);
     }
 
-    _roomToDeleted() {
-
-    }
 
     _crashConnection(error) {
         // this.lastState = this.state;
@@ -61,7 +67,7 @@ class RealRoomM {
 
     _doneConnection() {
         this.lastState = this.state;
-        this.state = "waiting";
+        this.state = "done_connection";
         Bus.emit(ROOM_CHANGE);
     }
 
