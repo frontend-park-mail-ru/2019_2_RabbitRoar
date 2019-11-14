@@ -4,7 +4,6 @@ import Bus from "../event_bus.js";
 import GameF from "../fasade/gameF.js";
 import { QUESTION_PANEL_UPDATE, TIMER_INTERRUPTION, TIMER_STOPPED } from "../modules/events.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
-import gameF from "../fasade/gameF.js";
 
 
 class QuestionTableE {
@@ -53,7 +52,6 @@ class QuestionTableE {
         } else {
             replaceTwoCssClasses(barElement, "progress-bar", "progress-bar-hidden");
         }
-        GameF.addElement();
     }
 
     destroy() {
@@ -63,7 +61,6 @@ class QuestionTableE {
         }
         this.controller.drop();
         this.root.innerHTML = "";
-        GameF.removeElement();
     }
 
     _interruptProgressBar() {

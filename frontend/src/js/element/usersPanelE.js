@@ -2,6 +2,7 @@ import Template from "./templates/usersPanelT.pug";
 import ValidatorF from "../fasade/userValidatorF.js";
 import UsersPanelC from "../controller/usersPanelC.js";
 
+import GameF from "../fasade/gameF.js";
 
 class UsersPanelE {
     constructor() {
@@ -9,8 +10,7 @@ class UsersPanelE {
         return this;
     }
 
-    async create(root = document.getElementById("application")) {
-        
+    async create(root = document.getElementById("application")) {        
         this.root = root;
         let currentUserData;
         const authorized = ValidatorF.checkLocalstorageAutorization();

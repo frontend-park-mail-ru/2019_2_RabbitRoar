@@ -10,6 +10,7 @@ export const ObservableMixin = {
     off(event, callback) {
         this.listeners[event] = this.listeners[event]
             .filter(function (listener) {
+                console.log(listener !== callback);
                 return listener !== callback;
             });
     },

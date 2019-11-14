@@ -11,7 +11,7 @@ import {
     QUESTION_WAS_CHOSEN,
     TIMER_INTERRUPTION
 } from "../modules/events.js";
-import { ROOT } from "../paths";
+import { WAITING, SINGLE_GAME, ONLINE_GAME } from "../paths";
 
 import GamePanelC from "../controller/gamePanelC.js";
 import QuestionTableC from "../controller/questionsTableC.js"
@@ -21,11 +21,16 @@ import QuestionTableE from "../element/questionTableE.js"
 
 class GameF {
     constructor() {
+        this.clearGameHandler = this._clearGame.bind(this);
+
+        this.gamePaths = [WAITING, SINGLE_GAME, ONLINE_GAME];
+
         this.livingElements = 0;
         this.ifaces = new Map;
         this.ifaces.set(GamePanelC, this._gamePanelCInterface.bind(this));
         this.ifaces.set(QuestionTableC, this._questionTableCInterface.bind(this));
         this.ifaces.set(QuestionTableE, this._questionTableEInterface.bind(this));
+
         Bus.on(QUESTION_CHANGE, this._questionChange.bind(this));
         Bus.on(ROOM_CHANGE, this._roomChange.bind(this));
     }
@@ -38,7 +43,6 @@ class GameF {
         return this.ifaces.get(consumer);
     }
 
-    //packId = null, roomId = null, roomOptions = null
     async CreateGame(mode = "offline", options) {
         if (mode === "offline") {
             this.current = await this._createOfflineGame(options.packId);
@@ -49,6 +53,8 @@ class GameF {
                 this.current = await this._createOnlineGame(null, options.roomOptions);
             }
         }
+        console.log("GAME CREATE");
+        Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
     }
 
     async _createOfflineGame(clickId) {
@@ -62,19 +68,16 @@ class GameF {
     }
 
 
-    addElement() {
-        this.livingElements++;
-    }
 
-    removeElement() {
-        this.livingElements--;
-        if (this.livingElements < 0) {
-            console.log("Warning!");
+    _clearGame(path) {
+        if (this.gamePaths.includes(path)) {
+            return
         }
-        if (this.livingElements === 0) {
-            this.current.clear();
-            this.current = undefined;
-        }
+
+        console.log("Game clearing");
+        this.current.clear();
+        this.current = undefined;
+        Bus.off(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
     }
 
 
@@ -135,7 +138,7 @@ class OfflineGameF {
     }
 
     clear() {
-
+        QuestionsM.clear();
     }
 
 
@@ -169,11 +172,6 @@ class OfflineGameF {
         };
         return iface;
     };
-
-
-    getPackName(){
-
-    }
 }
 
 // ===================================================
@@ -186,18 +184,11 @@ class OnlineGameF {
     }
 
     clear() {
-
+        console.log("clear logic");
     }
 
     async connect() {
         await RoomM.connect();
-    }
-
-    
-
-    addElement() {
-        QuestionsM.addElement();
-        RoomM.addElement();
     }
 
 
