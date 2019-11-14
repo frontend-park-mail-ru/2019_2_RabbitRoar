@@ -4,14 +4,46 @@ import Bus from "../event_bus.js";
 import { ROOM_CHANGE } from "../modules/events.js";
 
 class RoomM {
-    constructor(packName) {
+    constructor() {
+        this.current = undefined;
+    }
+
+    CreateNew(roomId, roomOptions) {
+        this.current = new RealRoomM(roomId, roomOptions);
+    }
+
+    clear() {
+        WebSocketIface.disconnect();
+        this.current = undefined;
+        console.log("комната уничтожена");
+    }
+
+    async connect() {
+        await this.current.connect();
+    }
+
+    getRoomName() {
+        return this.current.roomId;
+    }
+}
+
+class RealRoomM {
+    constructor(roomId, roomOptions) {
+        this.mode = "created";
+        this.roomOptions = roomOptions;
+        this.roomId = roomId;
+
         WebSocketIface.addMessageHandler("room_created", this._roomCreated.bind(this));
         WebSocketIface.addMessageHandler("room_to_delete", this._roomToDeleted.bind(this));
 
         WebSocketIface.addErrorHandler(this._crashConnection.bind(this));
         WebSocketIface.addOpenHandler(this._doneConnection.bind(this));
         WebSocketIface.addCloseHandler(this._closeConnection.bind(this));
+
+        console.log("комната создалась");
+        console.log(this.roomId);
     }
+
 
     _roomCreated() {
 
@@ -71,10 +103,6 @@ class RoomM {
         //
         //await getWS();
         //WebSocketIface.connect();
-    }
-
-    getRoomName() {
-        return this.packName;
     }
 
 }

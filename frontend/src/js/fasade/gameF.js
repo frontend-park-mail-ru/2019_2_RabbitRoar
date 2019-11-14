@@ -94,11 +94,11 @@ class GameF {
     }
 
     _roomChange() {
-        if (RoomM.state === "waiting") {
+        if (RoomM.current.state === "waiting") {
             Bus.emit(WEBSOCKET_CONNECTION, true);
-        } else if (RoomM.state === "closed") {
-            const closeCode = RoomM.closeCode;
-            const lastState = RoomM.lastState;
+        } else if (RoomM.current.state === "closed") {
+            const closeCode = RoomM.current.closeCode;
+            const lastState = RoomM.current.lastState;
 
             this.current.clear();
             this.current = undefined;
@@ -184,7 +184,8 @@ class OnlineGameF {
     }
 
     clear() {
-        console.log("clear logic");
+        QuestionsM.clear();
+        RoomM.clear();
     }
 
     async connect() {
