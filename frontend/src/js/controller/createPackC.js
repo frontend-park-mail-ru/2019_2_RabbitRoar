@@ -71,11 +71,21 @@ class CreatePackC {
         }
     }
 
+    _fillThemes() {
+        console.log("fill themes");
+        this.themes.forEach((theme, index) => {
+            const lineId = "Тема " + index;
+            const children = document.getElementById(lineId).childNodes;
+            children[0].innerHTML = this.themes[index];
+        });
+    }
+
     _processForm(form_number) {
         if (form_number === 2) {
             this.currentFormPart = 2;
             document.getElementById("form-part-2").style.display = "block";
             document.getElementById("form-part-1").style.display = "none";
+            this._fillThemes();
             return;
         }
         this.currentFormPart = 1;
@@ -84,18 +94,9 @@ class CreatePackC {
     }
 
     _goFurther() {
-        // const error = roomCreatureVaildation();
-        // if (error) {
-        //     return;
-        // }
-
-        //.usersCount = parseInt(document.getElementById("users-number").value);
-
-        //this.packName = document.getElementById("pack-name").value;
-        const error = packCreationVaildationForm1();
-        if (error) {
-            alert("error");
-        } else {
+        const [error, arrayThemes] = packCreationVaildationForm1();
+        if (!error) {
+            this.themes = arrayThemes;
             Bus.emit(FORM_CHANGED, 2);
         }
     }

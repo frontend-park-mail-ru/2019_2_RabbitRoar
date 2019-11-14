@@ -45,11 +45,11 @@ div(id="form-part-2")
             +cell(4, theme_name)
 
     div(class="question-container")
-        each theme, index in ['Тема 1', 'Тема 2', 'Тема 3', 'Тема 4', 'Тема 5']
+        each theme, index in ['Тема 0', 'Тема 1', 'Тема 2', 'Тема 3', 'Тема 4']
             +line(theme, theme)
     form(class="form")
         button(type="submit", id="save-pack") Сохранить пак
-        button(type="submit", id="back") Назад
+        button(type="submit", class="back") Назад
 
     div(class="popup" id="popup-question")
         div(class="popup__content-question " id="popup_content")

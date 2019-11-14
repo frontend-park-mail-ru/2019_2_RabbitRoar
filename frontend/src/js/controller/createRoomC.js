@@ -4,7 +4,7 @@ import { WAITING, ROOM_CREATOR, ROOT } from "../paths.js";
 import { ROUTER_EVENT, FORM_CHANGED } from "../modules/events.js";
 import GameF from "../fasade/gameF.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
-import { roomCreatureVaildation } from "../modules/form_validation";
+import { packCreationVaildationForm1 } from "../modules/form_validation";
 
 class CreateRoomC {
     constructor() {
@@ -70,7 +70,7 @@ class CreateRoomC {
     }
 
     _goFurther() {
-        const error = roomCreatureVaildation();
+        const error = packCreationVaildationForm1();
         if (error) {
             return;
         }
