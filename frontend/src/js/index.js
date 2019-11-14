@@ -18,6 +18,8 @@ import PackCreatorV from "./view/packCreatorV"
 import Worker from "./workers/gameLoader.worker.js";
 
 import ContentF from "./fasade/contentF.js";
+
+Sentry.init({ dsn: "https://f01fba73e5e04b9eb288a0808cd9940e@sentry.io/1820862" });
 //let socket = new WebSocket("wss://svoyak.fun:3010/game/ws");
 
 // socket.onopen = function (e) {
@@ -46,7 +48,6 @@ Bus.on(PACK_WORKER_COMMAND, (data) => window.packWorker.postMessage(data));
 ContentF.updateLocalPacks().then(
     () => console.log()
 );
-
 
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/sw.js").then(function (registration) {
