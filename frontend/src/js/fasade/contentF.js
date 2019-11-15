@@ -7,13 +7,17 @@ import MainMenuM from "../model/mainMenuM.js";
 import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
 import { id } from "../modules/id.js";
 
+import UserValidatorF from "./userValidatorF";
+
 
 class ContentF {
     constructor() {
 
     }
 
-    async savePack(packObj, csrf) {
+    async savePack(packObj) {
+        const csrfJson = await UserValidatorF.getCSRF();
+        const csrf = csrfJson.CSRF;
         ContentM.savePack(packObj, csrf).catch(
             (error) => console.log(`ERROR at: contentF.savePack - ${error}`));
     }
@@ -37,7 +41,6 @@ class ContentF {
 
     async getTabContent(currentId = MainMenuM.currentTab) {
         const content = await ContentM.getTabContent(currentId);
-        console.log(content);
         return content;
     }
 

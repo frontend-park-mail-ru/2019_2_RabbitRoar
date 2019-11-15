@@ -210,3 +210,13 @@ export async function getPublicPackList() {
     const packList = await response.json();
     return packList;
 }
+
+export async function getMyPackList() {
+    let response = await getRequest("/pack/offline/author");
+    if (!response.ok) {
+        throw new Error(`Cannot get my pack list: ${response.statusText}`);
+    }
+
+    const packList = await response.json();
+    return packList;
+}

@@ -17,10 +17,10 @@ onmessage = async function (event) {
             parsePack(pack);
         }
 
-        const myPacks = getDefaultPacks();
-        for (const pack of myPacks) {
-            parsePack(pack);
-        }
+        // const myPacks = getDefaultPacks();
+        // for (const pack of myPacks) {
+        //     parsePack(pack);
+        // }
     }
 }
 
@@ -54,7 +54,7 @@ function parsePack(pack) {
     self.postMessage(packMsg);
 
     for (const line of pack.pack) {
-        let keyBase = pack.id + line.name;
+        let keyBase = pack.id + "-" + line.name + "-";
         let i = 0;
         for (const question of line.questions) {
             const key = keyBase + (i++);
@@ -230,10 +230,10 @@ function getDefaultPacks() {
     const packs = new Array;
     for (let j = 0; j < 2; ++j) {
         const pack = {};
-        pack.id = j + 2;
+        //pack.id = j + 2;
         pack.name = name[j];
-        pack.rating = 100 + j * 100;
-        pack.author = 14;
+        //pack.rating = 100 + j * 100;
+        //pack.author = 14;
         pack.pack = function () {
             const lines = new Array;
             for (let i = 0; i < 5; i++) {
