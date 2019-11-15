@@ -1,5 +1,17 @@
 import { postRequest, deleteRequest, getRequest, putRequest } from "./ajax.js";
 
+export async function savePack(packObj, csrf) {
+    const headers = {
+        "Content-type": "application/json",
+        "X-Csrf-Token": csrf,
+    }
+
+    let response = await postRequest("/pack", JSON.stringify(packObj), headers);
+    if (response.status !== 201) {
+        throw new Error(`Pack creation error: ${response.statusText}`);
+    }
+}
+
 export async function signIn(login, password) {
     const body = JSON.stringify({
         "username": login,
@@ -20,7 +32,7 @@ export async function logout() {
     if (response.status === 401) {
         localStorage.removeItem("authorized");
         //throw new Error(`Logout error: ${response.statusText}`);
-    } 
+    }
 }
 
 export async function signUp(userStructure) {
@@ -88,7 +100,7 @@ export async function getUserInfo() {
 
 export async function getCSRF() {
     let response = await getRequest("/csrf");
-    
+
     if (!response.ok) {
         throw new Error(`Cannot get user info: ${response.statusText}`);
     }

@@ -3,7 +3,8 @@ import User from "../model/userM.js";
 import { USER_VALIDATE, ROUTER_EVENT, PROFILE_UPDATE } from "../modules/events.js";
 import { LOGIN, SIGN_UP, ROOT } from "../paths";
 import userM from "../model/userM.js";
-import {basePhotoUrl} from "../modules/ajax.js"
+import contentM from "../model/contentM.js";
+import { basePhotoUrl } from "../modules/ajax.js"
 
 const defaultAvatar = "https://pngimage.net/wp-content/uploads/2018/06/user-logo-png-4.png";
 //PUBLUC:
@@ -38,14 +39,14 @@ class ValidatorF {
 
     changeTextFields(changesMap, csrf) {
         userM.changeTextFields(changesMap, csrf).then(
-            resolve => {}
+            resolve => { }
         ).catch(
             (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
     }
 
     changeUserAvatar(formData, csrf) {
         userM.changeAvatar(formData, csrf).then(
-            resolve => {}
+            resolve => { }
         ).catch(
             (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
     }
@@ -84,7 +85,7 @@ class ValidatorF {
         return csrf;
     }
 
-    getFullImageUrl(avatarUrlFromServer){
+    getFullImageUrl(avatarUrlFromServer) {
         if (avatarUrlFromServer == "") {
             return defaultAvatar;
         } else {
@@ -92,9 +93,8 @@ class ValidatorF {
         }
     }
 
-    getDefaultAvatar(){
+    getDefaultAvatar() {
         return defaultAvatar;
     }
-
 }
 export default new ValidatorF();

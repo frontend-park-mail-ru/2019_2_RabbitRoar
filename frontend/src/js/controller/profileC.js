@@ -33,7 +33,6 @@ class ProfileC {
             const csrf = csrfJson.CSRF;
             UserValidatorF.changeTextFields(result.changes, csrf);
             this.changedForms.clear();
-           // Bus.emit(PROFILE_UPDATE);
         }
     }
 

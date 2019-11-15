@@ -298,5 +298,5 @@ export const packCreationVaildationForm1 = () => {
             }
         }
     );
-    return [error, themesArray];
+    return [error, themesArray, packName];
 };

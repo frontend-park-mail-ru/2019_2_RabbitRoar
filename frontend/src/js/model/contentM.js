@@ -1,6 +1,7 @@
 import { queryTabContent } from "../modules/requests.js";
 import Bus from "../event_bus.js";
 import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
+import { savePack } from "../modules/requests.js";
 
 
 //PUBLIC:
@@ -19,6 +20,10 @@ class ContentM {
         this.downloadList = new Array();
         this.packList = ["default_pack"];
         Bus.on(PACK_WORKER_MESSAGE, this._workerHandler.bind(this));
+    }
+
+    async savePack(packObj, csrf) {
+        await savePack(packObj, csrf);
     }
 
     _workerHandler(msg) {

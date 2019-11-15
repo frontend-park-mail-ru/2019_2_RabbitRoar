@@ -86,3 +86,16 @@
     cursor: pointer;
   }
 }
+
+.error-annotation {
+  font-size: var(--small-font-size);
+  color: var(--color-danger);
+  visibility: hidden;
+  padding: 2px;
+}
+
+.error-visible {
+  font-size: var(--small-font-size);
+  color: var(--color-danger);
+  padding: 2px;
+}

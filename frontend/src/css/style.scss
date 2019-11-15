@@ -1,6 +1,9 @@
 @import "sizes";
 @import "TEMPLATE_PANEL";
 
+@import "./help/__question-img/help__question-img.scss";
+@import "./help/__text-help/help__text-help.scss";
+
 @import "/navbar/navbar";
 @import "/navbar/__exit/navbar__exit";
 @import "/navbar/__game-logo/navbar__game-logo";
@@ -16,7 +19,6 @@
 @import "/tab/__text/tab__text";
 @import "/tab/__сreate-pack-button/tab__create-pack-button";
 @import "/tab/__create-room-button/tab__create-room-button";
-@import "/tab/__question-img/tab__question-img";
 @import "/tab/__info-container/tab__info-container";
 
 @import "/pack-creation/pack-creation";
@@ -51,6 +53,8 @@
 @import "form-part/form-part";
 
 @import "faq-text/faq-text";
+
+@import "./flex-containers/flex-containers.scss";
 
 :root {
   // main colors

@@ -10,6 +10,11 @@ class ContentF {
 
     }
 
+    async savePack(packObj, csrf) {
+        ContentM.savePack(packObj, csrf).catch(
+            (error) => console.log(`ERROR at: contentF.savePack - ${error}`));
+    }
+
     async updateLocalPacks() {
         await ContentM.updatePackList();
         ContentM.doPackValidation();
