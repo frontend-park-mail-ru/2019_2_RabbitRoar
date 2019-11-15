@@ -21,7 +21,12 @@ const userCacheDelete = () => {
 
 
 export async function getUserPacks() {
-
+    let response = await getRequest("/pack/author");
+    if (!response.ok) {
+        throw new Error(`Cannot get pack list ${packId}: ${response.statusText}`);
+    }
+    const packs = await response.json();
+    return packs;
 }
 
 export async function savePack(packObj, csrf) {
@@ -47,7 +52,6 @@ export async function signIn(login, password) {
     let response = await postRequest("/login", body);
 
     if (!response.ok) {
-        console.log("zaloopa");
         throw new Error(`Signin error: ${response.statusText}`);
     }
 }
@@ -80,8 +84,9 @@ export async function changeAvatar(formData, csrf) {
         "X-Csrf-Token": csrf,
     }
     let response = await putRequest("/user/avatar", formData, headers);
-    if (!response.ok) {
-        const obj = JSON.parse(response.json());
+
+    if (response.status === 400) {
+        throw new Error(`Error while uploadind avatar: ${response.statusText}`);
     }
 }
 
@@ -93,11 +98,11 @@ export async function changeTextFields(changesMap, csrf) {
         "X-Csrf-Token": csrf,
     }
     let response = await putRequest("/user/", JSON.stringify(changesMap), headers);
-    if (!response.ok) {
-        throw new Error(`Content error: ${response.statusText}`);
+    if (response.status === 400) {
+        throw new Error(`Error in uploadind text fields: ${response.statusText}`);
+    } else if (response.status === 401) {
+        localStorage.removeItem("authorized");
     }
-    const obj = JSON.parse(response.json());
-    return obj;
 }
 
 export async function queryTabContent(id) {
