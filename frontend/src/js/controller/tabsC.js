@@ -27,11 +27,18 @@ class TabsC {
         this.registerClassHandler(".tab-click", "mouseout", this._unLightTab.bind(this));
 
         this.registerClassHandler(".join-button", "click", this._joinClick.bind(this));
+        this.registerClassHandler(".delete", "click", this._deleteCurrentClass.bind(this));
+
         this.registerHandler("create-pack-button", "click", this._createPack.bind(this));
 
         this.registerClassHandler(".popup-button", "click", this._processPopUp.bind(this));
         this.registerClassHandler(".tab__create-room-btn", "click", this._routeToRoomCreation.bind(this));
 
+    }
+
+    _deleteCurrentClass(event) {
+        const packForDelete = event.target.getAttribute("join_id");
+        ContentF.deletePackById(packForDelete);
     }
 
     start() {
@@ -76,8 +83,8 @@ class TabsC {
         }
     }
 
-    _createPack(){
-        if (!ValidatorF.checkLocalstorageAutorization()){
+    _createPack() {
+        if (!ValidatorF.checkLocalstorageAutorization()) {
             document.getElementById("popup-elem-top").innerHTML = "Для создания пака необходимо авторизоваться";
             this._showOrHidePopUp();
         } else {

@@ -19,6 +19,17 @@ const userCacheDelete = () => {
     }
 }
 
+export async function deletePackById(csrf, id) {
+    const headers = {
+        "X-Csrf-Token": csrf,
+    }
+
+    let response = await deleteRequest("/pack/" + id, {}, headers);
+
+    if (response.status !== 200) {
+        throw new Error(`Error in pack delete: ${response.statusText}`);
+    }
+}
 
 export async function getUserPacks() {
     let response = await getRequest("/pack/author");

@@ -18,6 +18,7 @@ class TabsE {
         this.root = root;
         this.controller.start();
         const id = ContentF.getCurrentTab();
+
         ContentF.getTabContent(id).then(
             templateContent => {
                 this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
@@ -26,7 +27,6 @@ class TabsE {
             }
         );
     }
-
 
     _restartListener(event) {
         this.destroy();

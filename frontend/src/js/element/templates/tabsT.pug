@@ -25,7 +25,7 @@ div(class="main-container")
                     div(class="panel-elem elem-justify-start") #{val.name}
                     div(class="panel-elem") #{val.currentPlayers}/#{val.maxPlayers}
                     div(class="panel-elem" id=index)
-                        div(class="join-button" id="play" join_id=index) Присоединиться
+                        div(class="join-button button-in-list" id="play" join_id=index) Присоединиться
 
         div(class="tab__info-container")
             div(class="flex-container")
@@ -72,25 +72,44 @@ div(class="main-container")
                     div(class="popup-elem-bottom ")
                         div(class="popup-button" id="cansel") Отмена
                         div(class="popup-button" id="continue") Продолжить
+                        
             each pack, index in templateContent.content
                 div(class="offline-panel")
                     div(class="panel-elem") #{pack.name}
                     div(class="panel-elem") #{pack.author}
                     div(class="panel-elem") #{pack.rating}
                     div(class="panel-elem")
-                        div(class="join-button" id="play" join_id=pack.id) Играть
+                        div(class="join-button button-in-list" id="play" join_id=pack.id) Играть
+
     else if templateContent.contentType == window.id.tabPack
         div(class="tab-content")
+            if (templateContent.content.length)
+                    div(id="offline_mode")
+                    div(class="offline-panel")
+                        div(class="panel-elem") Название:
+                        div(class="panel-elem") Рейтинг:
+                        div(class="panel-elem") 
+                        div(class="panel-elem")
+                    each pack, index in templateContent.content
+                        div(class="offline-panel")
+                            div(class="panel-elem") #{pack.name}
+                            div(class="panel-elem") #{pack.rating}
+                            div(class="panel-elem")
+                            div(class="panel-elem")
+                                div(class="button-in-list delete" id="delete" join_id=pack.id) Удалить
+            else    
+                div(class="faq-text")
+                    div(class="line") Создавайте свои паки и играйте с друзьями!
+            div(class="button-container-create-pack")
+                div(class="create-pack-button" id="create-pack-button") Создать пак
+
             div(class="popup " id="popup")
                 div(class="popup__content " id="popup_content")
                     div(class="popup-elem-top" id="popup-elem-top") Для создания пака необходимо авторизоваться
                     div(class="popup-elem-bottom ")
                         div(class="popup-button" id="cansel") Отмена
                         div(class="popup-button" id="login") Продолжить
-            div(class="faq-text")
-                div(class="line") Создавайте свои паки и играйте с друзьями!
-            div(class="button-container-create-pack")
-                div(class="create-pack-button" id="create-pack-button") Создать пак 
+
             
 
     else if templateContent.contentType == window.id.tabAboutGame

@@ -1,7 +1,7 @@
 import { queryTabContent, getPlayedPackList, getPublicPackList } from "../modules/requests.js";
 import Bus from "../event_bus.js";
 import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
-import { savePack } from "../modules/requests.js";
+import { savePack, getUserPacks, deletePackById } from "../modules/requests.js";
 
 
 //PUBLIC:
@@ -25,6 +25,10 @@ class ContentM {
         await savePack(packObj, csrf);
     }
 
+    async deletePackById(crsfString, id) {
+        await deletePackById(crsfString, id);
+    }
+    
     _workerHandler(msg) {
         if (msg.data.type === "pack") {
             localStorage.setItem(msg.data.key, msg.data.value)
@@ -44,9 +48,9 @@ class ContentM {
             this.packList.push(3);
         } catch(err) {
             console.log(err);
-            throw(err);
+            throw (err);
         }
-        
+
         if (localStorage.getItem("packs_list")) {
             const savedPacks = JSON.parse(localStorage.getItem("packs_list"));
             for (const savedPackId of savedPacks) {     // Удалит паки которых нет у пользователя в профиле
@@ -119,6 +123,10 @@ class ContentM {
         }
     }
 
+    async getUserPacks() {
+        const packs = await getUserPacks();
+        return packs;
+    }
 
     async getTabContent(id) {
         if (id === window.id.tabRoom) {
@@ -137,10 +145,9 @@ class ContentM {
                     roomId: i + 1,
                 });
             }
-
-
             return mainContent;
         }
+
         if (id === window.id.tabTop) {
             const mainContent = {
                 infoPanel: {
@@ -162,12 +169,11 @@ class ContentM {
             return mainContent;
         }
 
-        // empty content
         if (id === window.id.tabPack) {
+            const packs = await getUserPacks();
             const mainContent = {
-                text: "Добро пожаловать в Свою Игру!",
                 contentType: id,
-                content: []
+                content: packs
             };
             return mainContent;
         }
@@ -175,9 +181,7 @@ class ContentM {
         // empty content
         if (id === window.id.tabAboutGame) {
             const mainContent = {
-                text: "Добро пожаловать в Свою Игру!",
                 contentType: id,
-                content: []
             };
             return mainContent;
         }
