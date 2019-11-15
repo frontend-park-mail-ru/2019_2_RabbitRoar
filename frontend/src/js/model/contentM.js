@@ -28,7 +28,7 @@ class ContentM {
     async deletePackById(crsfString, id) {
         await deletePackById(crsfString, id);
     }
-    
+
     _workerHandler(msg) {
         if (msg.data.type === "pack") {
             localStorage.setItem(msg.data.key, msg.data.value)

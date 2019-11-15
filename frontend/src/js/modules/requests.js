@@ -33,6 +33,9 @@ export async function deletePackById(csrf, id) {
 
 export async function getUserPacks() {
     let response = await getRequest("/pack/author");
+    if(response.status === 401) {
+        return {};
+    }
     if (!response.ok) {
         throw new Error(`Cannot get pack list ${packId}: ${response.statusText}`);
     }
@@ -193,6 +196,10 @@ export async function getPackById(packId) {
 
 export async function getPlayedPackList() {
     let response = await getRequest("/pack/offline");
+    if(response.status === 401) {
+        return {};
+    }
+
     if (!response.ok) {
         throw new Error(`Cannot get offline pack list: ${response.statusText}`);
     }
@@ -203,6 +210,10 @@ export async function getPlayedPackList() {
 
 export async function getPublicPackList() {
     let response = await getRequest("/pack/offline/public");
+    if(response.status === 401) {
+        return {};
+    }
+
     if (!response.ok) {
         throw new Error(`Cannot get public pack list: ${response.statusText}`);
     }

@@ -1,7 +1,12 @@
 .navbar__game-logo {
-    width: 30%;
-    text-decoration: none;
-    text-align: center;
-    color: var(--color-headers-font);
-    font-size: var(--big-font-size);
-  }
+  text-decoration: none;
+  text-align: center;
+  color: var(--color-headers-font);
+  font-size: var(--big-font-size);
+}
+
+.navbar__game-logo-container {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row: 1;
+}

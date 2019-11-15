@@ -8,6 +8,7 @@
 @import "/navbar/__exit/navbar__exit";
 @import "/navbar/__game-logo/navbar__game-logo";
 @import "/navbar/__user-logo/navbar__user-logo";
+@import "/navbar/__back-svg/navbar__back-svg";
 
 @import "/profile/__download-img/profile__download-img";
 @import "/profile/__user-img/profile__user-img";
@@ -24,14 +25,12 @@
 @import "/pack-creation/pack-creation";
 @import "/pack-creation/__input/pack-creation__input";
 
+@import "/users-panel/users-panel";
+@import "/users-panel/__ready-indicator/users-panel__ready-indicator.scss";
+@import "/button/__ready-button/button__ready-button.scss";
 
-@import '/users-panel/users-panel';
-@import '/users-panel/__ready-indicator/users-panel__ready-indicator.scss';
-@import '/button/__ready-button/button__ready-button.scss';
-
-
-@import '/pack-info/pack-info';
-@import '/pack-creation/pack-creation';
+@import "/pack-info/pack-info";
+@import "/pack-creation/pack-creation";
 
 @import "/main-menu-container/main-menu-container";
 @import "/best-players-panel/best-players-panel";
@@ -63,38 +62,37 @@
 @import "./flex-containers/flex-containers.scss";
 
 :root {
-    // main colors
-    --color-bg-dark: rgb(23, 21, 32);
-    --color-bg-light: rgba(38, 35, 53, 1);
-  
-    // form
-    --color-success: #72f1b8;
-    --color-input-valid: #c5aee0;
-    --color-danger: #920031;
-  
-    // старый цвет - rgba(54, 249, 246, 1);
-    --border-color-theme: #c5aee0;
-  
-    // scroll
-    --scroll-background: var(--color-bg-light);
-    --scroll: #c5aee0;
-  
-    // text
-    --color-headers-font: white;
-    --font-color-theme: #c5aee0;
-  
-    // questions
-    --question-theme-bg: var(--color-bg-dark);
-    --question-container-border-width: 1px;
-    --question-container-gap-width: 2px;
-  
-    --color-border-primary-low: #b497d6;
-    --forth-color: #efbcd5;
-  
-    --main-width: 90vw;
-    --main-content-vertical-margin: 2vh;
-  }
-  
+  // main colors
+  --color-bg-dark: rgb(23, 21, 32);
+  --color-bg-light: rgba(38, 35, 53, 1);
+
+  // form
+  --color-success: #72f1b8;
+  --color-input-valid: #c5aee0;
+  --color-danger: #920031;
+
+  // старый цвет - rgba(54, 249, 246, 1);
+  --border-color-theme: #c5aee0;
+
+  // scroll
+  --scroll-background: var(--color-bg-light);
+  --scroll: #c5aee0;
+
+  // text
+  --color-headers-font: white;
+  --font-color-theme: #c5aee0;
+
+  // questions
+  --question-theme-bg: var(--color-bg-dark);
+  --question-container-border-width: 1px;
+  --question-container-gap-width: 2px;
+
+  --color-border-primary-low: #b497d6;
+  --forth-color: #efbcd5;
+
+  --main-width: 90vw;
+  --main-content-vertical-margin: 2vh;
+}
 
 body {
   // дублирование цвета
