@@ -20,8 +20,8 @@
 }
 
 .player-avatar {
-  border-color: $color-bg-light;
-  border: 2px solid $color-border-primary-low;
+  border: 2px solid var(--border-color-theme);
+  border-bottom-width: 0px;
 }
 
 

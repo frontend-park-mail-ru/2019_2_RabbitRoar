@@ -14,16 +14,17 @@ if roomState === "done_connection"
                     src=userData.avatar_url,
                     alt="User")
                 div(class="panel-text") #{userData.username}
-            div(class="users-panel__ready-indicator", id="capitan-ready") Готов
+            div(class="users-panel__ready-indicator users-panel__ready-indicator__true", id="capitan-ready")
         div(class="other-user")
             div(class="player-avatar")
-            div(class="users-panel__ready-indicator", id="ready") Готов
+            div(class="users-panel__ready-indicator users-panel__ready-indicator__true", id="ready")
         div(class="other-user")
             div(class="player-avatar")
-            div(class="users-panel__ready-indicator", id="ready") Готов
+            div(class="users-panel__ready-indicator users-panel__ready-indicator__false", id="ready")
         div(class="other-user")
             div(class="player-avatar")
-            div(class="users-panel__ready-indicator", id="ready") Готов
+            div(class="users-panel__ready-indicator users-panel__ready-indicator__false", id="ready")
+    div(class="button-ready-button") Готов
 
 else if roomState === "waiting"
 

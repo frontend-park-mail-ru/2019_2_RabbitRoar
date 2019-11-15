@@ -23,8 +23,8 @@
 
 
 @import '/users-panel/users-panel';
-@import '/users-panel/__ready-button/users-panel__ready-button.scss';
 @import '/users-panel/__ready-indicator/users-panel__ready-indicator.scss';
+@import '/button/__ready-button/button__ready-button.scss';
 
 
 @import '/pack-info/pack-info';
@@ -61,19 +61,38 @@
 
 
 :root {
-    --question-theme-bg: $color-bg-dark;
-    --main-width: 90vw;
-    --main-content-vertical-margin: 2vh;
-
-
-    --font-color-theme: rgba(54, 249, 246, 1);
-    --border-color-theme: rgba(54, 249, 246, 1);
-
+    // main colors
+    --color-bg-dark: rgb(23, 21, 32);
+    --color-bg-light: rgba(38, 35, 53, 1);
+  
+    // form
+    --color-success: #72f1b8;
+    --color-input-valid: #c5aee0;
+    --color-danger: #920031;
+  
+    // старый цвет - rgba(54, 249, 246, 1);
+    --border-color-theme: #c5aee0;
+  
+    // scroll
+    --scroll-background: var(--color-bg-light);
+    --scroll: #c5aee0;
+  
+    // text
+    --color-headers-font: white;
+    --font-color-theme: #c5aee0;
+  
+    // questions
+    --question-theme-bg: var(--color-bg-dark);
     --question-container-border-width: 1px;
     --question-container-gap-width: 2px;
-
-
-}
+  
+    --color-border-primary-low: #b497d6;
+    --forth-color: #efbcd5;
+  
+    --main-width: 90vw;
+    --main-content-vertical-margin: 2vh;
+  }
+  
 
 body {
     background-color: $color-bg-dark;
