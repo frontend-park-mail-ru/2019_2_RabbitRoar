@@ -1,5 +1,9 @@
 import { postRequest, deleteRequest, getRequest, putRequest } from "./ajax.js";
 
+export async function getUserPacks() {
+
+}
+
 export async function savePack(packObj, csrf) {
     const headers = {
         "Content-type": "application/json",

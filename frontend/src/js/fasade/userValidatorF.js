@@ -36,6 +36,10 @@ class ValidatorF {
         return userInfo;
     }
 
+    async getUserPacks() {
+        const packs = await User.getUserPacks();
+        return packs;
+    }
 
     changeTextFields(changesMap, csrf) {
         userM.changeTextFields(changesMap, csrf).then(

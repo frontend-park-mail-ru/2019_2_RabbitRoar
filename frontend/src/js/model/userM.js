@@ -1,4 +1,4 @@
-import { signIn, logout, signUp, changeAvatar, changeTextFields, getUserInfo, getCSRF } from "../modules/requests.js";
+import { signIn, logout, signUp, changeAvatar, changeTextFields, getUserInfo, getCSRF, getUserPacks } from "../modules/requests.js";
 import Bus from "../event_bus.js";
 
 class User {
@@ -22,8 +22,8 @@ class User {
         localStorage.setItem("authorized", true);
     }
 
-    checkLocalstorageAutorization(){
-        if (localStorage.getItem("authorized") === "true"){
+    checkLocalstorageAutorization() {
+        if (localStorage.getItem("authorized") === "true") {
             return true;
         } else {
             return false;
@@ -47,9 +47,13 @@ class User {
         localStorage.setItem("authorized", true);
     }
 
-    async getCSRF(){
+    async getCSRF() {
         let csrf = await getCSRF();
         return csrf;
+    }
+
+    async getUserPacks() {
+        await getUserPacks();
     }
 }
 export default new User();
