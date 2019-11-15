@@ -1,8 +1,6 @@
 import Template from "./templates/gamePanel.pug";
 import GamePanelC from "../controller/gamePanelC.js";
 import ValidatorF from "../fasade/userValidatorF.js";
-import Bus from "../event_bus.js";
-import GameF from "../fasade/gameF.js";
 
 class GamePanelE {
     constructor() {
@@ -27,13 +25,11 @@ class GamePanelE {
         
         this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData}));
         this.controller.start();
-        GameF.addElement();
     }
 
     destroy() {
         this.controller.drop();
         this.root.innerHTML = "";
-        GameF.removeElement();
     }
 }
 

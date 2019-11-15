@@ -1,4 +1,4 @@
-import { queryTabContent } from "../modules/requests.js";
+import { queryTabContent, getPlayedPackList, getPublicPackList } from "../modules/requests.js";
 import Bus from "../event_bus.js";
 import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
 import { savePack } from "../modules/requests.js";
@@ -18,7 +18,6 @@ import { savePack } from "../modules/requests.js";
 class ContentM {
     constructor() {
         this.downloadList = new Array();
-        this.packList = ["default_pack"];
         Bus.on(PACK_WORKER_MESSAGE, this._workerHandler.bind(this));
     }
 
@@ -37,10 +36,17 @@ class ContentM {
     }
 
     async updatePackList() {
-        //this.packList = await getPackList();
-        this.packList.push(0);
-        this.packList.push(1);
+        try {
+            const publicPacks = await getPublicPackList();
+            const playedPacks = await getPlayedPackList();
+            this.packList = [...publicPacks, ...playedPacks];
+        } catch(err) {
+            console.log(err);
+            throw(err);
+        }
 
+        console.log(`My packs: ${this.packList}`);
+        
         if (localStorage.getItem("packs_list")) {
             const savedPacks = JSON.parse(localStorage.getItem("packs_list"));
             for (const savedPackId of savedPacks) {     // Удалит паки которых нет у пользователя в профиле

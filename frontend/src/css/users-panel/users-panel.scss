@@ -1,22 +1,48 @@
 .user-panel-container {
-  display: grid;
-  margin: auto;
-  width: 60vw;
-  height: 10vh;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr, 1fr, 1fr, 1fr, 1fr, 1fr;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .other-user {
-  grid-row: 1;
-  border-color: var(--color-bg-light);
-  border: 2px solid var(--color-border-primary-low);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #main-user {
-  grid-row: 1;
-  grid-column-start: 1;
-  grid-column-end: 2;
-  background-color: var(--color-bg-light);
-  border: 2px solid var(--color-border-primary-low);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
+.player-avatar {
+  border: 2px solid var(--border-color-theme);
+  border-bottom-width: 0px;
+}
+
+
+
+
+
+@media all and (orientation: landscape) {
+  .player-avatar {
+    width: 10vw;
+    height: 10vw;
+  }
+}
+
+
+@media all and (orientation: portrait) {
+  .player-avatar {
+    width: 10vh;
+    height: 10vh;
+  }
+}
+
+
+
+

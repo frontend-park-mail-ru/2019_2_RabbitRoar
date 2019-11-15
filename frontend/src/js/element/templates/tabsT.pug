@@ -20,12 +20,6 @@ div(class="main-container")
                             div(class="popup-button" id="cansel") Отмена
                             div(class="popup-button" id="continue") Продолжить
 
-                div(class="popup" id="popup_error")
-                    div(class="popup__content")
-                        div(class="popup-elem-top" id="popup-elem-top-error") Не удалось установить соединение.
-                        div(class="popup-elem-bottom")
-                            div(class="popup-button" id="main") Смириться
-
             each val, index in templateContent.content
                 div(class="rooms-panel")
                     div(class="panel-elem elem-justify-start") #{val.name}

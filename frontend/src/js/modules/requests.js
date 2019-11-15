@@ -157,6 +157,19 @@ export async function postCreateRoom(roomOptions) {
     return obj;
 }
 
+export async function getJoinRoom(uuid) {
+    let response = await getRequest("/game/" + uuid + "/join");
+
+    if (response.status === 401) {
+        localStorage.removeItem("authorized");
+    }
+    if (!response.ok) {
+        throw new Error(`Cannot join room: ${response.statusText}`);
+    }
+    const obj = await response.json();
+    return obj;
+}
+
 export async function getPackById(packId) {
     let response = await getRequest("/pack/" + packId);
     if (!response.ok) {
@@ -165,4 +178,24 @@ export async function getPackById(packId) {
 
     const pack = await response.json();
     return pack;
+}
+
+export async function getPlayedPackList() {
+    let response = await getRequest("/pack/offline");
+    if (!response.ok) {
+        throw new Error(`Cannot get offline pack list: ${response.statusText}`);
+    }
+
+    const packList = await response.json();
+    return packList;
+}
+
+export async function getPublicPackList() {
+    let response = await getRequest("/pack/offline/public");
+    if (!response.ok) {
+        throw new Error(`Cannot get public pack list: ${response.statusText}`);
+    }
+
+    const packList = await response.json();
+    return packList;
 }
