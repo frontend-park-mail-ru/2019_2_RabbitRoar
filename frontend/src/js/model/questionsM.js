@@ -56,7 +56,7 @@ class OfflineQuestionsM {
             return;
         }
 
-        const key = "" + packId + cellId;
+        const key = "" + packId + "-" + cellId;
         const question = JSON.parse(localStorage.getItem(key));
         if (!question) {
             console.log("No question in cache");

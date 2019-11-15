@@ -14,7 +14,7 @@ const userCacheDelete = () => {
 
         Bus.emit(SERVICE_WORKER_CMD, {
             command: "regExp_delete",
-            regExp: new RegExp("^(/api/uploads/avatar/)[0-9]+(.jpeg|.png)$"),
+            regExp: new RegExp("^(/api/uploads/avatar/).+(\.jpeg|\.png)$"),
         });
     }
 }
@@ -216,6 +216,16 @@ export async function getPublicPackList() {
 
     if (!response.ok) {
         throw new Error(`Cannot get public pack list: ${response.statusText}`);
+    }
+
+    const packList = await response.json();
+    return packList;
+}
+
+export async function getMyPackList() {
+    let response = await getRequest("/pack/offline/author");
+    if (!response.ok) {
+        throw new Error(`Cannot get my pack list: ${response.statusText}`);
     }
 
     const packList = await response.json();

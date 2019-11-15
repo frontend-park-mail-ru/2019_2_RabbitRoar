@@ -1,6 +1,6 @@
 mixin cell(_id, theme)
     - const cost = (_id + 1) * 100;
-    - const modifyId = "" + theme + _id;
+    - const modifyId = "" + theme + "-" + _id;
     div(class="question-container__cost" id=modifyId) #{cost}
 
 mixin line(theme_id, theme_name)
