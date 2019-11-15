@@ -1,7 +1,7 @@
 import { queryTabContent, getPlayedPackList, getPublicPackList } from "../modules/requests.js";
 import Bus from "../event_bus.js";
 import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
-import { savePack, getUserPacks } from "../modules/requests.js";
+import { savePack, getUserPacks, deletePackById } from "../modules/requests.js";
 
 
 //PUBLIC:
@@ -25,6 +25,10 @@ class ContentM {
         await savePack(packObj, csrf);
     }
 
+    async deletePackById(crsfString, id) {
+        await deletePackById(crsfString, id);
+    }
+    
     _workerHandler(msg) {
         if (msg.data.type === "pack") {
             localStorage.setItem(msg.data.key, msg.data.value)
@@ -40,13 +44,13 @@ class ContentM {
             const publicPacks = await getPublicPackList();
             const playedPacks = await getPlayedPackList();
             this.packList = [...publicPacks, ...playedPacks];
-        } catch(err) {
+        } catch (err) {
             console.log(err);
-            throw(err);
+            throw (err);
         }
 
         console.log(`My packs: ${this.packList}`);
-        
+
         if (localStorage.getItem("packs_list")) {
             const savedPacks = JSON.parse(localStorage.getItem("packs_list"));
             for (const savedPackId of savedPacks) {     // Удалит паки которых нет у пользователя в профиле

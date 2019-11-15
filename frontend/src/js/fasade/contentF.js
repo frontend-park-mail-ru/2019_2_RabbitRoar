@@ -49,8 +49,7 @@ class ContentF {
 
     async deletePackById(packForDelete) {
         const csrf = await UserM.getCSRF();
-        //alert(csrf.CSRF);
-        //alert(packForDelete);
+        const response = await ContentM.deletePackById(csrf.CSRF, packForDelete);
     }
 }
 
