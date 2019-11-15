@@ -5,6 +5,7 @@ onmessage = async function (event) {
         console.log("Worker: Message received UPDATE");
 
         for (const packId of event.data.packList) {
+            console.log(`Try load pack${packId}`);
             try {
                 const pack = await getPackById(packId);
                 parsePack(pack);

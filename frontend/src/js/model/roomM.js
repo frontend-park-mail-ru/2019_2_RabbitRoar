@@ -1,71 +1,118 @@
-import { postCreateRoom, postJoinRoom, getWS } from "../modules/requests.js"
+import { postCreateRoom, getJoinRoom } from "../modules/requests.js"
 import WebSocketIface from "../modules/webSocketIface.js"
 import Bus from "../event_bus.js";
 import { ROOM_CHANGE } from "../modules/events.js";
 
+// "created" - Игра создана как объект в памяти
+// "before_connection" - Отправили join запрос и получили инфо о комнате
+// "done_connection" - Удалось установить соединение по вебсоккету
+// "waiting" - Ожидание игроков
+// "game" - Процесс игры
+// "closed" - Вебсоккет закрылся
+
+
 class RoomM {
-    constructor(packName) {
-        WebSocketIface.addMessageHandler("room_created", this._roomCreated.bind(this));
-        WebSocketIface.addMessageHandler("room_to_delete", this._roomToDelete.bind(this));
-
-        WebSocketIface.addErrorHandler(this._crashConnection.bind(this));
-
-        WebSocketIface.addOpenHandler(this._doneConnection.bind(this));
+    constructor() {
+        this.current = undefined;
     }
 
-    _roomCreated() {
-
+    get state() {
+        return this.current.state;
     }
-
-    _roomToDelete() {
-
-    }
-
-    _crashConnection() {
-        this.mode = "crash";
-        Bus.emit(ROOM_CHANGE);
-    }
-
-    _doneConnection() {
-        this.mode = "waiting";
-        Bus.emit(ROOM_CHANGE);
-    }
-
 
     CreateNew(roomId, roomOptions) {
-        this.mode = "created";
-        this.roomOptions = roomOptions;
-        this.roomId = roomId;
+        this.current = new RealRoomM(roomId, roomOptions);
+    }
 
-        console.log("комната создалась");
-        console.log(this.roomId);
+    clear() {
+        WebSocketIface.disconnect();
+        this.current = undefined;
+        console.log("комната уничтожена");
     }
 
     async connect() {
-        if (this.roomOptions) {
-            const response =  await postCreateRoom(this.roomOptions);
-            this.roomId = response.id;
-        }
-
-        WebSocketIface.connect(this.roomId);
-    }
-
-    async _join() {
-        console.log("ROOM JOIN");
-        //await postJoinRoom(this.roomId);
-        //await getWS();
-        WebSocketIface.connect();
-    }
-
-    async _create() {
-        console.log("ROOM CREATED");
-        //
-        //await getWS();
-        //WebSocketIface.connect();
+        await this.current.connect();
     }
 
     getRoomName() {
-        return this.packName;
+        return this.current.roomId;
+    }
+}
+
+class RealRoomM {
+    constructor(roomId, roomOptions) {
+        this.state = "created";
+        this.roomOptions = roomOptions;
+        this.roomId = roomId;
+
+        this.createHandler = this._roomCreated.bind(this);
+
+        WebSocketIface.addMessageHandler("room_created", this.createHandler);
+
+        WebSocketIface.addOpenHandler(this._doneConnection.bind(this));
+        WebSocketIface.addCloseHandler(this._closeConnection.bind(this));
+
+        console.log("комната создалась");
+    }
+
+
+    _roomCreated(data) {
+        console.log("Room init data recieve");
+        this.roomName = data.room_name;
+        this.playersCap = data.players_cap;
+        this.private = data.private;
+        this.packId = data.pack_id;
+        this.players = data.players;
+
+        this.lastState = this.state;
+        this.state = "waiting";
+        Bus.emit(ROOM_CHANGE);
+    }
+
+
+    _doneConnection() {
+        this.lastState = this.state;
+        this.state = "done_connection";
+        Bus.emit(ROOM_CHANGE);
+    }
+
+    _closeConnection(event) {
+        this.lastState = this.state;
+        this.state = "closed";
+        this.closeCode = event.code;
+        Bus.emit(ROOM_CHANGE);
+    }
+
+
+    async connect() {
+        if (this.roomOptions) {
+            try{
+                const response = await postCreateRoom(this.roomOptions);
+            } catch(err) {
+                console.log(err);
+                throw(err);
+            }
+
+            this.roomId = response.id;
+        }
+
+        try {
+            const response = await getJoinRoom(this.roomId);
+        } catch(err) {
+            console.log(err);
+            throw(err);
+        }
+
+        this.roomName = response.room_name;
+        this.playersCap = response.players_cap;
+        this.private = response.private;
+        this.packId = response.pack_id;
+
+        this.lastState = this.state;
+        this.state = "before_connection";
+
+        WebSocketIface.connect(this.roomId);
+        Bus.emit(ROOM_CHANGE);
     }
 
 }

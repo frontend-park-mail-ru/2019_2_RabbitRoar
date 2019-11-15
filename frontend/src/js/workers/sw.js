@@ -5,6 +5,8 @@ const CACHE_NAME = "svoyak-v1.0.5";
 // автоматически из имени домена в строке
 
 async function cacheInitPromise() {
+    self.skipWaiting();
+
     self.preCacheList = new Array;
     const cache = await caches.open(CACHE_NAME);
     for (const cacheObj of self.__precacheManifest) {
@@ -28,7 +30,7 @@ async function cacheInitPromise() {
                     }
                 );
                 await cache.add(findKey);
-                console.log(`CACHED!: ${findKey}`);
+                console.log(`CACHED: ${findKey}`);
             } else {
                 console.log(`ALREADY EXIST: ${key}`);
             }
@@ -36,7 +38,7 @@ async function cacheInitPromise() {
             console.log(`Cache init error! ${err}`);
         }
     }
-    console.log("Установлен успешно!");
+    console.log("Установлен успешно");
 }
 
 self.addEventListener("install", function (event) {
@@ -53,7 +55,7 @@ async function processPromise(event) {
     if (!navigator.onLine) {
         const cache = await caches.open(CACHE_NAME);
         try {
-            const response = await cache.match(_getUrlRevision(requestUrl));
+            const response = await cache.match(requestUrl, {ignoreSearch: true});
             console.log(`OFFLINE Страница найдена в кэше: ${response.url}`);
             return response;
         } catch {
@@ -62,7 +64,7 @@ async function processPromise(event) {
         }
     } else {
         const cache = await caches.open(CACHE_NAME);
-        let response = await cache.match(_getUrlRevision(requestUrl));
+        let response = await cache.match(requestUrl, {ignoreSearch: true});
 
         if (response) {
             console.log(`Найдено в статическом кэше: ${_getUrlRevision(requestUrl)}`);
@@ -83,18 +85,29 @@ async function processPromise(event) {
 
 
         if (!needCache(requestUrl)) {
-            response = await fetch(event.request);
+            try{
+                response = await fetch(event.request);
+            } catch(err) {
+                console.log(err);
+                return response;
+            }
             console.log(`Не нужно кэшировать: ${requestUrl.pathname}`);
             return response;
         }
 
 
         const fetchRequest = event.request.clone();
-        response = await fetch(fetchRequest);
+        try {
+            response = await fetch(fetchRequest);
+        } catch(err) {
+            console.log(err);
+            return response;
+        }
+
         const responseToCache = response.clone();
 
         cache.put(requestUrl, responseToCache);
-        console.log(`ONLINE Страница загружена и сохранена в кэше!: ${requestUrl}`);
+        console.log(`ONLINE Страница загружена и сохранена в кэше!!: ${requestUrl}`);
         return response;
     }
 }
@@ -108,6 +121,9 @@ self.addEventListener("fetch", function (event) {
 // ============================================================
 
 async function reloadPromise() {
+    console.log("SW RELOAD");
+    self.clients.claim();
+
     const cacheNames = await caches.keys();
 
     const promises = cacheNames.map(async (cacheName) => {

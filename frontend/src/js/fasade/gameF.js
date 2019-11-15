@@ -2,26 +2,38 @@ import QuestionsM from "../model/questionsM.js";
 import RoomM from "../model/roomM.js";
 import Bus from "../event_bus.js";
 import {
+    ROUTER_EVENT,
     QUESTION_PANEL_UPDATE,
     QUESTION_CHANGE,
     WEBSOCKET_CONNECTION,
+    WEBSOCKET_CLOSE,
     ROOM_CHANGE,
     QUESTION_WAS_CHOSEN,
-    TIMER_INTERRUPTION
+    TIMER_INTERRUPTION,
+    USERS_PANEL_UPDATE
 } from "../modules/events.js";
+import { WAITING, SINGLE_GAME, ONLINE_GAME } from "../paths";
 
 import GamePanelC from "../controller/gamePanelC.js";
 import QuestionTableC from "../controller/questionsTableC.js"
 import QuestionTableE from "../element/questionTableE.js"
+import UsersPanelE from "../element/usersPanelE.js"
+
 
 
 class GameF {
     constructor() {
+        this.clearGameHandler = this._clearGame.bind(this);
+
+        this.gamePaths = [WAITING, SINGLE_GAME, ONLINE_GAME];
+
         this.livingElements = 0;
         this.ifaces = new Map;
         this.ifaces.set(GamePanelC, this._gamePanelCInterface.bind(this));
         this.ifaces.set(QuestionTableC, this._questionTableCInterface.bind(this));
         this.ifaces.set(QuestionTableE, this._questionTableEInterface.bind(this));
+        this.ifaces.set(UsersPanelE, this._usersPanelEInterface.bind(this));
+
         Bus.on(QUESTION_CHANGE, this._questionChange.bind(this));
         Bus.on(ROOM_CHANGE, this._roomChange.bind(this));
     }
@@ -34,7 +46,6 @@ class GameF {
         return this.ifaces.get(consumer);
     }
 
-    //packId = null, roomId = null, roomOptions = null
     async CreateGame(mode = "offline", options) {
         if (mode === "offline") {
             this.current = await this._createOfflineGame(options.packId);
@@ -45,6 +56,7 @@ class GameF {
                 this.current = await this._createOnlineGame(null, options.roomOptions);
             }
         }
+        Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
     }
 
     async _createOfflineGame(clickId) {
@@ -58,19 +70,16 @@ class GameF {
     }
 
 
-    addElement() {
-        this.livingElements++;
-    }
 
-    removeElement() {
-        this.livingElements--;
-        if (this.livingElements < 0) {
-            console.log("Warning!");
+    _clearGame(path) {
+        if (this.gamePaths.includes(path)) {
+            return
         }
-        if (this.livingElements === 0) {
-            this.current.clear();
-            this.current = undefined;
-        }
+
+        console.log("Game clearing");
+        this.current.clear();
+        this.current = undefined;
+        Bus.off(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
     }
 
 
@@ -86,14 +95,27 @@ class GameF {
         }
     }
 
+    // created->done_connection->waiting->closed (success)
+    // created->closed (crash)
+
     _roomChange() {
-        if (RoomM.mode === "crash") {
-            console.log("F crash");
-            this.current.clear();
-            this.current = undefined;
-            Bus.emit(WEBSOCKET_CONNECTION, false);
-        } else if (RoomM.mode === "waiting") {
+        console.log(`${RoomM.current.lastState}->${RoomM.current.state}`);
+        if (RoomM.current.state === "waiting") {
+            Bus.emit(USERS_PANEL_UPDATE);
+            // Bus.emit(PACK_INFO_UPDATE);
+        } else if (RoomM.current.state === "before_connection") {
+            Bus.emit(USERS_PANEL_UPDATE);
+            // Bus.emit(PACK_INFO_UPDATE);
+        } else if (RoomM.current.state === "done_connection") {
             Bus.emit(WEBSOCKET_CONNECTION, true);
+        } else if (RoomM.current.state === "closed") {
+            const closeCode = RoomM.current.closeCode;
+            const lastState = RoomM.current.lastState;
+
+            Bus.emit(WEBSOCKET_CLOSE, {
+                code: closeCode,
+                lastState: lastState,
+            });
         }
     }
 
@@ -107,6 +129,10 @@ class GameF {
 
     _gamePanelCInterface() {
         return this.current.gamePanelCInterface;
+    }
+
+    _usersPanelEInterface() {
+        return this.current.usersPanelEInterface;
     }
 
     // shity place
@@ -125,7 +151,7 @@ class OfflineGameF {
     }
 
     clear() {
-
+        QuestionsM.clear();
     }
 
 
@@ -159,11 +185,6 @@ class OfflineGameF {
         };
         return iface;
     };
-
-
-    getPackName(){
-
-    }
 }
 
 // ===================================================
@@ -176,18 +197,12 @@ class OnlineGameF {
     }
 
     clear() {
-
+        QuestionsM.clear();
+        RoomM.clear();
     }
 
     async connect() {
         await RoomM.connect();
-    }
-
-    
-
-    addElement() {
-        QuestionsM.addElement();
-        RoomM.addElement();
     }
 
 
@@ -216,6 +231,40 @@ class OnlineGameF {
         };
         return iface;
     };
+
+    get usersPanelEInterface() {
+        const iface = {
+            getRoomState() {
+                return RoomM.state;
+            },
+
+            getPlayersWaiting() {
+                const playersInfo = new Array;
+                for (const player of RoomM.players) {
+                    playersInfo.push({
+                        url: player.url,
+                        name: player.name,
+                        uuid: player.uuid
+                    });
+                }
+            },
+
+            getRoomInfo() {
+                const roomInfo = {};
+                RoomInfo.roomName = RoomM.current.room_name;
+                RoomInfo.playersCap = RoomM.current.players_cap;
+                RoomInfo.private = RoomM.current.private;
+                RoomInfo.packId = RoomM.current.pack_id;
+                return roomInfo;
+            },
+
+            getPlayersGaming() {
+
+            }
+        };
+        return iface;
+    }
+
 
     getPackName() {
         return RoomM.getRoomName();

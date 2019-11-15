@@ -4,11 +4,10 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import { id } from "../modules/id.js";
 import Bus from "../event_bus.js";
 
-import { ROUTER_EVENT, WEBSOCKET_CONNECTION } from "../modules/events.js";
-import { SINGLE_GAME, ROOM_CREATOR, WAITING, LOGIN, ROOT, PACK_CREATION } from "../paths";
+import { ROUTER_EVENT } from "../modules/events.js";
+import { SINGLE_GAME, ROOM_CREATOR, LOGIN, PACK_CREATION } from "../paths";
 
 import ValidatorF from "../fasade/userValidatorF.js";
-import WebSocketIface from "../modules/webSocketIface.js"
 
 
 
@@ -35,7 +34,6 @@ class TabsC {
         this.registerClassHandler(".popup-button", "click", this._processPopUp.bind(this));
         this.registerClassHandler(".tab__create-room-btn", "click", this._routeToRoomCreation.bind(this));
 
-        Bus.on(WEBSOCKET_CONNECTION, this._onlineCreateResult.bind(this));
     }
 
     _deleteCurrentClass(event) {
@@ -73,8 +71,6 @@ class TabsC {
             this._showOrHidePopUp();
         } else if (event.target.id == "login") {
             Bus.emit(ROUTER_EVENT.ROUTE_TO, LOGIN);
-        } else if (event.target.id == "main") {
-            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
         }
     }
 
@@ -130,21 +126,13 @@ class TabsC {
         GameF.CreateGame(gameMode, options).then(
             () => {
                 if (gameMode === "online") {
-                    //SEE: this._onlineCreateResult()
+                    //SEE: networcWarningC
                     return;
                 } else {
                     Bus.emit(ROUTER_EVENT.ROUTE_TO, SINGLE_GAME);
                 }
             }
         );
-    }
-
-    _onlineCreateResult(connect) {
-        if (connect) {
-            Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING);
-        } else {
-            this._showOrHidePopUp("popup_error");
-        }
     }
 
 

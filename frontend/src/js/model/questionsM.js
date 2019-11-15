@@ -27,6 +27,10 @@ class QuestionsM {
         return this.current.sendAnswer(answer);
     }
 
+    clear() {
+        this.current = undefined;
+    }
+
 }
 
 // =============================================
@@ -44,6 +48,7 @@ class OfflineQuestionsM {
         this.score = 0;
         this.themes = this._getThemes(this.packId);
     }
+
 
     clickQuestion(packId, cellId) {
         if (!!this.chosedQuestionsId[cellId]) {

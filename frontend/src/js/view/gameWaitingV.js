@@ -10,6 +10,6 @@ export default new GameWaitingV(
     document.getElementById("application"),
     NavbarE,
     UsersPanelE,
+    PackInfoE,
     NetworkWarningE,
-    PackInfoE
 );
