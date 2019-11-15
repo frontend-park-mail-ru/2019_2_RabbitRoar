@@ -50,7 +50,7 @@ export async function signIn(login, password) {
     });
 
     let response = await postRequest("/login", body);
-
+    
     if (!response.ok) {
         throw new Error(`Signin error: ${response.statusText}`);
     }

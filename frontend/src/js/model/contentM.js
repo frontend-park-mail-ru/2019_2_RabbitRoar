@@ -1,7 +1,7 @@
 import { queryTabContent } from "../modules/requests.js";
 import Bus from "../event_bus.js";
 import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
-import { savePack } from "../modules/requests.js";
+import { savePack, getUserPacks } from "../modules/requests.js";
 
 
 //PUBLIC:
@@ -113,6 +113,10 @@ class ContentM {
         }
     }
 
+    async getUserPacks() {
+        const packs = await getUserPacks();
+        return packs;
+    }
 
     async getTabContent(id) {
         if (id === window.id.tabRoom) {
@@ -131,10 +135,9 @@ class ContentM {
                     roomId: i + 1,
                 });
             }
-
-
             return mainContent;
         }
+
         if (id === window.id.tabTop) {
             const mainContent = {
                 infoPanel: {
@@ -156,12 +159,11 @@ class ContentM {
             return mainContent;
         }
 
-        // empty content
         if (id === window.id.tabPack) {
+            const packs = await getUserPacks();
             const mainContent = {
-                text: "Добро пожаловать в Свою Игру!",
                 contentType: id,
-                content: []
+                content: packs
             };
             return mainContent;
         }
@@ -169,9 +171,7 @@ class ContentM {
         // empty content
         if (id === window.id.tabAboutGame) {
             const mainContent = {
-                text: "Добро пожаловать в Свою Игру!",
                 contentType: id,
-                content: []
             };
             return mainContent;
         }

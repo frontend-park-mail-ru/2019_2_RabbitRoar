@@ -1,4 +1,4 @@
-import { signIn, logout, signUp, changeAvatar, changeTextFields, getUserInfo, getCSRF, getUserPacks } from "../modules/requests.js";
+import { signIn, logout, signUp, changeAvatar, changeTextFields, getUserInfo, getCSRF } from "../modules/requests.js";
 import Bus from "../event_bus.js";
 
 class User {
@@ -52,8 +52,6 @@ class User {
         return csrf;
     }
 
-    async getUserPacks() {
-        await getUserPacks();
-    }
+
 }
 export default new User();

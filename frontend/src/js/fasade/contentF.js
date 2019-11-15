@@ -1,8 +1,11 @@
 import Bus from "../event_bus.js";
 import ContentM from "../model/contentM.js";
+import UserM from "../model/userM";
+
 import { CHANGE_TAB } from "../modules/events.js";
 import MainMenuM from "../model/mainMenuM.js";
 import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
+import { id } from "../modules/id.js";
 
 
 class ContentF {
@@ -32,9 +35,9 @@ class ContentF {
         return MainMenuM.currentTab;
     }
 
-
-    async getTabContent(id = MainMenuM.currentTab) {
-        const content = await ContentM.getTabContent(id);
+    async getTabContent(currentId = MainMenuM.currentTab) {
+        const content = await ContentM.getTabContent(currentId);
+        console.log(content);
         return content;
     }
 
@@ -44,11 +47,11 @@ class ContentF {
         Bus.emit(CHANGE_TAB);
     }
 
-    async getPackTabContent(id) {
-        const content = await ContentM.getPackTabContent(id);
-        return content;
+    async deletePackById(packForDelete) {
+        const csrf = await UserM.getCSRF();
+        //alert(csrf.CSRF);
+        //alert(packForDelete);
     }
-
 }
 
 export default new ContentF();
