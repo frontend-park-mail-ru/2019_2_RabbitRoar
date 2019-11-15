@@ -28,7 +28,7 @@ export const PROFILE_UPDATE = "profileUpdate";
 export const PACK_WORKER_MESSAGE = "packWorker";
 export const PACK_WORKER_COMMAND = "packWorkerCmd";
 
-export const SERVISE_WORKER_MESSAGE = "swMessage";
+export const SERVICE_WORKER_CMD = "swCmd";
 
 
 export const CHANGE_TAB = "changeTab";
@@ -36,6 +36,10 @@ export const CHANGE_TAB = "changeTab";
 export const REGISTRATION = "registration";
 
 export const QUESTION_CHANGE = "questionChange";
+
+export const ROOM_CHANGE = "roomChange";
+
+export const WEBSOCKET_CONNECTION = "websocketConnection";
 
 export const QUESTION_PANEL_UPDATE = "questPanelUpdate";
 

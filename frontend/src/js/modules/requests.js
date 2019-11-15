@@ -1,4 +1,24 @@
 import { postRequest, deleteRequest, getRequest, putRequest } from "./ajax.js";
+import { SERVICE_WORKER_CMD } from "../modules/events.js";
+import Bus from "../event_bus.js";
+
+
+const userCacheDelete = () => {
+    const base = "https://svoyak.fun/api";
+
+    if (window.navigator.onLine) {
+        Bus.emit(SERVICE_WORKER_CMD, {
+            command: "delete",
+            url: base + "/user/"
+        });
+
+        Bus.emit(SERVICE_WORKER_CMD, {
+            command: "regExp_delete",
+            regExp: new RegExp("^(/api/uploads/avatar/)[0-9]+(.jpeg|.png)$"),
+        });
+    }
+}
+
 
 export async function getUserPacks() {
 
@@ -17,6 +37,8 @@ export async function savePack(packObj, csrf) {
 }
 
 export async function signIn(login, password) {
+    userCacheDelete();
+
     const body = JSON.stringify({
         "username": login,
         "password": password
@@ -31,6 +53,8 @@ export async function signIn(login, password) {
 }
 
 export async function logout() {
+    userCacheDelete();
+
     let response = await deleteRequest("/logout");
 
     if (response.status === 401) {
@@ -40,6 +64,8 @@ export async function logout() {
 }
 
 export async function signUp(userStructure) {
+    userCacheDelete();
+
     let response = await postRequest("/signup", JSON.stringify(userStructure));
 
     if (!response.ok) {
@@ -48,6 +74,8 @@ export async function signUp(userStructure) {
 }
 
 export async function changeAvatar(formData, csrf) {
+    userCacheDelete();
+
     const headers = {
         "X-Csrf-Token": csrf,
     }
@@ -58,6 +86,8 @@ export async function changeAvatar(formData, csrf) {
 }
 
 export async function changeTextFields(changesMap, csrf) {
+    userCacheDelete();
+
     const headers = {
         "Content-type": "application/json",
         "X-Csrf-Token": csrf,
@@ -112,27 +142,14 @@ export async function getCSRF() {
     return obj;
 }
 
-export async function getWS() {
-    let response = await getRequest("/game/ws");
-    if (!response.ok) {
-        throw new Error(`Cannot install websocket connection: ${response.statusText}`);
-    }
-    const obj = await response.json();
-    return obj;
-}
 
 export async function postCreateRoom(roomOptions) {
-    let response = await postRequest("/game/create", JSON.stringify(roomOptions));
+    let response = await postRequest("/game", JSON.stringify(roomOptions));
     if (!response.ok) {
         throw new Error(`Cannot create game: ${response.statusText}`);
     }
-}
-
-export async function postJoinRoom(uuid) {
-    let response = await postRequest("/game/join" + uuid);
-    if (!response.ok) {
-        throw new Error(`Cannot join game: ${response.statusText}`);
-    }
+    const obj = await response.json();
+    return obj;
 }
 
 export async function getPackById(packId) {

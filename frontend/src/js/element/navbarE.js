@@ -8,17 +8,30 @@ class NavbarE {
         this.controller = NavbarC;
     }
 
-    async create(root = document.getElementById("application")) {
+    create(root = document.getElementById("application")) {
         this.root = root;
 
         let avatar;
         const authorized = ValidatorF.checkLocalstorageAutorization();
 
         if (authorized === true) {
-            const currentUserData = await ValidatorF.getUserData();
-            avatar = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
+            ValidatorF.getUserData().then(
+                (currentUserData) => {
+                    avatar = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
+                    const avatarContainer = document.getElementById("nav_profile");
+
+                    const image = document.createElement("IMG");
+                    image.src = avatar;
+                    image.alt = "User";
+                    image.id = "avatar";
+                    image.classList.add("navbar__user-logo");
+
+                    avatarContainer.insertAdjacentElement("beforeend", image);
+                    //this.root.insertAdjacentHTML("beforeend", Template({ authorized: authorized, avatar: avatar }));
+                }
+            );
         }
-        this.root.insertAdjacentHTML("beforeend", Template({ authorized: authorized, avatar: avatar }));
+        this.root.insertAdjacentHTML("beforeend", Template({ authorized: authorized }));
         this.controller.start();
     }
 

@@ -1,30 +1,63 @@
 
+
+
 class WebSocketIface {
     constructor() {
+        this.addErrorHandler(
+            (error) => {
+                console.log(`[error] ${error}`);
+                console.log(error);
+            }
+        );
+
+        this.addOpenHandler(
+            (event) => {
+                console.log("[open] Соединение установлено");
+            }
+        );
+
+        this.addCloseHandler(
+            (event) => {
+                if (event.wasClean) {
+                    console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+                } else {
+                    console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
+                }
+            }
+        );
+
     }
 
-    connect() {
-        this.socket = new WebSocket("wss://svoyak.fun/game/ws");
 
-        this.socket.onopen = function (e) {
-            console.log("[open] Соединение установлено");
-        };
+    connect(roomId) {
+        this.socket = new WebSocket("wss://svoyak.fun/game/" + roomId + "/ws");
 
-        this.socket.onclose = function (event) {
-            if (event.wasClean) {
-                console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
-            } else {
-                console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
+        this.socket.onopen = (event) => {
+            if (this.openHandlers) {
+                for (const handler of this.openHandlers) {
+                    handler(event);
+                }
             }
         };
 
-        this.socket.onerror = function (error) {
-            console.log(`[error] ${error}`);
-            console.log(error);
+        this.socket.onclose = (event) => {
+            if (this.closeHandlers) {
+                for (const handler of this.closeHandlers) {
+                    handler(event);
+                }
+            }
+        };
+
+        this.socket.onerror = (error) => {
+            if (this.errHandlers) {
+                for (const handler of this.errHandlers) {
+                    handler(error);
+                }
+            }
         };
 
 
-        this.socket.onmessage = function (event) {
+        this.socket.onmessage = (event) => {
             if (this.handlersMap) {
                 for (const [type, handler] of this.handlersMap) {
                     if (event.data.type === type) {
@@ -37,11 +70,12 @@ class WebSocketIface {
 
 
     disconnect() {
+        this.clearHandlers();
         this.socket.close(1000, "Бан");
     }
 
 
-    addHandler(type, handler) {
+    addMessageHandler(type, handler) {
         if (!this.handlersMap) {
             this.handlersMap = new Map;
         }
@@ -49,8 +83,93 @@ class WebSocketIface {
         this.handlersMap.set(type, handler);
     }
 
+
+    addErrorHandler(handler) {
+        if (!this.errHandlers) {
+            this.errHandlers = new Array;
+        }
+
+        this.errHandlers.push(handler);
+    }
+
+    removeErrorHandler(handler) {
+        if (!this.errHandlers) {
+            return;
+        }
+
+        this.errHandlers = this.errHandlers.filter(function (handler) {
+            return handler !== removing;
+        });
+    }
+
+
+    addOpenHandler(handler) {
+        if (!this.openHandlers) {
+            this.openHandlers = new Array;
+        }
+
+        this.openHandlers.push(handler);
+    }
+
+    removeOpenHandler(removing) {
+        if (!this.openHandlers) {
+            return;
+        }
+
+        this.openHandlers = this.openHandlers.filter(function (handler) {
+            return handler !== removing;
+        });
+    }
+
+    addCloseHandler(handler) {
+        if (!this.closeHandlers) {
+            this.closeHandlers = new Array;
+        }
+
+        this.closeHandlers.push(handler);
+    }
+
+    removeCloseHandler(removing) {
+        if (!this.closeHandlers) {
+            return;
+        }
+
+        this.closeHandlers = this.closeHandlers.filter(function (handler) {
+            return handler !== removing;
+        });
+    }
+
+
     clearHandlers() {
         this.handlersMap.clear();
+        this.errHandlers = new Array;
+        this.closeHandlers = new Array;
+        this.openHandlers = new Array;
+
+
+        this.addOpenHandler(
+            (event) => {
+                console.log("[open] Соединение установлено");
+            }
+        );
+
+
+        this.addErrorHandler(
+            (error) => {
+                console.log(`[error] ${error}`);
+                console.log(error);
+            }
+        );
+
+        this.addCloseHandler(
+            (event) => {
+                if (event.wasClean) {
+                    console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+                } else {
+                    console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
+                }
+            }
+        );
     }
 }
 
