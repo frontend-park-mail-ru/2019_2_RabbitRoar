@@ -1,9 +1,10 @@
-import { postCreateRoom, postJoinRoom, getWS } from "../modules/requests.js"
+import { postCreateRoom, getJoinRoom } from "../modules/requests.js"
 import WebSocketIface from "../modules/webSocketIface.js"
 import Bus from "../event_bus.js";
 import { ROOM_CHANGE } from "../modules/events.js";
 
 // "created" - Игра создана как объект в памяти
+// "before_connection" - Отправили join запрос и получили инфо о комнате
 // "done_connection" - Удалось установить соединение по вебсоккету
 // "waiting" - Ожидание игроков
 // "game" - Процесс игры
@@ -48,7 +49,6 @@ class RealRoomM {
 
         WebSocketIface.addMessageHandler("room_created", this.createHandler);
 
-        WebSocketIface.addErrorHandler(this._crashConnection.bind(this));
         WebSocketIface.addOpenHandler(this._doneConnection.bind(this));
         WebSocketIface.addCloseHandler(this._closeConnection.bind(this));
 
@@ -70,12 +70,6 @@ class RealRoomM {
     }
 
 
-    _crashConnection(error) {
-        // this.lastState = this.state;
-        // this.state = "crashed";
-        // Bus.emit(ROOM_CHANGE);
-    }
-
     _doneConnection() {
         this.lastState = this.state;
         this.state = "done_connection";
@@ -92,25 +86,33 @@ class RealRoomM {
 
     async connect() {
         if (this.roomOptions) {
-            const response = await postCreateRoom(this.roomOptions);
+            try{
+                const response = await postCreateRoom(this.roomOptions);
+            } catch(err) {
+                console.log(err);
+                throw(err);
+            }
+
             this.roomId = response.id;
         }
 
+        try {
+            const response = await getJoinRoom(this.roomId);
+        } catch(err) {
+            console.log(err);
+            throw(err);
+        }
+
+        this.roomName = response.room_name;
+        this.playersCap = response.players_cap;
+        this.private = response.private;
+        this.packId = response.pack_id;
+
+        this.lastState = this.state;
+        this.state = "before_connection";
+
         WebSocketIface.connect(this.roomId);
-    }
-
-    async _join() {
-        console.log("ROOM JOIN");
-        //await postJoinRoom(this.roomId);
-        //await getWS();
-        WebSocketIface.connect();
-    }
-
-    async _create() {
-        console.log("ROOM CREATED");
-        //
-        //await getWS();
-        //WebSocketIface.connect();
+        Bus.emit(ROOM_CHANGE);
     }
 
 }

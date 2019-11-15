@@ -101,7 +101,10 @@ class GameF {
     _roomChange() {
         console.log(`${RoomM.current.lastState}->${RoomM.current.state}`);
         if (RoomM.current.state === "waiting") {
-            // Bus.emit(UESERS_PANEL_UPDATE);
+            Bus.emit(USERS_PANEL_UPDATE);
+            // Bus.emit(PACK_INFO_UPDATE);
+        } else if (RoomM.current.state === "before_connection") {
+            Bus.emit(USERS_PANEL_UPDATE);
             // Bus.emit(PACK_INFO_UPDATE);
         } else if (RoomM.current.state === "done_connection") {
             Bus.emit(WEBSOCKET_CONNECTION, true);
@@ -237,7 +240,6 @@ class OnlineGameF {
 
             getPlayersWaiting() {
                 const playersInfo = new Array;
-
                 for (const player of RoomM.players) {
                     playersInfo.push({
                         url: player.url,
@@ -245,6 +247,15 @@ class OnlineGameF {
                         uuid: player.uuid
                     });
                 }
+            },
+
+            getRoomInfo() {
+                const roomInfo = {};
+                RoomInfo.roomName = RoomM.current.room_name;
+                RoomInfo.playersCap = RoomM.current.players_cap;
+                RoomInfo.private = RoomM.current.private;
+                RoomInfo.packId = RoomM.current.pack_id;
+                return roomInfo;
             },
 
             getPlayersGaming() {

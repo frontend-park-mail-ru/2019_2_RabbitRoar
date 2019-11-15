@@ -42,8 +42,7 @@ class NetworkWarningC {
     _processPopUp(event) {
         if (event.target.id == "popup_connection_error_route") {
             this._showOrHidePopUp("popup_connection_error");
-            //Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
-            Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING);
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
         }
     }
 

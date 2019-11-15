@@ -10,26 +10,34 @@ import { USERS_PANEL_UPDATE } from "../modules/events.js";
 class UsersPanelE {
     constructor() {
         this.controller = UsersPanelC;
-        return this;
+        Bus.on(USERS_PANEL_UPDATE, this._update.bind(this));
     }
 
-    async create(root = document.getElementById("application")) {        
-        this.root = root;
+    _update() {
         this.gameIface = GameF.getInterface(this)();
-
-
-        let playersInfo;
         let roomState = this.gameIface.getRoomState();
+
         if (roomState === "done_connection") {
+
+        } else if (roomState === "before_connection") {
+            
         } else if (roomState === "waiting") {
             playersInfo = this.gameIface.getPlayersWaiting();
         } else if (roomState === "game") {
             playersInfo = this.gameIface.getPlayersGaming();
         } else {
             console.log("Warning!");
-            roomState = "done_connection"; // Only for debug
-            //return
+            return
         }
+    }
+
+    _reRender() {
+        this.destroy();
+        this.create(this.root);
+    }
+
+    async create(root = document.getElementById("application")) {        
+        this.root = root;
 
         let currentUserData;
         const authorized = ValidatorF.checkLocalstorageAutorization();
@@ -43,12 +51,8 @@ class UsersPanelE {
         console.log(currentUserData);
 
 
-
-
         this.root.insertAdjacentHTML("beforeend", Template({
             userData: currentUserData,
-            roomState: roomState,
-            playersInfo: playersInfo
         }));
         this.controller.start();
     }

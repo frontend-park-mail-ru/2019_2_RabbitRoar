@@ -58,7 +58,9 @@ if ("serviceWorker" in navigator) {
 
 }
 
-Bus.on(SERVICE_WORKER_CMD, (cmd) => navigator.serviceWorker.controller.postMessage(cmd));
+Bus.on(SERVICE_WORKER_CMD, (cmd) => {
+    navigator.serviceWorker.controller.postMessage(cmd)
+});
 
 // navigator.serviceWorker.addEventListener("message", function handler(event) {
 //     console.log(event.data);

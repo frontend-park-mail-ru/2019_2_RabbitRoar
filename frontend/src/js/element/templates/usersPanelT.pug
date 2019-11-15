@@ -4,7 +4,7 @@ div(class="popup " id="popup")
         div(class="popup-elem-bottom ")
             div(class="popup-button" id="continue") На главную
 
-if roomState === "done_connection"
+if userData
     div(class="panel-text") #{userData.username}, ожидайте других игроков!
     div(class="user-panel-container")
         div(id="main-user")
@@ -25,7 +25,3 @@ if roomState === "done_connection"
             div(class="player-avatar")
             div(class="users-panel__ready-indicator users-panel__ready-indicator__false", id="ready")
     div(class="button-ready-button") Готов
-
-else if roomState === "waiting"
-
-else if roomState === "game"

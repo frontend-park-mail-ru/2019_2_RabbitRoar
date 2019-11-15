@@ -5,6 +5,8 @@ const CACHE_NAME = "svoyak-v1.0.5";
 // автоматически из имени домена в строке
 
 async function cacheInitPromise() {
+    self.skipWaiting();
+
     self.preCacheList = new Array;
     const cache = await caches.open(CACHE_NAME);
     for (const cacheObj of self.__precacheManifest) {
@@ -28,7 +30,7 @@ async function cacheInitPromise() {
                     }
                 );
                 await cache.add(findKey);
-                console.log(`CACHED!: ${findKey}`);
+                console.log(`CACHED: ${findKey}`);
             } else {
                 console.log(`ALREADY EXIST: ${key}`);
             }
@@ -36,7 +38,7 @@ async function cacheInitPromise() {
             console.log(`Cache init error! ${err}`);
         }
     }
-    console.log("Установлен успешно!");
+    console.log("Установлен успешно");
 }
 
 self.addEventListener("install", function (event) {
@@ -105,7 +107,7 @@ async function processPromise(event) {
         const responseToCache = response.clone();
 
         cache.put(requestUrl, responseToCache);
-        console.log(`ONLINE Страница загружена и сохранена в кэше!: ${requestUrl}`);
+        console.log(`ONLINE Страница загружена и сохранена в кэше!!: ${requestUrl}`);
         return response;
     }
 }
@@ -120,6 +122,8 @@ self.addEventListener("fetch", function (event) {
 
 async function reloadPromise() {
     console.log("SW RELOAD");
+    self.clients.claim();
+
     const cacheNames = await caches.keys();
 
     const promises = cacheNames.map(async (cacheName) => {
