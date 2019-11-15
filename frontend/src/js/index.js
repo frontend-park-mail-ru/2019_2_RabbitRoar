@@ -19,7 +19,7 @@ import Worker from "./workers/gameLoader.worker.js";
 
 import ContentF from "./fasade/contentF.js";
 
-Sentry.init({ dsn: "https://f01fba73e5e04b9eb288a0808cd9940e@sentry.io/1820862" });
+//Sentry.init({ dsn: "https://f01fba73e5e04b9eb288a0808cd9940e@sentry.io/1820862" });
 //let socket = new WebSocket("wss://svoyak.fun:3010/game/ws");
 
 // socket.onopen = function (e) {

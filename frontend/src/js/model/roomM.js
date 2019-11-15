@@ -53,7 +53,6 @@ class RealRoomM {
         WebSocketIface.addCloseHandler(this._closeConnection.bind(this));
 
         console.log("комната создалась");
-        console.log(this.roomId);
     }
 
 

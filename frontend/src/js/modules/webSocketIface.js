@@ -30,7 +30,7 @@ class WebSocketIface {
 
 
     connect(roomId) {
-        this.socket = new WebSocket("ws://svoyak.fun:3010/game/ws");
+        this.socket = new WebSocket("ws://svoyak.fun/game/ws");
 
         this.socket.onopen = (event) => {
             if (this.openHandlers) {

@@ -56,7 +56,6 @@ class GameF {
                 this.current = await this._createOnlineGame(null, options.roomOptions);
             }
         }
-        console.log("GAME CREATE");
         Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
     }
 
@@ -100,6 +99,7 @@ class GameF {
     // created->closed (crash)
 
     _roomChange() {
+        console.log(`${RoomM.current.lastState}->${RoomM.current.state}`);
         if (RoomM.current.state === "waiting") {
             // Bus.emit(UESERS_PANEL_UPDATE);
             // Bus.emit(PACK_INFO_UPDATE);

@@ -19,7 +19,7 @@ class UsersPanelE {
 
 
         let playersInfo;
-        const roomState = this.gameIface.getRoomState();
+        let roomState = this.gameIface.getRoomState();
         if (roomState === "done_connection") {
         } else if (roomState === "waiting") {
             playersInfo = this.gameIface.getPlayersWaiting();
@@ -27,7 +27,8 @@ class UsersPanelE {
             playersInfo = this.gameIface.getPlayersGaming();
         } else {
             console.log("Warning!");
-            return
+            roomState = "done_connection"; // Only for debug
+            //return
         }
 
         let currentUserData;

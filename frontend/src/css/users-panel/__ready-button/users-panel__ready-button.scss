@@ -1,0 +1,35 @@
+.users-panel__ready-button {
+    margin: 0px 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--border-color-theme);
+    color: var(--font-color-theme);
+    background-color: $color-bg-light;
+}
+  
+  .users-panel__ready-button-hover {
+    border-width: 2px;
+    border-color: var(--border-color-theme);
+    color: var(--font-color-theme);
+    background-color: $color-bg-dark;
+    cursor: pointer;
+  }
+
+
+  @media all and (orientation: landscape) {
+    .users-panel__ready-button {
+      width: 10vw;
+      height: 4vw;
+    }
+  }
+  
+  
+  @media all and (orientation: portrait) {
+    .users-panel__ready-button {
+      width: 10vh;
+      height: 4vh;
+    }
+  }

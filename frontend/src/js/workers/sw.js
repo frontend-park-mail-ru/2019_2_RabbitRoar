@@ -53,7 +53,7 @@ async function processPromise(event) {
     if (!navigator.onLine) {
         const cache = await caches.open(CACHE_NAME);
         try {
-            const response = await cache.match(_getUrlRevision(requestUrl));
+            const response = await cache.match(requestUrl, {ignoreSearch: true});
             console.log(`OFFLINE Страница найдена в кэше: ${response.url}`);
             return response;
         } catch {
@@ -62,7 +62,7 @@ async function processPromise(event) {
         }
     } else {
         const cache = await caches.open(CACHE_NAME);
-        let response = await cache.match(_getUrlRevision(requestUrl));
+        let response = await cache.match(requestUrl, {ignoreSearch: true});
 
         if (response) {
             console.log(`Найдено в статическом кэше: ${_getUrlRevision(requestUrl)}`);
@@ -83,14 +83,25 @@ async function processPromise(event) {
 
 
         if (!needCache(requestUrl)) {
-            response = await fetch(event.request);
+            try{
+                response = await fetch(event.request);
+            } catch(err) {
+                console.log(err);
+                return response;
+            }
             console.log(`Не нужно кэшировать: ${requestUrl.pathname}`);
             return response;
         }
 
 
         const fetchRequest = event.request.clone();
-        response = await fetch(fetchRequest);
+        try {
+            response = await fetch(fetchRequest);
+        } catch(err) {
+            console.log(err);
+            return response;
+        }
+
         const responseToCache = response.clone();
 
         cache.put(requestUrl, responseToCache);
@@ -108,6 +119,7 @@ self.addEventListener("fetch", function (event) {
 // ============================================================
 
 async function reloadPromise() {
+    console.log("SW RELOAD");
     const cacheNames = await caches.keys();
 
     const promises = cacheNames.map(async (cacheName) => {
