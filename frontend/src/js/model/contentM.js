@@ -31,7 +31,7 @@ class ContentM {
         } else if (msg.data.type === "question") {
             localStorage.setItem(msg.data.key, msg.data.value)
         } else if (msg.data.type === "full") {
-            //console.log(msg.data.value);
+            console.log(msg.data.value);
         }
     }
 
@@ -40,12 +40,12 @@ class ContentM {
             const publicPacks = await getPublicPackList();
             const playedPacks = await getPlayedPackList();
             this.packList = [...publicPacks, ...playedPacks];
+            this.packList.push(2);
+            this.packList.push(3);
         } catch(err) {
             console.log(err);
             throw(err);
         }
-
-        console.log(`My packs: ${this.packList}`);
         
         if (localStorage.getItem("packs_list")) {
             const savedPacks = JSON.parse(localStorage.getItem("packs_list"));

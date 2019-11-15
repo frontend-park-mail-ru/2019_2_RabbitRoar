@@ -14,7 +14,7 @@ const userCacheDelete = () => {
 
         Bus.emit(SERVICE_WORKER_CMD, {
             command: "regExp_delete",
-            regExp: new RegExp("^(/api/uploads/avatar/)[0-9]+(.jpeg|.png)$"),
+            regExp: new RegExp("^(/api/uploads/avatar/).+(\.jpeg|\.png)$"),
         });
     }
 }
