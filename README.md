@@ -1,11 +1,10 @@
 # 2019_2_RabbitRoar
-Frontend-repository for project Swoyak [Project link](http://frontend.photocouple.space)
+Frontend-repository for project Swoyak [Project link](https://svoyak.fun/)
 
 # About
 
 Project dashboard on [notion](https://www.notion.so/f53af7312b784f2bafa785c65e8d81a9).
 
-Interface mockup [Figma](https://www.figma.com/file/PXfi1Xe1TXSXzFgmho8DHK/Technopark_frontend).
 
 # Rules
 

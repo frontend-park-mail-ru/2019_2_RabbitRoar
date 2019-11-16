@@ -15,6 +15,12 @@ class ProfileC {
         this.registerHandler("cancel_button", "click", this._cansel.bind(this));
         this.registerClassHandler(".input-valid", "change", this._changeTextValue.bind(this));
         this.registerClassHandler(".profile__download-img", "change", this._saveImage.bind(this));
+        this.registerHandler("back", "click", this._goToRoot.bind(this));
+    }
+
+
+    _goToRoot() {
+        Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 
     start() {
