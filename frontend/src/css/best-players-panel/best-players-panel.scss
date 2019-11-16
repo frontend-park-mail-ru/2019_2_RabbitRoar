@@ -1,26 +1,26 @@
 .best-players-panel {
     @extend %panel;
-    grid-template-columns: 1fr 3fr 2fr 3fr;
+    grid-template-columns: 4fr 2fr 3fr;
 }
 
 
 
 .best-avatar {
-    height: var(--best-avatar-size);
-    width: var(--best-avatar-size);
+    border-radius: 50%;
+    object-fit: cover;
+
+    height: var(--best-panel-img-size);
+    width: var(--best-panel-img-size);
+    margin-right: 1vw;
 }
 
 .rank-avatar {
-    border-radius: 100px;
-    width: var(--rank-avatar-size);
-    height: var(--rank-avatar-size);
-    margin-right: $rank-margin;
-}
+    border-radius: 50%;
+    object-fit: cover;
 
-
-.rank-text {
-    margin-left: $rank-margin;
-    flex-grow: 1;
+    width: var(--best-panel-img-size);
+    height: var(--best-panel-img-size);
+    margin-right: 1vw;
 }
 
 

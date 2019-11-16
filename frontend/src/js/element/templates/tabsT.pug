@@ -39,7 +39,6 @@ div(class="main-container")
 
         div(class="tab-content")
             div(class="best-players-panel")
-                div(class="panel-elem")
                 div(class="panel-elem") Имя
                 div(class="panel-elem") Рейтинг
                 div(class="panel-elem") Звание
@@ -49,13 +48,14 @@ div(class="main-container")
                         img(class="best-avatar",
                         src = val.userSrc,
                         alt="No exist")
-                    div(class="panel-elem") #{val.name}
+                        div(class="panel-elem") #{val.name}
                     div(class="panel-elem") #{val.raiting}
                     div(class="panel-elem")
-                        div(class="rank-text") #{val.rankDescr}
                         img(class="rank-avatar",
                         src = val.rankSrc,
                         alt="No exist")
+                        div(class="rank-text") #{val.rankDescr}
+
 
     else if templateContent.contentType == window.id.tabOffline
         if (templateContent.content.length)
