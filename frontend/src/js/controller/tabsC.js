@@ -64,10 +64,11 @@ class TabsC {
     }
 
     _processPopUp(event) {
-        if (event.target.id === "continue") {
-            this._showOrHidePopUp();
-            this._startGame(event);
-        } else if (event.target.id == "cansel") {
+        // if (event.target.id === "continue") {
+        //     this._showOrHidePopUp();
+        //     this._startGame(event);
+        // } 
+        if (event.target.id == "cansel") {
             this._showOrHidePopUp();
         } else if (event.target.id == "login") {
             Bus.emit(ROUTER_EVENT.ROUTE_TO, LOGIN);
@@ -98,13 +99,16 @@ class TabsC {
             if (!ValidatorF.checkLocalstorageAutorization() && !document.getElementById("offline_mode")) {
                 continueBtn.id = "login";
                 document.getElementById("popup-elem-top").innerHTML = "Для игры необходимо авторизоваться";
+                this._showOrHidePopUp();
             } else {
-                const join_id = event.target.getAttribute("join_id");
-                continueBtn.setAttribute("join_id", join_id);
+                this._startGame(event);
             }
+            // else {
+            //     const join_id = event.target.getAttribute("join_id");
+            //     continueBtn.setAttribute("join_id", join_id);
+            // }
         }
 
-        this._showOrHidePopUp();
     }
 
     _startGame(event) {

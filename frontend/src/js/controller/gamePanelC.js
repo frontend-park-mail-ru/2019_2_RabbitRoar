@@ -13,7 +13,7 @@ class GamePanelC {
         this.abilityToEnterAnswer = false;
 
         this.registerHandler("changing-button", "click", this._buttonPressed.bind(this));
-        this.registerHandler("exit-button", "click", this._exitFromGame.bind(this));
+        this.registerHandler("back", "click", this._exitFromGame.bind(this));
 
         document.addEventListener("keyup", this._answerEntered.bind(this));
         Bus.on(QUESTION_WAS_CHOSEN, this._startListenQuestion.bind(this));

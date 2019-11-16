@@ -181,7 +181,6 @@ class CreatePackC {
     async _savePack() {
         const amountOfEmptyQuestions = document.getElementsByClassName("question-container__cost").length;
         if (amountOfEmptyQuestions === 0) {
-            console.log("Итоговый пак", this.packObj);
             ContentF.savePack(this.packObj).then(
                 () => this._showSuccessPopup(true)
             ).catch(

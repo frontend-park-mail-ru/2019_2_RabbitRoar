@@ -15,7 +15,6 @@ class CreateRoomE {
         const id = "offline_id";
         ContentF.getTabContent(id).then(
             templateContent => {
-                console.log(templateContent);
                 this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
                 this.controller.start();
             }
