@@ -197,8 +197,11 @@ export async function getPackById(packId) {
 export async function getPlayedPackList() {
     let response = await getRequest("/pack/offline");
     if(response.status === 401) {
-        return {};
+        return {
+            autorised: false
+        };
     }
+
 
     if (!response.ok) {
         throw new Error(`Cannot get offline pack list: ${response.statusText}`);
@@ -211,7 +214,9 @@ export async function getPlayedPackList() {
 export async function getPublicPackList() {
     let response = await getRequest("/pack/offline/public");
     if(response.status === 401) {
-        return {};
+        return {
+            autorised: false
+        };
     }
 
     if (!response.ok) {
@@ -224,10 +229,33 @@ export async function getPublicPackList() {
 
 export async function getMyPackList() {
     let response = await getRequest("/pack/offline/author");
+    if(response.status === 401) {
+        return {
+            autorised: false
+        };
+    }
+
     if (!response.ok) {
         throw new Error(`Cannot get my pack list: ${response.statusText}`);
     }
 
     const packList = await response.json();
     return packList;
+}
+
+
+export async function getRooms() {
+    let response = await getRequest("/game/");
+    if(response.status === 401) {
+        return {
+            autorised: false
+        };
+    }
+
+    if (!response.ok) {
+        throw new Error(`Cannot get room list: ${response.statusText}`);
+    }
+
+    const roomList = await response.json();
+    return roomList;
 }

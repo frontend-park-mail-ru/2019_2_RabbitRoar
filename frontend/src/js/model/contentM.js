@@ -1,7 +1,7 @@
 import { queryTabContent, getPlayedPackList, getPublicPackList } from "../modules/requests.js";
 import Bus from "../event_bus.js";
 import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
-import { savePack, getUserPacks, deletePackById, getMyPackList } from "../modules/requests.js";
+import { savePack, getUserPacks, deletePackById, getMyPackList, getRooms } from "../modules/requests.js";
 
 import ContentF from "../fasade/contentF.js";
 
@@ -87,7 +87,6 @@ class ContentM {
             }
 
             if (isNaN(packId)) {
-                console.log(packId);
                 continue;
             }
 
@@ -149,14 +148,30 @@ class ContentM {
                 contentType: id,
                 content: []
             };
-            for (let i = 0; i < 20; i++) {
+
+            const rooms = await getRooms();
+            const a = 5;
+
+            for (const room of rooms) {
                 mainContent.content.push({
-                    name: "Название комнаты",
-                    maxPlayers: 4,
-                    currentPlayers: Math.floor(Math.random() * (3 - 0 + 1)) + 0,
-                    roomId: i + 1,
+                    name: room.name,
+                    maxPlayers: room.capacity,
+                    currentPlayers: joined,
+                    roomId: room.UUID
                 });
             }
+
+
+            // for (let i = 0; i < 20; i++) {
+            //     mainContent.content.push({
+            //         name: "Название комнаты",
+            //         maxPlayers: 4,
+            //         currentPlayers: Math.floor(Math.random() * (3 - 0 + 1)) + 0,
+            //         roomId: i + 1,
+            //     });
+            // }
+
+
             return mainContent;
         }
 
