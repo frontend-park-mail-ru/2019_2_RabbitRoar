@@ -44,23 +44,20 @@ class ContentM {
 
     async updatePackList() {
         this.packList = new Array();
-        //try {
+
         let publicPacks = await getPublicPackList();
         let playedPacks = await getPlayedPackList();
         let myPackList = await getMyPackList();
 
-        if ((publicPacks.autorised === false) || (!playedPacks.autorised === false) || (!myPackList.autorised === false)) {
+        // console.log(" print");
+        // console.log(publicPacks);
+        // console.log(playedPacks);
+        // console.log(myPackList);
+
+        if ((!publicPacks) || (!playedPacks) || (!myPackList)) {
             console.log("Can't load packs for unautorised user");
             return;
         }
-        // } catch(err) {
-        //     console.log(err);
-        //     return;
-        // }
-
-        console.log(publicPacks);
-        console.log(playedPacks);
-        console.log(myPackList);
 
         if (!publicPacks) {
             publicPacks = [];
@@ -185,15 +182,17 @@ class ContentM {
             //}
 
             console.log(`Rooms: ${rooms}`);
-
-            for (const room of rooms) {
-                mainContent.content.push({
-                    name: room.name,
-                    maxPlayers: room.capacity,
-                    currentPlayers: joined,
-                    roomId: room.UUID
-                });
+            if (rooms) {
+                for (const room of rooms) {
+                    mainContent.content.push({
+                        name: room.name,
+                        maxPlayers: room.capacity,
+                        currentPlayers: joined,
+                        roomId: room.UUID
+                    });
+                }
             }
+
 
             // for (let i = 0; i < 20; i++) {
             //     mainContent.content.push({
@@ -249,7 +248,12 @@ class ContentM {
         if (id === window.id.tabOffline) {
             const allId = JSON.parse(localStorage.getItem("packs_list"));
             if (!allId) {
-                return;
+                return {
+                    infoPanel: {},
+                    contentType: id,
+                    content: {}
+
+                };;
             }
 
             const packs = (() => {

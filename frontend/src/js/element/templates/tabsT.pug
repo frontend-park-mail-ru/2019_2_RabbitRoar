@@ -58,28 +58,34 @@ div(class="main-container")
                         alt="No exist")
 
     else if templateContent.contentType == window.id.tabOffline
-        div(class="tab-content")
-            div(id="offline_mode")
-            div(class="offline-panel")
-                div(class="panel-elem") Название:
-                div(class="panel-elem") Автор:
-                div(class="panel-elem") Рейтинг:
-                div(class="panel-elem") 
-
-            div(class="popup " id="popup")
-                div(class="popup__content " id="popup_content")
-                    div(class="popup-elem-top" id="popup-elem-top") Вы переходите в offline игру, очки начислены не будут
-                    div(class="popup-elem-bottom ")
-                        div(class="popup-button" id="cansel") Отмена
-                        div(class="popup-button" id="continue") Продолжить
-                        
-            each pack, index in templateContent.content
+        if (templateContent.content.length)
+            div(class="tab-content")
+                div(id="offline_mode")
                 div(class="offline-panel")
-                    div(class="panel-elem") #{pack.name}
-                    div(class="panel-elem") #{pack.author}
-                    div(class="panel-elem") #{pack.rating}
-                    div(class="panel-elem")
-                        div(class="join-button button-in-list" id="play" join_id=pack.id) Играть
+                    div(class="panel-elem") Название:
+                    div(class="panel-elem") Автор:
+                    div(class="panel-elem") Рейтинг:
+                    div(class="panel-elem") 
+
+                div(class="popup " id="popup")
+                    div(class="popup__content " id="popup_content")
+                        div(class="popup-elem-top" id="popup-elem-top") Вы переходите в offline игру, очки начислены не будут
+                        div(class="popup-elem-bottom ")
+                            div(class="popup-button" id="cansel") Отмена
+                            div(class="popup-button" id="continue") Продолжить
+                            
+                each pack, index in templateContent.content
+                    div(class="offline-panel")
+                        div(class="panel-elem") #{pack.name}
+                        div(class="panel-elem") #{pack.author}
+                        div(class="panel-elem") #{pack.rating}
+                        div(class="panel-elem")
+                            div(class="join-button button-in-list" id="play" join_id=pack.id) Играть
+        else
+            div(class="tab-content")
+                div(class="faq-text")
+                    div(class="line") Создавайте свои паки и играйте с друзьями!
+
 
     else if templateContent.contentType == window.id.tabPack
         div(class="tab-content")

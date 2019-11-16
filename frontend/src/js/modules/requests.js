@@ -197,9 +197,10 @@ export async function getPackById(packId) {
 export async function getPlayedPackList() {
     let response = await getRequest("/pack/offline");
     if(response.status === 401) {
-        return {
-            autorised: false
-        };
+        return undefined;
+        // return {
+        //     autorised: false
+        // };
     }
 
 
@@ -214,9 +215,11 @@ export async function getPlayedPackList() {
 export async function getPublicPackList() {
     let response = await getRequest("/pack/offline/public");
     if(response.status === 401) {
-        return {
-            autorised: false
-        };
+        return undefined;
+
+        // return {
+        //     autorised: false
+        // };
     }
 
     if (!response.ok) {
@@ -230,9 +233,11 @@ export async function getPublicPackList() {
 export async function getMyPackList() {
     let response = await getRequest("/pack/offline/author");
     if(response.status === 401) {
-        return {
-            autorised: false
-        };
+        return undefined;
+
+        // return {
+        //     autorised: false
+        // };
     }
 
     if (!response.ok) {
@@ -247,9 +252,10 @@ export async function getMyPackList() {
 export async function getRooms() {
     let response = await getRequest("/game/");
     if(response.status === 401) {
-        return {
-            autorised: false
-        };
+        return undefined;
+        // return {
+        //     autorised: false
+        // };
     }
 
     if (!response.ok) {
