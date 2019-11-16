@@ -49,8 +49,9 @@ class ContentM {
         let playedPacks = await getPlayedPackList();
         let myPackList = await getMyPackList();
 
-        if ((!publicPacks.autorised) || (!playedPacks.autorised) || (!myPackList.autorised)) {
+        if ((publicPacks.autorised === false) || (!playedPacks.autorised === false) || (!myPackList.autorised === false)) {
             console.log("Can't load packs for unautorised user");
+            return;
         }
         // } catch(err) {
         //     console.log(err);
