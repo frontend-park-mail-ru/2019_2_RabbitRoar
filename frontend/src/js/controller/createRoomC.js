@@ -49,7 +49,7 @@ class CreateRoomC {
     _chosePack(event) {
         const errorPackElement = document.getElementById("error_pack");
         replaceTwoCssClasses(errorPackElement, "error-visible", "error-annotation");
-        this.packId = event.target.id;
+        this.packId = parseInt(event.target.id, 10);
         document.getElementById("pack-id").innerHTML = "Выбранный пак: " + String(this.packId);
     }
 
@@ -118,6 +118,7 @@ class CreateRoomC {
         obj.playersCapacity = this.usersCount;
         obj.name = this.roomName;
         obj.pack = this.packId;
+        alert(obj.pack);
         obj.private = false;
 
         const options = {

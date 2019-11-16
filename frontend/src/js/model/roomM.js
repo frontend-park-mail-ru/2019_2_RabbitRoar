@@ -1,4 +1,4 @@
-import { postCreateRoom, getJoinRoom } from "../modules/requests.js"
+import { postCreateRoom, getJoinRoom, getCSRF } from "../modules/requests.js"
 import WebSocketIface from "../modules/webSocketIface.js"
 import Bus from "../event_bus.js";
 import { ROOM_CHANGE } from "../modules/events.js";
@@ -86,10 +86,12 @@ class RealRoomM {
 
 
     async connect() {
+        let response;
         if (this.roomOptions) {
             console.log("POST CREATE");
-            try{
-                const response = await postCreateRoom(this.roomOptions);
+            try {
+                const csrf = await getCSRF();
+                response = await postCreateRoom(this.roomOptions, csrf.CSRF);
             } catch(err) {
                 console.log(err);
                 this.lastState = this.state;
@@ -101,7 +103,7 @@ class RealRoomM {
         }
 
         try {
-            const response = await getJoinRoom(this.roomId);
+            response = await getJoinRoom(this.roomId);
         } catch(err) {
             console.log(err);
             this.lastState = this.state;

@@ -162,8 +162,13 @@ export async function getCSRF() {
 }
 
 
-export async function postCreateRoom(roomOptions) {
-    let response = await postRequest("/game", JSON.stringify(roomOptions));
+export async function postCreateRoom(roomOptions, csrf) {
+    const headers = {
+        "Content-type": "application/json",
+        "X-Csrf-Token": csrf,
+    }
+
+    let response = await postRequest("/game/", JSON.stringify(roomOptions), headers);
     if (!response.ok) {
         throw new Error(`Cannot create game: ${response.statusText}`);
     }   
