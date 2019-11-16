@@ -181,7 +181,6 @@ class CreatePackC {
     async _savePack() {
         const amountOfEmptyQuestions = document.getElementsByClassName("question-container__cost").length;
         if (amountOfEmptyQuestions === 0) {
-            console.log("Итоговый пак", this.packObj);
             const csrfJson = await UserValidatorF.getCSRF();
             const csrf = csrfJson.CSRF;
             ContentF.savePack(this.packObj, csrf).then(

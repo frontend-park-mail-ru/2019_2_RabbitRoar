@@ -37,7 +37,6 @@ class ContentF {
 
     async getTabContent(currentId = MainMenuM.currentTab) {
         const content = await ContentM.getTabContent(currentId);
-        console.log(content);
         return content;
     }
 

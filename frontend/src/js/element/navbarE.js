@@ -9,6 +9,40 @@ class NavbarE {
     }
 
     create(root = document.getElementById("application")) {
+        const currentUrl = window.location.pathname;
+        let navBarText;
+        switch (currentUrl) {
+            case "/":
+                navBarText = "";
+                break;
+            case "/login":
+                navBarText = "";
+                break;
+            case "/signup":
+                navBarText = "";
+                break;
+            case "/user/profile":
+                navBarText = "";
+                break;
+            case "/single_game":
+                navBarText = "Тренировка";
+                break;
+            case "/online_game":
+                navBarText = "Игра";
+                break;
+            case "/room":
+                navBarText = "Комната";
+                break;
+            case "/waiting":
+                navBarText = "Ожидание игры";
+                break;
+            case "/pack_creation":
+                navBarText = "Создание пака";
+                break;
+            default:
+                navBarText = "";
+        }
+
         this.root = root;
 
         let avatar;
@@ -31,6 +65,12 @@ class NavbarE {
             );
         }
         this.root.insertAdjacentHTML("beforeend", Template({ authorized: authorized }));
+        if (currentUrl === "/") {
+            document.getElementById("back").style.visibility = "hidden";
+        } else {
+            document.getElementById("back").style.visibility = "visible"
+        }
+        document.getElementById("navigation").innerHTML = navBarText;
         this.controller.start();
     }
 
