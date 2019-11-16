@@ -2,7 +2,7 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 
 import Bus from "../event_bus.js";
 
-import { ROUTER_EVENT, WEBSOCKET_CONNECTION, WEBSOCKET_CLOSE } from "../modules/events.js";
+import { ROUTER_EVENT, WEBSOCKET_CONNECTION, WEBSOCKET_CLOSE, CRASH_EVENT } from "../modules/events.js";
 import { ROOT, WAITING } from "../paths";
 
 class NetworkWarningC {
@@ -10,9 +10,15 @@ class NetworkWarningC {
         Object.assign(this, DomEventsWrapperMixin);
 
         this.registerHandler("popup_connection_error_route", "click", this._processPopUp.bind(this));
+        this.registerHandler("popup_connection_http_error_route", "click", this._processPopUp.bind(this));
 
         Bus.on(WEBSOCKET_CONNECTION, this._wsConnect.bind(this));
         Bus.on(WEBSOCKET_CLOSE, this._wsClose.bind(this));
+        Bus.on(CRASH_EVENT, this._crashConnection.bind(this));
+    }
+
+    _crashConnection() {
+        this._showOrHidePopUp("popup_http_error");
     }
 
     _wsConnect(connect) {
@@ -40,10 +46,8 @@ class NetworkWarningC {
     }
 
     _processPopUp(event) {
-        if (event.target.id == "popup_connection_error_route") {
-            this._showOrHidePopUp("popup_connection_error");
-            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
-        }
+        this._showOrHidePopUp(event.target.id);
+        Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 
 

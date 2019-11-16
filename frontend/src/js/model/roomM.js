@@ -5,6 +5,7 @@ import { ROOM_CHANGE } from "../modules/events.js";
 
 // "created" - Игра создана как объект в памяти
 // "before_connection" - Отправили join запрос и получили инфо о комнате
+// "crash_connection" - Сервер не ответил по https
 // "done_connection" - Удалось установить соединение по вебсоккету
 // "waiting" - Ожидание игроков
 // "game" - Процесс игры
@@ -86,13 +87,16 @@ class RealRoomM {
 
     async connect() {
         if (this.roomOptions) {
+            console.log("POST CREATE");
             try{
                 const response = await postCreateRoom(this.roomOptions);
             } catch(err) {
                 console.log(err);
-                throw(err);
+                this.lastState = this.state;
+                this.state = "crash_connection";
+                Bus.emit(ROOM_CHANGE);
+                return;
             }
-
             this.roomId = response.id;
         }
 
@@ -100,7 +104,10 @@ class RealRoomM {
             const response = await getJoinRoom(this.roomId);
         } catch(err) {
             console.log(err);
-            throw(err);
+            this.lastState = this.state;
+            this.state = "crash_connection";
+            Bus.emit(ROOM_CHANGE);
+            return;
         }
 
         this.roomName = response.room_name;

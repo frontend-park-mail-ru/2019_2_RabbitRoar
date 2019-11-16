@@ -120,7 +120,7 @@ class CreateRoomC {
         }
 
         GameF.CreateGame("online", options).then(
-            () => Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING)
+            () => {return}
         );
     }
 }

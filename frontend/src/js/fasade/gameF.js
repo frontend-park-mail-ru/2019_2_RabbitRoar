@@ -10,7 +10,8 @@ import {
     ROOM_CHANGE,
     QUESTION_WAS_CHOSEN,
     TIMER_INTERRUPTION,
-    USERS_PANEL_UPDATE
+    USERS_PANEL_UPDATE,
+    CRASH_EVENT
 } from "../modules/events.js";
 import { WAITING, SINGLE_GAME, ONLINE_GAME } from "../paths";
 
@@ -102,10 +103,10 @@ class GameF {
         console.log(`${RoomM.current.lastState}->${RoomM.current.state}`);
         if (RoomM.current.state === "waiting") {
             Bus.emit(USERS_PANEL_UPDATE);
-            // Bus.emit(PACK_INFO_UPDATE);
         } else if (RoomM.current.state === "before_connection") {
             Bus.emit(USERS_PANEL_UPDATE);
-            // Bus.emit(PACK_INFO_UPDATE);
+        } else if (RoomM.current.state === "crash_connection") {
+            Bus.emit(CRASH_EVENT);
         } else if (RoomM.current.state === "done_connection") {
             Bus.emit(WEBSOCKET_CONNECTION, true);
         } else if (RoomM.current.state === "closed") {

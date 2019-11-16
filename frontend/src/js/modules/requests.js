@@ -166,7 +166,7 @@ export async function postCreateRoom(roomOptions) {
     let response = await postRequest("/game", JSON.stringify(roomOptions));
     if (!response.ok) {
         throw new Error(`Cannot create game: ${response.statusText}`);
-    }
+    }   
     const obj = await response.json();
     return obj;
 }
@@ -256,6 +256,7 @@ export async function getRooms() {
         throw new Error(`Cannot get room list: ${response.statusText}`);
     }
 
+    console.log(response);
     const roomList = await response.json();
     return roomList;
 }

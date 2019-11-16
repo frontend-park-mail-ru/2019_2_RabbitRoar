@@ -45,19 +45,40 @@ class ContentM {
     async updatePackList() {
         this.packList = new Array();
         //try {
-            const publicPacks = await getPublicPackList();
-            const playedPacks = await getPlayedPackList();
-            const myPackList = await getMyPackList();
+        let publicPacks = await getPublicPackList();
+        let playedPacks = await getPlayedPackList();
+        let myPackList = await getMyPackList();
 
-            const uniquePack = new Set([...publicPacks, ...playedPacks, ...myPackList]);
-            for (const id of uniquePack) {
-                this.packList.push(id);
-            }
-            console.log(this.packList);
+        if ((!publicPacks.autorised) || (!playedPacks.autorised) || (!myPackList.autorised)) {
+            console.log("Can't load packs for unautorised user");
+        }
         // } catch(err) {
         //     console.log(err);
-        //     throw (err);
+        //     return;
         // }
+
+        console.log(publicPacks);
+        console.log(playedPacks);
+        console.log(myPackList);
+
+        if (!publicPacks) {
+            publicPacks = [];
+        }
+        if (!playedPacks) {
+            playedPacks = [];
+        }
+        if (!myPackList) {
+            myPackList = [];
+        }
+
+        const uniquePack = new Set([...publicPacks, ...playedPacks, ...myPackList]);
+        for (const id of uniquePack) {
+            this.packList.push(id);
+        }
+        console.log(this.packList);
+
+
+
 
         if (localStorage.getItem("packs_list")) {
             const savedPacks = JSON.parse(localStorage.getItem("packs_list"));
@@ -96,7 +117,11 @@ class ContentM {
             countList[packId]++;
         }
 
-        const savedPacks = JSON.parse(localStorage.getItem("packs_list"));
+        const item = localStorage.getItem("packs_list");
+        if (!item) {
+            return;
+        }
+        const savedPacks = JSON.parse(item);
 
         for (const saveId of savedPacks) {
             if (countList[saveId] === undefined) {
@@ -149,8 +174,16 @@ class ContentM {
                 content: []
             };
 
+            //try {
             const rooms = await getRooms();
-            const a = 5;
+            // if (!rooms.autorised) {
+            //     throw new Error("Can't get room list for unautorised user");
+            // }
+            //} catch(err) {
+            //    throw(err);
+            //}
+
+            console.log(`Rooms: ${rooms}`);
 
             for (const room of rooms) {
                 mainContent.content.push({
@@ -160,7 +193,6 @@ class ContentM {
                     roomId: room.UUID
                 });
             }
-
 
             // for (let i = 0; i < 20; i++) {
             //     mainContent.content.push({

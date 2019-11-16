@@ -25,6 +25,8 @@ class TabsE {
                 this._highlightChosen(id);
                 this.controller.start();
             }
+        ).catch(
+            (err) => console.log(err)
         );
     }
 
