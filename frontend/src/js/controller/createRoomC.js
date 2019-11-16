@@ -4,7 +4,7 @@ import { WAITING, ROOM_CREATOR, ROOT } from "../paths.js";
 import { ROUTER_EVENT, FORM_CHANGED } from "../modules/events.js";
 import GameF from "../fasade/gameF.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
-import { packCreationVaildationForm1 } from "../modules/form_validation";
+import { roomCreatureVaildation } from "../modules/form_validation";
 
 class CreateRoomC {
     constructor() {
@@ -20,6 +20,8 @@ class CreateRoomC {
         this.registerHandler("further", "click", this._goFurther.bind(this));
         this.registerClassHandler(".back", "click", this._goBack.bind(this));
         this.registerClassHandler(".pack-button", "click", this._chosePack.bind(this));
+        this.registerHandler("back", "click", this._goToRoot.bind(this));
+
 
         this.registerHandler("finish", "click", this._finish.bind(this));
 
@@ -30,6 +32,10 @@ class CreateRoomC {
 
         Bus.on(FORM_CHANGED, this._processForm.bind(this));
         return this;
+    }
+
+    _goToRoot() {
+        Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 
     start() {
@@ -70,7 +76,7 @@ class CreateRoomC {
     }
 
     _goFurther() {
-        const error = packCreationVaildationForm1();
+        const error = roomCreatureVaildation();
         if (error) {
             return;
         }
@@ -120,7 +126,7 @@ class CreateRoomC {
         }
 
         GameF.CreateGame("online", options).then(
-            () => {return}
+            () => { return }
         );
     }
 }
