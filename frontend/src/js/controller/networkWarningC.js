@@ -2,7 +2,7 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 
 import Bus from "../event_bus.js";
 
-import { ROUTER_EVENT, WEBSOCKET_CONNECTION, WEBSOCKET_CLOSE, CRASH_EVENT } from "../modules/events.js";
+import { ROUTER_EVENT, WEBSOCKET_CONNECTION, WEBSOCKET_CLOSE, CRASH_EVENT, OFFLINE_GAME_END } from "../modules/events.js";
 import { ROOT, WAITING } from "../paths";
 
 class NetworkWarningC {
@@ -11,10 +11,21 @@ class NetworkWarningC {
 
         this.registerHandler("popup_connection_error_route", "click", this._processPopUp.bind(this));
         this.registerHandler("popup_connection_http_error_route", "click", this._processPopUp.bind(this));
+        this.registerHandler("exit-offline-game", "click", this._goToRoot.bind(this));
 
+        
         Bus.on(WEBSOCKET_CONNECTION, this._wsConnect.bind(this));
         Bus.on(WEBSOCKET_CLOSE, this._wsClose.bind(this));
         Bus.on(CRASH_EVENT, this._crashConnection.bind(this));
+        Bus.on(OFFLINE_GAME_END, this._endGame.bind(this));
+
+    }
+    _goToRoot() {
+        Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+    }
+    
+    _endGame() {
+        this._showOrHidePopUp("popup-end");
     }
 
     _crashConnection() {

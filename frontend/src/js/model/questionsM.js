@@ -1,5 +1,5 @@
 import Bus from "../event_bus.js";
-import { QUESTION_CHANGE, TIMER_STOPPED, TIMER_INTERRUPTION, QUESTION_WAS_CHOSEN } from "../modules/events.js";
+import { QUESTION_CHANGE, OFFLINE_GAME_END } from "../modules/events.js";
 import WebSocketIface from "../modules/webSocketIface.js"
 
 
@@ -47,6 +47,8 @@ class OfflineQuestionsM {
         this.chosedQuestionsId = {};
         this.score = 0;
         this.themes = this._getThemes(this.packId);
+
+        this.numberOfSelectedQuestions = 0;
     }
 
 
@@ -100,7 +102,14 @@ class OfflineQuestionsM {
 
     _showResult() {
         this.questionTable.mode = "default";
-        Bus.emit(QUESTION_CHANGE);
+        this.numberOfSelectedQuestions++;
+        console.log(this.numberOfSelectedQuestions);
+        if (this.numberOfSelectedQuestions === 25) {
+            console.log(this.numberOfSelectedQuestions);
+            Bus.emit(OFFLINE_GAME_END);
+        } else {
+            Bus.emit(QUESTION_CHANGE);
+        }
     }
 
 

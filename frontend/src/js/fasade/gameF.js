@@ -11,7 +11,8 @@ import {
     QUESTION_WAS_CHOSEN,
     TIMER_INTERRUPTION,
     USERS_PANEL_UPDATE,
-    CRASH_EVENT
+    CRASH_EVENT,
+    OFFLINE_GAME_END
 } from "../modules/events.js";
 import { WAITING, SINGLE_GAME, ONLINE_GAME } from "../paths";
 
@@ -38,7 +39,7 @@ class GameF {
         Bus.on(QUESTION_CHANGE, this._questionChange.bind(this));
         Bus.on(ROOM_CHANGE, this._roomChange.bind(this));
     }
-
+    
     gameExist() {
         return (!!this.current);
     }
