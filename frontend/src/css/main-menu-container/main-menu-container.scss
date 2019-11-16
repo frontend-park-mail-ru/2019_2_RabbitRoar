@@ -8,6 +8,9 @@
 }
 
 .tab-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow-y: auto;
   overflow-x: hidden;
   grid-column-start: 1;
@@ -15,6 +18,27 @@
   grid-row-start: 2;
   grid-row-end: 3;
 }
+
+.fadeout-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  grid-column-start: 1;
+  grid-column-end: 6;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.fadeout {
+  z-index: 1;
+  height: 7vw;
+  width: 98.5%;
+  background: -webkit-linear-gradient(
+      rgba(23, 21, 32, 0) 0%,
+      rgba(23, 21, 32, 1) 100%
+  );
+} 
 
 @media all and (orientation: landscape) {
   ::-webkit-scrollbar {
