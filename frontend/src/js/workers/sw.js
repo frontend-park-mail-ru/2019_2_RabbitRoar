@@ -191,7 +191,7 @@ self.addEventListener("message", async function (event) {
 const CacheListApi = [
     "^(/api/user/)$",
     "^(/api/profile)$",
-    "^(/api/uploads/avatar/)[0-9]+(.jpeg|.png)$",
+    "^(/api/uploads/avatar/).+(\.jpeg|\.png)$",
 ];
 
 function needCache(requestUrl) {

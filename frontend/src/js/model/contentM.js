@@ -1,7 +1,9 @@
 import { queryTabContent, getPlayedPackList, getPublicPackList } from "../modules/requests.js";
 import Bus from "../event_bus.js";
 import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
-import { savePack, getUserPacks, deletePackById } from "../modules/requests.js";
+import { savePack, getUserPacks, deletePackById, getMyPackList } from "../modules/requests.js";
+
+import ContentF from "../fasade/contentF.js";
 
 
 //PUBLIC:
@@ -35,21 +37,27 @@ class ContentM {
         } else if (msg.data.type === "question") {
             localStorage.setItem(msg.data.key, msg.data.value)
         } else if (msg.data.type === "full") {
-            //console.log(msg.data.value);
+            const toBack = JSON.parse(msg.data.value);
+            console.log(toBack);
         }
     }
 
     async updatePackList() {
-        try {
+        this.packList = new Array();
+        //try {
             const publicPacks = await getPublicPackList();
             const playedPacks = await getPlayedPackList();
-            this.packList = [...publicPacks, ...playedPacks];
-        } catch (err) {
-            console.log(err);
-            throw (err);
-        }
+            const myPackList = await getMyPackList();
 
-        console.log(`My packs: ${this.packList}`);
+            const uniquePack = new Set([...publicPacks, ...playedPacks, ...myPackList]);
+            for (const id of uniquePack) {
+                this.packList.push(id);
+            }
+            console.log(this.packList);
+        // } catch(err) {
+        //     console.log(err);
+        //     throw (err);
+        // }
 
         if (localStorage.getItem("packs_list")) {
             const savedPacks = JSON.parse(localStorage.getItem("packs_list"));
@@ -70,8 +78,16 @@ class ContentM {
         const countList = {};
 
         for (let i = 0; i < localStorage.length; i++) {
-            const packId = localStorage.key(i)[0];
+            let packId = "";
+            for (const ch of localStorage.key(i)) {
+                if (ch === "-") {
+                    break;
+                }
+                packId += ch;
+            }
+
             if (isNaN(packId)) {
+                console.log(packId);
                 continue;
             }
 
@@ -85,18 +101,14 @@ class ContentM {
 
         for (const saveId of savedPacks) {
             if (countList[saveId] === undefined) {
-                if (saveId !== "default_pack") {
-                    this.downloadList.push(saveId);
-                }
+                this.downloadList.push(saveId);
             }
         }
 
         //console.log(countList)
         for (const packId in countList) {
             if (countList[packId] !== keysForOnePack) {
-                if (packId !== "default_pack") {
-                    this.downloadList.push(packId);
-                }
+                this.downloadList.push(packId);
                 this._deletePack(packId);
             }
         }
