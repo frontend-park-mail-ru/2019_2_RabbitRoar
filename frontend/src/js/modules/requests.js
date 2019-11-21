@@ -1,4 +1,4 @@
-import { postRequest, deleteRequest, getRequest, putRequest } from "./ajax.js";
+import { postRequest, deleteRequest, getRequest, putRequest, RetardsPostRequest } from "./ajax.js";
 import { SERVICE_WORKER_CMD } from "../modules/events.js";
 import Bus from "../event_bus.js";
 
@@ -172,7 +172,6 @@ export async function postCreateRoom(roomOptions, csrf) {
     if (!response.ok) {
         throw new Error(`Cannot create game: ${response.statusText}`);
     }
-    console.log(response);
     const obj = await response.json();
     return obj;
 }
@@ -193,6 +192,27 @@ export async function postJoinRoom(uuid, csrf) {
     }
     const obj = await response.json();
     return obj;
+}
+
+export async function deleteLeaveRoom(csrf) {
+    const headers = {
+        "Content-type": "application/json",
+        "X-Csrf-Token": csrf,
+    }
+
+    let response = await deleteRequest("/game/leave", headers);
+
+    if (response.status === 401) {
+        localStorage.removeItem("authorized");
+    }
+    if (!response.ok) {
+        const obj = await response.json();
+        if (obj.message === "error leaving the game") {
+            return;
+        }
+
+        throw new Error(`Cannot leave room ahahahah: ${response.statusText}`);
+    }
 }
 
 export async function getPackById(packId) {
@@ -254,6 +274,9 @@ export async function getMyPackList() {
 
 export async function getRooms() {
     let response = await getRequest("/game/");
+    if (!response) {
+        undefined;
+    }
     if(response.status === 401) {
         localStorage.removeItem("authorized");
         return undefined;

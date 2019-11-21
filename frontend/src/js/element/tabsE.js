@@ -19,6 +19,19 @@ class TabsE {
 
         ContentF.getTabContent(id).then(
             templateContent => {
+                console.log("TRUE!");
+                templateContent.connection = true;
+                this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
+                this._highlightChosen(id);
+                this.controller.start();
+            }
+        ).catch(
+            () => {
+                console.log("FALSE!");
+                const templateContent = {
+                    contentType: window.id.tabRoom,
+                    connection: false
+                };
                 this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
                 this._highlightChosen(id);
                 this.controller.start();

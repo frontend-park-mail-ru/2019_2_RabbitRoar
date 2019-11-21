@@ -42,7 +42,7 @@ class NetworkWarningC {
 
     _wsClose(close) {
         if (close.code !== 1000) {
-            if (close.lastState === "created") {
+            if (close.lastState === "before_connection") {
                 this._showOrHidePopUp("popup_connection_error");
             }
         }

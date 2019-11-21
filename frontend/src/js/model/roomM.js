@@ -1,4 +1,4 @@
-import { postCreateRoom, postJoinRoom, getCSRF } from "../modules/requests.js"
+import { postCreateRoom, postJoinRoom, getCSRF, deleteLeaveRoom } from "../modules/requests.js"
 import WebSocketIface from "../modules/webSocketIface.js"
 import Bus from "../event_bus.js";
 import { ROOM_CHANGE } from "../modules/events.js";
@@ -25,9 +25,16 @@ class RoomM {
         this.current = new RealRoomM(roomId, roomOptions);
     }
 
+// WebSocketIface.disconnect() если соккет был открыт,
+// произойдет вызов this.current._closeConnection()
     clear() {
         WebSocketIface.disconnect();
         this.current = undefined;
+        getCSRF().then(
+            (csrf) => deleteLeaveRoom(csrf.CSRF)
+        ).catch(
+            (err) => console.log(`Can't leave room ${err}`)
+        );
         console.log("комната уничтожена");
     }
 
@@ -96,9 +103,19 @@ class RealRoomM {
                 console.log(err);
                 this.lastState = this.state;
                 this.state = "crash_connection";
-                throw(new Error("Can't create room"));
+                return;
             }
             this.roomId = response.id;
+        }
+
+        try {
+            const csrf = await getCSRF();
+            await deleteLeaveRoom(csrf.CSRF);
+        } catch(err) {
+            console.log(err);
+            this.lastState = this.state;
+            this.state = "crash_connection";
+            return;
         }
 
         try {
@@ -108,7 +125,7 @@ class RealRoomM {
             console.log(err);
             this.lastState = this.state;
             this.state = "crash_connection";
-            throw(new Error("Can't join room"));
+            return;
         }
 
         this.roomName = response.room_name;
