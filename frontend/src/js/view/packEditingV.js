@@ -5,11 +5,11 @@ import NetworkWarningE from "../element/networkWarningE.js";
 import { View } from "./view.js";
 
 
-class PackCreatorV extends View{};
+class PackEditingV extends View{};
 
-export default new PackCreatorV(
+export default new PackEditingV(
     document.getElementById("application"),
     NavbarE,
-    CreatePackE,
+   // CreatePackE,
     NetworkWarningE
 );

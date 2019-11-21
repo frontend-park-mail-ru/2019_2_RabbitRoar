@@ -5,7 +5,7 @@ import { id } from "../modules/id.js";
 import Bus from "../event_bus.js";
 
 import { ROUTER_EVENT } from "../modules/events.js";
-import { SINGLE_GAME, ROOM_CREATOR, LOGIN, PACK_CREATION } from "../paths";
+import { SINGLE_GAME, ROOM_CREATOR, LOGIN, PACK_CREATION, PACK_EDITING } from "../paths";
 
 import ValidatorF from "../fasade/userValidatorF.js";
 
@@ -27,7 +27,9 @@ class TabsC {
         this.registerClassHandler(".tab-click", "mouseout", this._unLightTab.bind(this));
 
         this.registerClassHandler(".join-button", "click", this._joinClick.bind(this));
-        this.registerClassHandler(".delete", "click", this._deleteCurrentClass.bind(this));
+        this.registerClassHandler(".delete", "click", this._deletePack.bind(this));
+        this.registerClassHandler(".create", "click", this._editPack.bind(this));
+
 
         this.registerHandler("create-pack-button", "click", this._createPack.bind(this));
 
@@ -35,9 +37,13 @@ class TabsC {
         this.registerClassHandler(".tab__create-room-btn", "click", this._routeToRoomCreation.bind(this));
 
     }
+    _editPack() {
+        //const packForEdit = event.target.getAttribute("pack_id");
+        Bus.emit(ROUTER_EVENT.ROUTE_TO, PACK_EDITING);
+    }
 
-    _deleteCurrentClass(event) {
-        const packForDelete = event.target.getAttribute("join_id");
+    _deletePack(event) {
+        const packForDelete = event.target.getAttribute("pack_id");
         ContentF.deletePackById(packForDelete);
     }
 

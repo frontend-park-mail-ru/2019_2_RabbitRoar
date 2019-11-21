@@ -105,8 +105,9 @@ div(class="main-container")
                             div(class="panel-elem") #{pack.name}
                             div(class="panel-elem") #{pack.rating}
                             div(class="panel-elem")
+                                 div(class="button-in-list create" id="create" pack_id=pack.id) Изменить
                             div(class="panel-elem")
-                                div(class="button-in-list delete" id="delete" join_id=pack.id) Удалить
+                                div(class="button-in-list delete" id="delete" pack_id=pack.id) Удалить
             else    
                 div(class="faq-text")
                     div(class="line") Создавайте свои паки и играйте с друзьями!
