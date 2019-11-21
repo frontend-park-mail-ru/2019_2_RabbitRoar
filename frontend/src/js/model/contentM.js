@@ -45,17 +45,31 @@ class ContentM {
     async updatePackList() {
         this.packList = new Array();
 
-        let publicPacks = await getPublicPackList();
-        let playedPacks = await getPlayedPackList();
-        let myPackList = await getMyPackList();
+        let publicPacks;
+        let playedPacks;
+        let myPackList;
 
-        // console.log(" print");
-        // console.log(publicPacks);
-        // console.log(playedPacks);
-        // console.log(myPackList);
+        try {
+            publicPacks = await getPublicPackList();
+        } catch (err) {
+            console.log(err);
+        }
 
-        if ((!publicPacks) || (!playedPacks) || (!myPackList)) {
-            console.log("Can't load packs for unautorised user");
+        try {
+            playedPacks = await getPlayedPackList();
+        } catch (err) {
+            console.log(err);
+        }
+
+        try {
+            myPackList = await getMyPackList();
+        } catch (err) {
+            console.log(err);
+        }
+
+
+        if ((!publicPacks) && (!playedPacks) && (!myPackList)) {
+            console.log("Error: pack list is empty!");
             return;
         }
 
@@ -73,7 +87,7 @@ class ContentM {
         for (const id of uniquePack) {
             this.packList.push(id);
         }
-        console.log(this.packList);
+        console.log(`My packs: ${this.packList}`);
 
 
 
@@ -172,37 +186,21 @@ class ContentM {
                 content: []
             };
 
-            //try {
-            const rooms = await getRooms();
-            // if (!rooms.autorised) {
-            //     throw new Error("Can't get room list for unautorised user");
-            // }
-            //} catch(err) {
-            //    throw(err);
-            //}
-
-            console.log(`Rooms: ${rooms}`);
-            if (rooms) {
-                for (const room of rooms) {
-                    mainContent.content.push({
-                        name: room.name,
-                        maxPlayers: room.capacity,
-                        currentPlayers: joined,
-                        roomId: room.UUID
-                    });
+            let rooms = [];
+            try {
+                rooms = await getRooms();
+                if (!rooms) {
+                    throw new Error("Can't get room list for unautorised user");
                 }
+            } catch (err) {
+                throw (err);
             }
 
-
-            // for (let i = 0; i < 20; i++) {
-            //     mainContent.content.push({
-            //         name: "Название комнаты",
-            //         maxPlayers: 4,
-            //         currentPlayers: Math.floor(Math.random() * (3 - 0 + 1)) + 0,
-            //         roomId: i + 1,
-            //     });
-            // }
-
+            if (rooms) {
+                for (const room of rooms) {
+                    mainContent.content.push(room);
+                }
+            }
 
             return mainContent;
         }

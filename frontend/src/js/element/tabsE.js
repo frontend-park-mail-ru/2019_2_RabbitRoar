@@ -13,8 +13,6 @@ class TabsE {
     }
 
     create(root = document.getElementById("application")) {
-        // console.log(`id listeners: ${this.controller.events.size}`);
-        //console.log(`class listeners ${this.controller.classEvents.get(".tab").size}`);
         this.root = root;
         this.controller.start();
         const id = ContentF.getCurrentTab();
@@ -25,8 +23,6 @@ class TabsE {
                 this._highlightChosen(id);
                 this.controller.start();
             }
-        ).catch(
-            (err) => console.log(err)
         );
     }
 

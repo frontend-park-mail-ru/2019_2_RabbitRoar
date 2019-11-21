@@ -1,4 +1,4 @@
-import { postCreateRoom, getJoinRoom, getCSRF } from "../modules/requests.js"
+import { postCreateRoom, postJoinRoom, getCSRF } from "../modules/requests.js"
 import WebSocketIface from "../modules/webSocketIface.js"
 import Bus from "../event_bus.js";
 import { ROOM_CHANGE } from "../modules/events.js";
@@ -96,20 +96,19 @@ class RealRoomM {
                 console.log(err);
                 this.lastState = this.state;
                 this.state = "crash_connection";
-                Bus.emit(ROOM_CHANGE);
-                return;
+                throw(new Error("Can't create room"));
             }
             this.roomId = response.id;
         }
 
         try {
-            response = await getJoinRoom(this.roomId);
+            const csrf = await getCSRF();
+            response = await postJoinRoom(this.roomId, csrf.CSRF);
         } catch(err) {
             console.log(err);
             this.lastState = this.state;
             this.state = "crash_connection";
-            Bus.emit(ROOM_CHANGE);
-            return;
+            throw(new Error("Can't join room"));
         }
 
         this.roomName = response.room_name;
@@ -121,7 +120,6 @@ class RealRoomM {
         this.state = "before_connection";
 
         WebSocketIface.connect(this.roomId);
-        Bus.emit(ROOM_CHANGE);
     }
 
 }

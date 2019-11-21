@@ -171,13 +171,19 @@ export async function postCreateRoom(roomOptions, csrf) {
     let response = await postRequest("/game/", JSON.stringify(roomOptions), headers);
     if (!response.ok) {
         throw new Error(`Cannot create game: ${response.statusText}`);
-    }   
+    }
+    console.log(response);
     const obj = await response.json();
     return obj;
 }
 
-export async function getJoinRoom(uuid) {
-    let response = await getRequest("/game/" + uuid + "/join");
+export async function postJoinRoom(uuid, csrf) {
+    const headers = {
+        "Content-type": "application/json",
+        "X-Csrf-Token": csrf,
+    }
+
+    let response = await postRequest("/game/" + uuid + "/join", {}, headers);
 
     if (response.status === 401) {
         localStorage.removeItem("authorized");
@@ -202,10 +208,8 @@ export async function getPackById(packId) {
 export async function getPlayedPackList() {
     let response = await getRequest("/pack/offline");
     if(response.status === 401) {
+        localStorage.removeItem("authorized");
         return undefined;
-        // return {
-        //     autorised: false
-        // };
     }
 
 
@@ -220,11 +224,8 @@ export async function getPlayedPackList() {
 export async function getPublicPackList() {
     let response = await getRequest("/pack/offline/public");
     if(response.status === 401) {
+        localStorage.removeItem("authorized");
         return undefined;
-
-        // return {
-        //     autorised: false
-        // };
     }
 
     if (!response.ok) {
@@ -238,11 +239,8 @@ export async function getPublicPackList() {
 export async function getMyPackList() {
     let response = await getRequest("/pack/offline/author");
     if(response.status === 401) {
+        localStorage.removeItem("authorized");
         return undefined;
-
-        // return {
-        //     autorised: false
-        // };
     }
 
     if (!response.ok) {
@@ -257,17 +255,14 @@ export async function getMyPackList() {
 export async function getRooms() {
     let response = await getRequest("/game/");
     if(response.status === 401) {
+        localStorage.removeItem("authorized");
         return undefined;
-        // return {
-        //     autorised: false
-        // };
     }
 
     if (!response.ok) {
         throw new Error(`Cannot get room list: ${response.statusText}`);
     }
 
-    console.log(response);
     const roomList = await response.json();
     return roomList;
 }
