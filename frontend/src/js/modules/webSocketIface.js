@@ -73,7 +73,9 @@ class WebSocketIface {
 
     disconnect() {
         this.clearHandlers();
-        this.socket.close(1000, "Бан");
+        if (this.socket) {
+            this.socket.close(1000, "Бан");
+        }
     }
 
 
@@ -99,7 +101,7 @@ class WebSocketIface {
         }
 
         this.handlersMap[type] = this.handlersMap[type]
-        .filter((handler) => handler !== removing);
+            .filter((handler) => handler !== removing);
     }
 
 

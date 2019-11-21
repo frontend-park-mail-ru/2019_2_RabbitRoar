@@ -1,16 +1,16 @@
 .rooms-panel {
     @extend %panel;
-    grid-template-columns: 4fr 1fr 2fr;
+    grid-template-columns: 2fr 2fr 1fr 2fr;
 }
 
 @media all and (orientation: landscape) {
     .rooms-panel {
-        grid-template-columns: 4fr 1fr 2fr;
+        grid-template-columns: 2fr 2fr 1fr 2fr;
     }
 }
 @media all and (orientation: portrait) {
     .rooms-panel {
-        grid-template-columns: 2fr 1fr 2fr;
+        grid-template-columns: 1fr 1fr 1fr 2fr;
     }
 }
 

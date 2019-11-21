@@ -56,6 +56,7 @@ class GameF {
                 this.current = await this._createOnlineGame(options.roomId, null);
             } else if (options.action === "create") {
                 this.current = await this._createOnlineGame(null, options.roomOptions);
+                this.current._roomChange();
             }
         }
         Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);

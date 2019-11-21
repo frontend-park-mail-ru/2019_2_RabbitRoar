@@ -12,6 +12,7 @@ div(class="main-container")
             div(id="online_mode")
             div(class="rooms-panel")
                 div(class="panel-elem elem-justify-start") Название:
+                div(class="panel-elem") Пак:
                 div(class="panel-elem") Количество:
                 div(class="panel-elem")
                 
@@ -22,12 +23,13 @@ div(class="main-container")
                             div(class="popup-button" id="cansel") Отмена
                             div(class="popup-button" id="continue") Авторизоваться
 
-            each val, index in templateContent.content
+            each room, index in templateContent.content
                 div(class="rooms-panel")
-                    div(class="panel-elem elem-justify-start") #{val.name}
-                    div(class="panel-elem") #{val.currentPlayers}/#{val.maxPlayers}
-                    div(class="panel-elem" id=index)
-                        div(class="join-button button-in-list" id="play" join_id=index) Присоединиться
+                    div(class="panel-elem elem-justify-start") #{room.name}
+                    div(class="panel-elem") #{room.packName}
+                    div(class="panel-elem") #{room.playersJoined + "/" + room.playersCapacity}
+                    div(class="panel-elem" id=room.UUID)
+                        div(class="join-button button-in-list" id="play" join_id=room.UUID) Присоединиться
 
 
         div(class="tab__info-container")
