@@ -146,7 +146,6 @@ class GameF {
     }
 }
 
-// ===================================================
 
 class OfflineGameF {
     constructor(clickId) {
@@ -190,7 +189,6 @@ class OfflineGameF {
     };
 }
 
-// ===================================================
 
 class OnlineGameF {
     constructor(roomId, roomOptions) {

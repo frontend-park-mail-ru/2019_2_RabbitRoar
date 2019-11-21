@@ -1,6 +1,8 @@
 import Bus from "../event_bus.js";
 import ContentM from "../model/contentM.js";
+import PackM from "../model/packM";
 import UserM from "../model/userM";
+
 
 import { CHANGE_TAB } from "../modules/events.js";
 import MainMenuM from "../model/mainMenuM.js";
@@ -18,15 +20,19 @@ class ContentF {
     async savePack(packObj) {
         const csrfJson = await UserValidatorF.getCSRF();
         const csrf = csrfJson.CSRF;
-        ContentM.savePack(packObj, csrf).catch(
+        
+        PackM.savePack(packObj, csrf).catch(
             (error) => console.log(`ERROR at: contentF.savePack - ${error}`));
+
+        // ContentM.savePack(packObj, csrf).catch(
+        //     (error) => console.log(`ERROR at: contentF.savePack - ${error}`));
     }
 
     async updateLocalPacks() {
-        await ContentM.updatePackList();
-        ContentM.doPackValidation();
+        await PackM.updatePackList();
+        PackM.doPackValidation();
 
-        const packList = ContentM.getDownloadList();
+        const packList = PackM.getDownloadList();
 
         Bus.emit(PACK_WORKER_COMMAND, {
             command: "update",
@@ -52,7 +58,8 @@ class ContentF {
 
     async deletePackById(packForDelete) {
         const csrf = await UserM.getCSRF();
-        const response = await ContentM.deletePackById(csrf.CSRF, packForDelete);
+
+        const response = await PackM.deletePackById(csrf.CSRF, packForDelete);
     }
 }
 

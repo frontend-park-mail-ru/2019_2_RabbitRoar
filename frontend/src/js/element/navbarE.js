@@ -39,6 +39,9 @@ class NavbarE {
             case "/pack_creation":
                 navBarText = "Создание пака";
                 break;
+            case "/pack_editing":
+                navBarText = "Редактирование пака";
+                break;
             default:
                 navBarText = "";
         }

@@ -33,7 +33,6 @@ class QuestionsM {
 
 }
 
-// =============================================
 
 class OfflineQuestionsM {
     constructor(packId = 0) {

@@ -118,7 +118,6 @@ self.addEventListener("fetch", function (event) {
     }
 });
 
-// ============================================================
 
 async function reloadPromise() {
     console.log("SW RELOAD");
@@ -155,7 +154,6 @@ self.addEventListener("activate", function (event) {
     event.waitUntil(reloadPromise());
 });
 
-// ============================================================
 
 self.addEventListener("message", async function (event) {
     console.log(event.data);

@@ -4,7 +4,7 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import { id } from "../modules/id.js";
 import Bus from "../event_bus.js";
 
-import { ROUTER_EVENT } from "../modules/events.js";
+import { ROUTER_EVENT, PACK_FOR_EDIT_WAS_CHOSEN } from "../modules/events.js";
 import { SINGLE_GAME, ROOM_CREATOR, LOGIN, PACK_CREATION, PACK_EDITING } from "../paths";
 
 import ValidatorF from "../fasade/userValidatorF.js";
@@ -38,7 +38,8 @@ class TabsC {
 
     }
     _editPack() {
-        //const packForEdit = event.target.getAttribute("pack_id");
+        const packForEdit = event.target.getAttribute("pack_id");
+        Bus.emit(PACK_FOR_EDIT_WAS_CHOSEN, packForEdit);
         Bus.emit(ROUTER_EVENT.ROUTE_TO, PACK_EDITING);
     }
 

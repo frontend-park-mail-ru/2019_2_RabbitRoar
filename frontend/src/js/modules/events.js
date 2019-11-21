@@ -50,6 +50,8 @@ export const QUESTION_WAS_CHOSEN = "questionWasChosen";
 export const CRASH_EVENT = "crashEvent";
 
 export const TIMER_STOPPED = "timerStopped";
-export const TIMER_INTERRUPTION = "timerInterruption"
+export const TIMER_INTERRUPTION = "timerInterruption";
 
-export const FORM_CHANGED = "formChanged"
+export const FORM_CHANGED = "formChanged";
+
+export const PACK_FOR_EDIT_WAS_CHOSEN = "packEditing";
