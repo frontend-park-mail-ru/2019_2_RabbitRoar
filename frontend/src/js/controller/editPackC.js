@@ -7,13 +7,15 @@ class EditPackC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
         this.registerHandler("back", "click", this._goBack.bind(this));
+        this.packObj;
     }
 
     _goBack() {
         Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 
-    start() {
+    async start() {
+        this.packObj = await ContentF.getPackById(currentPackId);
         this.enableAll();
     }
 

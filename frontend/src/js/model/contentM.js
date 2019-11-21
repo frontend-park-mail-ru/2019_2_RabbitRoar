@@ -19,7 +19,6 @@ import ContentF from "../fasade/contentF.js";
 
 class ContentM {
     constructor() {
-        this.downloadList = new Array();
         Bus.on(PACK_WORKER_MESSAGE, this._workerHandler.bind(this));
     }
 

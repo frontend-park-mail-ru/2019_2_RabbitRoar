@@ -2,23 +2,38 @@ import { } from "../modules/requests.js";
 import Bus from "../event_bus.js";
 import { PACK_FOR_EDIT_WAS_CHOSEN } from "../modules/events.js";
 import { } from "../modules/requests.js";
-import { savePack, deletePackById, getMyPackList, getPlayedPackList, getPublicPackList} from "../modules/requests.js";
+import { savePack, deletePackById, getMyPackList, getPlayedPackList, getPublicPackList, getPackById } from "../modules/requests.js";
 
 import ContentF from "../fasade/contentF.js";
 
 class PackM {
     constructor() {
         this.packIdForEditing;
-        Bus.on(PACK_FOR_EDIT_WAS_CHOSEN, this._setPackForEditing.bind(this));
+        this.downloadList = new Array();
+        this.packObj;
+       // Bus.on(PACK_FOR_EDIT_WAS_CHOSEN, this._setInfoForPackEditing.bind(this));
+    }
+
+    getpackIdForEditing() {
+        return this.packIdForEditing;
+    }
+
+    getCurrentPackObjForEditing() {
+        return this.packObj;
     }
 
     async savePack(packObj, csrf) {
         await savePack(packObj, csrf);
     }
 
-    _setPackForEditing(packId) {
+    async getPackById(id) {
+        const currentPack = await getPackById(id);
+        return currentPack;
+    }
+
+    async setInfoForPackEditing(packId) {
         this.packIdForEditing = packId;
-        // alert(this.packIdForEditing);
+        this.packObj = await ContentF.getPackById(this.packIdForEditing);
     }
 
     async deletePackById(crsfString, id) {

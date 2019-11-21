@@ -76,7 +76,7 @@ class GameF {
 
     _clearGame(path) {
         if (this.gamePaths.includes(path)) {
-            return
+            return;
         }
 
         console.log("Game clearing");

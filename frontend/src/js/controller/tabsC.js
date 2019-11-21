@@ -3,6 +3,8 @@ import GameF from "../fasade/gameF.js";
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import { id } from "../modules/id.js";
 import Bus from "../event_bus.js";
+import PackM from "../model/packM.js";
+
 
 import { ROUTER_EVENT, PACK_FOR_EDIT_WAS_CHOSEN } from "../modules/events.js";
 import { SINGLE_GAME, ROOM_CREATOR, LOGIN, PACK_CREATION, PACK_EDITING } from "../paths";
@@ -37,9 +39,10 @@ class TabsC {
         this.registerClassHandler(".tab__create-room-btn", "click", this._routeToRoomCreation.bind(this));
 
     }
-    _editPack() {
-        const packForEdit = event.target.getAttribute("pack_id");
-        Bus.emit(PACK_FOR_EDIT_WAS_CHOSEN, packForEdit);
+    async _editPack() {
+        const packIdForEdit = event.target.getAttribute("pack_id");
+        // Bus.emit(PACK_FOR_EDIT_WAS_CHOSEN, packForEdit);
+        await ContentF.setInfoForPackEditing(packIdForEdit);
         Bus.emit(ROUTER_EVENT.ROUTE_TO, PACK_EDITING);
     }
 

@@ -17,6 +17,19 @@ class ContentF {
 
     }
 
+    getPackIdForEditing() {
+        return PackM.getpackIdForEditing();
+    }
+
+    async getPackById(id){
+        const packObj = await PackM.getPackById(id);
+        return packObj;
+    }
+
+    async setInfoForPackEditing(packId){
+        await PackM.setInfoForPackEditing(packId);
+    }
+
     async savePack(packObj) {
         const csrfJson = await UserValidatorF.getCSRF();
         const csrf = csrfJson.CSRF;
@@ -58,7 +71,6 @@ class ContentF {
 
     async deletePackById(packForDelete) {
         const csrf = await UserM.getCSRF();
-
         const response = await PackM.deletePackById(csrf.CSRF, packForDelete);
     }
 }

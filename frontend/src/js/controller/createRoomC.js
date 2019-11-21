@@ -118,7 +118,6 @@ class CreateRoomC {
         obj.playersCapacity = this.usersCount;
         obj.name = this.roomName;
         obj.pack = this.packId;
-        alert(obj.pack);
         obj.private = false;
 
         const options = {
