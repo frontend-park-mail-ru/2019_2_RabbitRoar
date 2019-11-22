@@ -1,6 +1,7 @@
 // Функции должны обязательно возвращать промис
 
 const base = "https://svoyak.fun/api";
+const retardBase = "https://svoyak.fun";
 
 export const basePhotoUrl = "https://svoyak.fun/api";
 
@@ -11,6 +12,22 @@ export function postRequest(
         "Content-type": "application/json; charset=utf-8",
     }) {
     url = base + url;
+    return fetch(url, {
+        method: "POST",
+        headers: headers,
+        credentials: "include",
+        mode: "cors",
+        body: body,
+    });
+}
+
+export function RetardsPostRequest(
+    url = "/",
+    body = {},
+    headers = {
+        "Content-type": "application/json; charset=utf-8",
+    }) {
+    url = retardBase + url;
     return fetch(url, {
         method: "POST",
         headers: headers,

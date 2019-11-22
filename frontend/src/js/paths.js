@@ -9,3 +9,8 @@ export const WAITING = "/waiting";
 export const PACK_CREATION = "/pack_creation";
 export const PACK_EDITING = "/pack_editing";
 
+
+// Relative window.location.origin
+export const staticFiles = {
+    userLogo: "/static/default-logo.png",
+}

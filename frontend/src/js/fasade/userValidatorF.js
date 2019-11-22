@@ -1,12 +1,11 @@
 import Bus from "../event_bus.js";
 import User from "../model/userM.js";
-import { USER_VALIDATE, ROUTER_EVENT, PROFILE_UPDATE } from "../modules/events.js";
-import { LOGIN, SIGN_UP, ROOT } from "../paths";
+import { ROUTER_EVENT, PROFILE_UPDATE } from "../modules/events.js";
+import { LOGIN, ROOT, staticFiles } from "../paths";
 import userM from "../model/userM.js";
-import contentM from "../model/contentM.js";
 import { basePhotoUrl } from "../modules/ajax.js"
 
-const defaultAvatar = "https://pngimage.net/wp-content/uploads/2018/06/user-logo-png-4.png";
+const defaultAvatar = window.location.origin + staticFiles.userLogo;
 //PUBLUC:
 //getUserAutorise()
 //checkLocalstorageAutorization()
