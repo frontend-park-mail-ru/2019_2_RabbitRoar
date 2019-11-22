@@ -128,6 +128,12 @@ class CreateRoomC {
 
         GameF.CreateGame("online", options).then(
             () => { return }
+        ).catch(
+            (err) => {
+                console.log("GAME CREATE FATAL ERROR");
+                console.log(err);
+                Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+            }
         );
     }
 }

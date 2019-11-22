@@ -3,7 +3,11 @@ import { id } from "../modules/id.js";
 
 class MainMenuM {
     constructor() {
+        this._roomPage = 0;
+        this._topPage = 0;
+        this._packPage = 0;
     }
+
 
     get currentTab() {
         if (this._currentTab) {

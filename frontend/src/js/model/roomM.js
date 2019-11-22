@@ -34,8 +34,9 @@ class RoomM {
             (csrf) => deleteLeaveRoom(csrf.CSRF)
         ).catch(
             (err) => console.log(`Can't leave room ${err}`)
+        ).finally(
+            () => console.log("комната уничтожена")
         );
-        console.log("комната уничтожена");
     }
 
     async connect() {

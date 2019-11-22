@@ -34,6 +34,8 @@ class TabsC {
         this.registerClassHandler(".popup-button", "click", this._processPopUp);
         this.registerClassHandler(".tab__create-room-btn", "click", this._routeToRoomCreation);
 
+        this.registerClassHandler(".paginator-panel", "click", this._paginatorClick);
+
     }
 
     _deleteCurrentClass(event) {
@@ -60,6 +62,10 @@ class TabsC {
 
     _tabClick = (event) => {
         ContentF.setCurrentTab(event.target.id);
+    }
+
+    _paginatorClick = (event) => {
+        alert(event.target.id);
     }
 
     _processPopUp = (event) => {
@@ -134,6 +140,12 @@ class TabsC {
                 } else {
                     Bus.emit(ROUTER_EVENT.ROUTE_TO, SINGLE_GAME);
                 }
+            }
+        ).catch(
+            (err) => {
+                console.log("GAME CREATE FATAL ERROR");
+                console.log(err);
+                Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
             }
         );
     }
