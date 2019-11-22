@@ -9,12 +9,12 @@ class ProfileE {
     constructor() {
         this.controller = ProfileC;
 
-        Bus.on(PROFILE_UPDATE, this._restartListener.bind(this));
+        Bus.on(PROFILE_UPDATE, this._restartListener);
 
         return this;
     }
 
-    async create(root = document.getElementById("application")) {
+    create = async (root = document.getElementById("application")) => {
         this.root = root;
         const currentUserData = await ValidatorF.getUserData();
         currentUserData.avatar_url = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
@@ -23,12 +23,12 @@ class ProfileE {
         this.controller.start();
     }
 
-    _restartListener() {
+    _restartListener = () => {
         this.destroy();
         this.create(this.root);
     }
 
-    destroy() {
+    destroy = () => {
         this.controller.drop();
         this.root.innerHTML = "";
     }

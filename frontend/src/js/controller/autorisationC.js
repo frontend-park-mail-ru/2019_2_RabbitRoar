@@ -10,8 +10,8 @@ class AutorisationC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
 
-        this.registerHandler("autorisation", "click", this._autorise.bind(this));
-        this.registerHandler("back", "click", this._goBack.bind(this));
+        this.registerHandler("autorisation", "click", this._autorise);
+        this.registerHandler("back", "click", this._goBack);
 
         return this;
     }
@@ -25,7 +25,7 @@ class AutorisationC {
     }
 
 
-    _autorise() {
+    _autorise = () => {
         const autorizationError = autorizationVaildation();
         if (autorizationError) {
             return;
@@ -33,7 +33,7 @@ class AutorisationC {
         const result = ValidatorF.doAutorise(document.getElementById("username").value, document.getElementById("password").value);
     }
 
-    _goBack() {
+    _goBack = () => {
         Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 }

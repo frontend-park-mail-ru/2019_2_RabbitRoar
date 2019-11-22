@@ -13,18 +13,18 @@ class QuestionTableE {
         this.progressBarInterrupt = false;
         this.timerIsWorking = false;
 
-        Bus.on(TIMER_STOPPED, this._redraw.bind(this));
-        Bus.on(QUESTION_PANEL_UPDATE, this._redraw.bind(this));
-        Bus.on(TIMER_INTERRUPTION, this._interruptProgressBar.bind(this));
+        Bus.on(TIMER_STOPPED, this._redraw);
+        Bus.on(QUESTION_PANEL_UPDATE, this._redraw);
+        Bus.on(TIMER_INTERRUPTION, this._interruptProgressBar);
 
     }
 
-    _redraw() {
+    _redraw = () => {
         this.destroy();
         this.create(this.root);
     }
 
-    create(root = document.getElementById("application")) {
+    create = (root = document.getElementById("application")) => {
         this.gameIface = GameF.getInterface(this)();
         this.root = root;
         const state = this.gameIface.questionInfo();
@@ -32,7 +32,7 @@ class QuestionTableE {
         this.root.insertAdjacentHTML("beforeend", Template({ state }));
         this.controller.start();
 
-        
+
         for (const _id in state.chosedCells) {
             const lastClick = document.getElementById(_id);
             if (lastClick) {
@@ -54,7 +54,7 @@ class QuestionTableE {
         }
     }
 
-    destroy() {
+    destroy = () => {
         if (this.timerIsWorking) {
             this.timerIsWorking = false;
             Bus.emit(TIMER_INTERRUPTION);
@@ -63,11 +63,11 @@ class QuestionTableE {
         this.root.innerHTML = "";
     }
 
-    _interruptProgressBar() {
+    _interruptProgressBar = () => {
         this.progressBarInterrupt = true;
     }
 
-    _progressBarMoving() {
+    _progressBarMoving = () => {
         this.timerIsWorking = true;
         return new Promise((resolve, reject) => {
             const period = 400;
@@ -88,7 +88,7 @@ class QuestionTableE {
         });
     }
 
-    _interruptImmediatly(interval, resolve) {
+    _interruptImmediatly = (interval, resolve) => {
         this.progressBarInterrupt = false;
         clearInterval(interval);
         resolve("done");

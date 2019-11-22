@@ -9,11 +9,11 @@ import { replaceTwoCssClasses } from "../modules/css_operations";
 class EditPackC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
-        this.registerHandler("back", "click", this._goBack.bind(this));
-        this.registerClassHandler(".question-container__cost", "click", this._choseQuestion.bind(this));
-        this.registerClassHandler(".popup-button", "click", this._processPopUp.bind(this));
-        this.registerHandler("save-pack", "click", this._savePack.bind(this));
-        this.registerHandler("ok", "click", this._goToRoot.bind(this));
+        this.registerHandler("back", "click", this._goBack);
+        this.registerClassHandler(".question-container__cost", "click", this._choseQuestion);
+        this.registerClassHandler(".popup-button", "click", this._processPopUp);
+        this.registerHandler("save-pack", "click", this._savePack);
+        this.registerHandler("ok", "click", this._goToRoot);
 
 
         this.currentQuestionId;
@@ -22,11 +22,11 @@ class EditPackC {
         this.firstQuestionWasChosen = true;
     }
 
-    _goToRoot() {
+    _goToRoot = () => {
         Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 
-    _showSuccessPopup(success) {
+    _showSuccessPopup = (success) => {
         const finalPopup = document.getElementById("popup-final");
         if (!success) {
             document.getElementById("popup-final-text").innerHTML = "Пак не был сохранен, повторите позже.";
@@ -36,7 +36,7 @@ class EditPackC {
         }
     }
 
-    async _savePack() {
+    _savePack = async () => {
         const amountOfChangedQuestions = document.getElementsByClassName("question-container__cost_chosen").length;
         console.log("Changed question amount", amountOfChangedQuestions);
         if (amountOfChangedQuestions === 0) {
@@ -62,7 +62,7 @@ class EditPackC {
 
 
 
-    _setThemesFromPack() {
+    _setThemesFromPack = () => {
         let i = 0;
         while (i < 5) {
             this.themes.push(this.packObj.pack[i].name);
@@ -70,12 +70,12 @@ class EditPackC {
         }
         console.log(this.themes);
     }
-    _getThemeByQuestionElem(questionElement) {
+    _getThemeByQuestionElem = (questionElement) => {
         const themeId = questionElement.parentNode.id;
         return themeId;
     }
 
-    _getCostByQuestionElem(questionElement) {
+    _getCostByQuestionElem = (questionElement) => {
         return questionElement.innerHTML;
     }
 
@@ -83,14 +83,14 @@ class EditPackC {
         return parseInt(cost) / 100 - 1;
     }
 
-    _getInputAnswerAndQuestion(questionCost, theme) {
+    _getInputAnswerAndQuestion = (questionCost, theme) => {
         const themeIndex = this.themes.indexOf(theme);
         const questionIndex = this._getQuestionIndexbyCost(questionCost);
         return [this.packObj.pack[themeIndex].questions[questionIndex].text,
         this.packObj.pack[themeIndex].questions[questionIndex].answer]
     }
 
-    _processPopUp(event) {
+    _processPopUp = (event) => {
         if (event.target.id === "save-question") {
             let validInput = true;
             const question = document.getElementById("input-question").value;
@@ -124,7 +124,7 @@ class EditPackC {
         this._showOrHidePopUpQuestion();
     }
 
-    _showOrHidePopUpQuestion() {
+    _showOrHidePopUpQuestion = () => {
         const currentQuestionElem = document.getElementById(this.currentQuestionId);
         const theme = this._getThemeByQuestionElem(currentQuestionElem);
         const questionCost = this._getCostByQuestionElem(currentQuestionElem);
@@ -143,7 +143,7 @@ class EditPackC {
         }
     }
 
-    _choseQuestion(event) {
+    _choseQuestion = (event) => {
         if (this.firstQuestionWasChosen) {
             this.packObj = ContentF.getCurrentPackForEditing();
             this.packId = ContentF.getCurrentPackIDForEditing();
@@ -155,15 +155,15 @@ class EditPackC {
         this._showOrHidePopUpQuestion();
     }
 
-    _goBack() {
+    _goBack = () => {
         Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 
-    async start() {
+    start = () => {
         this.enableAll();
     }
 
-    drop() {
+    drop = () => {
         this.disableAll();
     }
 }

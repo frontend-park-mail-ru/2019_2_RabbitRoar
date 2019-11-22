@@ -1,6 +1,4 @@
 import { } from "../modules/requests.js";
-import Bus from "../event_bus.js";
-import { PACK_FOR_EDIT_WAS_CHOSEN } from "../modules/events.js";
 import { } from "../modules/requests.js";
 import { savePack, deletePackById, getMyPackList, getPlayedPackList, getPublicPackList, getPackById, updatePack } from "../modules/requests.js";
 
@@ -10,45 +8,33 @@ class PackM {
     constructor() {
         this.packIdForEditing;
         this.packForEditing;
-
         this.downloadList = new Array();
-       // Bus.on(PACK_FOR_EDIT_WAS_CHOSEN, this._setInfoForPackEditing.bind(this));
     }
 
-    // getpackIdForEditing() {
-    //     return this.packIdForEditing;
-    // }
-
-    // getCurrentPackForEditing() {
-    //     return this.packForEditing;
-    // }
-
-    async updatePack(packObj, packId, csrf) {
+    updatePack = async (packObj, packId, csrf) => {
         console.log("update in model");
         await updatePack(packObj, packId, csrf);
     }
 
-    async savePack(packObj, csrf) {
+    savePack = async (packObj, csrf) => {
         await savePack(packObj, csrf);
     }
 
-    async getPackById(id) {
+    getPackById = async (id) => {
         const currentPack = await getPackById(id);
         return currentPack;
     }
 
-    async setInfoForPackEditing(packId) {
+    setInfoForPackEditing = async (packId) => {
         this.packIdForEditing = packId;
         this.packForEditing = await ContentF.getPackById(this.packIdForEditing);
-        //console.log("пак в модели");
-        //console.log(this.packObj);
     }
 
-    async deletePackById(crsfString, id) {
+    deletePackById = async (crsfString, id) => {
         await deletePackById(crsfString, id);
     }
 
-    async updatePackList() {
+    updatePackList = async () => {
         this.packList = new Array();
 
         let publicPacks;
@@ -108,7 +94,7 @@ class PackM {
         localStorage.setItem("packs_list", JSON.stringify(this.packList));
     }
 
-    _deletePack(packId) {
+    _deletePack = (packId) => {
         const deleteList = new Array;
         for (let i = 0; i < localStorage.length; i++) {
             if (localStorage.key(i)[0] === packId) {
@@ -121,7 +107,7 @@ class PackM {
         }
     }
 
-    doPackValidation() {
+    doPackValidation = () => {
         const keysForOnePack = 26;
         const countList = {};
 
@@ -156,18 +142,15 @@ class PackM {
             }
         }
 
-        //console.log(countList)
         for (const packId in countList) {
             if (countList[packId] !== keysForOnePack) {
                 this.downloadList.push(packId);
                 this._deletePack(packId);
             }
         }
-        //console.log(this.downloadList)
-
     }
 
-    getDownloadList() {
+    getDownloadList = () => {
         return this.downloadList;
     }
 }

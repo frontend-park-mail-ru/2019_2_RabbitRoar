@@ -25,8 +25,8 @@ class RoomM {
         this.current = new RealRoomM(roomId, roomOptions);
     }
 
-// WebSocketIface.disconnect() если соккет был открыт,
-// произойдет вызов this.current._closeConnection()
+    // WebSocketIface.disconnect() если соккет был открыт,
+    // произойдет вызов this.current._closeConnection()
     clear() {
         WebSocketIface.disconnect();
         this.current = undefined;
@@ -54,18 +54,17 @@ class RealRoomM {
         this.roomOptions = roomOptions;
         this.roomId = roomId;
 
-        this.createHandler = this._roomCreated.bind(this);
+        this.createHandler = this._roomCreated;
 
         WebSocketIface.addMessageHandler("room_created", this.createHandler);
-
-        WebSocketIface.addOpenHandler(this._doneConnection.bind(this));
-        WebSocketIface.addCloseHandler(this._closeConnection.bind(this));
+        WebSocketIface.addOpenHandler(this._doneConnection);
+        WebSocketIface.addCloseHandler(this._closeConnection);
 
         console.log("комната создалась");
     }
 
 
-    _roomCreated(data) {
+    _roomCreated = (data) => {
         console.log("Room init data recieve");
         this.roomName = data.room_name;
         this.playersCap = data.players_cap;
@@ -79,13 +78,13 @@ class RealRoomM {
     }
 
 
-    _doneConnection() {
+    _doneConnection = () => {
         this.lastState = this.state;
         this.state = "done_connection";
         Bus.emit(ROOM_CHANGE);
     }
 
-    _closeConnection(event) {
+    _closeConnection = (event) => {
         this.lastState = this.state;
         this.state = "closed";
         this.closeCode = event.code;
@@ -100,7 +99,7 @@ class RealRoomM {
             try {
                 const csrf = await getCSRF();
                 response = await postCreateRoom(this.roomOptions, csrf.CSRF);
-            } catch(err) {
+            } catch (err) {
                 console.log(err);
                 this.lastState = this.state;
                 this.state = "crash_connection";
@@ -112,7 +111,7 @@ class RealRoomM {
         try {
             const csrf = await getCSRF();
             await deleteLeaveRoom(csrf.CSRF);
-        } catch(err) {
+        } catch (err) {
             console.log(err);
             this.lastState = this.state;
             this.state = "crash_connection";
@@ -122,7 +121,7 @@ class RealRoomM {
         try {
             const csrf = await getCSRF();
             response = await postJoinRoom(this.roomId, csrf.CSRF);
-        } catch(err) {
+        } catch (err) {
             console.log(err);
             this.lastState = this.state;
             this.state = "crash_connection";

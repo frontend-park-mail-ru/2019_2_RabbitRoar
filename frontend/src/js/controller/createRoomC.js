@@ -1,6 +1,6 @@
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import Bus from "../event_bus.js";
-import { WAITING, ROOM_CREATOR, ROOT } from "../paths.js";
+import { ROOT } from "../paths.js";
 import { ROUTER_EVENT, FORM_CHANGED } from "../modules/events.js";
 import GameF from "../fasade/gameF.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
@@ -16,44 +16,44 @@ class CreateRoomC {
         this.packId = -1;
 
 
-        this.registerClassHandler(".checkbox", "change", this._checkboxChanged.bind(this));
-        this.registerHandler("further", "click", this._goFurther.bind(this));
-        this.registerClassHandler(".back", "click", this._goBack.bind(this));
-        this.registerClassHandler(".pack-button", "click", this._chosePack.bind(this));
-        this.registerHandler("back", "click", this._goToRoot.bind(this));
+        this.registerClassHandler(".checkbox", "change", this._checkboxChanged);
+        this.registerHandler("further", "click", this._goFurther);
+        this.registerClassHandler(".back", "click", this._goBack);
+        this.registerClassHandler(".pack-button", "click", this._chosePack);
+        this.registerHandler("back", "click", this._goToRoot);
 
 
-        this.registerHandler("finish", "click", this._finish.bind(this));
+        this.registerHandler("finish", "click", this._finish);
 
-        this.registerClassHandler(".tab", "mouseover", this._lightTab.bind(this));
-        this.registerClassHandler(".tab", "mouseout", this._unLightTab.bind(this));
-        this.registerClassHandler(".tab-click", "mouseover", this._lightTab.bind(this));
-        this.registerClassHandler(".tab-click", "mouseout", this._unLightTab.bind(this));
+        this.registerClassHandler(".tab", "mouseover", this._lightTab);
+        this.registerClassHandler(".tab", "mouseout", this._unLightTab);
+        this.registerClassHandler(".tab-click", "mouseover", this._lightTab);
+        this.registerClassHandler(".tab-click", "mouseout", this._unLightTab);
 
-        Bus.on(FORM_CHANGED, this._processForm.bind(this));
+        Bus.on(FORM_CHANGED, this._processForm);
         return this;
     }
 
-    _goToRoot() {
+    _goToRoot = () => {
         Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 
-    start() {
+    start = () => {
         this.enableAll();
     }
 
-    drop() {
+    drop = () => {
         this.disableAll();
     }
 
-    _chosePack(event) {
+    _chosePack = (event) => {
         const errorPackElement = document.getElementById("error_pack");
         replaceTwoCssClasses(errorPackElement, "error-visible", "error-annotation");
         this.packId = parseInt(event.target.id, 10);
         document.getElementById("pack-id").innerHTML = "Выбранный пак: " + String(this.packId);
     }
 
-    _processForm(form_number) {
+    _processForm = (form_number) => {
         if (form_number === 2) {
             this.currentFormPart = 2;
             document.getElementById("form-part-2").style.display = "block";
@@ -65,7 +65,7 @@ class CreateRoomC {
         document.getElementById("form-part-1").style.display = "block";
     }
 
-    _checkboxChanged() {
+    _checkboxChanged = () =>{
         const messageElement = document.getElementById("password_info");
         if (document.getElementById("checkbox").checked) {
             replaceTwoCssClasses(messageElement, "error-annotation", "info-message");
@@ -75,7 +75,7 @@ class CreateRoomC {
         }
     }
 
-    _goFurther() {
+    _goFurther = () => {
         const error = roomCreatureVaildation();
         if (error) {
             return;
@@ -87,7 +87,7 @@ class CreateRoomC {
         Bus.emit(FORM_CHANGED, 2);
     }
 
-    _goBack() {
+    _goBack = () => {
         this.usersCount = 0;
         this.roomName = "";
         if (this.currentFormPart == 1) {
@@ -98,15 +98,15 @@ class CreateRoomC {
 
     }
 
-    _lightTab(event) {
+    _lightTab = (event) => {
         event.target.classList.add("tab-hover");
     }
 
-    _unLightTab(event) {
+    _unLightTab = (event) => {
         event.target.classList.remove("tab-hover");
     }
 
-    _finish() {
+    _finish = () => {
         const errorPackElement = document.getElementById("error_pack");
         if (this.packId == -1) {
             replaceTwoCssClasses(errorPackElement, "error-annotation", "error-visible");

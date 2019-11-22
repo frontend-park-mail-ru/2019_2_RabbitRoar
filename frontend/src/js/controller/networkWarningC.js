@@ -9,22 +9,22 @@ class NetworkWarningC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
 
-        this.registerHandler("popup_connection_error_route", "click", this._processPopUp.bind(this));
-        this.registerHandler("popup_connection_http_error_route", "click", this._processPopUp.bind(this));
-        this.registerHandler("exit-offline-game", "click", this._goToRoot.bind(this));
+        this.registerHandler("popup_connection_error_route", "click", this._processPopUp);
+        this.registerHandler("popup_connection_http_error_route", "click", this._processPopUp);
+        this.registerHandler("exit-offline-game", "click", this._goToRoot);
 
-        
-        Bus.on(WEBSOCKET_CONNECTION, this._wsConnect.bind(this));
-        Bus.on(WEBSOCKET_CLOSE, this._wsClose.bind(this));
-        Bus.on(CRASH_EVENT, this._crashConnection.bind(this));
-        Bus.on(OFFLINE_GAME_END, this._endGame.bind(this));
+
+        Bus.on(WEBSOCKET_CONNECTION, this._wsConnect);
+        Bus.on(WEBSOCKET_CLOSE, this._wsClose);
+        Bus.on(CRASH_EVENT, this._crashConnection);
+        Bus.on(OFFLINE_GAME_END, this._endGame);
 
     }
-    _goToRoot() {
+    _goToRoot = () => {
         Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
-    
-    _endGame() {
+
+    _endGame = () => {
         this._showOrHidePopUp("popup-end");
     }
 
@@ -32,7 +32,7 @@ class NetworkWarningC {
         this._showOrHidePopUp("popup_http_error");
     }
 
-    _wsConnect(connect) {
+    _wsConnect = (connect) => {
         if (connect) {
             Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING);
         } else {
@@ -40,7 +40,7 @@ class NetworkWarningC {
         }
     }
 
-    _wsClose(close) {
+    _wsClose = (close) => {
         if (close.code !== 1000) {
             if (close.lastState === "before_connection") {
                 this._showOrHidePopUp("popup_connection_error");
@@ -48,7 +48,7 @@ class NetworkWarningC {
         }
     }
 
-    _showOrHidePopUp(popupId = "popup") {
+    _showOrHidePopUp = (popupId = "popup") => {
         const popup = document.getElementById(popupId);
         if (popup) {
             popup.classList.toggle("popup_show");
@@ -56,17 +56,17 @@ class NetworkWarningC {
         }
     }
 
-    _processPopUp(event) {
+    _processPopUp = (event) => {
         this._showOrHidePopUp(event.target.id);
         Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 
 
-    start() {
+    start = () => {
         this.enableAll();
     }
 
-    drop() {
+    drop = () => {
         this.disableAll();
     }
 

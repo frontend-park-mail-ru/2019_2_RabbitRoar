@@ -9,10 +9,10 @@ class TabsE {
     constructor() {
         this.root = document.getElementById("application");
         this.controller = TabsC;
-        Bus.on(CHANGE_TAB, this._restartListener.bind(this));
+        Bus.on(CHANGE_TAB, this._restartListener);
     }
 
-    create(root = document.getElementById("application")) {
+    create = (root = document.getElementById("application")) => {
         this.root = root;
         this.controller.start();
 
@@ -36,12 +36,12 @@ class TabsE {
         );
     }
 
-    _restartListener(event) {
+    _restartListener = (event) => {
         this._localDestroy();
         this.create(this.root);
     }
 
-    _highlightChosen(chosenId) {
+    _highlightChosen = (chosenId) => {
         const targetElems = document.querySelectorAll(".tab");
 
         if (targetElems) {
@@ -53,13 +53,12 @@ class TabsE {
         }
     }
 
-
-    _localDestroy() {
+    _localDestroy = () => {
         this.controller.drop();
         this.root.innerHTML = "";
     }
 
-    destroy() {
+    destroy = () => {
         ContentF.dropeTabs();
         this.controller.drop();
         this.root.innerHTML = "";

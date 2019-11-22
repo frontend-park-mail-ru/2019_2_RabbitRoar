@@ -3,6 +3,9 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import Bus from "../event_bus.js";
 import { PROFILE_UPDATE } from "../modules/events.js";
 import { fileVaildation, textFieldsVaildationProfile } from "../modules/form_validation.js";
+import { ROUTER_EVENT } from "../modules/events.js";
+import { ROOT } from "../paths";
+
 
 
 class ProfileC {
@@ -11,28 +14,28 @@ class ProfileC {
 
         this.changedForms = new Map();
 
-        this.registerHandler("save_button", "click", this._saveTextFields.bind(this));
-        this.registerHandler("cancel_button", "click", this._cansel.bind(this));
-        this.registerClassHandler(".input-valid", "change", this._changeTextValue.bind(this));
-        this.registerClassHandler(".profile__download-img", "change", this._saveImage.bind(this));
-        this.registerHandler("back", "click", this._goToRoot.bind(this));
+        this.registerHandler("save_button", "click", this._saveTextFields);
+        this.registerHandler("cancel_button", "click", this._cansel);
+        this.registerClassHandler(".input-valid", "change", this._changeTextValue);
+        this.registerClassHandler(".profile__download-img", "change", this._saveImage);
+        this.registerHandler("back", "click", this._goToRoot);
     }
 
 
-    _goToRoot() {
+    _goToRoot = () => {
         Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 
-    start() {
+    start = () => {
         this.enableAll();
     }
 
-    drop() {
+    drop = () => {
         this.disableAll();
         this.changedForms.clear();
     }
 
-    async _saveTextFields() {
+    _saveTextFields = async () => {
         const result = textFieldsVaildationProfile(this.changedForms);
         if (result.fieldsAreValid) {
             const csrfJson = await UserValidatorF.getCSRF();
@@ -42,16 +45,16 @@ class ProfileC {
         }
     }
 
-    _cansel() {
+    _cansel = () => {
         this.changedForms.clear();
         Bus.emit(PROFILE_UPDATE);
     }
 
-    _changeTextValue(event) {
+    _changeTextValue = (event) => {
         this.changedForms.set(event.target.id, event.target.value);
     }
 
-    _deleteErrorCssClasses(elem) {
+    _deleteErrorCssClasses = (elem) => {
         if (elem.classList.contains("error-annotation")) {
             elem.classList.remove("error-annotation");
         }
@@ -68,7 +71,7 @@ class ProfileC {
         }
     }
 
-    _saveImage() {
+    _saveImage = () => {
         fileVaildation().then(async function (file) {
             document.getElementById("profile__user-img").src = window.URL.createObjectURL(file)
             let formData = new FormData();

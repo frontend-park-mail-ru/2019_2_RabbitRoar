@@ -10,19 +10,19 @@ import { ROUTER_EVENT } from "../modules/events.js";
 class RegistrationC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
-        this.registerHandler("registration", "click", this._registration.bind(this));
-        this.registerHandler("back", "click", this._goBack.bind(this));
+        this.registerHandler("registration", "click", this._registration);
+        this.registerHandler("back", "click", this._goBack);
     }
 
-    start() {
+    start = () => {
         this.enableAll();
     }
 
-    drop() {
+    drop = () => {
         this.disableAll();
     }
 
-    _registration() {
+    _registration = () => {
         const registrationError = registrationValidation();
         if (registrationError) {
             return;
@@ -36,7 +36,7 @@ class RegistrationC {
         userValidatorF.doRegistration(user);
     }
 
-    _goBack() {
+    _goBack = () => {
         Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 

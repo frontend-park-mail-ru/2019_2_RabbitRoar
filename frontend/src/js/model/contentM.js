@@ -19,10 +19,10 @@ import ContentF from "../fasade/contentF.js";
 
 class ContentM {
     constructor() {
-        Bus.on(PACK_WORKER_MESSAGE, this._workerHandler.bind(this));
+        Bus.on(PACK_WORKER_MESSAGE, this._workerHandler);
     }
 
-    _workerHandler(msg) {
+    _workerHandler = (msg) => {
         if (msg.data.type === "pack") {
             localStorage.setItem(msg.data.key, msg.data.value)
         } else if (msg.data.type === "question") {
@@ -34,12 +34,12 @@ class ContentM {
     }
 
 
-    async getUserPacks() {
+    getUserPacks = async () => {
         const packs = await getUserPacks();
         return packs;
     }
 
-    async getTabContent(id) {
+    getTabContent = async (id) => {
         if (id === window.id.tabRoom) {
             const mainContent = {
                 infoPanel: {

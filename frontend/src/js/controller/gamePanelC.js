@@ -12,30 +12,30 @@ class GamePanelC {
         Object.assign(this, DomEventsWrapperMixin);
         this.abilityToEnterAnswer = false;
 
-        this.registerHandler("changing-button", "click", this._buttonPressed.bind(this));
-        this.registerHandler("back", "click", this._exitFromGame.bind(this));
+        this.registerHandler("changing-button", "click", this._buttonPressed);
+        this.registerHandler("back", "click", this._exitFromGame);
 
-        document.addEventListener("keyup", this._answerEntered.bind(this));
-        Bus.on(QUESTION_WAS_CHOSEN, this._startListenQuestion.bind(this));
-        Bus.on(TIMER_STOPPED, this._stopListenQuestion.bind(this));
-        Bus.on(TIMER_INTERRUPTION, this._stopListenQuestion.bind(this));
+        document.addEventListener("keyup", this._answerEntered);
+        Bus.on(QUESTION_WAS_CHOSEN, this._startListenQuestion);
+        Bus.on(TIMER_STOPPED, this._stopListenQuestion);
+        Bus.on(TIMER_INTERRUPTION, this._stopListenQuestion);
 
     }
 
-    _exitFromGame() {
+    _exitFromGame = () => {
         Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 
-    start() {
+    start = () => {
         this.gameIface = GameF.getInterface(this)();
         this.enableAll();
     }
 
-    drop() {
+    drop = () => {
         this.disableAll();
     }
 
-    _buttonPressed(event) {
+    _buttonPressed = (event) => {
         if (this.abilityToEnterAnswer) {
             const answer = document.getElementById("input-answer");
             const answerValue = answer.value;
@@ -44,7 +44,7 @@ class GamePanelC {
         }
     }
 
-    _startListenQuestion() {
+    _startListenQuestion = () => {
         this.abilityToEnterAnswer = true;
 
         const inputAnswer = document.getElementById("input-answer");
@@ -58,7 +58,7 @@ class GamePanelC {
 
     }
 
-    _stopListenQuestion() {
+    _stopListenQuestion = () => {
         this.abilityToEnterAnswer = false;
 
         const answer = document.getElementById("input-answer");
@@ -70,7 +70,7 @@ class GamePanelC {
         changingButton.innerHTML = "Выберите вопрос";
     }
 
-    _answerEntered(event) {
+    _answerEntered = (event) => {
         if (this.abilityToEnterAnswer) {
             if (event.keyCode === 13) {
                 event.preventDefault();

@@ -25,30 +25,30 @@ import UsersPanelE from "../element/usersPanelE.js"
 
 class GameF {
     constructor() {
-        this.clearGameHandler = this._clearGame.bind(this);
+        this.clearGameHandler = this._clearGame;
 
         this.gamePaths = [WAITING, SINGLE_GAME, ONLINE_GAME];
 
         this.livingElements = 0;
         this.ifaces = new Map;
-        this.ifaces.set(GamePanelC, this._gamePanelCInterface.bind(this));
-        this.ifaces.set(QuestionTableC, this._questionTableCInterface.bind(this));
-        this.ifaces.set(QuestionTableE, this._questionTableEInterface.bind(this));
-        this.ifaces.set(UsersPanelE, this._usersPanelEInterface.bind(this));
+        this.ifaces.set(GamePanelC, this._gamePanelCInterface);
+        this.ifaces.set(QuestionTableC, this._questionTableCInterface);
+        this.ifaces.set(QuestionTableE, this._questionTableEInterface);
+        this.ifaces.set(UsersPanelE, this._usersPanelEInterface);
 
-        Bus.on(QUESTION_CHANGE, this._questionChange.bind(this));
-        Bus.on(ROOM_CHANGE, this._roomChange.bind(this));
+        Bus.on(QUESTION_CHANGE, this._questionChange);
+        Bus.on(ROOM_CHANGE, this._roomChange);
     }
-    
-    gameExist() {
+
+    gameExist = () => {
         return (!!this.current);
     }
 
-    getInterface(consumer) {
+    getInterface = (consumer) => {
         return this.ifaces.get(consumer);
     }
 
-    async CreateGame(mode = "offline", options) {
+    CreateGame = async (mode = "offline", options) => {
         if (mode === "offline") {
             Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
             this.current = await this._createOfflineGame(options.packId);
@@ -64,11 +64,11 @@ class GameF {
         }
     }
 
-    async _createOfflineGame(clickId) {
+    _createOfflineGame = async (clickId) => {
         return new OfflineGameF(clickId);
     }
 
-    async _createOnlineGame(clickId, roomOptions = undefined) {
+    _createOnlineGame = async (clickId, roomOptions = undefined) => {
         const onlineGame = new OnlineGameF(clickId, roomOptions);
         await onlineGame.connect();
         return onlineGame;
@@ -76,7 +76,7 @@ class GameF {
 
 
 
-    _clearGame(path) {
+    _clearGame = (path) => {
         if (this.gamePaths.includes(path)) {
             return;
         }
@@ -88,7 +88,7 @@ class GameF {
     }
 
 
-    _questionChange() {
+    _questionChange = () => {
         if (QuestionsM.current.questionTable.mode === "default") {
             Bus.emit(QUESTION_PANEL_UPDATE);
         } else if (QuestionsM.current.questionTable.mode === "selected") {
@@ -103,7 +103,7 @@ class GameF {
     // created->done_connection->waiting->closed (success)
     // created->closed (crash)
 
-    _roomChange() {
+    _roomChange = () => {
         console.log(`${RoomM.current.lastState}->${RoomM.current.state}`);
         if (RoomM.current.state === "waiting") {
             Bus.emit(USERS_PANEL_UPDATE);
@@ -124,24 +124,24 @@ class GameF {
         }
     }
 
-    _questionTableEInterface() {
+    _questionTableEInterface = () => {
         return this.current.questionTableEInterface;
     }
 
-    _questionTableCInterface() {
+    _questionTableCInterface = () => {
         return this.current.questionTableCInterface;
     }
 
-    _gamePanelCInterface() {
+    _gamePanelCInterface = () => {
         return this.current.gamePanelCInterface;
     }
 
-    _usersPanelEInterface() {
+    _usersPanelEInterface = () => {
         return this.current.usersPanelEInterface;
     }
 
     // shity place
-    getPackName() {
+    getPackName = () => {
         console.log(this.current);
         const name = this.current.getPackName();
         return name;
@@ -154,7 +154,7 @@ class OfflineGameF {
         QuestionsM.CreateNew("offline", clickId);
     }
 
-    clear() {
+    clear = () => {
         QuestionsM.clear();
     }
 
@@ -199,12 +199,12 @@ class OnlineGameF {
         RoomM.CreateNew(roomId, roomOptions);
     }
 
-    clear() {
+    clear = () => {
         QuestionsM.clear();
         RoomM.clear();
     }
 
-    async connect() {
+    connect = async () => {
         await RoomM.connect();
     }
 
@@ -269,7 +269,7 @@ class OnlineGameF {
     }
 
 
-    getPackName() {
+    getPackName = () => {
         return RoomM.getRoomName();
     }
 }

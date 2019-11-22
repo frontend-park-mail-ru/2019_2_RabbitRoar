@@ -28,7 +28,7 @@ class TabsC {
         this.registerClassHandler(".tab-click", "mouseover", this._lightTab);
         this.registerClassHandler(".tab-click", "mouseout", this._unLightTab);
 
-        this.registerClassHandler(".create", "click", this._editPack.bind(this));
+        this.registerClassHandler(".create", "click", this._editPack);
 
         this.registerClassHandler(".join-button", "click", this._joinClick);
         this.registerClassHandler(".delete", "click", this._deleteCurrentClass);
@@ -41,13 +41,13 @@ class TabsC {
         this.registerClassHandler(".paginator-panel", "click", this._paginatorClick);
 
     }
-    async _editPack() {
+    _editPack = async () => {
         const packIdForEdit = event.target.getAttribute("pack_id");
         await ContentF.setInfoForPackEditing(packIdForEdit);
         Bus.emit(ROUTER_EVENT.ROUTE_TO, PACK_EDITING);
     }
 
-    _deletePack(event) {
+    _deletePack = (event) => {
         const packForDelete = event.target.getAttribute("pack_id");
         ContentF.deletePackById(packForDelete);
     }

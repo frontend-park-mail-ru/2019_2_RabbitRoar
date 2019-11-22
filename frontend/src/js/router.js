@@ -7,7 +7,7 @@ export class Router {
     constructor(root = document.getElementById("application")) {
         this.routes = new Map();
         this.root = root;
-        Bus.on(ROUTER_EVENT.ROUTE_TO, this.routeTo.bind(this));
+        Bus.on(ROUTER_EVENT.ROUTE_TO, this.routeTo);
 
         window.addEventListener("popstate", (event) => {
             event.preventDefault();
@@ -24,11 +24,11 @@ export class Router {
     }
 
 
-    routeTo(path = "/", firtsTime = false) {
+    routeTo = (path = "/", firtsTime = false) => {
         const parseUrl = new URL("https://localhost:8080" + path);
         path = parseUrl.pathname;
         let newView;
-       // const authorized = ValidatorF.checkLocalstorageAutorization();
+        // const authorized = ValidatorF.checkLocalstorageAutorization();
         if ((newView = this.routes.get(path)) != undefined) {
             if (!firtsTime) {
                 this.currentView.destroy();

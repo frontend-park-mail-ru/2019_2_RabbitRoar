@@ -10,10 +10,10 @@ import { USERS_PANEL_UPDATE } from "../modules/events.js";
 class UsersPanelE {
     constructor() {
         this.controller = UsersPanelC;
-        Bus.on(USERS_PANEL_UPDATE, this._update.bind(this));
+        Bus.on(USERS_PANEL_UPDATE, this._update);
     }
 
-    _update() {
+    _update = () => {
         this.gameIface = GameF.getInterface(this)();
         let roomState = this.gameIface.getRoomState();
 
@@ -30,12 +30,12 @@ class UsersPanelE {
         }
     }
 
-    _reRender() {
+    _reRender = () => {
         this.destroy();
         this.create(this.root);
     }
 
-    async create(root = document.getElementById("application")) {        
+     create = async (root = document.getElementById("application")) => {        
         this.root = root;
 
         let currentUserData;
@@ -56,12 +56,12 @@ class UsersPanelE {
         this.controller.start();
     }
 
-    _restartListener() {
+    _restartListener = () => {
         this.destroy();
         this.create(this.root);
     }
 
-    destroy() {
+    destroy = () => {
         this.controller.drop();
         this.root.innerHTML = "";
     }
