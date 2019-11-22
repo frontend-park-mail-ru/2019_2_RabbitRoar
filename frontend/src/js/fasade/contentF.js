@@ -4,15 +4,13 @@ import UserM from "../model/userM";
 
 import { CHANGE_TAB } from "../modules/events.js";
 import MainMenuM from "../model/mainMenuM.js";
-import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
-import { id } from "../modules/id.js";
+import { PACK_WORKER_COMMAND } from "../modules/events.js";
 
 import UserValidatorF from "./userValidatorF";
 
 
 class ContentF {
     constructor() {
-
     }
 
     async savePack(packObj) {
@@ -35,15 +33,23 @@ class ContentF {
     }
 
 
-    getCurrentTab() {
-        return MainMenuM.currentTab;
-    }
-
-    async getTabContent(currentId = MainMenuM.currentTab) {
+    async getTabContent() {
+        const currentId = MainMenuM.currentTab;
         const content = await ContentM.getTabContent(currentId);
         return content;
     }
 
+    findChosen(tabs) {
+        for (const tab of tabs) {
+            if (tab.id === MainMenuM.currentTab) {
+                return tab;
+            }
+        }
+    }
+
+    dropeTabs() {
+        MainMenuM.currentTab = window.id.tabRoom;
+    }
 
     setCurrentTab(newValue) {
         MainMenuM.currentTab = newValue;

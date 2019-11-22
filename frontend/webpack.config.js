@@ -4,7 +4,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
-const Worker = require('worker-loader');
+const fs = require('fs');
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
@@ -66,7 +66,7 @@ module.exports = {
   ],
   devtool: 'source-map',  // Source map generations
   devServer: {
-    //https: true,
+    https: true,
     contentBase: path.join(__dirname, 'dist'),
     historyApiFallback: true,
     liveReload: true,

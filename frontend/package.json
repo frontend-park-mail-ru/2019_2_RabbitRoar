@@ -8,6 +8,7 @@
     "build": "webpack --mode production",
     "watch": "webpack --mode development --watch",
     "dev-server": "webpack-dev-server",
+    "https-dev-server": "webpack-dev-server --https",
     "server": "node webserver.js",
     "start": "npm install && npm run build && npm run server"
   },

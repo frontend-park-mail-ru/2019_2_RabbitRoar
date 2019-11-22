@@ -15,9 +15,8 @@ class TabsE {
     create(root = document.getElementById("application")) {
         this.root = root;
         this.controller.start();
-        const id = ContentF.getCurrentTab();
 
-        ContentF.getTabContent(id).then(
+        ContentF.getTabContent().then(
             templateContent => {
                 console.log("TRUE!");
                 templateContent.connection = true;
@@ -33,14 +32,14 @@ class TabsE {
                     connection: false
                 };
                 this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
-                this._highlightChosen(id);
+                this._highlightChosen();
                 this.controller.start();
             }
         );
     }
 
     _restartListener(event) {
-        this.destroy();
+        this._localDestroy();
         this.create(this.root);
     }
 
@@ -48,18 +47,22 @@ class TabsE {
         const targetElems = document.querySelectorAll(".tab");
 
         if (targetElems) {
-            targetElems.forEach(function (elem) {
-                if (elem.id === chosenId) {
-                    elem.className = "tab-click";
-                } else {
-                    elem.className = "tab";
-                }
-            });
+            for (const elem of targetElems) {
+                elem.className = "tab";
+            }
+
+            ContentF.findChosen(targetElems).className = "tab-click";
         }
     }
 
 
+    _localDestroy() {
+        this.controller.drop();
+        this.root.innerHTML = "";
+    }
+
     destroy() {
+        ContentF.dropeTabs();
         this.controller.drop();
         this.root.innerHTML = "";
     }

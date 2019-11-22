@@ -30,6 +30,15 @@ div(class="main-container")
                         div(class="panel-elem") #{room.playersJoined + "/" + room.playersCapacity}
                         div(class="panel-elem" id=room.UUID)
                             div(class="join-button button-in-list" id="play" join_id=room.UUID) Присоединиться
+                div(class="paginator-panel")
+                    div(class="pg-elem")
+                        div(class="pg-button") Prev
+                    div(class="pg-elem")
+                        -for (let i = 0; i < 5; i++) {
+                            div(class="pg-button" id=i) #{i + 1}
+                        -}
+                    div(class="pg-elem")
+                        div(class="pg-button") Next
             endif
 
         if (templateContent.connection === true)
