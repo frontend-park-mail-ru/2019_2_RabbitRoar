@@ -50,6 +50,7 @@ class GameF {
 
     async CreateGame(mode = "offline", options) {
         if (mode === "offline") {
+            Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
             this.current = await this._createOfflineGame(options.packId);
         } else {
             if (options.action === "join") {
