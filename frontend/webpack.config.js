@@ -4,7 +4,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
-const fs = require('fs');
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
@@ -35,9 +34,15 @@ module.exports = {
         use: ['pug-loader']
       },
       {
-        test: /\.(js)$/,
+        test: /\.js$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: ["@babel/plugin-transform-runtime", "@babel/plugin-proposal-class-properties"],
+            presets: ["@babel/preset-env"]
+          }
+        }
       },
       {
         test: /\.worker\.js$/,
