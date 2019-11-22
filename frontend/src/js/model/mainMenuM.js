@@ -1,20 +1,32 @@
-import { queryTabContent } from "../modules/requests.js";
 import { id } from "../modules/id.js";
 
 
 class MainMenuM {
     constructor() {
-        this.currentTab = id.tabRoom;
+        this._roomPage = 0;
+        this._topPage = 0;
+        this._packPage = 0;
     }
-
 
 
     get currentTab() {
-        return this.currentTab_;
+        if (this._currentTab) {
+            return this._currentTab;
+        }
+
+        const currentTab = window.localStorage.getItem("currentTab");
+        if (currentTab) {
+            this.currentTab = currentTab;
+        } else {
+            this.currentTab = window.id.tabRoom;
+        }
+
+        return this._currentTab;
     }
 
     set currentTab(val) {
-        this.currentTab_ = val;
+        window.localStorage.setItem("currentTab", val);
+        this._currentTab = val;
     }
 
 

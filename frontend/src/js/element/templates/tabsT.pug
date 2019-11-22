@@ -31,6 +31,16 @@ div(class="main-container")
                         div(class="panel-elem" id=room.UUID)
                             div(class="join-button button-in-list" id="play" join_id=room.UUID) Присоединиться
 
+                div(class="paginator-panel" id="room-paginator")
+                    div(class="pg-elem" id="prev")
+                        div(class="pg-button") Prev
+                    div(class="pg-elem" id="page")
+                        -for (let i = 0; i < 5; i++) {
+                            div(class="pg-button" id=i) #{i + 1}
+                        -}
+                    div(class="pg-elem" id="next")
+                        div(class="pg-button") Next
+
         if (templateContent.connection === true)
             div(class="tab__info-container")
                 div(class="flex-container")

@@ -32,6 +32,7 @@
 
 .fadeout {
   z-index: 1;
+  pointer-events: none;
   height: 7vw;
   width: 98.5%;
   background: -webkit-linear-gradient(
