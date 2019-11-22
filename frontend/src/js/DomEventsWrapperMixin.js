@@ -45,7 +45,7 @@ export const DomEventsWrapperMixin = {
 
 
     disableAll() {
-        if (this.events !== undefined) {
+        if (this.events) {
             this.events.forEach(function (idHandler, id) {
                 idHandler.forEach(function (handler, ev) {
                     const targetElem = document.getElementById(id);
@@ -57,7 +57,7 @@ export const DomEventsWrapperMixin = {
         }
 
 
-        if (this.classEvents !== undefined) {
+        if (this.classEvents) {
             this.classEvents.forEach(function (idHandler, cssClass) {
                 idHandler.forEach(function (handler, ev) {
                     const targetElems = document.querySelectorAll(cssClass);
@@ -73,7 +73,7 @@ export const DomEventsWrapperMixin = {
     },
 
     enableAll() {
-        if (this.events !== undefined) {
+        if (this.events) {
             this.events.forEach(function (idHandler, id) {
                 idHandler.forEach(function (handler, ev) {
                     const targetElem = document.getElementById(id);
@@ -84,7 +84,7 @@ export const DomEventsWrapperMixin = {
             });
         }
 
-        if (this.classEvents !== undefined) {
+        if (this.classEvents) {
             this.classEvents.forEach(function (idHandler, cssClass) {
                 idHandler.forEach(function (handler, ev) {
                     const targetElems = document.querySelectorAll(cssClass);
