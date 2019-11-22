@@ -1,7 +1,6 @@
 import Template from "./templates/editPackT.pug";
 import EditPackC from "../controller/editPackC.js";
 import ContentF from "../fasade/contentF.js";
-import PackM from "../model/packM";
 
 class EditPackE {
     constructor() {
@@ -11,7 +10,8 @@ class EditPackE {
 
     async create(root = document.getElementById("application")) {
         this.root = root;
-        const packObj = PackM.getCurrentPackForEditing();
+        const packObj = ContentF.getCurrentPackForEditing();
+
         //const themesArray = [packObj.pack[0].name, packObj.pack[1].name, packObj.pack[2].name, packObj.pack[3].name, packObj.pack[4].name]
         this.root.insertAdjacentHTML("beforeend", Template({ packObj }));
         this.controller.start();

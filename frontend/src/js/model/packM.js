@@ -2,7 +2,7 @@ import { } from "../modules/requests.js";
 import Bus from "../event_bus.js";
 import { PACK_FOR_EDIT_WAS_CHOSEN } from "../modules/events.js";
 import { } from "../modules/requests.js";
-import { savePack, deletePackById, getMyPackList, getPlayedPackList, getPublicPackList, getPackById } from "../modules/requests.js";
+import { savePack, deletePackById, getMyPackList, getPlayedPackList, getPublicPackList, getPackById, updatePack } from "../modules/requests.js";
 
 import ContentF from "../fasade/contentF.js";
 
@@ -15,12 +15,17 @@ class PackM {
        // Bus.on(PACK_FOR_EDIT_WAS_CHOSEN, this._setInfoForPackEditing.bind(this));
     }
 
-    getpackIdForEditing() {
-        return this.packIdForEditing;
-    }
+    // getpackIdForEditing() {
+    //     return this.packIdForEditing;
+    // }
 
-    getCurrentPackForEditing() {
-        return this.packForEditing;
+    // getCurrentPackForEditing() {
+    //     return this.packForEditing;
+    // }
+
+    async updatePack(packObj, packId, csrf) {
+        console.log("update in model");
+        await updatePack(packObj, packId, csrf);
     }
 
     async savePack(packObj, csrf) {

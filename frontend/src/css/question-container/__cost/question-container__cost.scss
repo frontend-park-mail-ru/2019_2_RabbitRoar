@@ -18,5 +18,11 @@
     border-radius: 0px;
     border-width: 1px;
     background-color: var(--color-bg-dark);
+}
 
+.question-container__cost_error {
+    @extend %button;
+    border-radius: 0px;
+    border-width: 1px;
+    background-color: var(--color-danger);
 }

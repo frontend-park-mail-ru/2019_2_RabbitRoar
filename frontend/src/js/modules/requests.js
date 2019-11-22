@@ -55,6 +55,22 @@ export async function savePack(packObj, csrf) {
     }
 }
 
+export async function updatePack(packObj, packId, csrf) {
+    const headers = {
+        "Content-type": "application/json",
+        "X-Csrf-Token": csrf,
+    }
+
+    const url = "/pack/" + packId; 
+    let response = await putRequest(url, packObj, headers);
+
+    if (response.status !== 200) {
+        throw new Error(`Error in pack update request: ${response.statusText}`);
+    }
+
+    console.log("200 in put");
+}
+
 export async function signIn(login, password) {
     userCacheDelete();
 

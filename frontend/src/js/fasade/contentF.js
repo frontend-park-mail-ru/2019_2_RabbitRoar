@@ -17,10 +17,16 @@ class ContentF {
 
     }
 
-    getCurrentPackForEditing() {
-        return PackM.getCurrentPackForEditing();
+    getCurrentPackIDForEditing() {
+        return PackM.packIdForEditing;
+        //return PackM.getCurrentPackForEditing();
     }
 
+    getCurrentPackForEditing() {
+        //return PackM.getCurrentPackForEditing();
+        return PackM.packForEditing;
+    }
+    
     async getPackById(id){
         const packObj = await PackM.getPackById(id);
         return packObj;
@@ -28,9 +34,15 @@ class ContentF {
 
     async setInfoForPackEditing(packId){
         await PackM.setInfoForPackEditing(packId);
-        console.log("пак качнулся в модель, пак:");
-        console.log(this.getCurrentPackForEditing());
+    }
 
+    async updatePack(packObj, packId) {
+        this.packObj, this.packId
+        const csrfJson = await UserValidatorF.getCSRF();
+        const csrf = csrfJson.CSRF;
+        
+        PackM.updatePack(packObj, packId, csrf).catch(
+            (error) => console.log(`ERROR at: contentF.updatePack - ${error}`));
     }
 
     async savePack(packObj) {
@@ -39,9 +51,6 @@ class ContentF {
         
         PackM.savePack(packObj, csrf).catch(
             (error) => console.log(`ERROR at: contentF.savePack - ${error}`));
-
-        // ContentM.savePack(packObj, csrf).catch(
-        //     (error) => console.log(`ERROR at: contentF.savePack - ${error}`));
     }
 
     async updateLocalPacks() {

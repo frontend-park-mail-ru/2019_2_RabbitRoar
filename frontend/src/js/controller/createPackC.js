@@ -5,8 +5,6 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
 import { packCreationVaildationForm1 } from "../modules/form_validation";
 import ContentF from "../fasade/contentF";
-import UserValidatorF from "../fasade/userValidatorF";
-import { showOrHidePopUpQuestion } from "../modules/pack_edition.js";
 
 class CreatePackC {
     constructor() {

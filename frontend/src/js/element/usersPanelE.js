@@ -26,7 +26,6 @@ class UsersPanelE {
         } else if (roomState === "game") {
             playersInfo = this.gameIface.getPlayersGaming();
         } else {
-            console.log("Warning!");
             return
         }
     }

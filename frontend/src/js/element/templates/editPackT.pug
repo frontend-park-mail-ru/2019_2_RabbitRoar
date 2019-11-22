@@ -1,7 +1,7 @@
 div(class="text-container")
     div(id="pack-name-header" class="text") Название пака #{packObj.name}
 div(class="text-container")
-    span(class="error-annotation" id="error_invalid_pack") Для создания пака заполните все вопросы 
+    span(class="error-annotation" id="error_invalid_pack") Нет изменений для сохранения 
 
 mixin cell(_id, theme)
     - const cost = (_id + 1) * 100;
@@ -41,3 +41,9 @@ div(class="popup" id="popup-question")
         div(class="popup-elem-bottom")
             div(class="popup-button" id="cansel-question") Отмена
             div(class="popup-button" id="save-question") Сохранить
+
+div(class="popup " id="popup-final")
+    div(class="popup__content " id="popup_content")
+        div(class="popup-elem-top" id="popup-final-text") Изменения успешно сохранены!
+        div(class="popup-elem-bottom")
+            div(class="popup-button" id="ok") Ок

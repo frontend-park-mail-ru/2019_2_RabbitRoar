@@ -19,7 +19,6 @@ class TabsE {
 
         ContentF.getTabContent(id).then(
             templateContent => {
-                console.log("TRUE!");
                 templateContent.connection = true;
                 this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
                 this._highlightChosen(id);
@@ -27,7 +26,6 @@ class TabsE {
             }
         ).catch(
             () => {
-                console.log("FALSE!");
                 const templateContent = {
                     contentType: window.id.tabRoom,
                     connection: false
