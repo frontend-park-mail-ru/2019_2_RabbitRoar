@@ -27,3 +27,17 @@ div(class="flex-container-centered-content")
 
 form(class="form")
     button(type="submit", id="save-pack") Сохранить изменения
+
+div(class="popup" id="popup-question")
+    div(class="popup__content-question " id="popup_content")
+        div(class="popup-elem-top") Введите вопрос
+        div(class="popup-elem-without-border" id="theme") Тема
+        div(class="popup-elem-without-border" id="cost")
+        div(class="popup-elem-top")
+            textarea(class="textarea-question" id="input-question" maxlength="165")
+        div(class="popup-elem-without-border") Ответ
+        div(class="popup-elem-bottom")
+            textarea(class="textarea-answer" id="input-answer" maxlength="33")
+        div(class="popup-elem-bottom")
+            div(class="popup-button" id="cansel-question") Отмена
+            div(class="popup-button" id="save-question") Сохранить

@@ -17,8 +17,8 @@ class ContentF {
 
     }
 
-    getPackIdForEditing() {
-        return PackM.getpackIdForEditing();
+    getCurrentPackForEditing() {
+        return PackM.getCurrentPackForEditing();
     }
 
     async getPackById(id){
@@ -28,6 +28,9 @@ class ContentF {
 
     async setInfoForPackEditing(packId){
         await PackM.setInfoForPackEditing(packId);
+        console.log("пак качнулся в модель, пак:");
+        console.log(this.getCurrentPackForEditing());
+
     }
 
     async savePack(packObj) {

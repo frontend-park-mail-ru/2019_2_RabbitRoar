@@ -43,6 +43,9 @@ class TabsC {
         const packIdForEdit = event.target.getAttribute("pack_id");
         // Bus.emit(PACK_FOR_EDIT_WAS_CHOSEN, packForEdit);
         await ContentF.setInfoForPackEditing(packIdForEdit);
+        
+        console.log("щас буит роутер");
+
         Bus.emit(ROUTER_EVENT.ROUTE_TO, PACK_EDITING);
     }
 

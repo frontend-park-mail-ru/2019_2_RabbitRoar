@@ -9,8 +9,9 @@ import ContentF from "../fasade/contentF.js";
 class PackM {
     constructor() {
         this.packIdForEditing;
+        this.packForEditing;
+
         this.downloadList = new Array();
-        this.packObj;
        // Bus.on(PACK_FOR_EDIT_WAS_CHOSEN, this._setInfoForPackEditing.bind(this));
     }
 
@@ -18,8 +19,8 @@ class PackM {
         return this.packIdForEditing;
     }
 
-    getCurrentPackObjForEditing() {
-        return this.packObj;
+    getCurrentPackForEditing() {
+        return this.packForEditing;
     }
 
     async savePack(packObj, csrf) {
@@ -33,7 +34,9 @@ class PackM {
 
     async setInfoForPackEditing(packId) {
         this.packIdForEditing = packId;
-        this.packObj = await ContentF.getPackById(this.packIdForEditing);
+        this.packForEditing = await ContentF.getPackById(this.packIdForEditing);
+        //console.log("пак в модели");
+        //console.log(this.packObj);
     }
 
     async deletePackById(crsfString, id) {

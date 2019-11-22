@@ -6,6 +6,7 @@ import { replaceTwoCssClasses } from "../modules/css_operations";
 import { packCreationVaildationForm1 } from "../modules/form_validation";
 import ContentF from "../fasade/contentF";
 import UserValidatorF from "../fasade/userValidatorF";
+import { showOrHidePopUpQuestion } from "../modules/pack_edition.js";
 
 class CreatePackC {
     constructor() {
@@ -189,7 +190,6 @@ class CreatePackC {
         } else {
             const errorElement = document.getElementById("error_invalid_pack");
             replaceTwoCssClasses(errorElement, "error-annotation", "error-visible");
-
         }
     }
 
@@ -199,8 +199,8 @@ class CreatePackC {
 
     _choseQuestion(event) {
         this.currentQuestionId = event.target.id;
+        //showOrHidePopUpQuestion(this.currentQuestionId, this._getInputAnswerAndQuestion);
         this._showOrHidePopUpQuestion();
-
     }
 }
 
