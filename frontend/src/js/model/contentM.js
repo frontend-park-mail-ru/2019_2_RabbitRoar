@@ -1,7 +1,7 @@
 import { queryTabContent, getPlayedPackList, getPublicPackList } from "../modules/requests.js";
 import Bus from "../event_bus.js";
 import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
-import { getRooms, getUserPacks } from "../modules/requests.js";
+import { getRooms, getUserPacks, getPacksForOnline } from "../modules/requests.js";
 
 import ContentF from "../fasade/contentF.js";
 
@@ -36,6 +36,11 @@ class ContentM {
 
     getUserPacks = async () => {
         const packs = await getUserPacks();
+        return packs;
+    }
+
+    getPacksForOnline = async () => {
+        const packs = await getPacksForOnline();
         return packs;
     }
 
@@ -110,7 +115,6 @@ class ContentM {
             const allId = JSON.parse(localStorage.getItem("packs_list"));
             if (!allId) {
                 return {
-                    infoPanel: {},
                     contentType: id,
                     content: {}
 
@@ -129,7 +133,6 @@ class ContentM {
             })();
 
             const mainContent = {
-                infoPanel: {},
                 contentType: id,
                 content: packs
             };
