@@ -70,6 +70,7 @@ document.getElementById("send-message").onclick = () => {
     // messageElem.textContent = "Anon" + ": " + outgoingMessage;
     // document.getElementById("messages").appendChild(messageElem);
 
+    console.log(body);
     WebSocketIface.sentMessage(body);
 };
 
