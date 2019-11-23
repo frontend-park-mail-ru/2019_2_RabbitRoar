@@ -38,7 +38,7 @@ class TabsC {
         this.registerClassHandler(".popup-button", "click", this._processPopUp);
         this.registerClassHandler(".tab__create-room-btn", "click", this._routeToRoomCreation);
 
-        this.registerClassHandler(".paginator-panel", "click", this._paginatorClick);
+        this.registerClassHandler(".pg-elem", "click", this._paginatorClick);
 
     }
     async _editPack() {
@@ -60,7 +60,7 @@ class TabsC {
         this.disableAll();
     }
 
-    _lightTab = () => {
+    _lightTab = (event) => {
         event.target.classList.add("tab-hover");
     }
 
@@ -74,7 +74,13 @@ class TabsC {
     }
 
     _paginatorClick = (event) => {
-        alert(event.target.id);
+        const pag = {
+            paginator: event.target.parentNode.parentNode.id,
+            type: event.target.parentNode.id,
+            id: event.target.id
+        }
+
+        ContentF.setPaginator(pag);
     }
 
     _processPopUp = (event) => {
