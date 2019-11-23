@@ -1,5 +1,5 @@
-import WebSocketIface from "./webSocketIface.js";
 import "../css/style.scss";
+import WebSocketIface from "./webSocketIface.js";
 
 const doneConnection = () => {
     console.log("In done connection handler.");
