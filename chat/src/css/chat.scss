@@ -90,7 +90,6 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    //   margin: 8px 0px;
   }
 
   button {
@@ -111,7 +110,6 @@
     border-bottom: 2px solid transparent;
     transition: background-color 500ms ease, border-bottom 500ms ease, box-shadow 1000ms ease;
 
-    // margin: 10px 0px;
     width: 100%;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -140,13 +138,11 @@
     font-size: var(--big-font-size);
     color: var(--color-danger);
     visibility: hidden;
-    // padding: 2px;
   }
 
   .error-visible {
     font-size: var(--small-font-size);
     color: var(--color-danger);
-    // padding: 2px;
   }
 
   label {

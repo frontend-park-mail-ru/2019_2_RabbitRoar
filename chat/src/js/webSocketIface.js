@@ -27,15 +27,14 @@ class WebSocketIface {
 
     sentMessage(body) {
         this.socket.send(body);
-        //console.log(body);
     }
 
     drawMessage = (objMessage) => {
         const user = objMessage.user;
         const text = objMessage.text;
-    
+
         console.log(user + ": " + text);
-    
+
         let messageElem = document.createElement("div");
         messageElem.className += " " + "message-in-chat";
         messageElem.textContent = user + ": " + text;
@@ -74,17 +73,6 @@ class WebSocketIface {
             const objMessage = JSON.parse(event.data);
             this.drawMessage(objMessage);
             console.log(objMessage);
-
-            // if (this.handlersMap) {
-            //     for (const type in this.handlersMap) {
-            //         if (event.data.type === type) {
-            //             for (const handler in this.handlersMap[type]) {
-            //                 handler(event.data.payload);
-            //             }
-            //         }
-            //     }
-            // }
-
         };
     }
 
