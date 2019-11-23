@@ -25,6 +25,10 @@ class WebSocketIface {
 
     }
 
+    sentMessage(body){
+        // socket.send(body);
+        console.log(body);
+    }
 
     connect() {
         this.socket = new WebSocket("wss://svoyak.fun/api/chat/ws");
@@ -37,34 +41,47 @@ class WebSocketIface {
             }
         };
 
-        // this.socket.onclose = (event) => {
-        //     if (this.closeHandlers) {
-        //         for (const handler of this.closeHandlers) {
-        //             handler(event);
-        //         }
-        //     }
-        // };
+        this.socket.onclose = (event) => {
+            if (this.closeHandlers) {
+                for (const handler of this.closeHandlers) {
+                    handler(event);
+                }
+            }
+        };
 
-        // this.socket.onerror = (error) => {
-        //     if (this.errHandlers) {
-        //         for (const handler of this.errHandlers) {
-        //             handler(error);
-        //         }
-        //     }
-        // };
+        this.socket.onerror = (error) => {
+            if (this.errHandlers) {
+                for (const handler of this.errHandlers) {
+                    handler(error);
+                }
+            }
+        };
 
 
-        // this.socket.onmessage = (event) => {
-        //     if (this.handlersMap) {
-        //         for (const type in this.handlersMap) {
-        //             if (event.data.type === type) {
-        //                 for (const handler in this.handlersMap[type]) {
-        //                     handler(event.data.payload);
-        //                 }
-        //             }
-        //         }
-        //     }
-        // };
+        this.socket.onmessage = (event) => {
+
+            // NEW
+
+            let message = event.data;
+            let messageElem = document.createElement("div");
+            messageElem.className += " " + "message-in-chat";
+
+            messageElem.textContent = message;
+            document.getElementById("messages").prepend(messageElem);
+
+
+            // if (this.handlersMap) {
+            //     for (const type in this.handlersMap) {
+
+            //         if (event.data.type === type) {
+            //             for (const handler in this.handlersMap[type]) {
+            //                 handler(event.data.payload);
+            //             }
+            //         }
+
+            //     }
+            // }
+        };
     }
 
 

@@ -1,22 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
 doctype html
 html
   head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible" content="ie=edge")
     title Chat
-    link(rel='stylesheet', href='css/main.css')
   body
-    #chat-app
-      #chat.has-text-centered
-        section.section.chat-container
-          .container
-            .columns
-              .box.column.is-16.is-offset-0
-                h2.title Чятик
-                .chat-messages.has-text-left
-                  ul#chat-messages
-                form
-                  .field.has-addons
-                    p.control Egor
-                    p.control.is-expanded
-                      input(type='text', class='input', placeholder='Можешь написать, если хочешь', id='message')
-                    p.control
-                      input(type='submit', class='button is-success', value='Отправить')
+    div(class="flex-container-centered-content chat-header") Чатик
+    div(class="flex-container-centered-content")
+      div(id="messages" class="messages")
+    form(class="form" name="publish")
+      div(class="form-group")
+          label(for="user-text")
+          input(name="user-text", id="user-text", type="text")
+          span(class="error-annotation" id="empty-message") Введите ваше сообщение
+      button(type="submit" class="chat-button" id="send-message") Отправить

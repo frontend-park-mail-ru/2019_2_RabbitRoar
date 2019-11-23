@@ -1,10 +1,11 @@
 @import "./chat.scss";
 
-
 :root {
   // main colors
   --color-bg-dark: rgb(23, 21, 32);
   --color-bg-light: rgba(38, 35, 53, 1);
+
+  --color-input: rgb(58, 54, 80);
 
   // form
   --color-success: #72f1b8;
@@ -22,21 +23,28 @@
   --color-headers-font: white;
   --font-color-theme: #c5aee0;
 
-  // questions
-  --question-theme-bg: var(--color-bg-dark);
-  --question-container-border-width: 1px;
-  --question-container-gap-width: 2px;
-
   --color-border-primary-low: #b497d6;
   --forth-color: #efbcd5;
 
   --main-width: 90vw;
   --main-content-vertical-margin: 2vh;
+
+  @media all and (orientation: landscape) {
+    --font-size: 1.4vw; // Размер шрифта
+    --big-font-size: 2vw; // Размер большого шрифта
+    --small-font-size: 1vw; // Размер малого шрифта
+
+  }
+  @media all and (orientation: portrait) {
+    --font-size: 1.4vh;
+    --big-font-size: 2vh;
+    --small-font-size: 1vh;
+  }
 }
 
 body {
   // дублирование цвета
-  background-color: var(--color-bg-light);
+  background-color: var(--color-bg-dark);
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
   font-feature-settings: "kern";
   font-size: var(--font-size);
