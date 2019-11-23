@@ -6,8 +6,8 @@
   justify-content: center;
 }
 
-.message-in-chat{
-  color: green;
+.message-in-chat {
+  color: white;
 }
 
 .chat-header {
@@ -21,7 +21,7 @@
 
 .messages {
   background-color: var(--color-bg-light);
-  height: 30vh;
+  height: 80vh;
   width: 100%;
 
   display: flex;

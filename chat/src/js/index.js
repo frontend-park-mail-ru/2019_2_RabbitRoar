@@ -33,8 +33,6 @@ document.getElementById("send-message").onclick = () => {
         "text": outgoingMessage,
     });
     WebSocketIface.sentMessage(body);
-    //alert(outgoingMessage);
-    //socket.send(outgoingMessage);
 };
 
 WebSocketIface.connect();
