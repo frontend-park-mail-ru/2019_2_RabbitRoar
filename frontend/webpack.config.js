@@ -65,7 +65,7 @@ module.exports = {
     }),
     new WorkboxWebpackPlugin.InjectManifest({
       swSrc: path.join(__dirname, './src/js/workers/sw.js'),
-      include: [/\.html$/, /\.js$/, /\.png$/],
+      include: [/\.html$/, /\.js$/, /\.png$/, /\.jpg$/],
       importsDirectory: 'static',
     })
   ],

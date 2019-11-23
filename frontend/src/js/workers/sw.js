@@ -91,7 +91,7 @@ async function processPromise(event) {
                 //console.log(err);
                 return response;
             }
-            //console.log(`Не нужно кэшировать: ${requestUrl.pathname}`);
+            console.log(`Не нужно кэшировать: ${requestUrl.pathname}`);
             return response;
         }
 
