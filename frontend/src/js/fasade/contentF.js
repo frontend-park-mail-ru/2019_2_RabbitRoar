@@ -15,6 +15,44 @@ class ContentF {
     constructor() {
     }
 
+
+
+    setPaginator(changes) {
+        const _setPageNum = (paginator_counter, type, page_num) => {
+            const lastPage = MainMenuM[paginator_counter];
+            switch (type) {
+                case "prev":
+                    MainMenuM[paginator_counter]--;
+                    break;
+                case "next":
+                    MainMenuM[paginator_counter]++;
+                    break;
+                case "page":
+                    MainMenuM[paginator_counter] = page_num;
+                    break;
+                default:
+                    break;
+            }
+            if (lastPage !== MainMenuM[paginator_counter]) {
+                Bus.emit(CHANGE_TAB);
+            }
+        }
+
+        switch (changes.paginator) {
+            case "room-paginator":
+                _setPageNum("roomPage", changes.type, changes.id);
+                break;
+            case "top-paginator":
+                _setPageNum("topPage", changes.type, changes.id);
+                break;
+            case "pack-paginator":
+                _setPageNum("packPage", changes.type, changes.id);
+                break;
+            default:
+                break;
+        }
+    }
+
     getCurrentPackIDForEditing() {
         return PackM.packIdForEditing;
         //return PackM.getCurrentPackForEditing();
@@ -24,13 +62,13 @@ class ContentF {
         //return PackM.getCurrentPackForEditing();
         return PackM.packForEditing;
     }
-    
-    async getPackById(id){
+
+    async getPackById(id) {
         const packObj = await PackM.getPackById(id);
         return packObj;
     }
 
-    async setInfoForPackEditing(packId){
+    async setInfoForPackEditing(packId) {
         await PackM.setInfoForPackEditing(packId);
     }
 
@@ -38,7 +76,7 @@ class ContentF {
         this.packObj, this.packId
         const csrfJson = await UserValidatorF.getCSRF();
         const csrf = csrfJson.CSRF;
-        
+
         PackM.updatePack(packObj, packId, csrf).catch(
             (error) => console.log(`ERROR at: contentF.updatePack - ${error}`));
     }
@@ -46,7 +84,7 @@ class ContentF {
     async savePack(packObj) {
         const csrfJson = await UserValidatorF.getCSRF();
         const csrf = csrfJson.CSRF;
-        
+
         PackM.savePack(packObj, csrf).catch(
             (error) => console.log(`ERROR at: contentF.savePack - ${error}`));
     }
@@ -66,6 +104,10 @@ class ContentF {
 
     async getTabContent() {
         const currentId = MainMenuM.currentTab;
+
+        let currentPage = MainMenuM.paginators[currentId];
+        console.log(MainMenuM.paginators);
+
         const content = await ContentM.getTabContent(currentId);
         return content;
     }
