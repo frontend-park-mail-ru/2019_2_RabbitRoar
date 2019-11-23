@@ -26,11 +26,11 @@ const replaceTwoCssClasses = (elem, classOne, classTwo) => {
 //     document.getElementById("messages").appendChild(messageElem);
 // };
 
-// const processMessage = (event) => {
-//     const objMessage = JSON.parse(event.data);
-//     this.drawMessage(objMessage);
-//     console.log(objMessage);
-// }
+const processMessage = (event) => {
+    const objMessage = JSON.parse(event.data);
+    this.drawMessage(objMessage);
+    console.log(objMessage);
+}
 
 
 // document.getElementById("user-text").addEventListener("keyup", function (event) {
