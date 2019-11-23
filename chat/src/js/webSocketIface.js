@@ -26,8 +26,8 @@ class WebSocketIface {
     }
 
 
-    connect(roomId) {
-        this.socket = new WebSocket("wss://svoyak.fun/api/game/ws");
+    connect() {
+        this.socket = new WebSocket("wss://svoyak.fun/api/chat/ws");
 
         this.socket.onopen = (event) => {
             if (this.openHandlers) {
@@ -37,34 +37,34 @@ class WebSocketIface {
             }
         };
 
-        this.socket.onclose = (event) => {
-            if (this.closeHandlers) {
-                for (const handler of this.closeHandlers) {
-                    handler(event);
-                }
-            }
-        };
+        // this.socket.onclose = (event) => {
+        //     if (this.closeHandlers) {
+        //         for (const handler of this.closeHandlers) {
+        //             handler(event);
+        //         }
+        //     }
+        // };
 
-        this.socket.onerror = (error) => {
-            if (this.errHandlers) {
-                for (const handler of this.errHandlers) {
-                    handler(error);
-                }
-            }
-        };
+        // this.socket.onerror = (error) => {
+        //     if (this.errHandlers) {
+        //         for (const handler of this.errHandlers) {
+        //             handler(error);
+        //         }
+        //     }
+        // };
 
 
-        this.socket.onmessage = (event) => {
-            if (this.handlersMap) {
-                for (const type in this.handlersMap) {
-                    if (event.data.type === type) {
-                        for (const handler in this.handlersMap[type]) {
-                            handler(event.data.payload);
-                        }
-                    }
-                }
-            }
-        };
+        // this.socket.onmessage = (event) => {
+        //     if (this.handlersMap) {
+        //         for (const type in this.handlersMap) {
+        //             if (event.data.type === type) {
+        //                 for (const handler in this.handlersMap[type]) {
+        //                     handler(event.data.payload);
+        //                 }
+        //             }
+        //         }
+        //     }
+        // };
     }
 
 
