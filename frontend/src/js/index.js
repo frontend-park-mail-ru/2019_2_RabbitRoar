@@ -21,26 +21,7 @@ import Worker from "./workers/gameLoader.worker.js";
 
 import ContentF from "./fasade/contentF.js";
 
-//Sentry.init({ dsn: "https://f01fba73e5e04b9eb288a0808cd9940e@sentry.io/1820862" });
-//let socket = new WebSocket("wss://svoyak.fun:3010/game/ws");
-
-// socket.onopen = function (e) {
-//     console.log("[open] Соединение установлено");
-// };
-
-// socket.onclose = function (event) {
-//     if (event.wasClean) {
-//         console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
-//     } else {
-//         console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
-//     }
-// };
-
-// socket.onerror = function (error) {
-//     console.log(`[error] ${error}`);
-//     console.log(error);
-// };
-
+//Sentry.init({ dsn: "https://f01fba73e5e04b9eb288a0808cd9940e@sentry.io/1820862" });;;
 
 const worker = new Worker();
 window.packWorker = worker;
