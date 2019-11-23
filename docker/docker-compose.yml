@@ -22,7 +22,7 @@ services:
       - build
       - build_chat
     volumes:
-      - "./nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "./nginx.conf:/etc/nginx/nginx.conf"
       - "../frontend/dist:/www_app"
       - "../chat/dist:/www_chat"
     ports:
