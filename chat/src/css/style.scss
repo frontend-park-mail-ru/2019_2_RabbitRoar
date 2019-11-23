@@ -30,14 +30,14 @@
   --main-content-vertical-margin: 2vh;
 
   @media all and (orientation: landscape) {
-    --font-size: 1.4vw; // Размер шрифта
-    --big-font-size: 2vw; // Размер большого шрифта
+    --font-size: 2vw; // Размер шрифта
+    --big-font-size: 2.7vw; // Размер большого шрифта
     --small-font-size: 1vw; // Размер малого шрифта
 
   }
   @media all and (orientation: portrait) {
-    --font-size: 1.4vh;
-    --big-font-size: 2vh;
+    --font-size: 2vh;
+    --big-font-size: 2.7vh;
     --small-font-size: 1vh;
   }
 }
