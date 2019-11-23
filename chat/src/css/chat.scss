@@ -29,7 +29,7 @@
 
 .messages {
   background-color: var(--color-bg-light);
-  height: 80vh;
+  height: 60vh;
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -137,7 +137,7 @@
   }
 
   .error-annotation {
-    font-size: var(--font-size);
+    font-size: var(--big-font-size);
     color: var(--color-danger);
     visibility: hidden;
     // padding: 2px;
