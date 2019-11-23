@@ -14,6 +14,13 @@ const replaceTwoCssClasses = (elem, classOne, classTwo) => {
     }
 };
 
+
+const tryRestart = (event) => {
+    if (!event.wasClean) {
+        setTimeout(WebSocketIface.connect(), 2000);
+    }
+}
+
 // const drawMessage = (objMessage) => {
 //     const username = objMessage.user;
 //     const text = objMessage.text;
@@ -69,6 +76,7 @@ document.getElementById("send-message").onclick = () => {
 document.getElementById("user-text").focus();
 WebSocketIface.connect();
 WebSocketIface.addOpenHandler(doneConnection);
+WebSocketIface.addCloseHandler(tryRestart);
 
 //WebSocketIface.addMessageHandler("message", processMessage);
 //WebSocketIface.addMessageHandler("message", createHandler);

@@ -8,8 +8,12 @@ class StaticManager {
         return this.base + "/static/chat-logo.jpg";
     }
 
-    get iframeUrl() {
-        return this.nginx + "/chat";
+    getIframeUrl(opt = "nginx") {
+        if (opt === "nginx") {
+            return this.nginx + "/chat";
+        } else {
+            return "https://localhost:8081/chat";
+        }
     }
 
 }
