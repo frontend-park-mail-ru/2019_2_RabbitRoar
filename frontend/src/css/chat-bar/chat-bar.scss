@@ -1,0 +1,35 @@
+.chat-bar {
+    display: flex;
+    border-top-right-radius: 500px;
+    border-bottom-right-radius: 500px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    opacity: 0;
+    background: var(--color-bg-light);
+    top: 15vh; left: 0px; bottom: 15vh; right: 96vw;
+    z-index: 0;
+}
+
+.chat-bar-show {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
+}
+
+.chat-bar-empty {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
+    background: var(--color-success);
+    top: 15vh; left: 0px; bottom: 15vh; right: 99vw;
+}
+
+.chat-bar-danger {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
+    background: var(--color-danger);
+    top: 15vh; left: 0px; bottom: 15vh; right: 99vw;
+}

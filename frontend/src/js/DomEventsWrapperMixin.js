@@ -13,7 +13,7 @@ export const DomEventsWrapperMixin = {
         if (!this.events.get(id)) {
             idHandlers = new Map();
         } else {
-            idHandlers = this.classEvents.get(id);
+            idHandlers = this.events.get(id);
         }
 
         idHandlers.set(JsEvent, function (ev) {

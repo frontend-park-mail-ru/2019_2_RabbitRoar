@@ -2,6 +2,8 @@ import Template from "./templates/navbarT.pug";
 import ValidatorF from "../fasade/userValidatorF.js";
 import NavbarC from "../controller/navbarC.js";
 
+import StaticManager from "../modules/staticManager";
+
 class NavbarE {
     constructor() {
         this.root = document.getElementById("application");
@@ -67,7 +69,11 @@ class NavbarE {
                 }
             );
         }
-        this.root.insertAdjacentHTML("beforeend", Template({ authorized: authorized }));
+
+        this.root.insertAdjacentHTML("beforeend", Template({
+            authorized: authorized,
+            chatUrl: StaticManager.chatAvatar
+        }));
         if (currentUrl === "/") {
             document.getElementById("back").style.visibility = "hidden";
         } else {

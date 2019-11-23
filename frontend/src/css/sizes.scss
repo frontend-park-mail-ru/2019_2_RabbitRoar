@@ -11,6 +11,8 @@ $rank-margin: 4vw;              // Отступ у значка звания с�
         --best-panel-img-size: 3.33vw;        // Высота аватарки в панели топ 100
         --table-vertical-margin: 0.4vw;    // Отступ панелей
         --tab-height: 4vw;
+
+        --chat-img-size: 2vw;
     }
     @media all and (orientation: portrait) {
         --font-size: 1.4vh;
@@ -20,6 +22,8 @@ $rank-margin: 4vw;              // Отступ у значка звания с�
         --best-panel-img-size: 3.33vh;
         --table-vertical-margin: 0.4vh;
         --tab-height: 4vh;
+
+        --chat-img-size: 2vh;
     }
 }
 
