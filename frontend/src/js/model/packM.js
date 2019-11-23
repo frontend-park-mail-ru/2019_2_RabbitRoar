@@ -12,7 +12,6 @@ class PackM {
     }
 
     updatePack = async (packObj, packId, csrf) => {
-        console.log("update in model");
         await updatePack(packObj, packId, csrf);
     }
 

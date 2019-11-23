@@ -71,13 +71,14 @@ export async function updatePack(packObj, packId, csrf) {
     }
 
     const url = "/pack/" + packId;
-    let response = await putRequest(url, packObj, headers);
+
+    const body = JSON.stringify(packObj);
+
+    let response = await putRequest(url, body, headers);
 
     if (response.status !== 200) {
         throw new Error(`Error in pack update request: ${response.statusText}`);
     }
-
-    console.log("200 in put");
 }
 
 export async function signIn(login, password) {
