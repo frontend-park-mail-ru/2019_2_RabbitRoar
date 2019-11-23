@@ -1,3 +1,6 @@
+@import "./chat.scss";
+
+
 :root {
   // main colors
   --color-bg-dark: rgb(23, 21, 32);
@@ -34,7 +37,6 @@
 body {
   // дублирование цвета
   background-color: var(--color-bg-light);
-
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
   font-feature-settings: "kern";
   font-size: var(--font-size);
