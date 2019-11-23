@@ -34,7 +34,7 @@ class NavbarC {
     _chatClick = () => {
         const iframe = document.getElementById("chat_iframe");
         if (iframe.src === "") {
-            iframe.src = StaticManager.getIframeUrl("local");
+            iframe.src = StaticManager.getIframeUrl();
         }
         iframe.classList.toggle("iframe_show");
     }
