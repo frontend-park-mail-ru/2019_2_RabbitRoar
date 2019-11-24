@@ -103,10 +103,20 @@ class GameF {
     // created->done_connection->waiting->closed (success)
     // created->closed (crash)
 
-    _roomChange = () => {
+    _roomChange = (eventType) => {
         console.log(`${RoomM.current.lastState}->${RoomM.current.state}`);
+
         if (RoomM.current.state === "waiting") {
-            Bus.emit(USERS_PANEL_UPDATE);
+            if (eventType === "user_connected") {
+                console.log("EVENT in if: ", eventType);
+
+                //Bus.emit(INIT_PANEL_INFO, RoomM);
+            } else if (eventType === "user_ready") {
+                console.log("EVENT in if: ", eventType);
+
+                //Bus.emit(USERS_PANEL_UPDATE);
+            }
+
         } else if (RoomM.current.state === "before_connection") {
             Bus.emit(USERS_PANEL_UPDATE);
         } else if (RoomM.current.state === "crash_connection") {

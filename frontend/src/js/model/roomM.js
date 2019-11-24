@@ -55,25 +55,36 @@ class RealRoomM {
         this.roomId = roomId;
 
 
-        WebSocketIface.addMessageHandler("room_created", this._roomCreated);
+        WebSocketIface.addMessageHandler("user_connected", this._userConnectedToRoom);
+        WebSocketIface.addMessageHandler("player_ready_back", this._userReadyToPlay);
+
         WebSocketIface.addOpenHandler(this._doneConnection);
         WebSocketIface.addCloseHandler(this._closeConnection);
 
         console.log("комната создалась");
     }
 
+    _userReadyToPlay = (data) => {
+        const newPlayer = data.players;
+        Bus.emit(ROOM_CHANGE, "user_ready");
+    }
 
-    _roomCreated = (data) => {
-        console.log("Room init data recieve");
-        this.roomName = data.room_name;
-        this.playersCap = data.players_cap;
-        this.private = data.private;
-        this.packId = data.pack_id;
-        this.players = data.players;
+    _userConnectedToRoom = (data) => {
+        console.log("user connected");
+        const payloadObj = data.payload;
 
-        this.lastState = this.state;
-        this.state = "waiting";
-        Bus.emit(ROOM_CHANGE);
+        this.roomName = payloadObj.room_name;
+        this.packName = payloadObj.pack_name;
+        this.host = payloadObj.host;
+        this.players = payloadObj.palyers;
+
+        console.log(payloadObj);
+        // this.playersCap = data.players_cap;
+        // this.private = data.private;
+        // this.packId = data.pack_id;
+        // this.lastState = this.state;
+        // this.state = "waiting";
+        Bus.emit(ROOM_CHANGE, "user_connected");
     }
 
 

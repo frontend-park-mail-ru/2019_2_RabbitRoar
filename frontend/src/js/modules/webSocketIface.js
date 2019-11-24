@@ -27,6 +27,9 @@ class WebSocketIface {
         );
     }
 
+    sentMessage(body) {
+        this.socket.send(body);
+    }
 
     connect(roomId) {
         this.socket = new WebSocket("wss://svoyak.fun/api/game/ws");
@@ -59,9 +62,10 @@ class WebSocketIface {
         this.socket.onmessage = (event) => {
             if (this.handlersMap) {
                 for (const type in this.handlersMap) {
-                    if (event.data.type === type) {
+                    const objMessage = JSON.parse(event.data);
+                    if (objMessage.type === type) {
                         for (const handler in this.handlersMap[type]) {
-                            handler(event.data.payload);
+                            handler(objMessage);
                         }
                     }
                 }
