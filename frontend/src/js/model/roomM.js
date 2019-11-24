@@ -84,6 +84,9 @@ class RealRoomM {
     }
 
     _playerReady = (data) => {
+        this.lastState = this.state;
+        this.state = "waiting";
+        
         console.log("Player ready: ");
         console.log(data);
 

@@ -15,6 +15,10 @@ class UsersPanelE {
         Bus.on(USER_PANEL_USER_READY, this._readyChange);
     }
 
+    _readyChange = (data) => {
+        alert(data)
+    }
+
     _update = () => {
         const roomState = this.gameIface.getRoomState();
 
