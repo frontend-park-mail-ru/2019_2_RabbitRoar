@@ -1,4 +1,4 @@
-.button-ready-button {
+.button-ready {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9,7 +9,7 @@
     background-color: var(--color-bg-light);
 }
   
-  .button-ready-button-hover {
+  .button-ready-hover {
     border-width: 2px;
     border-color: var(--border-color-theme);
     color: var(--font-color-theme);
@@ -19,7 +19,7 @@
 
 
   @media all and (orientation: landscape) {
-    .button-ready-button {
+    .button-ready {
       margin: 3vw auto auto auto;
       width: 25vw;
       height: 3vw;
@@ -28,7 +28,7 @@
   
   
   @media all and (orientation: portrait) {
-    .button-ready-button {
+    .button-ready {
       margin: 3vh auto;
       width: 25vh;
       height: 3vh;
