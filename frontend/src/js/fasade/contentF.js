@@ -105,10 +105,16 @@ class ContentF {
     async getTabContent() {
         const currentId = MainMenuM.currentTab;
 
-        let currentPage = MainMenuM.paginators[currentId];
-        console.log(MainMenuM.paginators);
+        let currentPage = MainMenuM.currentTabPage;
+        let content;
 
-        const content = await ContentM.getTabContent(currentId);
+        try {
+            content = await ContentM.getTabContent(currentId, currentPage);
+        } catch(err) {
+            console.log(err);
+            throw(err);
+        }
+
         return content;
     }
 
