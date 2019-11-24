@@ -14,10 +14,12 @@ class UsersPanelE {
     }
 
     _update = () => {
-        this.gameIface = GameF.getInterface(this)();
         const roomState = this.gameIface.getRoomState();
-        //const players = this.gameIface.getPlayers();
-        const roomInfo = this.gameIface.getRoomInfo();
+
+        if (roomState === "before_connection") {
+            this._reRender();
+            return;
+        }
         console.log(roomInfo);
 
         return;
@@ -28,20 +30,21 @@ class UsersPanelE {
         this.create(this.root);
     }
 
-    create = async (root = document.getElementById("application")) => {
-        this.root = root;
 
-        const currentUserData = await ValidatorF.getUserData();
+    create = (root = document.getElementById("application")) => {
+        this.root = root;
+        this.gameIface = GameF.getInterface(this)();
+
+        const players = this.gameIface.getPlayers();
+        const roomInfo = this.gameIface.getRoomInfo();
+        
         this.root.insertAdjacentHTML("beforeend", Template({
-            userData: currentUserData,
+            players: players,
+            room: roomInfo
         }));
         this.controller.startAllListeners();
     }
 
-    _restartListener = () => {
-        this.destroy();
-        this.create(this.root);
-    }
 
     destroy = () => {
         this.controller.disableAllListeners();

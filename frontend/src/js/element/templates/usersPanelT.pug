@@ -4,24 +4,15 @@ div(class="popup " id="popup")
         div(class="popup-elem-bottom ")
             div(class="popup-button" id="continue") На главную
 
-if userData
-    div(class="panel-text") #{userData.username}, ожидайте других игроков!
-    div(class="user-panel-container")
-        div(id="main-user")
+div(class="panel-text") Ожидайте других игроков!
+div(class="user-panel-container")
+    each player, index in players
+        div(class="waiting-player")
             div(class="player-avatar")
                 div(class="logo-div")
                     img(class="game-panel__user-logo",
-                    src=userData.avatar_url,
+                    src=player.avatar,
                     alt="User")
-                div(class="panel-text") #{userData.username}
+                div(class="panel-text") #{player.username}
             div(class="users-panel__ready-indicator users-panel__ready-indicator__true", id="capitan-ready")
-        div(class="other-user")
-            div(class="player-avatar")
-            div(class="users-panel__ready-indicator users-panel__ready-indicator__true", id="ready")
-        div(class="other-user")
-            div(class="player-avatar")
-            div(class="users-panel__ready-indicator users-panel__ready-indicator__false", id="ready")
-        div(class="other-user")
-            div(class="player-avatar")
-            div(class="users-panel__ready-indicator users-panel__ready-indicator__false", id="ready")
-    div(class="button-ready-button") Готов
+div(class="button-ready-button") Готов

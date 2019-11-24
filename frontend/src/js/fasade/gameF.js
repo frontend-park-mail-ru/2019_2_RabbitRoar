@@ -5,7 +5,7 @@ import {
     ROUTER_EVENT,
     QUESTION_PANEL_UPDATE,
     QUESTION_CHANGE,
-    WEBSOCKET_CONNECTION,
+    CONNECTION,
     WEBSOCKET_CLOSE,
     ROOM_CHANGE,
     QUESTION_WAS_CHOSEN,
@@ -20,6 +20,8 @@ import GamePanelC from "../controller/gamePanelC.js";
 import QuestionTableC from "../controller/questionsTableC.js"
 import QuestionTableE from "../element/questionTableE.js"
 import UsersPanelE from "../element/usersPanelE.js"
+
+import StaticManager from "../modules/staticManager.js";
 
 
 
@@ -106,18 +108,21 @@ class GameF {
     _roomChange = () => {
         console.log(`${RoomM.current.lastState}->${RoomM.current.state}`);
         if (RoomM.current.state === "waiting") {
+            if (RoomM.lastState === "done_connection") {
+                Bus.emit(CONNECTION, "done");
+            }
             Bus.emit(USERS_PANEL_UPDATE);
         } else if (RoomM.current.state === "before_connection") {
-            Bus.emit(USERS_PANEL_UPDATE);
+            Bus.emit(CONNECTION, "before");
         } else if (RoomM.current.state === "crash_connection") {
             Bus.emit(CRASH_EVENT);
         } else if (RoomM.current.state === "done_connection") {
-            Bus.emit(WEBSOCKET_CONNECTION, true);
+            Bus.emit(CONNECTION, "data_waiting");
         } else if (RoomM.current.state === "closed") {
             const closeCode = RoomM.current.closeCode;
             const lastState = RoomM.current.lastState;
 
-            Bus.emit(WEBSOCKET_CLOSE, {
+            Bus.emit(CLOSE, {
                 code: closeCode,
                 lastState: lastState,
             });
@@ -244,7 +249,18 @@ class OnlineGameF {
             getPlayers() {
                 if (RoomM.state === "before_connection") {
                     const capacity = RoomM.current.roomInfo.playersCapacity;
-                    const joined = RoomM.current.roomInfo.playersJoined;
+                    const players = new Array;
+
+                    for (let i = 0; i < capacity; i++) {
+                        players.push({
+                            id: i,
+                            username: "Empty",
+                            avatar: StaticManager.getUserUrl(),
+                            score: 0,
+                            ready: false
+                        });
+                    }
+                    return players;
                 }
                 const playersInfo = new Array;
                 for (const player of RoomM.players) {
