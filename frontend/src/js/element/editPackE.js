@@ -14,11 +14,11 @@ class EditPackE {
 
         //const themesArray = [packObj.pack[0].name, packObj.pack[1].name, packObj.pack[2].name, packObj.pack[3].name, packObj.pack[4].name]
         this.root.insertAdjacentHTML("beforeend", Template({ packObj }));
-        this.controller.start();
+        this.controller.startAllListeners();
     }
 
     destroy() {
-        this.controller.drop();
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
 }

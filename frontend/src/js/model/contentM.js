@@ -1,7 +1,7 @@
 import { queryTabContent, getPlayedPackList, getPublicPackList } from "../modules/requests.js";
 import Bus from "../event_bus.js";
 import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
-import { getRooms, getUserPacks, getPacksForOnline } from "../modules/requests.js";
+import { getRooms, getUserPacks, getAllPacksForOnline } from "../modules/requests.js";
 
 import ContentF from "../fasade/contentF.js";
 
@@ -39,8 +39,8 @@ class ContentM {
         return packs;
     }
 
-    getPacksForOnline = async () => {
-        const packs = await getPacksForOnline();
+    getAllPacksForOnline = async () => {
+        const packs = await getAllPacksForOnline();
         return packs;
     }
 

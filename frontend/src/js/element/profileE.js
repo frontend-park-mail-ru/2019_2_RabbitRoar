@@ -8,10 +8,7 @@ import { PROFILE_UPDATE } from "../modules/events.js";
 class ProfileE {
     constructor() {
         this.controller = ProfileC;
-
         Bus.on(PROFILE_UPDATE, this._restartListener);
-
-        return this;
     }
 
     create = async (root = document.getElementById("application")) => {
@@ -20,7 +17,7 @@ class ProfileE {
         currentUserData.avatar_url = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
 
         this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData }));
-        this.controller.start();
+        this.controller.startAllListeners();
     }
 
     _restartListener = () => {
@@ -29,7 +26,7 @@ class ProfileE {
     }
 
     destroy = () => {
-        this.controller.drop();
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
 }

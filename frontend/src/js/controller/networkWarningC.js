@@ -62,11 +62,11 @@ class NetworkWarningC {
     }
 
 
-    start = () => {
+    startAllListeners = () => {
         this.enableAll();
     }
 
-    drop = () => {
+    disableAllListeners = () => {
         this.disableAll();
     }
 

@@ -19,7 +19,7 @@ const userCacheDelete = () => {
     }
 }
 
-export async function getPacksForOnline() {
+export async function getAllPacksForOnline() {
     let response = await getRequest("/pack");
     if (response.status !== 200) {
         throw new Error(`Cannot get packs for online ${packId}: ${response.statusText}`);

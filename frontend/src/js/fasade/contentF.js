@@ -15,9 +15,12 @@ class ContentF {
     constructor() {
     }
 
+    getUserPacks = async () => {
+        const packs = await ContentM.getUserPacks();
+        return packs;
+    }
 
-
-    setPaginator(changes) {
+    setPaginator = (changes) => {
         const _setPageNum = (paginator_counter, type, page_num) => {
             const lastPage = MainMenuM[paginator_counter];
             switch (type) {
@@ -53,26 +56,24 @@ class ContentF {
         }
     }
 
-    getCurrentPackIDForEditing() {
+    getCurrentPackIDForEditing = () => {
         return PackM.packIdForEditing;
-        //return PackM.getCurrentPackForEditing();
     }
 
-    getCurrentPackForEditing() {
-        //return PackM.getCurrentPackForEditing();
+    getCurrentPackForEditing = () => {
         return PackM.packForEditing;
     }
 
-    async getPackById(id) {
+    getPackById = async (id) => {
         const packObj = await PackM.getPackById(id);
         return packObj;
     }
 
-    async setInfoForPackEditing(packId) {
+    setInfoForPackEditing = async (packId) => {
         await PackM.setInfoForPackEditing(packId);
     }
 
-    async updatePack(packObj, packId) {
+    updatePack = async (packObj, packId) => {
         this.packObj, this.packId
         const csrfJson = await UserValidatorF.getCSRF();
         const csrf = csrfJson.CSRF;
@@ -81,7 +82,7 @@ class ContentF {
             (error) => console.log(`ERROR at: contentF.updatePack - ${error}`));
     }
 
-    async savePack(packObj) {
+    savePack = async (packObj) => {
         const csrfJson = await UserValidatorF.getCSRF();
         const csrf = csrfJson.CSRF;
 
@@ -89,7 +90,7 @@ class ContentF {
             (error) => console.log(`ERROR at: contentF.savePack - ${error}`));
     }
 
-    async updateLocalPacks() {
+    updateLocalPacks = async () => {
         await PackM.updatePackList();
         PackM.doPackValidation();
 
@@ -101,12 +102,12 @@ class ContentF {
         });
     }
 
-    async getPacksForOnline() {
-        const packs = await ContentM.getPacksForOnline();
+    getAllPacksForOnline = async () => {
+        const packs = await ContentM.getAllPacksForOnline();
         return packs;
     }
 
-    async getTabContent() {
+    getTabContent = async () => {
         const currentId = MainMenuM.currentTab;
 
         let currentPage = MainMenuM.paginators[currentId];
@@ -116,7 +117,7 @@ class ContentF {
         return content;
     }
 
-    findChosen(tabs) {
+    findChosen = async (tabs) => {
         for (const tab of tabs) {
             if (tab.id === MainMenuM.currentTab) {
                 return tab;
@@ -124,16 +125,16 @@ class ContentF {
         }
     }
 
-    dropeTabs() {
+    dropeTabs = () => {
         MainMenuM.currentTab = window.id.tabRoom;
     }
 
-    setCurrentTab(newValue) {
+    setCurrentTab = (newValue) => {
         MainMenuM.currentTab = newValue;
         Bus.emit(CHANGE_TAB);
     }
 
-    async deletePackById(packForDelete) {
+    deletePackById = async (packForDelete) => {
         const csrf = await UserM.getCSRF();
         const response = await PackM.deletePackById(csrf.CSRF, packForDelete);
     }

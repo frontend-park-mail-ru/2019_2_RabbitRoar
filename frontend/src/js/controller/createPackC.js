@@ -159,11 +159,11 @@ class CreatePackC {
 
     }
 
-    start = () => {
+    startAllListeners = () => {
         this.enableAll();
     }
 
-    drop = () => {
+    disableAllListeners = () => {
         this.disableAll();
     }
 

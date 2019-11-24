@@ -14,11 +14,11 @@ class RegistrationC {
         this.registerHandler("back", "click", this._goBack);
     }
 
-    start = () => {
+    startAllListeners = () => {
         this.enableAll();
     }
 
-    drop = () => {
+    disableAllListeners = () => {
         this.disableAll();
     }
 

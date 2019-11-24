@@ -9,13 +9,13 @@ class QuestionTableC {
         this.registerClassHandler(".question-container__cost", "click", this._choseQuestion);
     }
 
-    start = () => {
+    startAllListeners = () => {
         this.gameIface = GameF.getInterface(this)();
 
         this.enableAll();
     }
 
-    drop = () => {
+    disableAllListeners = () => {
         this.disableAll();
     }
 

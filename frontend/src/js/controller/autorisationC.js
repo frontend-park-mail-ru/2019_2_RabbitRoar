@@ -12,15 +12,13 @@ class AutorisationC {
 
         this.registerHandler("autorisation", "click", this._autorise);
         this.registerHandler("back", "click", this._goBack);
-
-        return this;
     }
 
-    start() {
+    startAllListeners() {
         this.enableAll();
     }
 
-    drop() {
+    disableAllListeners() {
         this.disableAll();
     }
 

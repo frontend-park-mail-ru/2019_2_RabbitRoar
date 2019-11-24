@@ -53,7 +53,7 @@ class UsersPanelE {
         this.root.insertAdjacentHTML("beforeend", Template({
             userData: currentUserData,
         }));
-        this.controller.start();
+        this.controller.startAllListeners();
     }
 
     _restartListener = () => {
@@ -62,7 +62,7 @@ class UsersPanelE {
     }
 
     destroy = () => {
-        this.controller.drop();
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
 }

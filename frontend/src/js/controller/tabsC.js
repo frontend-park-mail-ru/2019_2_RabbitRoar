@@ -52,11 +52,11 @@ class TabsC {
         ContentF.deletePackById(packForDelete);
     }
 
-    start() {
+    startAllListeners() {
         this.enableAll();
     }
 
-    drop() {
+    disableAllListeners() {
         this.disableAll();
     }
 

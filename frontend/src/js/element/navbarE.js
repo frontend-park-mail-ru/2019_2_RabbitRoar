@@ -80,11 +80,11 @@ class NavbarE {
             document.getElementById("back").style.visibility = "visible"
         }
         document.getElementById("navigation").innerHTML = navBarText;
-        this.controller.start();
+        this.controller.startAllListeners();
     }
 
     destroy() {
-        this.controller.drop();
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
 }

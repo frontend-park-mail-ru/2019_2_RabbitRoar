@@ -26,12 +26,12 @@ class GamePanelC {
         Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 
-    start = () => {
+    startAllListeners = () => {
         this.gameIface = GameF.getInterface(this)();
         this.enableAll();
     }
 
-    drop = () => {
+    disableAllListeners = () => {
         this.disableAll();
     }
 

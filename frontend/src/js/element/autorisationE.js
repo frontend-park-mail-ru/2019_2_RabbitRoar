@@ -14,7 +14,7 @@ class AutorisationE {
     create(root = document.getElementById("application")) {
         this.root = root;
         this.root.insertAdjacentHTML("beforeend", Template());
-        this.controller.start();
+        this.controller.startAllListeners();
     }
 
     _signIn(authorized = false) {
@@ -37,7 +37,7 @@ class AutorisationE {
 
 
     destroy() {
-        this.controller.drop();
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
 }

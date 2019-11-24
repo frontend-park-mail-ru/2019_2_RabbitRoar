@@ -7,7 +7,6 @@ import GameF from "../fasade/gameF.js";
 class PackInfoE {
     constructor() {
         this.controller = PackInfoC;
-        return this;
     }
 
     async create(root = document.getElementById("application")) {
@@ -16,7 +15,7 @@ class PackInfoE {
         const packName = GameF.getPackName();
         this.root.insertAdjacentHTML("beforeend", Template({packName: packName}));
 
-        this.controller.start();
+        this.controller.startAllListeners();
     }
 
     _restartListener() {
@@ -25,7 +24,7 @@ class PackInfoE {
     }
 
     destroy() {
-        this.controller.drop();
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
 }

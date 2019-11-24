@@ -156,11 +156,11 @@ class EditPackC {
         Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 
-    start = () => {
+    startAllListeners = () => {
         this.enableAll();
     }
 
-    drop = () => {
+    disableAllListeners = () => {
         this.disableAll();
     }
 }

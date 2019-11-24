@@ -30,7 +30,7 @@ class QuestionTableE {
         const state = this.gameIface.questionInfo();
 
         this.root.insertAdjacentHTML("beforeend", Template({ state }));
-        this.controller.start();
+        this.controller.startAllListeners();
 
 
         for (const _id in state.chosedCells) {
@@ -59,7 +59,7 @@ class QuestionTableE {
             this.timerIsWorking = false;
             Bus.emit(TIMER_INTERRUPTION);
         }
-        this.controller.drop();
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
 

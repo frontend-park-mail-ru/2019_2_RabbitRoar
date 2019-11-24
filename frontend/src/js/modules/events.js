@@ -55,3 +55,5 @@ export const TIMER_INTERRUPTION = "timerInterruption";
 export const FORM_CHANGED = "formChanged";
 
 export const PACK_FOR_EDIT_WAS_CHOSEN = "packEditing";
+
+export const CHANGE_VIEW_PACK_CREATION = "changeContentPackCreation";

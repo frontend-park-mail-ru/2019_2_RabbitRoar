@@ -21,7 +21,6 @@ class NavbarC {
         this.registerHandler("chat_bar", "mouseout", this._chatFocus);
 
         this.registerHandler("chat_icon", "click", this._chatClick);
-        return this;
     }
 
     _chatFocus = () => {
@@ -39,11 +38,11 @@ class NavbarC {
         iframe.classList.toggle("iframe_show");
     }
 
-    start() {
+    startAllListeners() {
         this.enableAll();
     }
 
-    drop() {
+    disableAllListeners() {
         this.disableAll();
     }
 

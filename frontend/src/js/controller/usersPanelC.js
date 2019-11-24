@@ -7,11 +7,11 @@ class UsersPanelC {
         Object.assign(this, DomEventsWrapperMixin);
     }
 
-    start() {
+    startAllListeners() {
         this.enableAll();
     }
 
-    drop() {
+    disableAllListeners() {
         this.disableAll();
     }
 }

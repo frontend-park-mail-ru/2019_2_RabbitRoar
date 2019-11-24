@@ -14,7 +14,7 @@ class NetworkWarningE {
         this.root = root;
 
         this.root.insertAdjacentHTML("beforeend", Template({ online: window.navigator.onLine }));
-        this.controller.start();
+        this.controller.startAllListeners();
 
         this.timerId = setInterval(this._checkNetwork, 1000);
     }
@@ -31,7 +31,7 @@ class NetworkWarningE {
 
     destroy = () => {
         clearInterval(this.timerId);
-        this.controller.drop();
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
 }

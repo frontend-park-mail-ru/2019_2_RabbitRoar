@@ -14,14 +14,14 @@ class TabsE {
 
     create = (root = document.getElementById("application")) => {
         this.root = root;
-        this.controller.start();
+        this.controller.startAllListeners();
 
         ContentF.getTabContent().then(
             templateContent => {
                 templateContent.connection = true;
                 this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
                 this._highlightChosen(id);
-                this.controller.start();
+                this.controller.startAllListeners();
             }
         ).catch(
             () => {
@@ -31,7 +31,7 @@ class TabsE {
                 };
                 this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
                 this._highlightChosen();
-                this.controller.start();
+                this.controller.startAllListeners();
             }
         );
     }
@@ -54,13 +54,13 @@ class TabsE {
     }
 
     _localDestroy = () => {
-        this.controller.drop();
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
 
     destroy = () => {
         ContentF.dropeTabs();
-        this.controller.drop();
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
 }

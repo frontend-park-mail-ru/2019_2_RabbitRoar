@@ -25,17 +25,17 @@ class GamePanelE {
             ).finally(
                 () => {
                     this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData}));
-                    this.controller.start();
+                    this.controller.startAllListeners();
                 }
             );
         } else {
             this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData}));
-            this.controller.start();
+            this.controller.startAllListeners();
         }
     }
 
     destroy() {
-        this.controller.drop();
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
 }
