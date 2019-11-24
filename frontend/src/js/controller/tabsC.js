@@ -7,7 +7,7 @@ import PackM from "../model/packM.js";
 
 
 import { ROUTER_EVENT, PACK_FOR_EDIT_WAS_CHOSEN } from "../modules/events.js";
-import { SINGLE_GAME, ROOM_CREATOR, LOGIN, PACK_CREATION, PACK_EDITING } from "../paths";
+import { SINGLE_GAME, ROOM_CREATOR, LOGIN, PACK_CREATION, PACK_EDITING, ROOT} from "../paths";
 
 import ValidatorF from "../fasade/userValidatorF.js";
 

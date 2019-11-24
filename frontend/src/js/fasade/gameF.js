@@ -12,7 +12,9 @@ import {
     TIMER_INTERRUPTION,
     USERS_PANEL_UPDATE,
     CRASH_EVENT,
-    OFFLINE_GAME_END
+    OFFLINE_GAME_END,
+    USER_PANEL_USER_READY,
+    USER_PANEL_NEW_USER,
 } from "../modules/events.js";
 import { WAITING, SINGLE_GAME, ONLINE_GAME } from "../paths";
 
@@ -56,6 +58,7 @@ class GameF {
             this.current = await this._createOfflineGame(options.packId);
         } else {
             if (options.action === "join") {
+
                 this.current = await this._createOnlineGame(options.roomId, null);
             } else if (options.action === "create") {
                 this.current = await this._createOnlineGame(null, options.roomOptions);
@@ -109,19 +112,19 @@ class GameF {
         console.log(`${RoomM.current.lastState}->${RoomM.current.state}`);
 
         if (RoomM.current.state === "waiting") {
-            if (eventType === "user_connected") {
-                console.log("EVENT in if: ", eventType);
-
-                //Bus.emit(INIT_PANEL_INFO, RoomM);
-            } else if (eventType === "user_ready") {
-                console.log("EVENT in if: ", eventType);
-
-                //Bus.emit(USERS_PANEL_UPDATE);
-            }
-            if (RoomM.lastState === "done_connection") {
+            if (RoomM.current.lastState === "done_connection") {
+                console.log("done_connection");
                 Bus.emit(CONNECTION, "done");
             }
-            Bus.emit(USERS_PANEL_UPDATE);
+            console.log("In waiting");
+            if (eventType === "player_connected") {
+                console.log("EVENT in if: ", eventType);
+                Bus.emit(USER_PANEL_NEW_USER, RoomM);
+            } else if (eventType === "player_ready") {
+                console.log("EVENT in if: ", eventType);
+                Bus.emit(USER_PANEL_USER_READY);
+            }
+
         } else if (RoomM.current.state === "before_connection") {
             Bus.emit(CONNECTION, "before");
         } else if (RoomM.current.state === "crash_connection") {

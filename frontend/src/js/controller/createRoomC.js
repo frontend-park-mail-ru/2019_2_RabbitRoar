@@ -138,6 +138,7 @@ class CreateRoomC {
             roomOptions: obj
         }
 
+        console.log(options);
         GameF.CreateGame("online", options).then(
             () => { return }
         ).catch(

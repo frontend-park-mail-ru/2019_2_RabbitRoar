@@ -64,7 +64,7 @@ class WebSocketIface {
                 for (const type in this.handlersMap) {
                     const objMessage = JSON.parse(event.data);
                     if (objMessage.type === type) {
-                        for (const handler in this.handlersMap[type]) {
+                        for (const handler of this.handlersMap[type]) {
                             handler(objMessage);
                         }
                     }

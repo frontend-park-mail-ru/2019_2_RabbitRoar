@@ -57,3 +57,7 @@ export const FORM_CHANGED = "formChanged";
 export const PACK_FOR_EDIT_WAS_CHOSEN = "packEditing";
 
 export const CHANGE_VIEW_PACK_CREATION = "changeContentPackCreation";
+
+// ONLINE
+export const USER_PANEL_USER_READY = "UserPanelUserReady";
+export const USER_PANEL_NEW_USER = "UserPanelNewUser";
