@@ -41,7 +41,7 @@ export const ROOM_CHANGE = "roomChange";
 
 export const OFFLINE_GAME_END = "offlineGameEnd";
 
-export const WEBSOCKET_CONNECTION = "websocketConnection";
+export const CONNECTION = "websocketConnection";
 export const WEBSOCKET_CLOSE = "websocketClose";
 
 export const QUESTION_PANEL_UPDATE = "questPanelUpdate";

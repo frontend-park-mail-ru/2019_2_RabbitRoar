@@ -2,7 +2,7 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 
 import Bus from "../event_bus.js";
 
-import { ROUTER_EVENT, WEBSOCKET_CONNECTION, WEBSOCKET_CLOSE, CRASH_EVENT, OFFLINE_GAME_END } from "../modules/events.js";
+import { ROUTER_EVENT, CONNECTION, WEBSOCKET_CLOSE, CRASH_EVENT, OFFLINE_GAME_END } from "../modules/events.js";
 import { ROOT, WAITING } from "../paths";
 
 class NetworkWarningC {
@@ -14,7 +14,7 @@ class NetworkWarningC {
         this.registerHandler("exit-offline-game", "click", this._goToRoot);
 
 
-        Bus.on(WEBSOCKET_CONNECTION, this._wsConnect);
+        Bus.on(CONNECTION, this._wsConnect);
         Bus.on(WEBSOCKET_CLOSE, this._wsClose);
         Bus.on(CRASH_EVENT, this._crashConnection);
         Bus.on(OFFLINE_GAME_END, this._endGame);
@@ -33,8 +33,14 @@ class NetworkWarningC {
     }
 
     _wsConnect = (connect) => {
-        if (connect) {
+        if (connect === "before") {
             Bus.emit(ROUTER_EVENT.ROUTE_TO, WAITING);
+            this._showOrHidePopUp("popup_connect_timer");
+        } else if (connect === "data_waiting") {
+            this._showOrHidePopUp("popup_connect_timer");
+            this._showOrHidePopUp("popup_load_timer");
+        } else if (connect === "done") {
+            this._showOrHidePopUp("popup_load_timer");
         } else {
             console.log("WS crashed");
         }
