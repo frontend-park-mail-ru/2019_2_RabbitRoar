@@ -3,6 +3,8 @@ import WebSocketIface from "../modules/webSocketIface.js"
 import Bus from "../event_bus.js";
 import { ROOM_CHANGE } from "../modules/events.js";
 
+import StaticManager from "../modules/staticManager.js";
+
 // "created" - Игра создана как объект в памяти
 // "before_connection" - Отправили join запрос и получили инфо о комнате
 // "crash_connection" - Сервер не ответил по https
@@ -98,6 +100,10 @@ class RealRoomM {
 
         console.log("Player joined :");
         console.log(data);
+
+        for (const player of data.payload.players) {
+            player.avatar = StaticManager.getUserUrl(player.avatar);
+        }
 
         this.playerJoinedData = data;
         Bus.emit(ROOM_CHANGE, "player_connected");

@@ -36,11 +36,12 @@ class UsersPanelE {
             currentPlayersMap[order] = currentPlayers[i];
         }
 
+
         let order = 0;
         for (const player of message.payload.players) {
             if (player.id === currentPlayersMap[order].id) {
             } else {
-                insert(player, currentPlayersMap[order]);
+                this._insertCell(player, currentPlayersMap[order]);
             }
             order++;
         }
@@ -58,13 +59,9 @@ class UsersPanelE {
 
     _insertCell(player, container) {
         container.id = player.id;
-        for(let i = 0; i < container.children.length; i++) {
-            if (container.children[i].getAttribute["name"] === "avatar") {
-                container.children[i].src = player.avatar;
-            } else if (container.children[i].getAttribute["name"] === "username") {
-                container.children[i].innerHTML = player.username;
-            }
-        }
+
+        container.children[0].children[0].children[0].src = player.avatar;
+        container.children[0].children[1].innerHTML = player.username;
     }
 
 
