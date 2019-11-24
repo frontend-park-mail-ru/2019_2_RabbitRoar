@@ -23,12 +23,11 @@ class CreateRoomE {
     _changePackContent = () => {
         // console.log("before drop", this.controller.currentTabId);
         this.destroy();
-        this.create();
+        this.create(this.root);
     }
 
     create = async (root = document.getElementById("application")) => {
         this.root = root;
-
         if (!this.packUploaded) {
             this.allPacks = await ContentF.getAllPacksForOnline();
             this.userPacks = await ContentF.getUserPacks();
@@ -53,6 +52,7 @@ class CreateRoomE {
 
         this.root.insertAdjacentHTML("beforeend", Template({ packs, formNumber }));
         if (formNumber === 2) {
+            console.log("form number 2");
             const disabledTabElement = document.getElementById(disabledTabId);
             replaceTwoCssClasses(disabledTabElement, "tab-click", "tab");
 

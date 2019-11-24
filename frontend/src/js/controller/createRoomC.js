@@ -1,7 +1,7 @@
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import Bus from "../event_bus.js";
 import { ROOT } from "../paths.js";
-import { ROUTER_EVENT, FORM_CHANGED_ROOM_CREATION, CHANGE_VIEW_PACK_CREATION } from "../modules/events.js";
+import { ROUTER_EVENT, CHANGE_VIEW_PACK_CREATION } from "../modules/events.js";
 import GameF from "../fasade/gameF.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
 import { roomCreatureVaildation } from "../modules/form_validation";
@@ -34,7 +34,11 @@ class CreateRoomC {
         this.registerHandler("my-packs", "click", this._choseTab);
         this.registerHandler("all-packs", "click", this._choseTab);
 
-        // Bus.on(FORM_CHANGED_ROOM_CREATION, this._processForm);
+        Bus.on(ROUTER_EVENT.ROUTE_TO, this._clearCurrentForm);
+    }
+
+    _clearCurrentForm = () => {
+        this.currentFormPart = 1;
     }
 
     _choseTab = (event) => {
