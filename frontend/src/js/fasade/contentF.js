@@ -101,6 +101,10 @@ class ContentF {
         });
     }
 
+    async getPacksForOnline() {
+        const packs = await ContentM.getPacksForOnline();
+        return packs;
+    }
 
     async getTabContent() {
         const currentId = MainMenuM.currentTab;

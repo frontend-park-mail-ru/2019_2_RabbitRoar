@@ -12,10 +12,10 @@ class CreateRoomE {
     create(root = document.getElementById("application")) {
         this.root = root;
 
-        const id = "offline_id";
-        ContentF.getTabContent(id).then(
-            templateContent => {
-                this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
+        ContentF.getPacksForOnline().then(
+            packs => {
+                console.log(packs);
+                this.root.insertAdjacentHTML("beforeend", Template({ packs }));
                 this.controller.start();
             }
         );

@@ -19,6 +19,15 @@ const userCacheDelete = () => {
     }
 }
 
+export async function getPacksForOnline() {
+    let response = await getRequest("/pack");
+    if (response.status !== 200) {
+        throw new Error(`Cannot get packs for online ${packId}: ${response.statusText}`);
+    }
+    const packs = await response.json();
+    return packs;
+}
+
 export async function deletePackById(csrf, id) {
     const headers = {
         "X-Csrf-Token": csrf,
@@ -33,7 +42,7 @@ export async function deletePackById(csrf, id) {
 
 export async function getUserPacks() {
     let response = await getRequest("/pack/author");
-    if(response.status === 401) {
+    if (response.status === 401) {
         return {};
     }
     if (!response.ok) {
@@ -61,14 +70,15 @@ export async function updatePack(packObj, packId, csrf) {
         "X-Csrf-Token": csrf,
     }
 
-    const url = "/pack/" + packId; 
-    let response = await putRequest(url, packObj, headers);
+    const url = "/pack/" + packId;
+
+    const body = JSON.stringify(packObj);
+
+    let response = await putRequest(url, body, headers);
 
     if (response.status !== 200) {
         throw new Error(`Error in pack update request: ${response.statusText}`);
     }
-
-    console.log("200 in put");
 }
 
 export async function signIn(login, password) {
@@ -224,7 +234,7 @@ export async function getPackById(packId) {
 
 export async function getPlayedPackList() {
     let response = await getRequest("/pack/offline");
-    if(response.status === 401) {
+    if (response.status === 401) {
         localStorage.removeItem("authorized");
         return undefined;
     }
@@ -240,7 +250,7 @@ export async function getPlayedPackList() {
 
 export async function getPublicPackList() {
     let response = await getRequest("/pack/offline/public");
-    if(response.status === 401) {
+    if (response.status === 401) {
         localStorage.removeItem("authorized");
         return undefined;
     }
@@ -255,7 +265,7 @@ export async function getPublicPackList() {
 
 export async function getMyPackList() {
     let response = await getRequest("/pack/offline/author");
-    if(response.status === 401) {
+    if (response.status === 401) {
         localStorage.removeItem("authorized");
         return undefined;
     }
@@ -274,7 +284,7 @@ export async function getRooms(pageNumber, limit=10) {
     if (!response) {
         return undefined;
     }
-    if(response.status === 401) {
+    if (response.status === 401) {
         localStorage.removeItem("authorized");
         return undefined;
     }

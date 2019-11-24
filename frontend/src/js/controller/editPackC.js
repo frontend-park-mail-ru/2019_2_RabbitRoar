@@ -38,19 +38,16 @@ class EditPackC {
 
     _savePack = async () => {
         const amountOfChangedQuestions = document.getElementsByClassName("question-container__cost_chosen").length;
-        console.log("Changed question amount", amountOfChangedQuestions);
         if (amountOfChangedQuestions === 0) {
             const errorElement = document.getElementById("error_invalid_pack");
             replaceTwoCssClasses(errorElement, "error-annotation", "error-visible");
         } else {
             const amountOfInvalidQuestions = document.getElementsByClassName("question-container__cost_error").length;
             if (amountOfInvalidQuestions !== 0) {
-                console.log("ne valid");
                 const errorElement = document.getElementById("error_invalid_pack");
                 errorElement.innerHTML = "Исправьте невалидный вопрос";
                 replaceTwoCssClasses(errorElement, "error-annotation", "error-visible");
             } else {
-                console.log("valid");
                 ContentF.updatePack(this.packObj, this.packId).then(
                     () => this._showSuccessPopup(true)
                 ).catch(
