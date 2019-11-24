@@ -50,17 +50,14 @@ class NavbarE {
 
         this.root = root;
 
-        let avatar;
         const authorized = ValidatorF.checkLocalstorageAutorization();
-
         if (authorized === true) {
-            ValidatorF.getUserData().then(
+            ValidatorF.getUserData().then (
                 (currentUserData) => {
-                    avatar = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
                     const avatarContainer = document.getElementById("nav_profile");
 
                     const image = document.createElement("IMG");
-                    image.src = avatar;
+                    image.src = currentUserData.avatar_url;
                     image.alt = "User";
                     image.id = "avatar";
                     image.classList.add("navbar__user-logo");
@@ -74,6 +71,7 @@ class NavbarE {
             authorized: authorized,
             chatUrl: StaticManager.chatAvatar
         }));
+        
         if (currentUrl === "/") {
             document.getElementById("back").style.visibility = "hidden";
         } else {

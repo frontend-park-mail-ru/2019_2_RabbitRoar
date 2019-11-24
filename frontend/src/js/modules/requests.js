@@ -145,25 +145,6 @@ export async function changeTextFields(changesMap, csrf) {
     }
 }
 
-export async function queryTabContent(id) {
-    if (id === undefined) {
-        throw new Error("Content error: id is undefined");
-    }
-    const body = JSON.stringify({
-        contentType: "tabContent",
-        id: id,
-    });
-
-    const response = await getRequest("/content", body);
-
-    if (!response.ok) {
-        throw new Error(`Content error: ${response.statusText}`);
-    }
-
-    const content = await response.json();
-    return content;
-}
-
 export async function getUserInfo() {
     let response = await getRequest("/user/");
 
@@ -298,10 +279,10 @@ export async function getMyPackList() {
 }
 
 
-export async function getRooms() {
+export async function getRooms(pageNumber, limit=10) {
     let response = await getRequest("/game/");
     if (!response) {
-        undefined;
+        return undefined;
     }
     if (response.status === 401) {
         localStorage.removeItem("authorized");
@@ -314,4 +295,22 @@ export async function getRooms() {
 
     const roomList = await response.json();
     return roomList;
+}
+
+export async function getTop(pageNumber, limit=10) {
+    let response = await getRequest(`/user/leaderboard?page=${pageNumber}`);
+    if (!response) {
+        return undefined;
+    }
+    if(response.status === 401) {
+        localStorage.removeItem("authorized");
+        return undefined;
+    }
+
+    if (!response.ok) {
+        throw new Error(`Cannot get top list: ${response.statusText}`);
+    }
+
+    const topList = await response.json();
+    return topList;
 }

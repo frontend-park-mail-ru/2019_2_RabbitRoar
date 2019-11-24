@@ -1,5 +1,6 @@
 import { signIn, logout, signUp, changeAvatar, changeTextFields, getUserInfo, getCSRF } from "../modules/requests.js";
 import Bus from "../event_bus.js";
+import StaticManager from "../modules/staticManager.js";
 
 class User {
     constructor() {
@@ -7,6 +8,14 @@ class User {
 
     async getData() {
         const userInfo = await getUserInfo();
+        userInfo.avatar_url = StaticManager.getUserUrl(userInfo.avatar_url);
+        return userInfo;
+    }
+
+    getNoAutoriseData() {
+        const userInfo = {};
+        userInfo.avatar_url = StaticManager.getUserUrl();
+        userInfo.username = "Anon";
         return userInfo;
     }
 

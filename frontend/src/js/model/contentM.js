@@ -1,21 +1,8 @@
-import { queryTabContent, getPlayedPackList, getPublicPackList } from "../modules/requests.js";
 import Bus from "../event_bus.js";
-import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "../modules/events.js";
-import { getRooms, getUserPacks, getAllPacksForOnline } from "../modules/requests.js";
 
-import ContentF from "../fasade/contentF.js";
-
-
-//PUBLIC:
-//async getTabContent(id)
-//async updatePackList()
-//clearBadPacks()
-//getPacksForLoad()
-
-//PRIVATE:
-//_workerHandler(msg)
-
-
+import { PACK_WORKER_MESSAGE } from "../modules/events.js";
+import { getRooms, getUserPacks, getTop, getAllPacksForOnline } from "../modules/requests.js";
+import StaticManager from "../modules/staticManager.js";
 
 class ContentM {
     constructor() {
@@ -39,24 +26,23 @@ class ContentM {
         return packs;
     }
 
+
     getAllPacksForOnline = async () => {
         const packs = await getAllPacksForOnline();
         return packs;
     }
 
-    getTabContent = async (id) => {
+    getTabContent = async (id, pageNumber) => {
         if (id === window.id.tabRoom) {
             const mainContent = {
-                infoPanel: {
-                    src: "https://myandroid.ru/uploads/posts/2019-01/kto-takoj-rikardo-milos-chim-imenem-nazyvajut-obekty-na-google-kartah_1.png"
-                },
+                infoPanel: {},
                 contentType: id,
                 content: []
             };
 
             let rooms = [];
             try {
-                rooms = await getRooms();
+                rooms = await getRooms(pageNumber);
                 if (!rooms) {
                     throw new Error("Can't get room list for unautorised user");
                 }
@@ -64,33 +50,34 @@ class ContentM {
                 throw (err);
             }
 
-            if (rooms) {
-                for (const room of rooms) {
-                    mainContent.content.push(room);
-                }
+            for (const room of rooms) {
+                mainContent.content.push(room);
             }
-
             return mainContent;
         }
 
         if (id === window.id.tabTop) {
             const mainContent = {
-                infoPanel: {
-                    src: "https://www.pnglot.com/pngfile/detail/493-4930333_user-icon-my-profile-icon-png.png"
-                },
+                infoPanel: {},
                 contentType: id,
                 content: []
             };
-            for (let i = 0; i < 20; i++) {
-                mainContent.content.push({
-                    name: `Дувейн_Скола_Жонсон${i}`,
-                    userSrc: "https://memepedia.ru/wp-content/uploads/2018/07/ya-eblan-original.jpg",
-                    raiting: 1000 + i * 10,
-                    rankDescr: "Сверхразум",
-                    rankSrc: "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/65/65635a2df235b74236755edf1e0b57ec61af53fc_full.jpg"
-                });
+
+            let topList = [];
+            try {
+                topList = await getTop(pageNumber);
+                if (!topList) {
+                    throw new Error("Can't get top list for unautorised user");
+                }
+            } catch (err) {
+                throw (err);
             }
 
+            for (const user of topList) {
+                user.rank = StaticManager.getRank(user.rating);
+                user.avatar_url = StaticManager.getUserUrl(user.avatar_url);
+                mainContent.content.push(user);
+            }
             return mainContent;
         }
 
@@ -118,7 +105,7 @@ class ContentM {
                     contentType: id,
                     content: {}
 
-                };;
+                };
             }
 
             const packs = (() => {

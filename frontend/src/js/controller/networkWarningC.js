@@ -28,7 +28,7 @@ class NetworkWarningC {
         this._showOrHidePopUp("popup-end");
     }
 
-    _crashConnection() {
+    _crashConnection = () => {
         this._showOrHidePopUp("popup_http_error");
     }
 
