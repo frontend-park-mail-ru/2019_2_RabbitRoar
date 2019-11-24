@@ -61,7 +61,7 @@ class StaticManager {
 
         for (const rank of this.ranks) {
             if (score >= rank.score) {
-                userRank = rank;
+                userRank = Object.assign({}, rank);
             }
         }
 

@@ -123,7 +123,7 @@ class ContentF {
         return content;
     }
 
-    findChosen = async (tabs) => {
+    findChosen =  (tabs) => {
         for (const tab of tabs) {
             if (tab.id === MainMenuM.currentTab) {
                 return tab;

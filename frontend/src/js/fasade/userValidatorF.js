@@ -91,17 +91,5 @@ class ValidatorF {
         const csrf = await User.getCSRF();
         return csrf;
     }
-
-    getFullImageUrl(avatarUrlFromServer) {
-        if (avatarUrlFromServer == "") {
-            return defaultAvatar;
-        } else {
-            return basePhotoUrl + avatarUrlFromServer;
-        }
-    }
-
-    getDefaultAvatar() {
-        return defaultAvatar;
-    }
 }
 export default new ValidatorF();

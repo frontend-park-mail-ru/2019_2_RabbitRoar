@@ -14,13 +14,12 @@ class TabsE {
 
     create = (root = document.getElementById("application")) => {
         this.root = root;
-        this.controller.startAllListeners();
 
         ContentF.getTabContent().then(
             templateContent => {
                 templateContent.connection = true;
                 this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
-                this._highlightChosen(id);
+                this._highlightChosen();
                 this.controller.startAllListeners();
             }
         ).catch(
@@ -41,7 +40,7 @@ class TabsE {
         this.create(this.root);
     }
 
-    _highlightChosen = (chosenId) => {
+    _highlightChosen = () => {
         const targetElems = document.querySelectorAll(".tab");
 
         if (targetElems) {
