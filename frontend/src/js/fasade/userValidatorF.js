@@ -1,22 +1,11 @@
 import Bus from "../event_bus.js";
 import { ROUTER_EVENT, PROFILE_UPDATE } from "../modules/events.js";
 import { LOGIN, ROOT, staticFiles } from "../paths";
-import userM from "../model/userM.js";
+import UserM from "../model/userM.js";
 import { basePhotoUrl } from "../modules/ajax.js"
 
 const defaultAvatar = window.location.origin + staticFiles.userLogo;
-//PUBLUC:
-//getUserAutorise()
-//checkLocalstorageAutorization()
-//async getUserData()
-//changeTextFields()
-//changeUserAvatar()
-//async doAutorise()
-//async doRegistration()
-//doExit()
-//async getCSRF()
-//unAutorise()
-//PRIVATE:
+
 
 
 class ValidatorF {
@@ -25,34 +14,34 @@ class ValidatorF {
     }
 
     checkLocalstorageAutorization() {
-        const result = userM.checkLocalstorageAutorization();
+        const result = UserM.checkLocalstorageAutorization();
         return result;
     }
 
     async getUserData() {
         let userInfo;
-        if (userM.checkLocalstorageAutorization()) {
+        if (UserM.checkLocalstorageAutorization()) {
             try {
-                userInfo = await userM.getData();
+                userInfo = await UserM.getData();
             } catch (err) {
                 console.log(err);
-                userInfo = userM.getNoAutoriseData();
+                userInfo = UserM.getNoAutoriseData();
             }
         } else {
-            userInfo = userM.getNoAutoriseData();
+            userInfo = UserM.getNoAutoriseData();
         }
         return userInfo;
     }
 
     changeTextFields(changesMap, csrf) {
-        userM.changeTextFields(changesMap, csrf).then(
+        UserM.changeTextFields(changesMap, csrf).then(
             resolve => { }
         ).catch(
             (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
     }
 
     changeUserAvatar(formData, csrf) {
-        userM.changeAvatar(formData, csrf).then(
+        UserM.changeAvatar(formData, csrf).then(
             resolve => { }
         ).catch(
             (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
@@ -60,7 +49,7 @@ class ValidatorF {
 
 
     async doAutorise(username, password) {
-        userM.signIn(username, password).then(
+        UserM.signIn(username, password).then(
             async resolve => {
                 const currentUserData = await this.getUserData();
                 Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
@@ -70,7 +59,7 @@ class ValidatorF {
     }
 
     async doRegistration(userStructure) {
-        userM.signUp(userStructure).then(
+        UserM.signUp(userStructure).then(
             async resolve => {
                 const currentUserData = await this.getUserData();
                 Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT)
@@ -80,7 +69,7 @@ class ValidatorF {
     }
 
     doExit() {
-        userM.exit().then(
+        UserM.exit().then(
             resolve => Bus.emit(ROUTER_EVENT.ROUTE_TO, LOGIN)
         ).catch(
             (error) => console.log(`ERROR at: userValidatorF.doExit - ${error}`)
@@ -88,7 +77,7 @@ class ValidatorF {
     }
 
     async getCSRF() {
-        const csrf = await User.getCSRF();
+        const csrf = await UserM.getCSRF();
         return csrf;
     }
 }
