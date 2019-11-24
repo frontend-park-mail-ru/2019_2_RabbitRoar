@@ -10,6 +10,7 @@ class UsersPanelC {
     }
 
     _sentUserReady = () => {
+        alert("click");
         const body = JSON.stringify({
             "type": "player_ready_front",
         });

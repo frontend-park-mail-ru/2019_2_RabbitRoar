@@ -69,28 +69,27 @@ class RealRoomM {
 
         this.playerReadyData;
         this.playerJoinedData;
-        
+
         WebSocketIface.addMessageHandler("user_connected", this._playerJoinedToRoom);
         WebSocketIface.addMessageHandler("player_ready_back", this._playerReady);
+        WebSocketIface.addMessageHandler("game_start_back", this._startGame);
 
         WebSocketIface.addOpenHandler(this._doneConnection);
         WebSocketIface.addCloseHandler(this._closeConnection);
 
         console.log("комната создалась");
     }
+    _startGame = () => {
+        alert("Game start from server");
+    }
 
     _playerReady = (data) => {
-
-
         console.log("Player ready: ");
         console.log(data);
 
         this.playersJoined++;
-        if (this.playersJoined === this.playersCapacity) {
-            alert("start game");
-        }
-
         this.playerReadyData = data;
+        
         Bus.emit(ROOM_CHANGE, "player_ready");
     }
 
