@@ -24,7 +24,7 @@ class NavbarE {
                 navBarText = "";
                 break;
             case "/user/profile":
-                navBarText = "";
+                navBarText = "Профиль";
                 break;
             case "/single_game":
                 navBarText = "Тренировка";

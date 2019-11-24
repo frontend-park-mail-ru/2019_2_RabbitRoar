@@ -11,7 +11,6 @@ class RegistrationC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
         this.registerHandler("registration", "click", this._registration);
-        this.registerHandler("back", "click", this._goBack);
     }
 
     startAllListeners = () => {
@@ -35,11 +34,6 @@ class RegistrationC {
         };
         userValidatorF.doRegistration(user);
     }
-
-    _goBack = () => {
-        Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
-    }
-
 }
 
 export default new RegistrationC();

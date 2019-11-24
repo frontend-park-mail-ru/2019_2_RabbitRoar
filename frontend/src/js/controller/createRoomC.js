@@ -19,11 +19,7 @@ class CreateRoomC {
 
         this.registerClassHandler(".checkbox", "change", this._checkboxChanged);
         this.registerHandler("further", "click", this._goFurther);
-        //this.registerClassHandler(".back", "click", this._goBack);
         this.registerClassHandler(".pack-button", "click", this._chosePack);
-        this.registerHandler("back", "click", this._goToRoot);
-
-
         this.registerHandler("finish", "click", this._finish);
 
         this.registerClassHandler(".tab", "mouseover", this._lightTab);
@@ -33,8 +29,18 @@ class CreateRoomC {
 
         this.registerHandler("my-packs", "click", this._choseTab);
         this.registerHandler("all-packs", "click", this._choseTab);
+        this.registerHandler("back", "click", this._goBack);
 
         Bus.on(ROUTER_EVENT.ROUTE_TO, this._clearCurrentForm);
+    }
+
+    _goBack = () => {
+        if (this.currentFormPart == 1) {
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+        } else if (this.currentFormPart == 2) {
+            this.currentFormPart = 1;
+            Bus.emit(CHANGE_VIEW_PACK_CREATION);
+        }
     }
 
     _clearCurrentForm = () => {
@@ -42,16 +48,12 @@ class CreateRoomC {
     }
 
     _choseTab = (event) => {
-        //console.log("текущий таб", this.currentTabId)
         const currentTabElement = document.getElementById(this.currentTabId);
         replaceTwoCssClasses(currentTabElement, "tab-click", "tab");
-        // console.log(currentTabElement);
-        // console.log(currentTabElement.classList);
 
         const newTabElement = document.getElementById(event.target.id);
         replaceTwoCssClasses(newTabElement, "tab", "tab-click");
         this.currentTabId = event.target.id;
-        //console.log("Новый таб", this.currentTabId)
 
         Bus.emit(CHANGE_VIEW_PACK_CREATION);
     }
@@ -75,18 +77,6 @@ class CreateRoomC {
         document.getElementById("pack-id").innerHTML = "Выбранный пак: " + String(this.packId);
     }
 
-    _processForm = (form_number) => {
-        // if (form_number === 2) {
-        //     this.currentFormPart = 2;
-        //     document.getElementById("form-part-2").style.display = "block";
-        //     document.getElementById("form-part-1").style.display = "none";
-        //     return;
-        // }
-        // this.currentFormPart = 1;
-        // document.getElementById("form-part-2").style.display = "none";
-        // document.getElementById("form-part-1").style.display = "block";
-    }
-
     _checkboxChanged = () => {
         const messageElement = document.getElementById("password_info");
         if (document.getElementById("checkbox").checked) {
@@ -104,25 +94,17 @@ class CreateRoomC {
 
         this.usersCount = parseInt(document.getElementById("users-number").value);
         this.roomName = document.getElementById("room-name").value;
-        // Bus.emit(FORM_CHANGED_ROOM_CREATION, 2);
 
         this.currentFormPart = 2;
         Bus.emit(CHANGE_VIEW_PACK_CREATION);
-
-
     }
 
     _goBack = () => {
-        alert(this.currentFormPart);
         this.usersCount = 0;
         this.roomName = "";
-        console.log("GO BACK ", this.currentFormPart);
         if (this.currentFormPart == 1) {
-
             Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
         } else if (this.currentFormPart == 2) {
-            // Bus.emit(FORM_CHANGED_ROOM_CREATION, 1);
-
             this.currentFormPart = 1;
             Bus.emit(CHANGE_VIEW_PACK_CREATION);
         }

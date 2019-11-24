@@ -21,6 +21,16 @@ class NavbarC {
         this.registerHandler("chat_bar", "mouseout", this._chatFocus);
 
         this.registerHandler("chat_icon", "click", this._chatClick);
+        this.registerHandler("back", "click", this._goToRoot);
+    }
+
+    _goToRoot = () => {
+        const createRoomE = document.getElementById("CreateRoomE");
+        const createPackE = document.getElementById("CreatePackE");
+
+        if (!createRoomE && !createPackE) {
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+        }
     }
 
     _chatFocus = () => {

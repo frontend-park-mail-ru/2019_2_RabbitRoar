@@ -19,14 +19,26 @@ class CreatePackC {
         };
 
         this.registerHandler("save-pack", "click", this._savePack);
-        this.registerHandler("back", "click", this._goToRoot);
+        this.registerHandler("back", "click", this._goBack);
         this.registerClassHandler(".question-container__cost", "click", this._choseQuestion);
         this.registerClassHandler(".popup-button", "click", this._processPopUp);
         this.registerHandler("further", "click", this._goFurther);
         this.registerHandler("ok", "click", this._goToRoot);
-
-        this.registerClassHandler(".back", "click", this._goBack);
         Bus.on(FORM_CHANGED, this._processForm);
+
+    }
+
+    _goToRoot = () => {
+        Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+    }
+
+    _goBack = () => {
+        this.usersCount = 0;
+        if (this.currentFormPart == 1) {
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+        } else if (this.currentFormPart == 2) {
+            Bus.emit(FORM_CHANGED, 1);
+        }
 
     }
 
@@ -149,15 +161,6 @@ class CreatePackC {
         }
     }
 
-    _goBack = () => {
-        this.usersCount = 0;
-        if (this.currentFormPart == 1) {
-            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
-        } else if (this.currentFormPart == 2) {
-            Bus.emit(FORM_CHANGED, 1);
-        }
-
-    }
 
     startAllListeners = () => {
         this.enableAll();
@@ -177,7 +180,7 @@ class CreatePackC {
         }
     }
 
-     _savePack = async () => {
+    _savePack = async () => {
         const amountOfEmptyQuestions = document.getElementsByClassName("question-container__cost").length;
         if (amountOfEmptyQuestions === 0) {
             ContentF.savePack(this.packObj).then(
@@ -189,10 +192,6 @@ class CreatePackC {
             const errorElement = document.getElementById("error_invalid_pack");
             replaceTwoCssClasses(errorElement, "error-annotation", "error-visible");
         }
-    }
-
-    _goToRoot = () => {
-        Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 
     _choseQuestion = (event) => {

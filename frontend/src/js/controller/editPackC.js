@@ -9,7 +9,6 @@ import { replaceTwoCssClasses } from "../modules/css_operations";
 class EditPackC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
-        this.registerHandler("back", "click", this._goBack);
         this.registerClassHandler(".question-container__cost", "click", this._choseQuestion);
         this.registerClassHandler(".popup-button", "click", this._processPopUp);
         this.registerHandler("save-pack", "click", this._savePack);
@@ -20,10 +19,6 @@ class EditPackC {
         this.packObj;
         this.themes = [];
         this.firstQuestionWasChosen = true;
-    }
-
-    _goToRoot = () => {
-        Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 
     _showSuccessPopup = (success) => {

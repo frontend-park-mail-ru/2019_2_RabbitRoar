@@ -9,10 +9,9 @@ import { autorizationVaildation } from "../modules/form_validation.js";
 class AutorisationC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
-
         this.registerHandler("autorisation", "click", this._autorise);
-        this.registerHandler("back", "click", this._goBack);
     }
+
 
     startAllListeners() {
         this.enableAll();
@@ -29,10 +28,6 @@ class AutorisationC {
             return;
         }
         const result = ValidatorF.doAutorise(document.getElementById("username").value, document.getElementById("password").value);
-    }
-
-    _goBack = () => {
-        Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 }
 
