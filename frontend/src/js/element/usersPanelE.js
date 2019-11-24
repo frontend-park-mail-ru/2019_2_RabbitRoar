@@ -15,19 +15,12 @@ class UsersPanelE {
 
     _update = () => {
         this.gameIface = GameF.getInterface(this)();
-        let roomState = this.gameIface.getRoomState();
+        const roomState = this.gameIface.getRoomState();
+        //const players = this.gameIface.getPlayers();
+        const roomInfo = this.gameIface.getRoomInfo();
+        console.log(roomInfo);
 
-        if (roomState === "done_connection") {
-
-        } else if (roomState === "before_connection") {
-
-        } else if (roomState === "waiting") {
-            playersInfo = this.gameIface.getPlayersWaiting();
-        } else if (roomState === "game") {
-            playersInfo = this.gameIface.getPlayersGaming();
-        } else {
-            return
-        }
+        return;
     }
 
     _reRender = () => {
