@@ -54,9 +54,8 @@ class RealRoomM {
         this.roomOptions = roomOptions;
         this.roomId = roomId;
 
-        this.createHandler = this._roomCreated;
 
-        WebSocketIface.addMessageHandler("room_created", this.createHandler);
+        WebSocketIface.addMessageHandler("room_created", this._roomCreated);
         WebSocketIface.addOpenHandler(this._doneConnection);
         WebSocketIface.addCloseHandler(this._closeConnection);
 
@@ -128,11 +127,7 @@ class RealRoomM {
             return;
         }
 
-        this.roomName = response.room_name;
-        this.playersCap = response.players_cap;
-        this.private = response.private;
-        this.packId = response.pack_id;
-
+        this.roomInfo = response;
         this.lastState = this.state;
         this.state = "before_connection";
 

@@ -241,7 +241,11 @@ class OnlineGameF {
                 return RoomM.state;
             },
 
-            getPlayersWaiting() {
+            getPlayers() {
+                if (RoomM.state === "before_connection") {
+                    const capacity = RoomM.current.roomInfo.playersCapacity;
+                    const joined = RoomM.current.roomInfo.playersJoined;
+                }
                 const playersInfo = new Array;
                 for (const player of RoomM.players) {
                     playersInfo.push({
@@ -253,17 +257,8 @@ class OnlineGameF {
             },
 
             getRoomInfo() {
-                const roomInfo = {};
-                RoomInfo.roomName = RoomM.current.room_name;
-                RoomInfo.playersCap = RoomM.current.players_cap;
-                RoomInfo.private = RoomM.current.private;
-                RoomInfo.packId = RoomM.current.pack_id;
-                return roomInfo;
+                return RoomM.current.roomInfo;
             },
-
-            getPlayersGaming() {
-
-            }
         };
         return iface;
     }
