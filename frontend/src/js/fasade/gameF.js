@@ -119,10 +119,11 @@ class GameF {
             console.log("In waiting");
             if (eventType === "player_connected") {
                 console.log("EVENT in if: ", eventType);
-                Bus.emit(USER_PANEL_NEW_USER, RoomM);
+                Bus.emit(USER_PANEL_NEW_USER, RoomM.current.playerJoinedData);
+
             } else if (eventType === "player_ready") {
                 console.log("EVENT in if: ", eventType);
-                Bus.emit(USER_PANEL_USER_READY);
+                Bus.emit(USER_PANEL_USER_READY, RoomM.current.playerReadyData);
             }
 
         } else if (RoomM.current.state === "before_connection") {

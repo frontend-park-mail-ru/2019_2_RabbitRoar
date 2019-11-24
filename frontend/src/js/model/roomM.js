@@ -65,8 +65,9 @@ class RealRoomM {
         this.pack;
         this.packName;
 
-        this.lastNewPlayerData;
-
+        this.playerReadyData;
+        this.playerJoinedData;
+        
         WebSocketIface.addMessageHandler("user_connected", this._playerJoinedToRoom);
         WebSocketIface.addMessageHandler("player_ready_back", this._playerReady);
 
@@ -86,18 +87,19 @@ class RealRoomM {
         if (this.playersJoined === this.playersCapacity) {
             alert("start game");
         }
-        this.playerJoinedData = data;
+
+        this.playerReadyData = data;
         Bus.emit(ROOM_CHANGE, "player_ready");
     }
 
     _playerJoinedToRoom = (data) => {
         this.lastState = this.state;
         this.state = "waiting";
-        
+
         console.log("Player joined :");
         console.log(data);
 
-        this.playerJoinedData
+        this.playerJoinedData = data;
         Bus.emit(ROOM_CHANGE, "player_connected");
     }
 

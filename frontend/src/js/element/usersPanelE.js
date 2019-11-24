@@ -37,7 +37,7 @@ class UsersPanelE {
         }
 
         let order = 0;
-        for (const player of message.players) {
+        for (const player of message.payload.players) {
             if (player.id === currentPlayersMap[order].id) {
             } else {
                 insert(player, currentPlayersMap[order]);
