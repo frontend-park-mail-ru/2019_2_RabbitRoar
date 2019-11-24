@@ -12,27 +12,16 @@ class GamePanelE {
     create(root = document.getElementById("application")) {
         this.root = root;
 
-        const defaultAvavtar = ValidatorF.getDefaultAvatar();
-        let currentUserData = {username: "Anon", avatar_url: defaultAvavtar};
-        
-        const authorized = ValidatorF.checkLocalstorageAutorization();
-        if (authorized === true) {
-            ValidatorF.getUserData().then(
-                (data) => {
-                    currentUserData = data;
-                    currentUserData.avatar_url = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
-                }
-            ).finally(
-                () => {
-                    this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData}));
-                    this.controller.start();
-                }
-            );
-        } else {
-            this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData}));
-            this.controller.start();
-        }
+        ValidatorF.getUserData().then(
+            (data) => {
+                this.root.insertAdjacentHTML("beforeend", Template({ userData: data }));
+                this.controller.start();
+            }
+        ).catch(
+            (err) => console.log(err)
+        );
     }
+
 
     destroy() {
         this.controller.drop();

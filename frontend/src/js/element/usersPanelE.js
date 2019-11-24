@@ -20,7 +20,7 @@ class UsersPanelE {
         if (roomState === "done_connection") {
 
         } else if (roomState === "before_connection") {
-            
+
         } else if (roomState === "waiting") {
             playersInfo = this.gameIface.getPlayersWaiting();
         } else if (roomState === "game") {
@@ -35,21 +35,10 @@ class UsersPanelE {
         this.create(this.root);
     }
 
-     create = async (root = document.getElementById("application")) => {        
+    create = async (root = document.getElementById("application")) => {
         this.root = root;
 
-        let currentUserData;
-        const authorized = ValidatorF.checkLocalstorageAutorization();
-        if (authorized === true) {
-            currentUserData = await ValidatorF.getUserData();
-            currentUserData.avatar_url = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
-        } else {
-            const defaultAvavtar = ValidatorF.getDefaultAvatar();
-            currentUserData = {username: "Anon", avatar_url: defaultAvavtar};
-        }
-        console.log(currentUserData);
-
-
+        const currentUserData = await ValidatorF.getUserData();
         this.root.insertAdjacentHTML("beforeend", Template({
             userData: currentUserData,
         }));

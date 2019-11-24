@@ -1,5 +1,4 @@
 import Bus from "../event_bus.js";
-import User from "../model/userM.js";
 import { ROUTER_EVENT, PROFILE_UPDATE } from "../modules/events.js";
 import { LOGIN, ROOT, staticFiles } from "../paths";
 import userM from "../model/userM.js";
@@ -31,7 +30,17 @@ class ValidatorF {
     }
 
     async getUserData() {
-        const userInfo = await User.getData();
+        let userInfo;
+        if (userM.checkLocalstorageAutorization()) {
+            try {
+                userInfo = await userM.getData();
+            } catch (err) {
+                console.log(err);
+                userInfo = userM.getNoAutoriseData();
+            }
+        } else {
+            userInfo = userM.getNoAutoriseData();
+        }
         return userInfo;
     }
 

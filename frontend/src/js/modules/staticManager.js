@@ -8,7 +8,7 @@ class StaticManager {
         this.ranks = [
             {
                 name: "Новичок",
-                score: 1000,
+                score: 0,
                 file: "novichok-rank.jpg"
             },
             {
@@ -73,7 +73,7 @@ class StaticManager {
         return userRank;
     }
 
-    getUserUrl(url) {
+    getUserUrl(url = "") {
         if (url === "") {
             if (this.base === this.nginx) {
                 return this.nginx + this.userDefaultAvatar;

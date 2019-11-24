@@ -17,7 +17,6 @@ class ProfileE {
     create = async (root = document.getElementById("application")) => {
         this.root = root;
         const currentUserData = await ValidatorF.getUserData();
-        currentUserData.avatar_url = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
 
         this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData }));
         this.controller.start();
