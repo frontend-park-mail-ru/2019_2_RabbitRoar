@@ -15,6 +15,7 @@ import {
     OFFLINE_GAME_END,
     USER_PANEL_USER_READY,
     USER_PANEL_NEW_USER,
+    ONLINE_QUESTION_TABLE_UPDATE
 } from "../modules/events.js";
 import { WAITING, SINGLE_GAME, ONLINE_GAME } from "../paths";
 
@@ -44,8 +45,14 @@ class GameF {
 
         Bus.on(QUESTION_CHANGE, this._questionChange);
         Bus.on(ROOM_CHANGE, this._roomChange);
+        Bus.on(ONLINE_QUESTION_TABLE_UPDATE, this._updateQuestionTable);
     }
 
+    _updateQuestionTable(type) {
+        if (type === "disable_question") {
+            console.log("Нужно кинуть ивент элементу");
+        }
+    }
     gameExist = () => {
         return (!!this.current);
     }

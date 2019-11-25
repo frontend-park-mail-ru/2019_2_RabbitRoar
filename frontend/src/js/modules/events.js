@@ -61,3 +61,5 @@ export const CHANGE_VIEW_PACK_CREATION = "changeContentPackCreation";
 // ONLINE
 export const USER_PANEL_USER_READY = "UserPanelUserReady";
 export const USER_PANEL_NEW_USER = "UserPanelNewUser";
+export const ONLINE_QUESTION_TABLE_UPDATE = "OnlineQuestionTableUpdate";
+export const DISABLE_QUESTION = "OnlineQuestionTableUpdate";

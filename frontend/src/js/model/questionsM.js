@@ -1,5 +1,5 @@
 import Bus from "../event_bus.js";
-import { QUESTION_CHANGE, OFFLINE_GAME_END, ROUTER_EVENT } from "../modules/events.js";
+import { QUESTION_CHANGE, OFFLINE_GAME_END, ROUTER_EVENT , ONLINE_QUESTION_TABLE_UPDATE} from "../modules/events.js";
 import WebSocketIface from "../modules/webSocketIface.js"
 import { ONLINE_GAME } from "../paths";
 
@@ -206,17 +206,60 @@ class OnlineQuestionsM {
 
         this.userId;
         this.userIdWhoChoseAnswer;
-        WebSocketIface.addMessageHandler("request_question_from_player", this._userChoseQuestion);
+
+        this.themeIndex;
+        this.questionIndex;
+
+        this.disabledQuestionId;
+
+        WebSocketIface.addMessageHandler("request_question_from_player", this._activateUser);
+        WebSocketIface.addMessageHandler("question_chosen", this._userChoseQuestion);
+    }
+
+    _userChoseQuestion(data){
+        this.themeIndex = data.payload.theme_idx;
+        this.questionIndex = data.payload.question_idx;
+
+        console.log("this.themeIndex: ", this.themeIndex);
+        console.log("this.questionIndex", this.questionIndex);
+
+        const currentTheme = this.themes[this.themeIndex];
+        this.disabledQuestionId= currentTheme + this.questionIndex;
+        
+        console.log("htmlQuestionId", this.disabledQuestionId);
+
+        Bus.emit(ONLINE_QUESTION_TABLE_UPDATE, "disable_question");
     }
 
     clickQuestion(packId, cellId, themeId) {
-        console.log("themeId ", themeId);
-        const questionId = parseInt(cellId.slice(-1));
-        console.log("questionId ", questionId);
+        console.log("Айди юзера: ", this.userId);
+        console.log("Юзер, который выбирает вопрос: ", this.userIdWhoChoseAnswer);
+
+        const questionIndex = parseInt(cellId.slice(-1));
+        console.log("question index: ", questionIndex);
+
+        const themeIndex = this.themes.indexOf(themeId);
+
+        console.log("theme index: ", themeIndex);
+        console.log(this.themes);
+        if (this.userId === this.userIdWhoChoseAnswer) {
+            console.log("Юзер может выбирать вопрос");
+            const body = JSON.stringify({
+                "type": "question_chosen",
+                "payload": {
+                    "theme_idx": themeIndex,
+                    "question_idx": questionIndex,
+                }
+            });
+            WebSocketIface.sentMessage(body);
+        } else {
+            console.log("НОУ юзер не может выбирать вопрос");
+        }
+
     }
 
 
-    _userChoseQuestion = (data) => {
+    _activateUser = (data) => {
         console.log("My id in OnlineQuestionsM: ", this.userId);
         this.userIdWhoChoseAnswer = data.payload.player_id;
         console.log("User chose question :", this.userIdWhoChoseAnswer);
