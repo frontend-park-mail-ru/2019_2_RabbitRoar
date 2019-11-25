@@ -1,0 +1,9 @@
+div(class="user-panel-container-game")
+    each player, index in players
+        div(class="waiting-player-game" order=index id=player.id)
+            img(class="player-avatar-game",
+                src=player.avatar,
+                name="avatar",
+                alt="User")
+            div(class="panel-text" name="username") #{player.username}
+            div(class="users-panel__score", id="capitan-ready") 5000

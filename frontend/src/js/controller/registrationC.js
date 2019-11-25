@@ -1,28 +1,27 @@
 import userValidatorF from "../fasade/userValidatorF.js";
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import { registrationValidation } from "../modules/form_validation.js";
+import Bus from "../event_bus.js";
+import { ROOT } from "../paths.js";
+import { ROUTER_EVENT } from "../modules/events.js";
+
 
 
 class RegistrationC {
     constructor() {
-        if (!!RegistrationC.instance) {
-            return RegistrationC.instance;
-        }
-
-        RegistrationC.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
-        this.registerHandler("registration", "click", this._registration.bind(this));
+        this.registerHandler("registration", "click", this._registration);
     }
 
-    start() {
+    startAllListeners = () => {
         this.enableAll();
     }
 
-    drop() {
+    disableAllListeners = () => {
         this.disableAll();
     }
 
-    _registration() {
+    _registration = () => {
         const registrationError = registrationValidation();
         if (registrationError) {
             return;

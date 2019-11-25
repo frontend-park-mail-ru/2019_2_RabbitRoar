@@ -1,14 +1,14 @@
 import NavbarE from "../element/navbarE.js";
-import RoomConstructorE from "../element/roomConstructorE.js";
+import createRoomE from "../element/createRoomE.js";
 import NetworkWarningE from "../element/networkWarningE.js";
 import { View } from "./view.js";
 
 
-class RoomConstructorV extends View {};
+class createRoomV extends View {};
 
-export default new RoomConstructorV(
+export default new createRoomV(
     document.getElementById("application"),
     NavbarE,
-    RoomConstructorE,
+    createRoomE,
     NetworkWarningE
 );

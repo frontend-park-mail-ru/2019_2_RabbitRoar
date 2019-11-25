@@ -1,5 +1,5 @@
 .panel-text {
-  color: white;
+  color: var(--color-headers-font);
   font-size: var(--font-size);
 
   display: flex;
@@ -12,15 +12,15 @@
   width: 90vw;
   height: 20vh;
   grid-template-rows: 1fr 3fr;
-  grid-template-columns: 2fr 1fr 4fr 1fr 2fr;
+  grid-template-columns:  1.3fr 0.7fr 1fr 4fr 1fr 2fr;
 }
 
 .input-answer {
   grid-row-start: 1;
   grid-row-end: 2;
 
-  grid-column-start: 3;
-  grid-column-end: 4;
+  grid-column-start: 4;
+  grid-column-end: 5;
 
   font-size: var(--font-size);
   visibility: hidden; 
@@ -30,26 +30,26 @@
   grid-row-start: 2;
   grid-row-end: 3;
   
-  grid-column-start: 2;
-  grid-column-end: 3;
-  background-color: $color-bg-light;
+  grid-column-start: 3;
+  grid-column-end: 4;
+  background-color: var(--color-bg-light);
 
-  border-bottom: 2px solid $color-border-primary-low;
-  border-left: 2px solid $color-border-primary-low;
-  border-top: 2px solid $color-border-primary-low;
+  border-bottom: 2px solid var(--color-border-primary-low);
+  border-left: 2px solid var(--color-border-primary-low);
+  border-top: 2px solid var(--color-border-primary-low);
 }
 
 .control {
   grid-row-start: 2;
   grid-row-end: 3;
-  grid-column-start: 3;
-  grid-column-end: 4;
-  background-color: $color-bg-light;
+  grid-column-start: 4;
+  grid-column-end: 5;
+  background-color: var(--color-bg-light);
 
-  border-bottom: 2px solid $color-border-primary-low;
-  border-left: 2px solid $color-border-primary-low;
-  border-top: 2px solid $color-border-primary-low;
-  border-right: 2px solid $color-border-primary-low;
+  border-bottom: 2px solid var(--color-border-primary-low);
+  border-left: 2px solid var(--color-border-primary-low);
+  border-top: 2px solid var(--color-border-primary-low);
+  border-right: 2px solid var(--color-border-primary-low);
 }
 
 .score {
@@ -58,11 +58,25 @@
 
   grid-row-start: 2;
   grid-row-end: 3;
-  grid-column-start: 4;
-  grid-column-end: 5;
-  background-color: $color-bg-light;
+  grid-column-start: 5;
+  grid-column-end: 6;
+  background-color: var(--color-bg-light);
 
-  border-bottom: 2px solid $color-border-primary-low;
-  border-top: 2px solid $color-border-primary-low;
-  border-right: 2px solid $color-border-primary-low;
+  border-bottom: 2px solid var(--color-border-primary-low);
+  border-top: 2px solid var(--color-border-primary-low);
+  border-right: 2px solid var(--color-border-primary-low);
+}
+
+.exit-button{
+  align-self: end;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+.parent img {
+   height: 100%;
+   width: 100%;
 }

@@ -13,13 +13,13 @@ class NetworkWarningE {
     create(root = document.getElementById("application")) {
         this.root = root;
 
-        this.root.insertAdjacentHTML("beforeend", Template({online: window.navigator.onLine}));
-        this.controller.start();
+        this.root.insertAdjacentHTML("beforeend", Template({ online: window.navigator.onLine }));
+        this.controller.startAllListeners();
 
-        this.timerId = setInterval(this._checkNetwork.bind(this), 1000);
+        this.timerId = setInterval(this._checkNetwork, 1000);
     }
 
-    _checkNetwork() {
+    _checkNetwork = () => {
         if (this.networkState !== window.navigator.onLine) {
             this.networkState = window.navigator.onLine;
             const warning = document.getElementById("warning");
@@ -29,9 +29,9 @@ class NetworkWarningE {
         }
     }
 
-    destroy() {
+    destroy = () => {
         clearInterval(this.timerId);
-        this.controller.drop();
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
 }

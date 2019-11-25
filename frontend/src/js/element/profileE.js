@@ -7,33 +7,25 @@ import { PROFILE_UPDATE } from "../modules/events.js";
 
 class ProfileE {
     constructor() {
-        if (!!ProfileE.instance) {
-            return ProfileE.instance;
-        }
-        ProfileE.instance = this;
         this.controller = ProfileC;
-
-        Bus.on(PROFILE_UPDATE, this._restartListener.bind(this));
-
-        return this;
+        Bus.on(PROFILE_UPDATE, this._restartListener);
     }
 
-    async create(root = document.getElementById("application")) {
+    create = async (root = document.getElementById("application")) => {
         this.root = root;
         const currentUserData = await ValidatorF.getUserData();
-        currentUserData.avatar_url = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
 
         this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData }));
-        this.controller.start();
+        this.controller.startAllListeners();
     }
 
-    _restartListener() {
+    _restartListener = () => {
         this.destroy();
         this.create(this.root);
     }
 
-    destroy() {
-        this.controller.drop();
+    destroy = () => {
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
 }

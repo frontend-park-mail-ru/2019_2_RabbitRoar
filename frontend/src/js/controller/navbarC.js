@@ -4,14 +4,11 @@ import { ROUTER_EVENT } from "../modules/events.js";
 import { LOGIN, SIGN_UP, ROOT, PROFILE } from "../paths";
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 
+import StaticManager from "../modules/staticManager.js";
+
 
 class NavbarC {
     constructor() {
-        if (!!NavbarC.instance) {
-            console.log("ERROR: NavbarC must be import only ones");
-            return NavbarC.instance;
-        }
-        NavbarC.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
 
         this.registerHandler("nav_exit", "click", ValidatorF.doExit);
@@ -20,14 +17,42 @@ class NavbarC {
         this.registerHandler("nav_registration", "click", this._routeToSignUp);
         this.registerHandler("nav_profile", "click", this._routeToProfile);
 
-        return this;
+        this.registerHandler("chat_bar", "mouseover", this._chatFocus);
+        this.registerHandler("chat_bar", "mouseout", this._chatFocus);
+
+        this.registerHandler("chat_bar", "click", this._chatClick);
+        this.registerHandler("back", "click", this._goToRoot);
     }
 
-    start() {
+    _goToRoot = () => {
+        const createRoomE = document.getElementById("CreateRoomE");
+        const createPackE = document.getElementById("CreatePackE");
+
+        if (!createRoomE && !createPackE) {
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+        }
+    }
+
+    _chatFocus = () => {
+        const chatBar = document.getElementById("chat_bar");
+        if (chatBar) {
+            chatBar.classList.toggle("chat-bar-show");
+        }
+    }
+
+    _chatClick = () => {
+        const iframe = document.getElementById("chat_iframe");
+        if (iframe.src === "") {
+            iframe.src = StaticManager.getIframeUrl();
+        }
+        iframe.classList.toggle("iframe_show");
+    }
+
+    startAllListeners() {
         this.enableAll();
     }
 
-    drop() {
+    disableAllListeners() {
         this.disableAll();
     }
 

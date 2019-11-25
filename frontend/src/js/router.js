@@ -1,15 +1,15 @@
 import Bus from "./event_bus.js";
-import {ROUTER_EVENT} from "./modules/events.js";
-import {ROOT} from "./paths";
+import { ROUTER_EVENT } from "./modules/events.js";
+import { ROOT } from "./paths";
 import ValidatorF from "./fasade/userValidatorF";
 
 export class Router {
     constructor(root = document.getElementById("application")) {
         this.routes = new Map();
         this.root = root;
-        Bus.on(ROUTER_EVENT.ROUTE_TO, this.routeTo.bind(this));
+        Bus.on(ROUTER_EVENT.ROUTE_TO, this.routeTo);
 
-        window.addEventListener("popstate",  (event) => {
+        window.addEventListener("popstate", (event) => {
             event.preventDefault();
             this.routeTo(location.pathname);    //  location == url новой страницы
         });
@@ -24,14 +24,11 @@ export class Router {
     }
 
 
-    routeTo(path = "/", firtsTime = false) {
+    routeTo = (path = "/", firtsTime = false) => {
         const parseUrl = new URL("https://localhost:8080" + path);
         path = parseUrl.pathname;
         let newView;
-        const authorized = ValidatorF.checkLocalstorageAutorization();
-        if (!authorized){
-            // ValidatorF.unAutorise();
-        }
+        // const authorized = ValidatorF.checkLocalstorageAutorization();
         if ((newView = this.routes.get(path)) != undefined) {
             if (!firtsTime) {
                 this.currentView.destroy();
@@ -39,7 +36,11 @@ export class Router {
             if (window.location.pathname !== path) {
                 history.pushState(null, null, path);
             }
-            newView.create();
+            if (!newView.create()) {
+                this.currentView = newView;
+                Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+                return;
+            }
             this.currentView = newView;
         }
     }
@@ -49,8 +50,8 @@ export class Router {
     }
 
 
-	start() {
+    start() {
         this.currentView = this.routes.get("/");
-		this.routeTo(location.pathname, true);
-	}
+        this.routeTo(location.pathname, true);
+    }
 }

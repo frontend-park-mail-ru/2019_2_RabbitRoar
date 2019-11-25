@@ -1,0 +1,18 @@
+.iframe {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    visibility: hidden;
+    width: 70vw;
+    height: 70vh;
+    top: 15vh; left: 15vw; bottom: 15vh; right: 15vw;
+    z-index: 0;
+}
+
+
+.iframe_show {
+    visibility: visible;
+    z-index: 228;
+    background: rgba(36, 27, 47, 0.95);
+}

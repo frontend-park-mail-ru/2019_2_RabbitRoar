@@ -1,8 +1,6 @@
 import Template from "./templates/gamePanel.pug";
 import GamePanelC from "../controller/gamePanelC.js";
 import ValidatorF from "../fasade/userValidatorF.js";
-import Bus from "../event_bus.js";
-import GameF from "../fasade/gameF.js";
 
 class GamePanelE {
     constructor() {
@@ -11,29 +9,23 @@ class GamePanelE {
     }
 
 
-    async create(root = document.getElementById("application")) {
+    create(root = document.getElementById("application")) {
         this.root = root;
 
-        let currentUserData;
-        const authorized = ValidatorF.checkLocalstorageAutorization();
-        
-        if (authorized === true) {
-            currentUserData = await ValidatorF.getUserData();
-            currentUserData.avatar_url = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
-        } else {
-            const defaultAvavtar = ValidatorF.getDefaultAvatar();
-            currentUserData = {username: "Anon", avatar_url: defaultAvavtar};
-        }
-        
-        this.root.insertAdjacentHTML("beforeend", Template({ userData: currentUserData}));
-        this.controller.start();
-        GameF.addElement();
+        ValidatorF.getUserData().then(
+            (data) => {
+                this.root.insertAdjacentHTML("beforeend", Template({ userData: data }));
+                this.controller.startAllListeners();
+            }
+        ).catch(
+            (err) => console.log(err)
+        );
     }
 
+
     destroy() {
-        this.controller.drop();
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
-        GameF.removeElement();
     }
 }
 

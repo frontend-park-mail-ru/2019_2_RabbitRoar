@@ -7,20 +7,20 @@
 }
 
 .info {
-  background-color: $color-bg-light;
+  background-color: var(--color-bg-light);
   width: 60vw;
   height: 160vh;
-  margin: 5px;
+  margin-top: 7vh;
   text-align: center;
 
   .header-text {
-    color: white;
+    color: var(--color-headers-font);
     font-size: var(--font-size);
     margin-bottom: 3vh;
   }
 
   .text {
-    color: white;
+    color: var(--color-headers-font);
     font-size: var(--small-font-size);
   }
 }

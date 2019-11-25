@@ -1,68 +1,68 @@
 import Bus from "../event_bus.js";
-import User from "../model/userM.js";
-import { USER_VALIDATE, ROUTER_EVENT, PROFILE_UPDATE } from "../modules/events.js";
-import { LOGIN, SIGN_UP, ROOT } from "../paths";
-import userM from "../model/userM.js";
-import {basePhotoUrl} from "../modules/ajax.js"
+import { ROUTER_EVENT, PROFILE_UPDATE } from "../modules/events.js";
+import { LOGIN, ROOT, staticFiles } from "../paths";
+import UserM from "../model/userM.js";
+import { basePhotoUrl } from "../modules/ajax.js"
 
-const defaultAvatar = "https://pngimage.net/wp-content/uploads/2018/06/user-logo-png-4.png";
-//PUBLUC:
-//getUserAutorise()
-//checkLocalstorageAutorization()
-//async getUserData()
-//changeTextFields()
-//changeUserAvatar()
-//async doAutorise()
-//async doRegistration()
-//doExit()
-//async getCSRF()
-//unAutorise()
-//PRIVATE:
+const defaultAvatar = window.location.origin + staticFiles.userLogo;
+
 
 
 class ValidatorF {
     constructor() {
         this.networkState = window.navigator.onLine;
+        this.userId;
     }
 
     checkLocalstorageAutorization() {
-        const result = userM.checkLocalstorageAutorization();
+        const result = UserM.checkLocalstorageAutorization();
         return result;
     }
 
     async getUserData() {
-        const userInfo = await User.getData();
+        let userInfo;
+        if (UserM.checkLocalstorageAutorization()) {
+            try {
+                userInfo = await UserM.getData();
+            } catch (err) {
+                console.log(err);
+                userInfo = UserM.getNoAutoriseData();
+            }
+        } else {
+            userInfo = UserM.getNoAutoriseData();
+        }
+        if (!this.userId) {
+            this.userId = userInfo.ID;
+        }
         return userInfo;
     }
 
-
     changeTextFields(changesMap, csrf) {
-        userM.changeTextFields(changesMap, csrf).then(
-            resolve => {}
+        UserM.changeTextFields(changesMap, csrf).then(
+            resolve => { }
         ).catch(
-            (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
+            (error) => console.log(`ERROR at: userValidatorF.changeTextFields - ${error}`));
     }
 
     changeUserAvatar(formData, csrf) {
-        userM.changeAvatar(formData, csrf).then(
-            resolve => {}
+        UserM.changeAvatar(formData, csrf).then(
+            resolve => { }
         ).catch(
-            (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
+            (error) => console.log(`ERROR at: userValidatorF.changeUserAvatar - ${error}`));
     }
 
 
     async doAutorise(username, password) {
-        userM.signIn(username, password).then(
+        UserM.signIn(username, password).then(
             async resolve => {
                 const currentUserData = await this.getUserData();
                 Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
             }
-        ).catch(
-            (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
+        )
     }
 
     async doRegistration(userStructure) {
-        userM.signUp(userStructure).then(
+        UserM.signUp(userStructure).then(
             async resolve => {
                 const currentUserData = await this.getUserData();
                 Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT)
@@ -72,7 +72,7 @@ class ValidatorF {
     }
 
     doExit() {
-        userM.exit().then(
+        UserM.exit().then(
             resolve => Bus.emit(ROUTER_EVENT.ROUTE_TO, LOGIN)
         ).catch(
             (error) => console.log(`ERROR at: userValidatorF.doExit - ${error}`)
@@ -80,21 +80,8 @@ class ValidatorF {
     }
 
     async getCSRF() {
-        const csrf = await User.getCSRF();
+        const csrf = await UserM.getCSRF();
         return csrf;
     }
-
-    getFullImageUrl(avatarUrlFromServer){
-        if (avatarUrlFromServer == "") {
-            return defaultAvatar;
-        } else {
-            return basePhotoUrl + avatarUrlFromServer;
-        }
-    }
-
-    getDefaultAvatar(){
-        return defaultAvatar;
-    }
-
 }
 export default new ValidatorF();

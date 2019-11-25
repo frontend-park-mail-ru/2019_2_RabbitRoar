@@ -1,7 +1,7 @@
 import { replaceTwoCssClasses } from "./css_operations";
 
 const _emailIsValid = (email) => {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re = /\w+@\w+\.\w{2,6}/;    
     return re.test(String(email).toLowerCase());
 };
 
@@ -263,4 +263,40 @@ export const roomCreatureVaildation = () => {
     }
 
     return error;
+};
+
+export const packCreationVaildationForm1 = () => {
+    let error = false;
+
+    const errorPackNameElement = document.getElementById("error_pack-name");
+    const packName = document.getElementById("pack-name").value;
+    if (!packName) {
+        replaceTwoCssClasses(errorPackNameElement, "error-annotation", "error-visible");
+        replaceTwoCssClasses(document.getElementById("pack-name"), "input-valid", "input-error");
+        errorPackNameElement.innerHTML = "Введите название пака.";
+        error = true;
+    } else {
+        replaceTwoCssClasses(errorPackNameElement, "error-visible", "error-annotation");
+        replaceTwoCssClasses(document.getElementById("pack-name"), "input-error", "input-valid");
+    }
+
+    const inputsId = ["theme_1", "theme_2", "theme_3", "theme_4", "theme_5"];
+    let themesArray = new Array();
+    inputsId.forEach(
+        id => {
+            const errorThemeElement = document.getElementById("error_" + id);
+            const theme = document.getElementById(id).value;
+            if (!theme) {
+                replaceTwoCssClasses(errorThemeElement, "error-annotation", "error-visible");
+                replaceTwoCssClasses(document.getElementById(id), "input-valid", "input-error");
+                errorThemeElement.innerHTML = "Введите название темы " + id + ".";
+                error = true;
+            } else {
+                replaceTwoCssClasses(errorThemeElement, "error-visible", "error-annotation");
+                replaceTwoCssClasses(document.getElementById(id), "input-error", "input-valid");
+                themesArray.push(theme);
+            }
+        }
+    );
+    return [error, themesArray, packName];
 };

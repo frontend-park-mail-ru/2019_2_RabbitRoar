@@ -1,0 +1,26 @@
+.best-players-panel {
+    @extend %panel;
+    grid-template-columns: 1fr 3fr 2fr 3fr;
+}
+
+
+
+.best-avatar {
+    border-radius: 50%;
+    object-fit: cover;
+
+    height: var(--best-panel-img-size);
+    width: var(--best-panel-img-size);
+    margin-right: 1vw;
+}
+
+.rank-avatar {
+    border-radius: 50%;
+    object-fit: cover;
+
+    width: var(--best-panel-img-size);
+    height: var(--best-panel-img-size);
+    margin-right: 1vw;
+}
+
+

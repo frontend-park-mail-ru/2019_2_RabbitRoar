@@ -1,22 +1,27 @@
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
+import WebSocketIface from "../modules/webSocketIface.js"
 import Bus from "../event_bus.js";
 
 
 class UsersPanelC {
     constructor() {
-        if (!!UsersPanelC.instance) {
-            return UsersPanelC.instance;
-        }
-
-        UsersPanelC.instance = this;
         Object.assign(this, DomEventsWrapperMixin);
+        this.registerHandler("button-ready", "click", this._sentUserReady);
     }
 
-    start() {
+    _sentUserReady = () => {
+        console.log("user ready sending");
+        const body = JSON.stringify({
+            "type": "player_ready_front",
+        });
+        WebSocketIface.sentMessage(body);
+    }
+    
+    startAllListeners = () => {
         this.enableAll();
     }
 
-    drop() {
+    disableAllListeners = () => {
         this.disableAll();
     }
 }

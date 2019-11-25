@@ -9,47 +9,57 @@ class TabsE {
     constructor() {
         this.root = document.getElementById("application");
         this.controller = TabsC;
-        Bus.on(CHANGE_TAB, this._restartListener.bind(this));
+        Bus.on(CHANGE_TAB, this._restartListener);
     }
 
-    create(root = document.getElementById("application")) {
-        // console.log(`id listeners: ${this.controller.events.size}`);
-        //console.log(`class listeners ${this.controller.classEvents.get(".tab").size}`);
+    create = (root = document.getElementById("application")) => {
         this.root = root;
-        this.controller.start();
-        const id = ContentF.getCurrentTab();
-        ContentF.getTabContent(id).then(
+
+        ContentF.getTabContent().then(
             templateContent => {
+                templateContent.connection = true;
                 this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
-                this._highlightChosen(id);
-                this.controller.start();
+                this._highlightChosen();
+                this.controller.startAllListeners();
+            }
+        ).catch(
+            () => {
+                const templateContent = {
+                    contentType: window.id.tabRoom,
+                    connection: false
+                };
+                this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
+                this._highlightChosen();
+                this.controller.startAllListeners();
             }
         );
     }
 
-
-    _restartListener(event) {
-        this.destroy();
+    _restartListener = (event) => {
+        this._localDestroy();
         this.create(this.root);
     }
 
-    _highlightChosen(chosenId) {
+    _highlightChosen = () => {
         const targetElems = document.querySelectorAll(".tab");
 
         if (targetElems) {
-            targetElems.forEach(function (elem) {
-                if (elem.id === chosenId) {
-                    elem.className = "tab-click";
-                } else {
-                    elem.className = "tab";
-                }
-            });
+            for (const elem of targetElems) {
+                elem.className = "tab";
+            }
+
+            ContentF.findChosen(targetElems).className = "tab-click";
         }
     }
 
+    _localDestroy = () => {
+        this.controller.disableAllListeners();
+        this.root.innerHTML = "";
+    }
 
-    destroy() {
-        this.controller.drop();
+    destroy = () => {
+        ContentF.dropeTabs();
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
 }

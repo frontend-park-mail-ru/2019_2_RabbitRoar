@@ -1,0 +1,62 @@
+.user-panel-container-game {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+.waiting-player-game {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border-color-theme);
+}
+
+.waiting-player-game-active {
+  -webkit-box-shadow: 0px 0px 10px 0px var(--color-success);
+  -moz-box-shadow: 0px 0px 10px 0px var(--color-success);
+  box-shadow: 0px 0px 10px 0px var(--color-success);
+}
+
+.waiting-player-game-passive {
+  -webkit-box-shadow: 0px 0px 10px 0px var(--color-danger);
+  -moz-box-shadow: 0px 0px 10px 0px var(--color-danger);
+  box-shadow: 0px 0px 10px 0px var(--color-danger);
+}
+  
+
+.player-avatar-game {
+    width: 5vw;
+    height: 5vw;
+    border-radius: 50%;
+}
+
+  
+  
+@media all and (orientation: landscape) {
+    .player-avatar-game {
+      width: 5vw;
+      height: 5vw;
+    }
+
+    .waiting-player-game {
+        width: 8vw;
+        height: 8vw;
+    }
+  }
+  
+  
+@media all and (orientation: portrait) {
+    .player-avatar-game {
+      width: 5vh;
+      height: 5vh;
+    }
+
+    .waiting-player-game {
+        width: 8vh;
+        height: 8v;
+    }
+  }

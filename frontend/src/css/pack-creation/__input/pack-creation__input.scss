@@ -1,0 +1,19 @@
+.textarea-question {
+  height: 23vh;
+  width: 40vw;
+  overflow: hidden;
+  font-size: var(--big-font-size);
+  color: var(--font-color-theme);
+  resize: none;
+  background-color: var(--color-bg-light);
+}
+
+.textarea-answer {
+  height: 6vh;
+  width: 40vw;
+  overflow: hidden;
+  font-size: var(--big-font-size);
+  resize: none;
+  color: var(--font-color-theme);
+  background-color: var(--color-bg-light);
+}

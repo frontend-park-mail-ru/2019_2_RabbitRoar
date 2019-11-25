@@ -1,11 +1,20 @@
+div(class="chat-bar" id="chat_bar")
+    img(src=chatUrl class="chat-icon" id="chat_icon")
 nav(class="navbar")
-    a(class="navbar__game-logo", id="nav_logo", href="#") Своя игра
+    div(class="grid-navbar-left")
+        div(class="flex-container")
+            img(src="https://svoyak.fun/static/exit.svg" class="navbar__back-img" id="back")
+            a(class="navbar__exit", id="navigation", href="#")
+    div(class="navbar__game-logo-container")
+        div(class="flex-container-centered-content")
+            a(class="navbar__game-logo", id="nav_logo", href="#") Своя игра
     if authorized == false
-        a(class="navbar__exit", id="nav_login", href="#") Вход
-        a(class="navbar__exit", id='nav_registration', href="#") Регистрация
+        div(class="grid-navbar-right")
+            div(class="flex-navbar-right")
+                a(class="navbar__exit", id="nav_login", href="#") Вход
+                a(class="navbar__exit", id='nav_registration', href="#") Регистрация
     else
-        a(id="nav_profile", href="#")
-            img(class="navbar__user-logo",
-            src=avatar,
-            alt="User")
-        a(class="navbar__exit", id="nav_exit", href="#") Выход
+        div(class="grid-navbar-right")
+            div(class="flex-navbar-right")
+                a(id="nav_profile", href="#" class= "navbar__user-logo-container")
+                a(class="navbar__exit", id="nav_exit", href="#") Выход

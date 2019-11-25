@@ -4,7 +4,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
-const Worker = require('worker-loader');
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
@@ -35,9 +34,15 @@ module.exports = {
         use: ['pug-loader']
       },
       {
-        test: /\.(js)$/,
+        test: /\.js$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: ["@babel/plugin-transform-runtime", "@babel/plugin-proposal-class-properties"],
+            presets: ["@babel/preset-env"]
+          }
+        }
       },
       {
         test: /\.worker\.js$/,
@@ -52,6 +57,7 @@ module.exports = {
     new webpack.ProgressPlugin(),
     new CopyPlugin([
       { from: 'index.pug', to: '' },
+      { from: 'static', to: 'static' },
     ]),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -59,12 +65,13 @@ module.exports = {
     }),
     new WorkboxWebpackPlugin.InjectManifest({
       swSrc: path.join(__dirname, './src/js/workers/sw.js'),
-      include: [/\.html$/, /\.js$/]
+      include: [/\.html$/, /\.js$/, /\.png$/, /\.jpg$/],
+      importsDirectory: 'static',
     })
   ],
   devtool: 'source-map',  // Source map generations
   devServer: {
-//    https: true,
+    https: true,
     contentBase: path.join(__dirname, 'dist'),
     historyApiFallback: true,
     liveReload: true,

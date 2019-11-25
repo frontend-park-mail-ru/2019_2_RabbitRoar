@@ -1,6 +1,8 @@
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import GameF from "../fasade/gameF.js";
 import Bus from "../event_bus.js";
+import { ROUTER_EVENT } from "../modules/events.js";
+import { ROOT } from "../paths";
 import { QUESTION_WAS_CHOSEN, TIMER_STOPPED, TIMER_INTERRUPTION } from "../modules/events.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
 
@@ -10,24 +12,24 @@ class GamePanelC {
         Object.assign(this, DomEventsWrapperMixin);
         this.abilityToEnterAnswer = false;
 
-        this.registerHandler("changing-button", "click", this._buttonPressed.bind(this));
-        document.addEventListener("keyup", this._answerEntered.bind(this));
-        Bus.on(QUESTION_WAS_CHOSEN, this._startListenQuestion.bind(this));
-        Bus.on(TIMER_STOPPED, this._stopListenQuestion.bind(this));
-        Bus.on(TIMER_INTERRUPTION, this._stopListenQuestion.bind(this));
+        this.registerHandler("changing-button", "click", this._buttonPressed);
+        document.addEventListener("keyup", this._answerEntered);
+        Bus.on(QUESTION_WAS_CHOSEN, this._startListenQuestion);
+        Bus.on(TIMER_STOPPED, this._stopListenQuestion);
+        Bus.on(TIMER_INTERRUPTION, this._stopListenQuestion);
 
     }
 
-    start() {
+    startAllListeners = () => {
         this.gameIface = GameF.getInterface(this)();
         this.enableAll();
     }
 
-    drop() {
+    disableAllListeners = () => {
         this.disableAll();
     }
 
-    _buttonPressed(event) {
+    _buttonPressed = (event) => {
         if (this.abilityToEnterAnswer) {
             const answer = document.getElementById("input-answer");
             const answerValue = answer.value;
@@ -36,7 +38,7 @@ class GamePanelC {
         }
     }
 
-    _startListenQuestion() {
+    _startListenQuestion = () => {
         this.abilityToEnterAnswer = true;
 
         const inputAnswer = document.getElementById("input-answer");
@@ -50,7 +52,7 @@ class GamePanelC {
 
     }
 
-    _stopListenQuestion() {
+    _stopListenQuestion = () => {
         this.abilityToEnterAnswer = false;
 
         const answer = document.getElementById("input-answer");
@@ -62,7 +64,7 @@ class GamePanelC {
         changingButton.innerHTML = "Выберите вопрос";
     }
 
-    _answerEntered(event) {
+    _answerEntered = (event) => {
         if (this.abilityToEnterAnswer) {
             if (event.keyCode === 13) {
                 event.preventDefault();

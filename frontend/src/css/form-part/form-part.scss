@@ -12,14 +12,14 @@
 
   .error-annotation {
     font-size: var(--small-font-size);
-    color: $color-danger;
+    color: var(--color-danger);
     visibility: hidden;
     padding: 0px;
   }
   
   .error-visible {
     font-size: var(--small-font-size);
-    color: $color-danger;
+    color: var(--color-danger);
     padding: 0px;
   }
 }

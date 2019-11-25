@@ -1,7 +1,12 @@
 const CACHE_NAME = "svoyak-v1.0.5";
 
+// Когда мы передаем URL строку в функции cache API,
+// неявно создается объект реквеста, где урл запроса сгенериться,
+// автоматически из имени домена в строке
 
 async function cacheInitPromise() {
+    self.skipWaiting();
+
     self.preCacheList = new Array;
     const cache = await caches.open(CACHE_NAME);
     for (const cacheObj of self.__precacheManifest) {
@@ -18,22 +23,22 @@ async function cacheInitPromise() {
                         const requestURL = new URL(request.url);
                         if ((key.pathname === requestURL.pathname) && (key.search !== requestURL.search)) {
                             await cache.delete(request.url);
-                            console.log(`UPDATE from ${requestURL.pathname + requestURL.search}`);
-                            console.log(`To ${key.pathname + key.search}`);
+                            //console.log(`UPDATE from ${requestURL.pathname + requestURL.search}`);
+                            //console.log(`To ${key.pathname + key.search}`);
                             await cache.add(key.pathname + key.search);
                         }
                     }
                 );
                 await cache.add(findKey);
-                console.log(`CACHED: ${findKey}`);
+                //console.log(`CACHED: ${findKey}`);
             } else {
-                console.log(`ALREADY EXIST: ${key}`);
+                //console.log(`ALREADY EXIST: ${key}`);
             }
         } catch (err) {
-            console.log(`Cache init error! ${err}`);
+            //console.log(`Cache init error! ${err}`);
         }
     }
-    console.log("Установлен успешно!");
+    //console.log("Установлен успешно");
 }
 
 self.addEventListener("install", function (event) {
@@ -43,37 +48,66 @@ self.addEventListener("install", function (event) {
 //  ===========================================================
 
 async function processPromise(event) {
+    let requestUrl = new URL(event.request.url);
+    requestUrl = _transformApiUrl(requestUrl);
+
+
     if (!navigator.onLine) {
         const cache = await caches.open(CACHE_NAME);
         try {
-            const response = await cache.match(_getUrlRevision(event.request.url));
-            console.log(`OFFLINE Страница найдена в кэше!!!: ${response.url}`);
+            const response = await cache.match(requestUrl, {ignoreSearch: true});
+            //console.log(`OFFLINE Страница найдена в кэше: ${response.url}`);
             return response;
         } catch {
+            //console.log(`Страница не найдена: ${requestUrl}`);
             return;
         }
     } else {
-        if (_isPreCacheUrl(event.request.url)) {
-            const cache = await caches.open(CACHE_NAME);
-            const response = await cache.match(_getUrlRevision(event.request.url));
-            console.log(`Найдено в статическом кэше: ${_getUrlRevision(event.request.url)}`);
+        const cache = await caches.open(CACHE_NAME);
+        let response = await cache.match(requestUrl, {ignoreSearch: true});
+
+        if (response) {
+            //console.log(`Найдено в статическом кэше: ${_getUrlRevision(requestUrl)}`);
+            return response;
+        } else if (_isPreCacheUrl(requestUrl)) {
+            //console.log(`Был удален: ${_getUrlRevision(requestUrl)}`);
+            await cache.add(_getUrlRevision(requestUrl));
+            response = await cache.match(_getUrlRevision(requestUrl));
+
+            if (response) {
+                //console.log("Восстановлен успешно");
+                //console.log(response);
+                return response;
+            } else {
+                //console.log("Не удалось восстановить");
+            }
+        }
+
+
+        if (!needCache(requestUrl)) {
+            try{
+                response = await fetch(event.request);
+            } catch(err) {
+                //console.log(err);
+                return response;
+            }
+            console.log(`Не нужно кэшировать: ${requestUrl.pathname}`);
             return response;
         }
 
-        let fetchRequest = event.request.clone();
-        const response = await fetch(fetchRequest);
 
-        if (response.headers.get("Content-Length") === null || response.headers.get("Content-Length") === 0) {
-            console.log("no cache trash!");
+        const fetchRequest = event.request.clone();
+        try {
+            response = await fetch(fetchRequest);
+        } catch(err) {
+            //console.log(err);
             return response;
         }
-
 
         const responseToCache = response.clone();
 
-        const cache = await caches.open(CACHE_NAME);
-        cache.put(event.request, responseToCache);
-        console.log(`ONLINE Страница загружена и сохранена в кэше!: ${event.request.url}`);
+        cache.put(requestUrl, responseToCache);
+        //console.log(`ONLINE Страница загружена и сохранена в кэше!!: ${requestUrl}`);
         return response;
     }
 }
@@ -84,9 +118,11 @@ self.addEventListener("fetch", function (event) {
     }
 });
 
-// ============================================================
 
 async function reloadPromise() {
+    console.log("SW RELOAD");
+    self.clients.claim();
+
     const cacheNames = await caches.keys();
 
     const promises = cacheNames.map(async (cacheName) => {
@@ -96,6 +132,21 @@ async function reloadPromise() {
         }
     });
 
+
+    const cache = await caches.open(CACHE_NAME);
+
+    for (const cacheObj of self.__precacheManifest) {
+        const keys = await cache.keys();
+        for (request of keys) {
+            const requestUrl = new URL(request.url);
+            if ((requestUrl.pathname === cacheObj.url) && (requestUrl.search !== "?" + cacheObj.revision)) {
+                const delPromise = await cache.delete(requestUrl.pathname + requestUrl.search);
+                promises.push(delPromise);
+                //console.log(`Удалена старая версия кэша: ${requestUrl.pathname + requestUrl.search}`);
+            }
+        }
+    }
+
     return await Promise.all(promises);
 }
 
@@ -103,24 +154,56 @@ self.addEventListener("activate", function (event) {
     event.waitUntil(reloadPromise());
 });
 
-// ============================================================
 
 self.addEventListener("message", async function (event) {
-    // console.log("Recieve in SW");
-    // console.log(event.data[0]);
+    //console.log(event.data);
+
+    if (event.data.command === "delete") {
+        const cache = await caches.open(CACHE_NAME);
+        //console.log(`delete ${event.data.url}`);
+        await cache.delete(event.data.url);
+    } else if (event.data.command === "regExp_delete") {
+        const cache = await caches.open(CACHE_NAME);
+        const keys = await cache.keys();
+
+        for (key of keys) {
+            const parseUrl = new URL(key.url);
+            if (parseUrl.pathname.match(event.data.regExp)) {
+                const result = await cache.delete(key);
+                //console.log(`regExp_delete[${key}]: ${result}`);
+            }
+        }
+    }
+
     // const clients = await self.clients.matchAll();
     // clients.forEach(client => {
     //     console.log("Send from SW");
     //     console.log(client.id);
     //     console.log(client.type);
     //     console.log(client.url);
-    //     client.postMessage("SAM TY GOVNO");
+    //     client.postMessage("!!!!!");
     // });
 });
 
 
-function _isPreCacheUrl(url) {
-    const requestUrl = new URL(url);
+const CacheListApi = [
+    "^(/api/user/)$",
+    "^(/api/profile)$",
+    "^(/api/uploads/avatar/).+(\.jpeg|\.png)$",
+];
+
+function needCache(requestUrl) {
+    for (path of CacheListApi) {
+        const regExp = new RegExp(path);
+        if (requestUrl.pathname.match(regExp)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+function _isPreCacheUrl(requestUrl) {
     if (requestUrl.pathname === "/") {
         return true;
     }
@@ -133,8 +216,7 @@ function _isPreCacheUrl(url) {
 }
 
 
-function _getUrlRevision(url) {
-    const requestUrl = new URL(url);
+function _getUrlRevision(requestUrl) {
     if (requestUrl.pathname === "/") {
         for (const cacheObj of self.__precacheManifest) {
             if (cacheObj.url === "/index.html") {
@@ -147,7 +229,24 @@ function _getUrlRevision(url) {
                 return requestUrl.pathname + "?" + cacheObj.revision;
             }
         }
-        return url;
     }
+    return requestUrl;
 }
+
+
+function _transformApiUrl(requestUrl) {
+    const appPages = ["/", "/login", "/profile", "/signup", "/single_game"];
+
+    for (const page of appPages) {
+        if (requestUrl.pathname === page) {
+            requestUrl.pathname = "/index.html";
+            return requestUrl;
+        }
+    }
+
+    return requestUrl;
+}
+
+
+
 

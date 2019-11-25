@@ -28,7 +28,7 @@ export const PROFILE_UPDATE = "profileUpdate";
 export const PACK_WORKER_MESSAGE = "packWorker";
 export const PACK_WORKER_COMMAND = "packWorkerCmd";
 
-export const SERVISE_WORKER_MESSAGE = "swMessage";
+export const SERVICE_WORKER_CMD = "swCmd";
 
 
 export const CHANGE_TAB = "changeTab";
@@ -36,13 +36,30 @@ export const CHANGE_TAB = "changeTab";
 export const REGISTRATION = "registration";
 
 export const QUESTION_CHANGE = "questionChange";
+export const ROOM_CHANGE = "roomChange";
+export const PLAYERS_CHANGE = "playersChange";
+
+export const OFFLINE_GAME_END = "offlineGameEnd";
+
+export const CONNECTION = "websocketConnection";
+export const WEBSOCKET_CLOSE = "websocketClose";
 
 export const QUESTION_PANEL_UPDATE = "questPanelUpdate";
-
+export const USERS_PANEL_UPDATE = "usersPanelUpdate";
 export const QUESTION_WAS_CHOSEN = "questionWasChosen";
+export const CRASH_EVENT = "crashEvent";
 
 export const TIMER_STOPPED = "timerStopped";
+export const TIMER_INTERRUPTION = "timerInterruption";
 
-export const TIMER_INTERRUPTION = "timerInterruption"
+export const FORM_CHANGED = "formChanged";
 
-export const FORM_CHANGED = "formChanged"
+export const PACK_FOR_EDIT_WAS_CHOSEN = "packEditing";
+
+export const CHANGE_VIEW_PACK_CREATION = "changeContentPackCreation";
+
+// ONLINE
+export const USER_PANEL_USER_READY = "UserPanelUserReady";
+export const USER_PANEL_NEW_USER = "UserPanelNewUser";
+//export const ONLINE_QUESTION_TABLE_UPDATE = "OnlineQuestionTableUpdate";
+export const DISABLE_QUESTION = "OnlineQuestionTableUpdate";

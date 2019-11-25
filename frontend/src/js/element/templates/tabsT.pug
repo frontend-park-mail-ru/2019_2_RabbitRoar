@@ -1,74 +1,168 @@
-div(class="main-container")
-    div(class="tab", id=window.id.tabRoom) Комнаты
-    div(class="tab", id=window.id.tabTop) Зал славы
-    div(class="tab", id=window.id.tabOffline) Тренировка
-    div(class="tab", id=window.id.tabPack) Об игре
+mixin bottom_info(error, button_text, button_id)
+    div(class="tab__info-container")
+        div(class="flex-container")
+            <svg class="help__question-img" aria-hidden="true" focusable="false" data-prefix="far" data-icon="question-circle" class="svg-inline--fa fa-question-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm107.244-255.2c0 67.052-72.421 68.084-72.421 92.863V300c0 6.627-5.373 12-12 12h-45.647c-6.627 0-12-5.373-12-12v-8.659c0-35.745 27.1-50.034 47.579-61.516 17.561-9.845 28.324-16.541 28.324-29.579 0-17.246-21.999-28.693-39.784-28.693-23.189 0-33.894 10.977-48.942 29.969-4.057 5.12-11.46 6.071-16.666 2.124l-27.824-21.098c-5.107-3.872-6.251-11.066-2.644-16.363C184.846 131.491 214.94 112 261.794 112c49.071 0 101.45 38.304 101.45 88.8zM298 368c0 23.159-18.841 42-42 42s-42-18.841-42-42 18.841-42 42-42 42 18.841 42 42z"></path></svg>
+            div(class="tab__text") #{error}
+    div(class="tab__create-room-btn-container")
+        div(class="tab__create-room-btn" id=button_id) #{button_text}
 
-    div(class="tab-content")
-        if templateContent.contentType == window.id.tabRoom
+mixin paginator(pag_id, amount)
+    div(class="paginator-panel" id=pag_id)
+        div(class="pg-elem" id="prev")
+            div(class="pg-button") Prev
+        div(class="pg-elem" id="page")
+            -for (let i = 0; i < amount; i++) {
+                div(class="pg-button" id=i) #{i + 1}
+            -}
+        div(class="pg-elem" id="next")
+            div(class="pg-button") Next
+
+div(class="main-container")
+    div(class="tab", id=window.id.tabRoom) КОМНАТЫ
+    div(class="tab", id=window.id.tabTop) ЗАЛ СЛАВЫ
+    div(class="tab", id=window.id.tabOffline) ТРЕНИРОВКА
+    div(class="tab", id=window.id.tabPack) ПАКИ
+    div(class="tab", id=window.id.tabAboutGame) ОБ ИГРЕ
+
+    if templateContent.contentType == window.id.tabRoom
+        div(class="fadeout-container")
+            div(class="fadeout")
+        div(class="tab-content")
             div(id="online_mode")
             div(class="rooms-panel")
                 div(class="panel-elem elem-justify-start") Название:
+                div(class="panel-elem") Пак:
                 div(class="panel-elem") Количество:
                 div(class="panel-elem")
-                    div(class="create-room-btn") Создать комнату
                 
                 div(class="popup" id="popup")
                     div(class="popup__content")
                         div(class="popup-elem-top" id="popup-elem-top") Вы переходите в online игру.
                         div(class="popup-elem-bottom")
                             div(class="popup-button" id="cansel") Отмена
-                            div(class="popup-button" id="continue") Продолжить
+                            div(class="popup-button" id="continue") Авторизоваться
+            if (templateContent.connection === true)
+                each room, index in templateContent.content
+                    div(class="rooms-panel")
+                        div(class="panel-elem elem-justify-start") #{room.name}
+                        div(class="panel-elem") #{room.packName}
+                        div(class="panel-elem") #{room.playersJoined + "/" + room.playersCapacity}
+                        div(class="panel-elem" id=room.UUID)
+                            div(class="join-button button-in-list" id="play" join_id=room.UUID) Присоединиться
+                +paginator("room-paginator", 5)
 
-            each val, index in templateContent.content
-                div(class="rooms-panel")
-                    div(class="panel-elem elem-justify-start") #{val.name}
-                    div(class="panel-elem") #{val.currentPlayers}/#{val.maxPlayers}
-                    div(class="panel-elem" id=index)
-                        div(class="join-button" id="play" join_id=index) Присоединиться
+        if (templateContent.connection === true)
+            +bottom_info(
+                "Чтобы начать игру, нужно подключиться к одной из комнат или создать свою",
+                "Создать комнату",
+                "create_room_btn")
+        else
+            +bottom_info(
+                "Не удалось получить список комнат, проверьте интернет соединение",
+                "Играть offline",
+                "join_offline_btn")
 
-        else if templateContent.contentType == window.id.tabTop
+
+    else if templateContent.contentType == window.id.tabTop
+        div(class="fadeout-container")
+            div(class="fadeout")
+        div(class="tab-content")
             div(class="best-players-panel")
                 div(class="panel-elem")
-                div(class="panel-elem") Имя
+                div(class="panel-elem panel-elem-left") Имя
                 div(class="panel-elem") Рейтинг
                 div(class="panel-elem") Звание
-            each val, index in templateContent.content
-                div(class="best-players-panel")
-                    div(class="panel-elem")
-                        img(class="best-avatar",
-                        src = val.userSrc,
-                        alt="No exist")
-                    div(class="panel-elem") #{val.name}
-                    div(class="panel-elem") #{val.raiting}
-                    div(class="panel-elem")
-                        div(class="rank-text") #{val.rankDescr}
-                        img(class="rank-avatar",
-                        src = val.rankSrc,
-                        alt="No exist")
+            if (templateContent.connection === true)
+                each val, index in templateContent.content
+                    div(class="best-players-panel")
+                        div(class="panel-elem")
+                            img(class="best-avatar",
+                            src = val.avatar_url,
+                            alt="No exist")
+                        div(class="panel-elem panel-elem-left") #{val.username}
+                        div(class="panel-elem") #{val.rating}
+                        div(class="panel-elem")
+                            img(class="rank-avatar",
+                            src = val.rank.file,
+                            alt="No exist")
+                            div(class="rank-text") #{val.rank.name}
+                +paginator("top-paginator", 5)
+            else
+                +bottom_info(
+                    "Не удалось получить список игроков, проверьте интернет соединение",
+                    "Играть offline",
+                    "join_offline_btn")
 
-        else if templateContent.contentType == window.id.tabOffline
-            div(id="offline_mode")
-            div(class="offline-panel")
-                div(class="panel-elem") Название:
-                div(class="panel-elem") Автор:
-                div(class="panel-elem") Рейтинг:
-                div(class="panel-elem") 
+    else if templateContent.contentType == window.id.tabOffline
+        if (templateContent.content.length)
+            div(class="tab-content")
+                div(id="offline_mode")
+                div(class="offline-panel")
+                    div(class="panel-elem") Название:
+                    div(class="panel-elem") Автор:
+                    div(class="panel-elem") Рейтинг:
+                    div(class="panel-elem") 
+
+                div(class="popup " id="popup")
+                    div(class="popup__content " id="popup_content")
+                        div(class="popup-elem-top" id="popup-elem-top") Вы переходите в offline игру, очки начислены не будут
+                        div(class="popup-elem-bottom ")
+                            div(class="popup-button" id="cansel") Отмена
+                            div(class="popup-button" id="continue") Продолжить
+                            
+                each pack, index in templateContent.content
+                    div(class="offline-panel")
+                        div(class="panel-elem") #{pack.name}
+                        div(class="panel-elem") #{pack.author}
+                        div(class="panel-elem") #{pack.rating}
+                        div(class="panel-elem")
+                            div(class="join-button button-in-list" id="play" join_id=pack.id) Играть
+        else
+            div(class="tab-content")
+                div(class="faq-text")
+                    div(class="line") Для тренировки необходимо зарегистрироваться!
+
+
+    else if templateContent.contentType == window.id.tabPack
+        div(class="tab-content")
+            if (templateContent.content.length)
+                    div(id="offline_mode")
+                    div(class="offline-panel")
+                        div(class="panel-elem") Название:
+                        div(class="panel-elem") Рейтинг:
+                        div(class="panel-elem") 
+                        div(class="panel-elem")
+                    if (templateContent.connection === true)
+                        each pack, index in templateContent.content
+                            div(class="offline-panel")
+                                div(class="panel-elem") #{pack.name}
+                                div(class="panel-elem") #{pack.rating}
+                                div(class="panel-elem")
+                                    div(class="button-in-list create" id="create" pack_id=pack.id) Изменить
+                                div(class="panel-elem")
+                                    div(class="button-in-list delete" id="delete" pack_id=pack.id) Удалить
+                        +paginator("pack-paginator", 5)
+                    else
+                        +bottom_info(
+                            "Не удалось получить паки, проверьте интернет соединение",
+                            "Играть offline",
+                            "join_offline_btn")
+                            
+            else    
+                div(class="faq-text")
+                    div(class="line") Создавайте свои паки и играйте с друзьями!
+            div(class="button-container-create-pack")
+                div(class="create-pack-button" id="create-pack-button") Создать пак
 
             div(class="popup " id="popup")
                 div(class="popup__content " id="popup_content")
-                    div(class="popup-elem-top" id="popup-elem-top") Вы переходите в offline игру, очки начислены не будут
+                    div(class="popup-elem-top" id="popup-elem-top") Для создания пака необходимо авторизоваться
                     div(class="popup-elem-bottom ")
                         div(class="popup-button" id="cansel") Отмена
-                        div(class="popup-button" id="continue") Продолжить
-            each pack, index in templateContent.content
-                div(class="offline-panel")
-                    div(class="panel-elem") #{pack.name}
-                    div(class="panel-elem") #{pack.author}
-                    div(class="panel-elem") #{pack.rating}
-                    div(class="panel-elem")
-                        div(class="join-button" id="play" join_id=pack.id) Играть
-        else if templateContent.contentType == window.id.tabPack
+                        div(class="popup-button" id="login") Продолжить
+          
+    else if templateContent.contentType == window.id.tabAboutGame
+        div(class="tab-content")
             div(class="faq-text")
                 div(class="line") Добро пожаловать в онлайн-викторину «Swoyak»!
                 div(class="line") Выбирайте вопросы из игрового табло и отвечайте на них.
@@ -76,4 +170,5 @@ div(class="main-container")
                 div(class="line") Игра заканчивается, когда все вопросы выбраны.
                 div(class="line") Играй и повышай уровень.
                 div(class="line") Играйте с друзьями и создавайте индивидуальные тематические комнаты.
+
 

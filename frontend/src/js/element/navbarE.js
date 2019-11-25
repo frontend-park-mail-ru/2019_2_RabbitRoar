@@ -2,31 +2,87 @@ import Template from "./templates/navbarT.pug";
 import ValidatorF from "../fasade/userValidatorF.js";
 import NavbarC from "../controller/navbarC.js";
 
+import StaticManager from "../modules/staticManager";
+
 class NavbarE {
     constructor() {
         this.root = document.getElementById("application");
-        NavbarE.instance = this;
         this.controller = NavbarC;
     }
 
-    async create(root = document.getElementById("application")) {
+    create(root = document.getElementById("application")) {
+        const currentUrl = window.location.pathname;
+        let navBarText;
+        switch (currentUrl) {
+            case "/":
+                navBarText = "";
+                break;
+            case "/login":
+                navBarText = "";
+                break;
+            case "/signup":
+                navBarText = "";
+                break;
+            case "/user/profile":
+                navBarText = "Профиль";
+                break;
+            case "/single_game":
+                navBarText = "Тренировка";
+                break;
+            case "/online_game":
+                navBarText = "Игра";
+                break;
+            case "/room":
+                navBarText = "Комната";
+                break;
+            case "/waiting":
+                navBarText = "Ожидание игры";
+                break;
+            case "/pack_creation":
+                navBarText = "Создание пака";
+                break;
+            case "/pack_editing":
+                navBarText = "Редактирование пака";
+                break;
+            default:
+                navBarText = "";
+        }
+
         this.root = root;
 
-        let avatar;
         const authorized = ValidatorF.checkLocalstorageAutorization();
-
         if (authorized === true) {
-            const currentUserData = await ValidatorF.getUserData();
-            avatar = ValidatorF.getFullImageUrl(currentUserData.avatar_url);
+            ValidatorF.getUserData().then (
+                (currentUserData) => {
+                    const avatarContainer = document.getElementById("nav_profile");
+
+                    const image = document.createElement("IMG");
+                    image.src = currentUserData.avatar_url;
+                    image.alt = "User";
+                    image.id = "avatar";
+                    image.classList.add("navbar__user-logo");
+
+                    avatarContainer.insertAdjacentElement("beforeend", image);
+                }
+            );
         }
-        this.root.insertAdjacentHTML("beforeend", Template({ authorized: authorized, avatar: avatar }));
-        this.controller.start();
+
+        this.root.insertAdjacentHTML("beforeend", Template({
+            authorized: authorized,
+            chatUrl: StaticManager.chatAvatar
+        }));
+        
+        if (currentUrl === "/") {
+            document.getElementById("back").style.visibility = "hidden";
+        } else {
+            document.getElementById("back").style.visibility = "visible"
+        }
+        document.getElementById("navigation").innerHTML = navBarText;
+        this.controller.startAllListeners();
     }
 
-
-
     destroy() {
-        this.controller.drop();
+        this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
 }

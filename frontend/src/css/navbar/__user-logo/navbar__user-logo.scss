@@ -1,5 +1,12 @@
 .navbar__user-logo {
-  height: 50px;
-  width: auto;
+  height: 6vh;
+  width: 6vh;
   border-radius: 50%;
+  object-fit: cover;
+}
+
+.navbar__user-logo-container {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row: 1;
 }

@@ -1,0 +1,36 @@
+.button-ready {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--border-color-theme);
+    color: var(--font-color-theme);
+    background-color: var(--color-bg-light);
+}
+  
+  .button-ready-hover {
+    border-width: 2px;
+    border-color: var(--border-color-theme);
+    color: var(--font-color-theme);
+    background-color: var(--color-bg-dark);
+    cursor: pointer;
+  }
+
+
+  @media all and (orientation: landscape) {
+    .button-ready {
+      margin: 3vw auto auto auto;
+      width: 25vw;
+      height: 3vw;
+    }
+  }
+  
+  
+  @media all and (orientation: portrait) {
+    .button-ready {
+      margin: 3vh auto;
+      width: 25vh;
+      height: 3vh;
+    }
+  }

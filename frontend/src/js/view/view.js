@@ -22,6 +22,7 @@ export class View {
             this.root.append(container.root);
             container.content.create(container.root);
         }
+        return true;
     }
 
     destroy() {
