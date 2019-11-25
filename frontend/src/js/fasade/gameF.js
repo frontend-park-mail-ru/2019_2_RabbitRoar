@@ -23,7 +23,7 @@ import QuestionTableC from "../controller/questionsTableC.js"
 import QuestionTableE from "../element/questionTableE.js"
 import UsersPanelE from "../element/usersPanelE.js"
 import UsersGamePanelE from "../element/usersGamePanelE.js"
-
+import ValidatorF from "./userValidatorF.js";
 import StaticManager from "../modules/staticManager.js";
 
 
@@ -130,10 +130,10 @@ class GameF {
                 Bus.emit(USER_PANEL_USER_READY, RoomM.current.playerReadyData);
             } else if (eventType === "start_game") {
                 QuestionsM.current.themes = RoomM.current.startGameData.payload.themes;
-                console.log(QuestionsM.current.themes );
-                Bus.emit(ROUTER_EVENT.ROUTE_TO, ONLINE_GAME);
+                QuestionsM.current.players = RoomM.current.playerReadyData.payload;
+                QuestionsM.current.userId = ValidatorF.userId;
 
-                // Bus.emit(USER_PANEL_USER_READY, RoomM.current.playerReadyData);
+                Bus.emit(ROUTER_EVENT.ROUTE_TO, ONLINE_GAME);
             }
 
 

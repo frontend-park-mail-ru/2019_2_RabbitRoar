@@ -11,6 +11,7 @@ const defaultAvatar = window.location.origin + staticFiles.userLogo;
 class ValidatorF {
     constructor() {
         this.networkState = window.navigator.onLine;
+        this.userId;
     }
 
     checkLocalstorageAutorization() {
@@ -29,6 +30,9 @@ class ValidatorF {
             }
         } else {
             userInfo = UserM.getNoAutoriseData();
+        }
+        if (!this.userId) {
+            this.userId = userInfo.ID;
         }
         return userInfo;
     }

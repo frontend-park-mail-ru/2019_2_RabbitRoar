@@ -198,26 +198,24 @@ class OfflineQuestionsM {
 class OnlineQuestionsM {
     constructor() {
         this.themes;
+        this.players;
 
         this.questionTable = {};
         this.questionTable.mode = "default";
         this.chosedQuestionsId = {};
 
-
-       // WebSocketIface.addMessageHandler("start_game", this._startGame);
-        console.log("OnlineQuestionsM was created");
+        this.userId;
+        this.userIdWhoChoseAnswer;
+        WebSocketIface.addMessageHandler("request_question_from_player", this._userChoseQuestion);
     }
 
-    // _startGame = (obj) => {
-    //     console.log("ONLINE ROUTING ");
-    //     this.themes = obj.payload.themes;
+    _userChoseQuestion = (data) => {
+        console.log("My id in OnlineQuestionsM: ", this.userId);
+        this.userIdWhoChoseAnswer = data.payload.player_id;
+        console.log("User chose question :", this.userIdWhoChoseAnswer);
+    }
 
-    //     // this.packId = GameF.getPackId();
-    //     console.log("ТЕМЫ ", this.themes);
-    //     Bus.emit(ROUTER_EVENT.ROUTE_TO, ONLINE_GAME);
-    // }
-
-    getInfo() {
+    getInfo = () => {
         if (this.questionTable.mode === "default") {
             return {
                 //packId: this.packId,
