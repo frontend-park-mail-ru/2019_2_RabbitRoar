@@ -207,12 +207,12 @@ class OnlineQuestionsM {
 
         this.disabledQuestionId;
 
-        this.packId = packId;
+        //this.packId = packId;
         this.result = undefined;
         this.mode = "offline";
         this.questionTable = {};
         this.questionTable.mode = "default";
-        this.questionTable.selectedQuestion = undefined;
+        this.questionTable.selectedQuestion = {};
         this.chosedQuestionsId = {};
         this.score = 0;
         this.themes;
@@ -224,7 +224,8 @@ class OnlineQuestionsM {
         WebSocketIface.addMessageHandler("request_respondent", this._userChoseQuestion);
     }
 
-    _userChoseQuestion(data) {
+    _userChoseQuestion = (data) => {
+        console.log(data);
         this.themeIndex = data.payload.theme_id;
         this.questionIndex = data.payload.question_id;
 
@@ -252,7 +253,7 @@ class OnlineQuestionsM {
         Bus.emit(QUESTION_CHANGE);
     }
 
-    clickQuestion(packId, cellId, themeId) {
+    clickQuestion = (packId, cellId, themeId) => {
         console.log("Айди юзера: ", this.userId);
         console.log("Юзер, который выбирает вопрос: ", this.userIdWhoChoseAnswer);
 
