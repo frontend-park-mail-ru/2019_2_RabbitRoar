@@ -10,6 +10,7 @@ class UsersPanelC {
     }
 
     _sentUserReady = () => {
+        console.log("user ready sending");
         const body = JSON.stringify({
             "type": "player_ready_front",
         });

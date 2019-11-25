@@ -25,7 +25,9 @@ class UsersPanelE {
         console.log(data.payload);
         const readyPlayers = data.payload;
         readyPlayers.forEach(playerData => {
-            this._changeUserIndicator(playerData.id);
+            if (playerData.ready) {
+                this._changeUserIndicator(playerData.id);
+            }
         });
 
     }

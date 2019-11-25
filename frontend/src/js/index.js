@@ -2,7 +2,7 @@ import "../css/style.scss";
 import { Router } from "./router.js";
 import Bus from "./event_bus.js";
 import { PACK_WORKER_MESSAGE, PACK_WORKER_COMMAND } from "./modules/events.js";
-import { ROOT, LOGIN, SIGN_UP, PROFILE, SINGLE_GAME, ROOM_CREATOR, WAITING, PACK_CREATION, PACK_EDITING } from "./paths";
+import { ROOT, LOGIN, SIGN_UP, PROFILE, SINGLE_GAME, ROOM_CREATOR, WAITING, PACK_CREATION, PACK_EDITING, ONLINE_GAME } from "./paths";
 import { SERVICE_WORKER_CMD } from "./modules/events.js";
 import { id } from "./modules/id.js";
 
@@ -15,6 +15,8 @@ import RoomCreatorV from "./view/roomCreatorV";
 import GameWaitingV from "./view/gameWaitingV"
 import PackCreatorV from "./view/packCreatorV"
 import PackEditingV from "./view/packEditingV"
+import OnlineGameV from "./view/onlineGameV"
+
 
 
 import Worker from "./workers/gameLoader.worker.js";
@@ -69,6 +71,7 @@ router.register(ROOM_CREATOR, RoomCreatorV);
 router.register(WAITING, GameWaitingV);
 router.register(PACK_CREATION, PackCreatorV);
 router.register(PACK_EDITING, PackEditingV);
-
+router.register(PACK_EDITING, PackEditingV);
+router.register(ONLINE_GAME, OnlineGameV);
 
 router.start();

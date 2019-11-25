@@ -90,7 +90,8 @@ export async function signIn(login, password) {
     });
 
     let response = await postRequest("/login", body);
-
+    console.log("Статус авторизации ", response.status);
+    
     if (!response.ok) {
         throw new Error(`Signin error: ${response.statusText}`);
     }
@@ -279,7 +280,7 @@ export async function getMyPackList() {
 }
 
 
-export async function getRooms(pageNumber, limit=10) {
+export async function getRooms(pageNumber, limit = 10) {
     let response = await getRequest("/game/");
     if (!response) {
         return undefined;
@@ -297,12 +298,12 @@ export async function getRooms(pageNumber, limit=10) {
     return roomList;
 }
 
-export async function getTop(pageNumber, limit=10) {
+export async function getTop(pageNumber, limit = 10) {
     let response = await getRequest(`/user/leaderboard?page=${pageNumber}`);
     if (!response) {
         return undefined;
     }
-    if(response.status === 401) {
+    if (response.status === 401) {
         localStorage.removeItem("authorized");
         return undefined;
     }

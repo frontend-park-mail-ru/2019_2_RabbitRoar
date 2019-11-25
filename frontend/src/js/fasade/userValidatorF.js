@@ -37,14 +37,14 @@ class ValidatorF {
         UserM.changeTextFields(changesMap, csrf).then(
             resolve => { }
         ).catch(
-            (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
+            (error) => console.log(`ERROR at: userValidatorF.changeTextFields - ${error}`));
     }
 
     changeUserAvatar(formData, csrf) {
         UserM.changeAvatar(formData, csrf).then(
             resolve => { }
         ).catch(
-            (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
+            (error) => console.log(`ERROR at: userValidatorF.changeUserAvatar - ${error}`));
     }
 
 
@@ -54,8 +54,7 @@ class ValidatorF {
                 const currentUserData = await this.getUserData();
                 Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
             }
-        ).catch(
-            (error) => console.log(`ERROR at: userValidatorF.doAutorise - ${error}`));
+        )
     }
 
     async doRegistration(userStructure) {

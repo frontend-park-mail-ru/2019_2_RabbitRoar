@@ -58,9 +58,11 @@ class GameF {
             this.current = await this._createOfflineGame(options.packId);
         } else {
             if (options.action === "join") {
-
+                console.log("Create game, user join");
                 this.current = await this._createOnlineGame(options.roomId, null);
             } else if (options.action === "create") {
+                console.log("Create game, user create");
+
                 this.current = await this._createOnlineGame(null, options.roomOptions);
             }
 
@@ -117,14 +119,21 @@ class GameF {
                 Bus.emit(CONNECTION, "done");
             }
             console.log("In waiting");
+            console.log("EVENT in if: ", eventType);
+
             if (eventType === "player_connected") {
-                console.log("EVENT in if: ", eventType);
                 Bus.emit(USER_PANEL_NEW_USER, RoomM.current.playerJoinedData);
 
             } else if (eventType === "player_ready") {
-                console.log("EVENT in if: ", eventType);
                 Bus.emit(USER_PANEL_USER_READY, RoomM.current.playerReadyData);
+            } else if (eventType === "start_game") {
+                QuestionsM.current.themes = RoomM.current.startGameData.payload.themes;
+                console.log(QuestionsM.current.themes );
+                Bus.emit(ROUTER_EVENT.ROUTE_TO, ONLINE_GAME);
+
+                // Bus.emit(USER_PANEL_USER_READY, RoomM.current.playerReadyData);
             }
+
 
         } else if (RoomM.current.state === "before_connection") {
             Bus.emit(CONNECTION, "before");
@@ -213,7 +222,9 @@ class OfflineGameF {
 
 class OnlineGameF {
     constructor(roomId, roomOptions) {
+
         console.log(roomId, roomOptions);
+        console.log("in online game constructor");
         QuestionsM.CreateNew("online");
         RoomM.CreateNew(roomId, roomOptions);
     }
@@ -231,6 +242,7 @@ class OnlineGameF {
     get questionTableEInterface() {
         const iface = {
             questionInfo() {
+                return QuestionsM.getInfo();
             },
             lastClickedCells() {
             },

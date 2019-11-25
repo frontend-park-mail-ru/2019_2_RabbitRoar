@@ -1,7 +1,7 @@
 import Bus from "../event_bus.js";
-import { QUESTION_CHANGE, OFFLINE_GAME_END } from "../modules/events.js";
+import { QUESTION_CHANGE, OFFLINE_GAME_END, ROUTER_EVENT } from "../modules/events.js";
 import WebSocketIface from "../modules/webSocketIface.js"
-
+import { ONLINE_GAME } from "../paths";
 
 class QuestionsM {
     constructor() {
@@ -196,13 +196,48 @@ class OfflineQuestionsM {
 }
 
 class OnlineQuestionsM {
-    constructor(obj) {
-        //WebSocketIface.addHandler("game_start", this._gameStart.bind(this));
-        console.log("ONLINE QUESTION CREATED");
+    constructor() {
+        this.themes;
+
+        this.questionTable = {};
+        this.questionTable.mode = "default";
+        this.chosedQuestionsId = {};
+
+
+       // WebSocketIface.addMessageHandler("start_game", this._startGame);
+        console.log("OnlineQuestionsM was created");
     }
 
-    _gameStart() {
+    // _startGame = (obj) => {
+    //     console.log("ONLINE ROUTING ");
+    //     this.themes = obj.payload.themes;
 
+    //     // this.packId = GameF.getPackId();
+    //     console.log("ТЕМЫ ", this.themes);
+    //     Bus.emit(ROUTER_EVENT.ROUTE_TO, ONLINE_GAME);
+    // }
+
+    getInfo() {
+        if (this.questionTable.mode === "default") {
+            return {
+                //packId: this.packId,
+                mode: this.questionTable.mode,
+                themes: this.themes,
+                chosedCells: this.chosedQuestionsId,
+            };
+        } else if (this.questionTable.mode === "selected") {
+            return {
+                mode: this.questionTable.mode,
+                //questionText: this.questionTable.selectedQuestion.text,
+            };
+        } else if (this.questionTable.mode === "result") {
+            return {
+                mode: this.questionTable.mode,
+                // answer: this.questionTable.selectedQuestion.answer,
+                // result: this.result,
+                // currentQuestionScore: this.currentQuestionScore,
+            };
+        }
     }
 
 }

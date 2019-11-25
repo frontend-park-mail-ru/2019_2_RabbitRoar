@@ -57,9 +57,6 @@ class RealRoomM {
         this.roomOptions = roomOptions;
         this.roomId = roomId;
 
-        // this.curentUsersAmount = 0;
-        // this.curentReadyUsersAmount = 0;
-
         this.UUID;
         this.roomName;
         this.playersCapacity;
@@ -70,30 +67,30 @@ class RealRoomM {
         this.playerReadyData;
         this.playerJoinedData;
 
+        this.startGameData;
+
         WebSocketIface.addMessageHandler("user_connected", this._playerJoinedToRoom);
         WebSocketIface.addMessageHandler("player_ready_back", this._playerReady);
-        WebSocketIface.addMessageHandler("game_start_back", this._startGame);
+        WebSocketIface.addMessageHandler("start_game", this._startGame);
 
         WebSocketIface.addOpenHandler(this._doneConnection);
         WebSocketIface.addCloseHandler(this._closeConnection);
-
-        console.log("комната создалась");
     }
-    
-    _startGame = () => {
-        alert("Game start from server");
+    _startGame = (data) => {
+        this.startGameData = data;
+        Bus.emit(ROOM_CHANGE, "start_game");
     }
 
     _playerReady = (data) => {
         this.lastState = this.state;
         this.state = "waiting";
-        
+
         console.log("Player ready: ");
         console.log(data);
 
         this.playersJoined++;
         this.playerReadyData = data;
-        
+
         Bus.emit(ROOM_CHANGE, "player_ready");
     }
 

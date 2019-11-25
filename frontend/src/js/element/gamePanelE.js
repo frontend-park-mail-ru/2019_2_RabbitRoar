@@ -15,7 +15,7 @@ class GamePanelE {
         ValidatorF.getUserData().then(
             (data) => {
                 this.root.insertAdjacentHTML("beforeend", Template({ userData: data }));
-                this.controller.start();
+                this.controller.startAllListeners();
             }
         ).catch(
             (err) => console.log(err)
