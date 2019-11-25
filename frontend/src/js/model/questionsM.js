@@ -95,7 +95,6 @@ class OfflineQuestionsM {
         Bus.emit(QUESTION_CHANGE);
 
         setTimeout(this._showResult.bind(this), 4000)
-
     }
 
 
@@ -207,12 +206,12 @@ class OnlineQuestionsM {
 
         this.disabledQuestionId;
 
-        this.packId = packId;
+        //this.packId = packId;
         this.result = undefined;
         this.mode = "offline";
         this.questionTable = {};
         this.questionTable.mode = "default";
-        this.questionTable.selectedQuestion = undefined;
+        this.questionTable.selectedQuestion = {};
         this.chosedQuestionsId = {};
         this.score = 0;
         this.themes;
@@ -222,9 +221,10 @@ class OnlineQuestionsM {
 
         WebSocketIface.addMessageHandler("request_question_from_player", this._activateUser);
         WebSocketIface.addMessageHandler("request_respondent", this._userChoseQuestion);
+        WebSocketIface.addMessageHandler("answer_given_back", this._recieveAnswer);
     }
 
-    _userChoseQuestion(data) {
+    _userChoseQuestion = (data) => {
         this.themeIndex = data.payload.theme_id;
         this.questionIndex = data.payload.question_id;
 
@@ -252,7 +252,7 @@ class OnlineQuestionsM {
         Bus.emit(QUESTION_CHANGE);
     }
 
-    clickQuestion(packId, cellId, themeId) {
+    clickQuestion = (packId, cellId, themeId) => {
         console.log("Айди юзера: ", this.userId);
         console.log("Юзер, который выбирает вопрос: ", this.userIdWhoChoseAnswer);
 
@@ -279,6 +279,44 @@ class OnlineQuestionsM {
 
         ////////////////////////
     }
+
+
+    sendAnswer = (answer) => {
+        if (this.questionTable.mode !== "selected") {
+            return console.log("Select question");
+        }
+
+        console.log(`My answer: ${answer}`);
+        const race = JSON.stringify({
+            "type": "respondent_ready"
+        });
+        WebSocketIface.sentMessage(race);
+
+        const body = JSON.stringify({
+            "type": "respondent_answer_given",
+            "payload": {
+                "answer": answer
+            }
+        });
+        WebSocketIface.sentMessage(body);
+    }
+
+    _recieveAnswer = (data) => {
+        this.questionTable.selectedQuestion.answer = data.payload.player_answer;
+        this.answerOwner = data.payload.player_id;
+        this.result = true;
+        this.questionTable.mode = "result";
+        Bus.emit(QUESTION_CHANGE);
+
+        setTimeout(this._showResult.bind(this), 2000)
+    }
+
+
+    _showResult() {
+        this.questionTable.mode = "default";
+        Bus.emit(QUESTION_CHANGE);
+    }
+
 
 
     _activateUser = (data) => {
@@ -308,6 +346,7 @@ class OnlineQuestionsM {
                 answer: this.questionTable.selectedQuestion.answer,
                 result: this.result,
                 currentQuestionScore: this.currentQuestionScore,
+                answerOwner: this.answerOwner
             };
         }
     }
