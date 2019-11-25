@@ -22,7 +22,8 @@ class QuestionTableC {
     _choseQuestion = (event) => {
         const packId = event.target.parentNode.parentNode.id;
         const cellId = event.target.id;
-        this.gameIface.clickQuestion(packId, cellId);
+        const themeId = event.target.parentNode.id;
+        this.gameIface.clickQuestion(packId, cellId, themeId);
     }
 }
 

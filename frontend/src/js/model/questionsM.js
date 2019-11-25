@@ -15,8 +15,8 @@ class QuestionsM {
         }
     }
 
-    clickQuestion(packId, themeId, cellId) {
-        this.current.clickQuestion(packId, themeId, cellId);
+    clickQuestion(packId, cellId, themeId) {
+        this.current.clickQuestion(packId, cellId, themeId);
     }
 
     getInfo() {
@@ -51,7 +51,7 @@ class OfflineQuestionsM {
     }
 
 
-    clickQuestion(packId, cellId) {
+    clickQuestion(packId, cellId, themeId) {
         if (!!this.chosedQuestionsId[cellId]) {
             console.log("Вы уже выбирали вопрос");
             return;
@@ -208,6 +208,13 @@ class OnlineQuestionsM {
         this.userIdWhoChoseAnswer;
         WebSocketIface.addMessageHandler("request_question_from_player", this._userChoseQuestion);
     }
+
+    clickQuestion(packId, cellId, themeId) {
+        console.log("themeId ", themeId);
+        const questionId = parseInt(cellId.slice(-1));
+        console.log("questionId ", questionId);
+    }
+
 
     _userChoseQuestion = (data) => {
         console.log("My id in OnlineQuestionsM: ", this.userId);

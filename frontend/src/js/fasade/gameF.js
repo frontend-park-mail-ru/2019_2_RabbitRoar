@@ -208,8 +208,8 @@ class OfflineGameF {
 
     get questionTableCInterface() {
         const iface = {
-            clickQuestion(packId, cellId) {
-                QuestionsM.clickQuestion(packId, cellId);
+            clickQuestion(packId, cellId, themeId) {
+                QuestionsM.clickQuestion(packId, cellId, themeId);
             }
         };
         return iface;
@@ -258,7 +258,8 @@ class OnlineGameF {
 
     get questionTableCInterface() {
         const iface = {
-            clickQuestion(packId, cellId) {
+            clickQuestion(packId, cellId, themeId) {
+                QuestionsM.clickQuestion(packId, cellId, themeId);
             }
         };
         return iface;
