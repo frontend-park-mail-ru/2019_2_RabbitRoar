@@ -1,5 +1,5 @@
 import Bus from "../event_bus.js";
-import { QUESTION_CHANGE, OFFLINE_GAME_END, ROUTER_EVENT } from "../modules/events.js";
+import { QUESTION_CHANGE, OFFLINE_GAME_END, PLAYERS_CHANGE } from "../modules/events.js";
 import WebSocketIface from "../modules/webSocketIface.js"
 import { ONLINE_GAME } from "../paths";
 
@@ -206,7 +206,7 @@ class OnlineQuestionsM {
 
         this.userId;
         this.userIdWhoChoseAnswer;
-        WebSocketIface.addMessageHandler("request_question_from_player", this._userChoseQuestion);
+        WebSocketIface.addMessageHandler("request_question_from_player", this._activateUser);
     }
 
     clickQuestion(packId, cellId, themeId) {
@@ -216,10 +216,12 @@ class OnlineQuestionsM {
     }
 
 
-    _userChoseQuestion = (data) => {
+    _activateUser = (data) => {
         console.log("My id in OnlineQuestionsM: ", this.userId);
         this.userIdWhoChoseAnswer = data.payload.player_id;
         console.log("User chose question :", this.userIdWhoChoseAnswer);
+
+        Bus.emit(PLAYERS_CHANGE);
     }
 
     getInfo = () => {

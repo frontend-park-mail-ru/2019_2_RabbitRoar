@@ -4,13 +4,12 @@ import UsersPanelC from "../controller/usersPanelC.js";
 import GameF from "../fasade/gameF.js";
 import Bus from "../event_bus.js";
 
-import { USERS_PANEL_UPDATE, USER_PANEL_NEW_USER, USER_PANEL_USER_READY } from "../modules/events.js";
+import { USER_PANEL_NEW_USER, USER_PANEL_USER_READY } from "../modules/events.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
 
 class UsersPanelE {
     constructor() {
         this.controller = UsersPanelC;
-        Bus.on(USERS_PANEL_UPDATE, this._update);
         Bus.on(USER_PANEL_NEW_USER, this._updatePlayers);
         Bus.on(USER_PANEL_USER_READY, this._readyChange);
     }
@@ -32,18 +31,6 @@ class UsersPanelE {
 
     }
 
-    _update = () => {
-        const roomState = this.gameIface.getRoomState();
-
-        if (roomState === "before_connection") {
-            this._reRender();
-            return;
-        }
-        console.log(roomInfo);
-
-        return;
-    }
-
     _updatePlayers = (message) => {
         const currentPlayers = document.querySelectorAll(".waiting-player");
 
@@ -56,7 +43,7 @@ class UsersPanelE {
 
         let order = 0;
         for (const player of message.payload.players) {
-            if (player.id === currentPlayersMap[order].id) {
+            if (player.id.toString() === currentPlayersMap[order].id) {
             } else {
                 this._insertCell(player, currentPlayersMap[order]);
             }

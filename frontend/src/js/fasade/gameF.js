@@ -3,16 +3,15 @@ import RoomM from "../model/roomM.js";
 import Bus from "../event_bus.js";
 import {
     ROUTER_EVENT,
+    USERS_PANEL_UPDATE,
     QUESTION_PANEL_UPDATE,
     QUESTION_CHANGE,
+    PLAYERS_CHANGE,
     CONNECTION,
-    WEBSOCKET_CLOSE,
     ROOM_CHANGE,
     QUESTION_WAS_CHOSEN,
     TIMER_INTERRUPTION,
-    USERS_PANEL_UPDATE,
     CRASH_EVENT,
-    OFFLINE_GAME_END,
     USER_PANEL_USER_READY,
     USER_PANEL_NEW_USER,
 } from "../modules/events.js";
@@ -44,6 +43,7 @@ class GameF {
 
         Bus.on(QUESTION_CHANGE, this._questionChange);
         Bus.on(ROOM_CHANGE, this._roomChange);
+        Bus.on(PLAYERS_CHANGE, this._playersChange);
     }
 
     gameExist = () => {
@@ -107,6 +107,15 @@ class GameF {
             Bus.emit(TIMER_INTERRUPTION);
             Bus.emit(QUESTION_PANEL_UPDATE);
         }
+    }
+
+    _playersChange = () => {
+        const playersState = {
+            active: QuestionsM.current.userIdWhoChoseAnswer,
+            players: QuestionsM.current.players
+        }
+
+        Bus.emit(USERS_PANEL_UPDATE, playersState);
     }
 
     // created->done_connection->waiting->closed (success)
