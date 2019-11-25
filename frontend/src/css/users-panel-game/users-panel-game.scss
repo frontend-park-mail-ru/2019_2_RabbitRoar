@@ -1,0 +1,49 @@
+.user-panel-container-game {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+.waiting-player-game {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border-color-theme);
+}
+  
+
+.player-avatar-game {
+    width: 5vw;
+    height: 5vw;
+}
+
+  
+  
+@media all and (orientation: landscape) {
+    .player-avatar-game {
+      width: 5vw;
+      height: 5vw;
+    }
+
+    .waiting-player-game {
+        width: 8vw;
+        height: 8vw;
+    }
+  }
+  
+  
+@media all and (orientation: portrait) {
+    .player-avatar-game {
+      width: 5vh;
+      height: 5vh;
+    }
+
+    .waiting-player-game {
+        width: 8vh;
+        height: 8v;
+    }
+  }
