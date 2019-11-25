@@ -15,21 +15,11 @@ class UsersGamePanelE {
 
     create = (root = document.getElementById("application")) => {
         this.root = root;
-        //this.gameIface = GameF.getInterface(this)();
+        this.gameIface = GameF.getInterface(this)();
 
-        // const players = this.gameIface.getPlayers();
+        const players = this.gameIface.getPlayers();
         // const gameInfo = this.gameIface.getGameInfo();
 
-        const players = new Array;
-        for (let i = 0; i < 5; i++) {
-            players.push({
-                id: i,
-                username: "Empty",
-                avatar: StaticManager.getUserUrl(),
-                score: 0,
-                ready: true
-            });
-        }
 
         this.root.insertAdjacentHTML("beforeend", Template({
             players: players,

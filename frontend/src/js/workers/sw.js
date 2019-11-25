@@ -120,7 +120,7 @@ self.addEventListener("fetch", function (event) {
 
 
 async function reloadPromise() {
-    //console.log("SW RELOAD");
+    console.log("SW RELOAD");
     self.clients.claim();
 
     const cacheNames = await caches.keys();

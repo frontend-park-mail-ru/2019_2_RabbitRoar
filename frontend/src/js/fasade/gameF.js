@@ -171,7 +171,7 @@ class GameF {
     }
 
     _usersGamePanelEInterface = () => {
-        return this.current.usersPanelEInterface;
+        return this.current.usersGamePanelEInterface;
     }
 
     // shity place
@@ -300,7 +300,7 @@ class OnlineGameF {
     get usersGamePanelEInterface() {
         const iface = {
             getPlayers() {
-                return RoomM.current.playerJoinedData.payloads.players;
+                return RoomM.current.playerJoinedData.payload.players;
             },
             getGameInfo() {
                 return {};
