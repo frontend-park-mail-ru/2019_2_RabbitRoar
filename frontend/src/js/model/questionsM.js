@@ -225,6 +225,7 @@ class OnlineQuestionsM {
     }
 
     _userChoseQuestion = (data) => {
+        console.log(data);
         this.themeIndex = data.payload.theme_id;
         this.questionIndex = data.payload.question_id;
 
