@@ -45,7 +45,7 @@ class StaticManager {
     }
 
     get chatAvatar() {
-        return this.base + "/static/chat-logo.jpg";
+        return this.base + "/static/chat-logo.png";
     }
 
     getIframeUrl() {
