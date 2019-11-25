@@ -20,7 +20,7 @@ class NavbarC {
         this.registerHandler("chat_bar", "mouseover", this._chatFocus);
         this.registerHandler("chat_bar", "mouseout", this._chatFocus);
 
-        this.registerHandler("chat_icon", "click", this._chatClick);
+        this.registerHandler("chat_bar", "click", this._chatClick);
         this.registerHandler("back", "click", this._goToRoot);
     }
 
