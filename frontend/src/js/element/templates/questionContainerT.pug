@@ -32,7 +32,7 @@ else if state.mode == "result"
     div(class="question-container")
         if state.result === true
             div(class="question-container__result_true")
-            div(class="question-container__answer_true") Правильно!
+            div(class="question-container__answer_true") Правильно! #{state.answerOwner}
             div(class="question-container__score_true") + #{state.currentQuestionScore} Очков
         else
             div(class="question-container__result_false") Неправильный ответ!

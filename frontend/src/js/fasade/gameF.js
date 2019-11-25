@@ -288,6 +288,7 @@ class OnlineGameF {
     get gamePanelCInterface() {
         const iface = {
             sendAnswer(answer) {
+                QuestionsM.sendAnswer(answer);
             }
         };
         return iface;

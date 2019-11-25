@@ -95,7 +95,6 @@ class OfflineQuestionsM {
         Bus.emit(QUESTION_CHANGE);
 
         setTimeout(this._showResult.bind(this), 4000)
-
     }
 
 
@@ -222,6 +221,7 @@ class OnlineQuestionsM {
 
         WebSocketIface.addMessageHandler("request_question_from_player", this._activateUser);
         WebSocketIface.addMessageHandler("request_respondent", this._userChoseQuestion);
+        WebSocketIface.addMessageHandler("answer_given_back", this._recieveAnswer);
     }
 
     _userChoseQuestion = (data) => {
@@ -282,6 +282,44 @@ class OnlineQuestionsM {
     }
 
 
+    sendAnswer = (answer) => {
+        if (this.questionTable.mode !== "selected") {
+            return console.log("Select question");
+        }
+
+        console.log(`My answer: ${answer}`);
+        const race = JSON.stringify({
+            "type": "respondent_ready"
+        });
+        WebSocketIface.sentMessage(race);
+
+        const body = JSON.stringify({
+            "type": "respondent_answer_given",
+            "payload": {
+                "answer": answer
+            }
+        });
+        WebSocketIface.sentMessage(body);
+    }
+
+    _recieveAnswer = (data) => {
+        this.questionTable.selectedQuestion.answer = data.payload.player_answer;
+        this.answerOwner = data.payload.player_id;
+        this.result = true;
+        this.questionTable.mode = "result";
+        Bus.emit(QUESTION_CHANGE);
+
+        setTimeout(this._showResult.bind(this), 2000)
+    }
+
+
+    _showResult() {
+        this.questionTable.mode = "default";
+        Bus.emit(QUESTION_CHANGE);
+    }
+
+
+
     _activateUser = (data) => {
         console.log("My id in OnlineQuestionsM: ", this.userId);
         this.userIdWhoChoseAnswer = data.payload.player_id;
@@ -309,6 +347,7 @@ class OnlineQuestionsM {
                 answer: this.questionTable.selectedQuestion.answer,
                 result: this.result,
                 currentQuestionScore: this.currentQuestionScore,
+                answerOwner: this.answerOwner
             };
         }
     }
