@@ -36,8 +36,8 @@ export const CHANGE_TAB = "changeTab";
 export const REGISTRATION = "registration";
 
 export const QUESTION_CHANGE = "questionChange";
-
 export const ROOM_CHANGE = "roomChange";
+export const PLAYERS_CHANGE = "playersChange";
 
 export const OFFLINE_GAME_END = "offlineGameEnd";
 
