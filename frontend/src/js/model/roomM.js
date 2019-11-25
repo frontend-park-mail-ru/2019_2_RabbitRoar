@@ -79,6 +79,7 @@ class RealRoomM {
 
         console.log("комната создалась");
     }
+    
     _startGame = () => {
         alert("Game start from server");
     }

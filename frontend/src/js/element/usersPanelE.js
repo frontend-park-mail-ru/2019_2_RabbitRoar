@@ -1,11 +1,11 @@
 import Template from "./templates/usersPanelT.pug";
 import ValidatorF from "../fasade/userValidatorF.js";
 import UsersPanelC from "../controller/usersPanelC.js";
-
 import GameF from "../fasade/gameF.js";
-
 import Bus from "../event_bus.js";
+
 import { USERS_PANEL_UPDATE, USER_PANEL_NEW_USER, USER_PANEL_USER_READY } from "../modules/events.js";
+import { replaceTwoCssClasses } from "../modules/css_operations";
 
 class UsersPanelE {
     constructor() {
@@ -15,8 +15,19 @@ class UsersPanelE {
         Bus.on(USER_PANEL_USER_READY, this._readyChange);
     }
 
+    _changeUserIndicator = (userId) => {
+        const userElem = document.getElementById(userId);
+        const indicatorElem = userElem.children[1];
+        replaceTwoCssClasses(indicatorElem, "users-panel__ready-indicator__false", "users-panel__ready-indicator__true");
+    }
+
     _readyChange = (data) => {
-        alert(data)
+        console.log(data.payload);
+        const readyPlayers = data.payload;
+        readyPlayers.forEach(playerData => {
+            this._changeUserIndicator(playerData.id);
+        });
+
     }
 
     _update = () => {
@@ -51,7 +62,7 @@ class UsersPanelE {
         }
     }
 
-	// "players": [
+    // "players": [
     //     {
     //         "id": "int",
     //         "username": "string",
@@ -66,6 +77,10 @@ class UsersPanelE {
 
         container.children[0].children[0].children[0].src = player.avatar;
         container.children[0].children[1].innerHTML = player.username;
+        if (player.ready) {
+            console.log("user ", player.username, "ready");
+            this._changeUserIndicator(player.id);
+        }
     }
 
 
@@ -81,7 +96,7 @@ class UsersPanelE {
 
         const players = this.gameIface.getPlayers();
         const roomInfo = this.gameIface.getRoomInfo();
-        
+
         this.root.insertAdjacentHTML("beforeend", Template({
             players: players,
             room: roomInfo
