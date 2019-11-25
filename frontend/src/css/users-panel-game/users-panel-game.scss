@@ -14,6 +14,18 @@
     border-width: 1px;
     border-color: var(--border-color-theme);
 }
+
+.waiting-player-game-active {
+  -webkit-box-shadow: 0px 0px 10px 0px var(--color-success);
+  -moz-box-shadow: 0px 0px 10px 0px var(--color-success);
+  box-shadow: 0px 0px 10px 0px var(--color-success);
+}
+
+.waiting-player-game-passive {
+  -webkit-box-shadow: 0px 0px 10px 0px var(--color-danger);
+  -moz-box-shadow: 0px 0px 10px 0px var(--color-danger);
+  box-shadow: 0px 0px 10px 0px var(--color-danger);
+}
   
 
 .player-avatar-game {

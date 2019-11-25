@@ -1,5 +1,5 @@
 import Bus from "../event_bus.js";
-import { QUESTION_CHANGE, OFFLINE_GAME_END, ROUTER_EVENT , ONLINE_QUESTION_TABLE_UPDATE} from "../modules/events.js";
+import { QUESTION_CHANGE, OFFLINE_GAME_END, PLAYERS_CHANGE } from "../modules/events.js";
 import WebSocketIface from "../modules/webSocketIface.js"
 import { ONLINE_GAME } from "../paths";
 
@@ -197,12 +197,7 @@ class OfflineQuestionsM {
 
 class OnlineQuestionsM {
     constructor() {
-        this.themes;
         this.players;
-
-        this.questionTable = {};
-        this.questionTable.mode = "default";
-        this.chosedQuestionsId = {};
 
         this.userId;
         this.userIdWhoChoseAnswer;
@@ -212,23 +207,49 @@ class OnlineQuestionsM {
 
         this.disabledQuestionId;
 
+        this.packId = packId;
+        this.result = undefined;
+        this.mode = "offline";
+        this.questionTable = {};
+        this.questionTable.mode = "default";
+        this.questionTable.selectedQuestion = undefined;
+        this.chosedQuestionsId = {};
+        this.score = 0;
+        this.themes;
+
+        this.numberOfSelectedQuestions = 0;
+
+
         WebSocketIface.addMessageHandler("request_question_from_player", this._activateUser);
-        WebSocketIface.addMessageHandler("question_chosen", this._userChoseQuestion);
+        WebSocketIface.addMessageHandler("request_respondent", this._userChoseQuestion);
     }
 
-    _userChoseQuestion(data){
-        this.themeIndex = data.payload.theme_idx;
-        this.questionIndex = data.payload.question_idx;
+    _userChoseQuestion(data) {
+        this.themeIndex = data.payload.theme_id;
+        this.questionIndex = data.payload.question_id;
 
         console.log("this.themeIndex: ", this.themeIndex);
         console.log("this.questionIndex", this.questionIndex);
 
         const currentTheme = this.themes[this.themeIndex];
-        this.disabledQuestionId= currentTheme + this.questionIndex;
-        
-        console.log("htmlQuestionId", this.disabledQuestionId);
+        const disabledQuestionId = currentTheme + "-" + this.questionIndex;
 
-        Bus.emit(ONLINE_QUESTION_TABLE_UPDATE, "disable_question");
+        console.log("htmlQuestionId: ", disabledQuestionId);
+
+        // Bus.emit(QUESTION_CHANGE, "disable_question");
+        //WebSocketIface.addMessageHandler("request_question_from_player", this._activateUser);
+
+
+        const question = data.payload.question;
+
+        this.currentQuestionScore = (this.questionIndex + 1) * 100;
+        this.questionTable.mode = "selected";
+        this.questionTable.selectedQuestion.text = question;
+        //this.questionTable.selectedQuestion.answer = question;
+
+        this.chosedQuestionsId[disabledQuestionId] = true;
+
+        Bus.emit(QUESTION_CHANGE);
     }
 
     clickQuestion(packId, cellId, themeId) {
@@ -256,6 +277,7 @@ class OnlineQuestionsM {
             console.log("НОУ юзер не может выбирать вопрос");
         }
 
+        ////////////////////////
     }
 
 
@@ -263,12 +285,14 @@ class OnlineQuestionsM {
         console.log("My id in OnlineQuestionsM: ", this.userId);
         this.userIdWhoChoseAnswer = data.payload.player_id;
         console.log("User chose question :", this.userIdWhoChoseAnswer);
+
+        Bus.emit(PLAYERS_CHANGE);
     }
 
     getInfo = () => {
         if (this.questionTable.mode === "default") {
             return {
-                //packId: this.packId,
+                packId: this.packId,
                 mode: this.questionTable.mode,
                 themes: this.themes,
                 chosedCells: this.chosedQuestionsId,
@@ -276,14 +300,14 @@ class OnlineQuestionsM {
         } else if (this.questionTable.mode === "selected") {
             return {
                 mode: this.questionTable.mode,
-                //questionText: this.questionTable.selectedQuestion.text,
+                questionText: this.questionTable.selectedQuestion.text,
             };
         } else if (this.questionTable.mode === "result") {
             return {
                 mode: this.questionTable.mode,
-                // answer: this.questionTable.selectedQuestion.answer,
-                // result: this.result,
-                // currentQuestionScore: this.currentQuestionScore,
+                answer: this.questionTable.selectedQuestion.answer,
+                result: this.result,
+                currentQuestionScore: this.currentQuestionScore,
             };
         }
     }
