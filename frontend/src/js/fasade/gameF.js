@@ -22,6 +22,7 @@ import GamePanelC from "../controller/gamePanelC.js";
 import QuestionTableC from "../controller/questionsTableC.js"
 import QuestionTableE from "../element/questionTableE.js"
 import UsersPanelE from "../element/usersPanelE.js"
+import UsersGamePanelE from "../element/usersGamePanelE.js"
 
 import StaticManager from "../modules/staticManager.js";
 
@@ -39,6 +40,7 @@ class GameF {
         this.ifaces.set(QuestionTableC, this._questionTableCInterface);
         this.ifaces.set(QuestionTableE, this._questionTableEInterface);
         this.ifaces.set(UsersPanelE, this._usersPanelEInterface);
+        this.ifaces.set(UsersGamePanelE, this._usersGamePanelEInterface);
 
         Bus.on(QUESTION_CHANGE, this._questionChange);
         Bus.on(ROOM_CHANGE, this._roomChange);
@@ -168,6 +170,10 @@ class GameF {
         return this.current.usersPanelEInterface;
     }
 
+    _usersGamePanelEInterface = () => {
+        return this.current.usersPanelEInterface;
+    }
+
     // shity place
     getPackName = () => {
         console.log(this.current);
@@ -268,39 +274,37 @@ class OnlineGameF {
 
     get usersPanelEInterface() {
         const iface = {
-            getRoomState() {
-                return RoomM.state;
-            },
-
             getPlayers() {
-                if (RoomM.state === "before_connection") {
-                    const capacity = RoomM.current.roomInfo.playersCapacity;
-                    const players = new Array;
+                const capacity = RoomM.current.roomInfo.playersCapacity;
+                const players = new Array;
 
-                    for (let i = 0; i < capacity; i++) {
-                        players.push({
-                            id: i,
-                            username: "Empty",
-                            avatar: StaticManager.getUserUrl(),
-                            score: 0,
-                            ready: false
-                        });
-                    }
-                    return players;
-                }
-                const playersInfo = new Array;
-                for (const player of RoomM.players) {
-                    playersInfo.push({
-                        url: player.url,
-                        name: player.name,
-                        uuid: player.uuid
+                for (let i = 0; i < capacity; i++) {
+                    players.push({
+                        id: i,
+                        username: "Empty",
+                        avatar: StaticManager.getUserUrl(),
+                        score: 0,
+                        ready: false
                     });
                 }
+                return players;
             },
 
             getRoomInfo() {
                 return RoomM.current.roomInfo;
             },
+        };
+        return iface;
+    }
+
+    get usersGamePanelEInterface() {
+        const iface = {
+            getPlayers() {
+                return RoomM.current.playerJoinedData.payloads.players;
+            },
+            getGameInfo() {
+                return {};
+            }
         };
         return iface;
     }
