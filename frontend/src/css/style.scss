@@ -70,26 +70,31 @@
 
 @import "./flex-containers/flex-containers.scss";
 
+@import "./edit-svg/edit-svg.scss";
+
+
 :root {
   // main colors
   --color-bg-dark: rgb(23, 21, 32);
   --color-bg-light: rgba(38, 35, 53, 1);
+  --main-light-color: #c5aee0;
+  --forth-color: #efbcd5;
 
   // form
   --color-success: #72f1b8;
-  --color-input-valid: #c5aee0;
+  --color-input-valid: var(--main-light-color);
   --color-danger: #920031;
 
   // старый цвет - rgba(54, 249, 246, 1);
-  --border-color-theme: #c5aee0;
+  --border-color-theme: var(--main-light-color);
 
   // scroll
   --scroll-background: var(--color-bg-light);
-  --scroll: #c5aee0;
+  --scroll: var(--main-light-color);
 
   // text
   --color-headers-font: white;
-  --font-color-theme: #c5aee0;
+  --font-color: var(--main-light-color);
 
   // questions
   --question-theme-bg: var(--color-bg-dark);
@@ -97,7 +102,6 @@
   --question-container-gap-width: 2px;
 
   --color-border-primary-low: #b497d6;
-  --forth-color: #efbcd5;
 
   --main-width: 90vw;
   --main-content-vertical-margin: 2vh;

@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   border-color: var(--border-color-theme);
-  color: var(--font-color-theme);
+  color: var(--font-color);
   border-width: 0px;
   border-style: solid;
   border-radius: 5px;
@@ -22,7 +22,7 @@
 .btn:hover {
   border-width: 1px;
   border-color: var(--border-color-theme);
-  color: var(--font-color-theme);
+  color: var(--font-color);
   background-color: var(--color-bg-dark);
   border-bottom-width: 0px;
   cursor: pointer;
@@ -37,7 +37,7 @@
 .button-in-list:hover {
   border-width: 1px;
   border-color: var(--border-color-theme);
-  color: var(--font-color-theme);
+  color: var(--font-color);
   background-color: var(--color-bg-dark);
   cursor: pointer;
 }
@@ -55,7 +55,7 @@
 .popup-button:hover {
   border-width: 1px;
   border-color: var(--border-color-theme);
-  color: var(--font-color-theme);
+  color: var(--font-color);
   background-color: var(--color-bg-dark);
   cursor: pointer;
 }
@@ -69,7 +69,7 @@
 .pg-button:hover {
   border-width: 1px;
   border-color: var(--border-color-theme);
-  color: var(--font-color-theme);
+  color: var(--font-color);
   background-color: var(--color-bg-light);
   border-width: 0px;
   cursor: pointer;
@@ -102,7 +102,7 @@
 .pack-button:hover {
   border-width: 1px;
   border-color: var(--border-color-theme);
-  color: var(--font-color-theme);
+  color: var(--font-color);
   background-color: var(--color-bg-dark);
   cursor: pointer;
 }
@@ -115,7 +115,7 @@
 
 .tab__create-room-btn:hover {
   border-width: 2px;
-  color: var(--font-color-theme);
+  color: var(--font-color);
   background-color: var(--color-bg-dark);
   cursor: pointer;
 }
@@ -130,7 +130,7 @@
 .create-pack-button:hover {
   border-width: 1px;
   border-color: var(--border-color-theme);
-  color: var(--font-color-theme);
+  color: var(--font-color);
   background-color: var(--color-bg-dark);
   cursor: pointer;
 }

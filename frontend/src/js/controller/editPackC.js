@@ -10,6 +10,10 @@ class EditPackC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
         this.registerClassHandler(".question-container__cost", "click", this._choseQuestion);
+        this.registerClassHandler(".question-container__cost", "click", this._choseQuestion);
+
+        this.registerHandler("edit-description", "click", this._editDescription);
+
         this.registerClassHandler(".popup-button", "click", this._processPopUp);
         this.registerHandler("save-pack", "click", this._savePack);
         this.registerHandler("ok", "click", this._goToRoot);
@@ -18,10 +22,18 @@ class EditPackC {
         this.currentThemeName;
         this.currentThemeIndex;
 
+        this.descriptionWasChanged = 0;
+
         this.currentQuestionId;
         this.packObj;
         this.themes = [];
         this.firstChosenItem = true;
+    }
+    _editDescription = () => {
+        if (this.firstChosenItem) {
+            this._setInitialDataFromPack();
+        }
+        this._showOrHidePopUpQuestion("description", "show");
     }
 
     _goToRoot = () => {
@@ -34,7 +46,6 @@ class EditPackC {
         }
         this.currentThemeName = event.target.parentNode.id;
         this._showOrHidePopUpQuestion("theme", "show");
-        console.log(this.currentThemeName);
     }
 
     _setInitialDataFromPack = () => {
@@ -42,7 +53,6 @@ class EditPackC {
         this.packId = ContentF.getCurrentPackIDForEditing();
         this._setThemesFromPack();
         this.firstChosenItem = false;
-        console.log(this.packObj);
     }
     _choseQuestion = (event) => {
         if (this.firstChosenItem) {
@@ -65,8 +75,7 @@ class EditPackC {
     _savePack = async () => {
         const amountOfChangedQuestions = document.getElementsByClassName("question-container__cost_chosen").length;
         const amountOfChangedThemes = document.getElementsByClassName("question-container__theme-hover-chosen").length;
-        if (amountOfChangedQuestions === 0 && amountOfChangedThemes === 0) {
-            console.log("parasha");
+        if (amountOfChangedQuestions === 0 && amountOfChangedThemes === 0 && this.descriptionWasChanged === 0) {
             const errorElement = document.getElementById("error_invalid_pack");
             replaceTwoCssClasses(errorElement, "error-annotation", "error-visible");
         } else {
@@ -76,7 +85,6 @@ class EditPackC {
                 errorElement.innerHTML = "Исправьте невалидный вопрос";
                 replaceTwoCssClasses(errorElement, "error-annotation", "error-visible");
             } else {
-                console.log("Отправляем", this.packObj);
                 ContentF.updatePack(this.packObj, this.packId).then(
                     () => this._showSuccessPopup(true)
                 ).catch(
@@ -86,14 +94,12 @@ class EditPackC {
         }
     }
 
-
     _setThemesFromPack = () => {
         let i = 0;
         while (i < 5) {
             this.themes.push(this.packObj.pack[i].name);
             i++;
         }
-        console.log(this.themes);
     }
     _getThemeByQuestionElem = (questionElement) => {
         const themeId = questionElement.parentNode.id;
@@ -116,8 +122,6 @@ class EditPackC {
     }
 
     _processPopUp = (event) => {
-        console.log("До раньше ", this.packObj);
-
         if (event.target.id === "save-question") {
             let validInput = true;
             const question = document.getElementById("input-question").value;
@@ -153,34 +157,31 @@ class EditPackC {
             const currentThemeElem = document.getElementById(this.currentThemeName).children[0];
 
             const newTheme = document.getElementById("input-theme").value;
-            console.log("Старая тема", this.currentThemeName);
-            console.log("Новая тема", newTheme);
-
             if (newTheme !== this.currentThemeName) {
-                console.log("До ", this.packObj);
                 const currentThemeElem = document.getElementById(this.currentThemeName);
-                console.log(currentThemeElem);
                 currentThemeElem.children[0].innerHTML = newTheme;
-                console.log("старый айди ", currentThemeElem.id);
                 currentThemeElem.id = newTheme;
-                console.log("Новый айди ", currentThemeElem.id);
 
                 replaceTwoCssClasses(currentThemeElem.children[0], "question-container__theme-hover", "question-container__theme-hover-chosen");
                 this.themes[this.currentThemeIndex] = newTheme;
                 this.packObj.pack[this.currentThemeIndex].name = newTheme;
-
-                console.log("После ", this.packObj);
-                console.log(this.themes);
-
             } else {
                 replaceTwoCssClasses(currentThemeElem.children[0], "question-container__theme-hover-chosen", "question-container__theme-hover");
             }
             this._showOrHidePopUpQuestion("theme", "hide");
+        } else if (event.target.id === "save-description") {
+            this.descriptionWasChanged = 1;
+            const newDescription = document.getElementById("input-description").value;
+            document.getElementById("description-on-page").innerHTML = "Описание пака: "+ newDescription;
+            this.packObj.description = newDescription;
+            this._showOrHidePopUpQuestion("description", "hide");
         }
         else if (event.target.id === "cansel-question") {
             this._showOrHidePopUpQuestion("question", "hide");
         } else if (event.target.id === "cansel-theme") {
             this._showOrHidePopUpQuestion("theme", "hide");
+        } else if (event.target.id === "cansel-description") {
+            this._showOrHidePopUpQuestion("description", "hide");
         }
     }
 
@@ -207,12 +208,19 @@ class EditPackC {
         } else if (popUpType === "theme") {
             if (action === "show") {
                 this.currentThemeIndex = this.themes.indexOf(this.currentThemeName);
-                console.log("Индекс темы", this.currentThemeIndex);
                 document.getElementById("input-theme").value = this.currentThemeName;
             }
             const popupTheme = document.getElementById("popup-theme");
             if (popupTheme) {
                 popupTheme.classList.toggle("popup_show");
+            }
+        } else if (popUpType === "description") {
+            if (action === "show") {
+                document.getElementById("input-description").value = this.packObj.description;
+            }
+            const popupDescription = document.getElementById("popup-description");
+            if (popupDescription) {
+                popupDescription.classList.toggle("popup_show");
             }
         }
 
