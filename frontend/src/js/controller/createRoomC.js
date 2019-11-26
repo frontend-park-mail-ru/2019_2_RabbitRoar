@@ -1,7 +1,7 @@
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import Bus from "../event_bus.js";
 import { ROOT } from "../paths.js";
-import { ROUTER_EVENT, CHANGE_VIEW_PACK_CREATION } from "../modules/events.js";
+import { ROUTER_EVENT, CHANGE_VIEW_ROOM_CREATION } from "../modules/events.js";
 import GameF from "../fasade/gameF.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
 import { roomCreatureVaildation } from "../modules/form_validation";
@@ -39,7 +39,7 @@ class CreateRoomC {
             Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
         } else if (this.currentFormPart == 2) {
             this.currentFormPart = 1;
-            Bus.emit(CHANGE_VIEW_PACK_CREATION);
+            Bus.emit(CHANGE_VIEW_ROOM_CREATION);
         }
     }
 
@@ -55,7 +55,7 @@ class CreateRoomC {
         replaceTwoCssClasses(newTabElement, "tab", "tab-click");
         this.currentTabId = event.target.id;
 
-        Bus.emit(CHANGE_VIEW_PACK_CREATION);
+        Bus.emit(CHANGE_VIEW_ROOM_CREATION);
     }
 
     _goToRoot = () => {
@@ -96,7 +96,7 @@ class CreateRoomC {
         this.roomName = document.getElementById("room-name").value;
 
         this.currentFormPart = 2;
-        Bus.emit(CHANGE_VIEW_PACK_CREATION);
+        Bus.emit(CHANGE_VIEW_ROOM_CREATION);
     }
 
     _goBack = () => {
@@ -106,7 +106,7 @@ class CreateRoomC {
             Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
         } else if (this.currentFormPart == 2) {
             this.currentFormPart = 1;
-            Bus.emit(CHANGE_VIEW_PACK_CREATION);
+            Bus.emit(CHANGE_VIEW_ROOM_CREATION);
         }
 
     }
@@ -138,8 +138,6 @@ class CreateRoomC {
             roomOptions: obj
         }
 
-        //console.log(options);
-        
         GameF.CreateGame("online", options).then(
             () => { return }
         ).catch(

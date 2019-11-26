@@ -1,5 +1,5 @@
 import Bus from "../event_bus.js";
-import { ROUTER_EVENT, FORM_CHANGED } from "../modules/events.js";
+import { ROUTER_EVENT, FORM_CHANGED, CHANGE_VIEW_PACK_CREATION } from "../modules/events.js";
 import { ROOT } from "../paths";
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
@@ -24,8 +24,6 @@ class CreatePackC {
         this.registerClassHandler(".popup-button", "click", this._processPopUp);
         this.registerHandler("further", "click", this._goFurther);
         this.registerHandler("ok", "click", this._goToRoot);
-        Bus.on(FORM_CHANGED, this._processForm);
-
     }
 
     _goToRoot = () => {
@@ -35,20 +33,15 @@ class CreatePackC {
     _goBack = () => {
         this.usersCount = 0;
         if (this.currentFormPart == 1) {
+            this.currentFormPart = 1;
             Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
         } else if (this.currentFormPart == 2) {
-            Bus.emit(FORM_CHANGED, 1);
+            this.currentFormPart = 1;
+            Bus.emit(CHANGE_VIEW_PACK_CREATION);
         }
 
     }
 
-    _fillThemesInPage = () => {
-        this.themes.forEach((theme, index) => {
-            const lineId = "Тема " + index;
-            const children = document.getElementById(lineId).childNodes;
-            children[0].innerHTML = theme;
-        });
-    }
 
     _processPopUp = (event) => {
         if (event.target.id === "save-question") {
@@ -118,20 +111,6 @@ class CreatePackC {
         return parseInt(cost) / 100 - 1;
     }
 
-    _processForm = (form_number) => {
-        if (form_number === 2) {
-            this.currentFormPart = 2;
-            document.getElementById("form-part-2").style.display = "block";
-            document.getElementById("form-part-1").style.display = "none";
-            this._fillThemesInPage();
-            document.getElementById("pack-name-header").innerHTML = "Название пака: " + this.packObj.name;
-            return;
-        }
-        this.currentFormPart = 1;
-        document.getElementById("form-part-2").style.display = "none";
-        document.getElementById("form-part-1").style.display = "block";
-    }
-
     _goFurther = () => {
         const [error, arrayThemes, packName] = packCreationVaildationForm1();
 
@@ -157,7 +136,8 @@ class CreatePackC {
                 }
                 i++;
             }
-            Bus.emit(FORM_CHANGED, 2);
+            this.currentFormPart = 2;
+            Bus.emit(CHANGE_VIEW_PACK_CREATION);
         }
     }
 

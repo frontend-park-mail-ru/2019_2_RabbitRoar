@@ -2,7 +2,7 @@ import CreateRoomC from "../controller/createRoomC.js";
 import Template from "./templates/createRoomT.pug";
 import ContentF from "../fasade/contentF.js";
 import Bus from "../event_bus.js";
-import { CHANGE_VIEW_PACK_CREATION } from "../modules/events.js";
+import { CHANGE_VIEW_ROOM_CREATION } from "../modules/events.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
 
 
@@ -16,12 +16,10 @@ class CreateRoomE {
 
         this.packUploaded = false;
 
-        Bus.on(CHANGE_VIEW_PACK_CREATION, this._changePackContent);
-        //Bus.on(FORM_CHANGED_ROOM_CREATION, this._changePackContent);
+        Bus.on(CHANGE_VIEW_ROOM_CREATION, this._changePackContent);
     }
 
     _changePackContent = () => {
-        // console.log("before drop", this.controller.currentTabId);
         this.destroy();
         this.create(this.root);
     }
@@ -32,13 +30,10 @@ class CreateRoomE {
             this.allPacks = await ContentF.getAllPacksForOnline();
             this.userPacks = await ContentF.getUserPacks();
             this.packUploaded = true;
-            console.log("паки юзера", this.userPacks);
-            console.log("все паки ", this.allPacks);
         }
 
         const tabPackId = this.controller.currentTabId;
         const formNumber = this.controller.currentFormPart;
-        console.log("tab :", tabPackId, "form number :", formNumber);
 
         let packs;
         let disabledTabId;
@@ -52,7 +47,6 @@ class CreateRoomE {
 
         this.root.insertAdjacentHTML("beforeend", Template({ packs, formNumber }));
         if (formNumber === 2) {
-            console.log("form number 2");
             const disabledTabElement = document.getElementById(disabledTabId);
             replaceTwoCssClasses(disabledTabElement, "tab-click", "tab");
 
