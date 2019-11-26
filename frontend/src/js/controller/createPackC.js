@@ -112,12 +112,14 @@ class CreatePackC {
     }
 
     _goFurther = () => {
-        const [error, arrayThemes, packName] = packCreationVaildationForm1();
+        const [error, arrayThemes, packName, packDescription] = packCreationVaildationForm1();
 
         if (!error) {
             this.themes = arrayThemes;
 
             this.packObj.name = packName;
+            this.packObj.description = packDescription;
+
             this.packObj.pack = [];
 
             let i = 0;

@@ -1,7 +1,7 @@
 import { replaceTwoCssClasses } from "./css_operations";
 
 const _emailIsValid = (email) => {
-    const re = /\w+@\w+\.\w{2,6}/;    
+    const re = /\w+@\w+\.\w{2,6}/;
     return re.test(String(email).toLowerCase());
 };
 
@@ -280,23 +280,46 @@ export const packCreationVaildationForm1 = () => {
         replaceTwoCssClasses(document.getElementById("pack-name"), "input-error", "input-valid");
     }
 
+    const errorPackDescriptionElement = document.getElementById("error_pack-description");
+    const packDescription = document.getElementById("pack-description").value;
+    if (!packDescription) {
+        replaceTwoCssClasses(errorPackDescriptionElement, "error-annotation", "error-visible");
+        replaceTwoCssClasses(document.getElementById("pack-description"), "input-valid", "input-error");
+        errorPackDescriptionElement.innerHTML = "Введите описание пака.";
+        error = true;
+    } else {
+        replaceTwoCssClasses(errorPackDescriptionElement, "error-visible", "error-annotation");
+        replaceTwoCssClasses(document.getElementById("pack-description"), "input-error", "input-valid");
+    }
+
     const inputsId = ["theme_1", "theme_2", "theme_3", "theme_4", "theme_5"];
     let themesArray = new Array();
     inputsId.forEach(
-        id => {
+        (id, index) => {
             const errorThemeElement = document.getElementById("error_" + id);
             const theme = document.getElementById(id).value;
             if (!theme) {
                 replaceTwoCssClasses(errorThemeElement, "error-annotation", "error-visible");
                 replaceTwoCssClasses(document.getElementById(id), "input-valid", "input-error");
-                errorThemeElement.innerHTML = "Введите название темы " + id + ".";
+                errorThemeElement.innerHTML = "Введите название темы " + (index + 1) + ".";
                 error = true;
             } else {
                 replaceTwoCssClasses(errorThemeElement, "error-visible", "error-annotation");
                 replaceTwoCssClasses(document.getElementById(id), "input-error", "input-valid");
-                themesArray.push(theme);
+                if (themesArray.indexOf(theme) === -1) {
+                    themesArray.push(theme);
+                } else {
+                    const mainErrorElement = document.getElementById("error_main");
+                    replaceTwoCssClasses(mainErrorElement, "error-annotation", "error-visible");
+
+                    console.log("Текущие темы", themesArray);
+                    console.log("Тема", theme);
+                    error = true;
+                }
+
+
             }
         }
     );
-    return [error, themesArray, packName];
+    return [error, themesArray, packName, packDescription];
 };

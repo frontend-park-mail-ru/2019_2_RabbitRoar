@@ -1,5 +1,7 @@
 div(class="text-container")
-    div(id="pack-name-header" class="text") Название пака #{packObj.name}
+    div(id="pack-name-header" class="text") Название пака: #{packObj.name}
+div(class="text-container")
+    div(class="text") Описание пака: #{packObj.description}
 div(class="text-container")
     span(class="error-annotation" id="error_invalid_pack") Нет изменений для сохранения 
 
@@ -10,7 +12,7 @@ mixin cell(_id, theme)
 
 mixin line(theme_id, theme_name)
     div(class="question-container__line" id=theme_id)
-        div(class="question-container__theme") #{theme_name}
+        div(class="question-container__theme-hover") #{theme_name}
         +cell(0, theme_name)
         +cell(1, theme_name)   
         +cell(2, theme_name)
@@ -41,6 +43,15 @@ div(class="popup" id="popup-question")
         div(class="popup-elem-bottom")
             div(class="popup-button" id="cansel-question") Отмена
             div(class="popup-button" id="save-question") Сохранить
+
+div(class="popup" id="popup-theme")
+    div(class="popup__content-theme " id="popup_content")
+        div(class="popup-elem-top") Введите тему
+        div(class="popup-elem-bottom")
+            textarea(class="textarea-answer" id="input-theme" maxlength="33")
+        div(class="popup-elem-bottom")
+            div(class="popup-button" id="cansel-theme") Отмена
+            div(class="popup-button" id="save-theme") Сохранить
 
 div(class="popup " id="popup-final")
     div(class="popup__content " id="popup_content")
