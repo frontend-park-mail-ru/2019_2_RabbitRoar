@@ -139,26 +139,26 @@ class RealRoomM {
             }
             this.roomId = response.UUID;
             console.log("ROOM ID from create:", this.roomId);
-        }
+        } else {
+            try {
+                const csrf = await getCSRF();
+                await deleteLeaveRoom(csrf.CSRF);
+            } catch (err) {
+                console.log(err);
+                this.lastState = this.state;
+                this.state = "crash_connection";
+                return;
+            }
 
-        try {
-            const csrf = await getCSRF();
-            await deleteLeaveRoom(csrf.CSRF);
-        } catch (err) {
-            console.log(err);
-            this.lastState = this.state;
-            this.state = "crash_connection";
-            return;
-        }
-
-        try {
-            const csrf = await getCSRF();
-            response = await postJoinRoom(this.roomId, csrf.CSRF);
-        } catch (err) {
-            console.log(err);
-            this.lastState = this.state;
-            this.state = "crash_connection";
-            return;
+            try {
+                const csrf = await getCSRF();
+                response = await postJoinRoom(this.roomId, csrf.CSRF);
+            } catch (err) {
+                console.log(err);
+                this.lastState = this.state;
+                this.state = "crash_connection";
+                return;
+            }
         }
 
         this.roomInfo = response;
