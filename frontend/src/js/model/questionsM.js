@@ -1,7 +1,6 @@
 import Bus from "../event_bus.js";
 import { QUESTION_CHANGE, OFFLINE_GAME_END, PLAYERS_CHANGE } from "../modules/events.js";
 import WebSocketIface from "../modules/webSocketIface.js"
-import { ONLINE_GAME } from "../paths";
 
 class QuestionsM {
     constructor() {
@@ -194,18 +193,13 @@ class OfflineQuestionsM {
 
 class OnlineQuestionsM {
     constructor() {
-        this.players;
-
         this.userId;
         this.userIdWhoChoseAnswer;
 
         this.themeIndex;
-        this.questionIndex;
 
         this.disabledQuestionId;
 
-        //this.packId = packId;
-        this.result = undefined;
         this.mode = "offline";
         this.questionTable = {};
         this.questionTable.mode = "default";
@@ -216,45 +210,38 @@ class OnlineQuestionsM {
 
         this.numberOfSelectedQuestions = 0;
 
-
-        WebSocketIface.addMessageHandler("request_question_from_player", this._activateUser);
         WebSocketIface.addMessageHandler("request_respondent", this._userChoseQuestion);
         WebSocketIface.addMessageHandler("answer_given_back", this._recieveAnswer);
+    }
+
+    addFields = (...fields) => {
+        for (const field of fields) {
+            this[field.name] = field.value;
+        }
     }
 
     _userChoseQuestion = (data) => {
         console.log(data);
         this.themeIndex = data.payload.theme_id;
-        this.questionIndex = data.payload.question_id;
+        const questionIndex = data.payload.question_id;
 
         console.log("this.themeIndex: ", this.themeIndex);
-        console.log("this.questionIndex", this.questionIndex);
+        console.log("this.questionIndex", questionIndex);
 
         const currentTheme = this.themes[this.themeIndex];
-        const disabledQuestionId = currentTheme + "-" + this.questionIndex;
+        const disabledQuestionId = currentTheme + "-" + questionIndex;
 
         console.log("htmlQuestionId: ", disabledQuestionId);
-
-        // Bus.emit(QUESTION_CHANGE, "disable_question");
-        //WebSocketIface.addMessageHandler("request_question_from_player", this._activateUser);
 
 
         const question = data.payload.question;
 
-        this.currentQuestionScore = (this.questionIndex + 1) * 100;
         this.questionTable.mode = "selected";
         this.questionTable.selectedQuestion.text = question;
-        //this.questionTable.selectedQuestion.answer = question;
-
         this.chosedQuestionsId[disabledQuestionId] = true;
-
-        Bus.emit(QUESTION_CHANGE);
     }
 
     clickQuestion = (packId, cellId, themeId) => {
-        console.log("Айди юзера: ", this.userId);
-        console.log("Юзер, который выбирает вопрос: ", this.userIdWhoChoseAnswer);
-
         const questionIndex = parseInt(cellId.slice(-1));
         console.log("question index: ", questionIndex);
 
@@ -262,21 +249,16 @@ class OnlineQuestionsM {
 
         console.log("theme index: ", themeIndex);
         console.log(this.themes);
-        if (this.userId === this.userIdWhoChoseAnswer) {
-            console.log("Юзер может выбирать вопрос");
-            const body = JSON.stringify({
-                "type": "question_chosen",
-                "payload": {
-                    "theme_idx": themeIndex,
-                    "question_idx": questionIndex,
-                }
-            });
-            WebSocketIface.sentMessage(body);
-        } else {
-            console.log("НОУ юзер не может выбирать вопрос");
-        }
 
-        ////////////////////////
+        console.log("Юзер может выбирать вопрос");
+        const body = JSON.stringify({
+            "type": "question_chosen",
+            "payload": {
+                "theme_idx": themeIndex,
+                "question_idx": questionIndex,
+            }
+        });
+        WebSocketIface.sentMessage(body);
     }
 
 
@@ -300,24 +282,10 @@ class OnlineQuestionsM {
         WebSocketIface.sentMessage(body);
     }
 
+    
     _recieveAnswer = (data) => {
-        this.result = true;
         this.questionTable.selectedQuestion.answer = data.payload.player_answer;
-
-        for (const player of this.players) {
-            if (player.id === data.payload.player_id) {
-                this.answerOwner = player.username;
-                if (this.result === true) {
-                    player.score += this.currentQuestionScore;
-                } else {
-                    player.score -= this.currentQuestionScore;
-                }
-                break;
-            }
-        }
         this.questionTable.mode = "result";
-        Bus.emit(QUESTION_CHANGE);
-
         setTimeout(this._showResult.bind(this), 2000)
     }
 
@@ -327,15 +295,6 @@ class OnlineQuestionsM {
         Bus.emit(QUESTION_CHANGE);
     }
 
-
-
-    _activateUser = (data) => {
-        console.log("My id in OnlineQuestionsM: ", this.userId);
-        this.userIdWhoChoseAnswer = data.payload.player_id;
-        console.log("User chose question :", this.userIdWhoChoseAnswer);
-
-        Bus.emit(PLAYERS_CHANGE);
-    }
 
     getInfo = () => {
         if (this.questionTable.mode === "default") {
@@ -354,9 +313,6 @@ class OnlineQuestionsM {
             return {
                 mode: this.questionTable.mode,
                 answer: this.questionTable.selectedQuestion.answer,
-                result: this.result,
-                currentQuestionScore: this.currentQuestionScore,
-                answerOwner: this.answerOwner
             };
         }
     }

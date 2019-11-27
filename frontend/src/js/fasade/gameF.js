@@ -1,5 +1,6 @@
 import QuestionsM from "../model/questionsM.js";
 import RoomM from "../model/roomM.js";
+import PlayersM from "../model/playersM.js";
 import Bus from "../event_bus.js";
 import {
     ROUTER_EVENT,
@@ -18,6 +19,8 @@ import {
     ONLINE_QUESTION_TABLE_UPDATE
 } from "../modules/events.js";
 import { WAITING, SINGLE_GAME, ONLINE_GAME } from "../paths";
+import WebSocketIface from "../modules/webSocketIface.js"
+
 
 import GamePanelC from "../controller/gamePanelC.js";
 import GamePanelE from "../element/gamePanelE.js";
@@ -126,8 +129,8 @@ class GameF {
 
     _playersChange = () => {
         const playersState = {
-            active: QuestionsM.current.userIdWhoChoseAnswer,
-            players: QuestionsM.current.players
+            active: PlayersM.current.userIdWhoChoseAnswer,
+            players: PlayersM.current.players
         }
 
         Bus.emit(USERS_PANEL_UPDATE, playersState);
@@ -141,21 +144,20 @@ class GameF {
 
         if (RoomM.current.state === "waiting") {
             if (RoomM.current.lastState === "done_connection") {
-                console.log("done_connection");
                 Bus.emit(CONNECTION, "done");
             }
-            console.log("In waiting");
-            console.log("EVENT in if: ", eventType);
-
             if (eventType === "player_connected") {
                 Bus.emit(USER_PANEL_NEW_USER, RoomM.current.playerJoinedData);
-
             } else if (eventType === "player_ready") {
                 Bus.emit(USER_PANEL_USER_READY, RoomM.current.playerReadyData);
             } else if (eventType === "start_game") {
-                QuestionsM.current.themes = RoomM.current.startGameData.payload.themes;
-                QuestionsM.current.players = RoomM.current.playerReadyData.payload;
-                QuestionsM.current.userId = ValidatorF.userId;
+                QuestionsM.current.addFields(
+                    { name: "themes", value: RoomM.current.startGameData.payload.themes },
+                );
+                PlayersM.current.addFields(
+                    { name: "userId", value: ValidatorF.userId },
+                    { name: "players", value: RoomM.current.playerReadyData.payload }
+                );
 
                 Bus.emit(ROUTER_EVENT.ROUTE_TO, ONLINE_GAME);
             }
@@ -270,6 +272,13 @@ class OnlineGameF {
         console.log("in online game constructor");
         QuestionsM.CreateNew("online");
         RoomM.CreateNew(roomId, roomOptions);
+        PlayersM.CreateNew(roomId, roomOptions);
+
+        
+        WebSocketIface.addMessageHandler("answer_given_back", () => Bus.emit(QUESTION_CHANGE));
+        WebSocketIface.addMessageHandler("request_respondent", () => Bus.emit(QUESTION_CHANGE));
+
+
     }
 
     clear = () => {
@@ -285,9 +294,13 @@ class OnlineGameF {
     get questionTableEInterface() {
         const iface = {
             questionInfo() {
-                return QuestionsM.getInfo();
-            },
-            lastClickedCells() {
+                let info = QuestionsM.getInfo();
+
+                if (QuestionsM.current.questionTable.mode === "result") {
+                    info = Object.assign(info, PlayersM.getAnsweredPlayerInfo());
+                    console.log(info);
+                }
+                return info;
             },
         };
         return iface;
@@ -296,7 +309,11 @@ class OnlineGameF {
     get questionTableCInterface() {
         const iface = {
             clickQuestion(packId, cellId, themeId) {
-                QuestionsM.clickQuestion(packId, cellId, themeId);
+                if (PlayersM.haveAbilityChoose()) {
+                    QuestionsM.clickQuestion(packId, cellId, themeId);
+                } else {
+                    console.log("НОУ юзер не может выбирать вопрос");
+                }
             }
         };
         return iface;
@@ -314,7 +331,7 @@ class OnlineGameF {
     get gamePanelEInterface() {
         const iface = {
             getScoreById(userId) {
-                for (const player of QuestionsM.current.players) {
+                for (const player of PlayersM.current.players) {
                     if (player.id === userId) {
                         return player.score;
                     }
