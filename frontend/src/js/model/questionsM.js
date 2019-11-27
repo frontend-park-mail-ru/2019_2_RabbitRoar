@@ -304,7 +304,12 @@ class OnlineQuestionsM {
 
     _recieveAnswer = (data) => {
         this.questionTable.selectedQuestion.answer = data.payload.player_answer;
-        this.answerOwner = data.payload.player_id;
+        for (const player of this.players) {
+            if (player.id === data.payload.player_id) {
+                this.answerOwner = player.username;
+                break;
+            }
+        }
         this.result = true;
         this.questionTable.mode = "result";
         Bus.emit(QUESTION_CHANGE);

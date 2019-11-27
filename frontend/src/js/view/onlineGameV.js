@@ -12,7 +12,7 @@ class OnlineGameV extends View{};
 
 export default new OnlineGameV(
     document.getElementById("application"),
-    NavbarE,
+    //NavbarE,
     UsersGamePanelE,
     QuestionTableE,
     GamePanelE,
