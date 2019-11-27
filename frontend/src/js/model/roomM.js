@@ -33,11 +33,14 @@ class RoomM {
         WebSocketIface.disconnect();
         this.current = undefined;
         getCSRF().then(
-            (csrf) => deleteLeaveRoom(csrf.CSRF)
+            (csrf) => {
+                deleteLeaveRoom(csrf.CSRF);
+                console.log("Вы успешно покинули игру");
+            }
         ).catch(
             (err) => console.log(`Can't leave room ${err}`)
         ).finally(
-            () => console.log("комната уничтожена")
+            () => console.log("Комната уничтожена")
         );
     }
 
@@ -139,26 +142,27 @@ class RealRoomM {
             }
             this.roomId = response.UUID;
             console.log("ROOM ID from create:", this.roomId);
-        } else {
-            try {
-                const csrf = await getCSRF();
-                await deleteLeaveRoom(csrf.CSRF);
-            } catch (err) {
-                console.log(err);
-                this.lastState = this.state;
-                this.state = "crash_connection";
-                return;
-            }
+        }
 
-            try {
-                const csrf = await getCSRF();
-                response = await postJoinRoom(this.roomId, csrf.CSRF);
-            } catch (err) {
-                console.log(err);
-                this.lastState = this.state;
-                this.state = "crash_connection";
-                return;
-            }
+
+        // try {
+        //     const csrf = await getCSRF();
+        //     await deleteLeaveRoom(csrf.CSRF);
+        // } catch (err) {
+        //     console.log(err);
+        //     this.lastState = this.state;
+        //     this.state = "crash_connection";
+        //     return;
+        // }
+
+        try {
+            const csrf = await getCSRF();
+            response = await postJoinRoom(this.roomId, csrf.CSRF);
+        } catch (err) {
+            console.log(err);
+            this.lastState = this.state;
+            this.state = "crash_connection";
+            return;
         }
 
         this.roomInfo = response;

@@ -7,6 +7,8 @@ import Bus from "../event_bus.js";
 import { USER_PANEL_NEW_USER, USER_PANEL_USER_READY } from "../modules/events.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
 
+import StaticManager from "../modules/staticManager.js"
+
 class UsersPanelE {
     constructor() {
         this.controller = UsersPanelC;
@@ -85,10 +87,12 @@ class UsersPanelE {
 
         const players = this.gameIface.getPlayers();
         const roomInfo = this.gameIface.getRoomInfo();
+        const leaveLogo = StaticManager.leaveLogo;
 
         this.root.insertAdjacentHTML("beforeend", Template({
             players: players,
-            room: roomInfo
+            room: roomInfo,
+            leaveLogo: leaveLogo
         }));
         this.controller.startAllListeners();
     }

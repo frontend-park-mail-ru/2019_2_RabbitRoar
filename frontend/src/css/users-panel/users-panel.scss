@@ -1,8 +1,19 @@
+.user-panel-grid-container {
+  display: grid;
+  color: var(--font-color);
+  grid-template-columns: 15vw 70vw 15vw;
+  grid-template-rows: 1fr;
+}
+
 .user-panel-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
 }
 
 .waiting-player {
@@ -18,8 +29,6 @@
   border: 2px solid var(--border-color-theme);
   border-bottom-width: 0px;
 }
-
-
 
 
 

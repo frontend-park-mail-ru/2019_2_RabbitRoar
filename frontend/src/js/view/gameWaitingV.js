@@ -8,7 +8,7 @@ class GameWaitingV extends View {};
 
 export default new GameWaitingV(
     document.getElementById("application"),
-    NavbarE,
+    //NavbarE,
     UsersPanelE,
     PackInfoE,
     NetworkWarningE,

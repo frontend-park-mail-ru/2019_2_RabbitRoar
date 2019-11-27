@@ -48,6 +48,10 @@ class StaticManager {
         return this.base + "/static/chat-logo.png";
     }
 
+    get leaveLogo() {
+        return this.base + "/static/leave-game.png";
+    }
+
     getIframeUrl() {
         if (this.base === this.nginx) {
             return this.nginx + "/chat";

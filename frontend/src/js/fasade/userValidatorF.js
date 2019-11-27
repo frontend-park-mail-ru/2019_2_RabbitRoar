@@ -74,8 +74,6 @@ class ValidatorF {
     doExit() {
         UserM.exit().then(
             resolve => Bus.emit(ROUTER_EVENT.ROUTE_TO, LOGIN)
-        ).catch(
-            (error) => console.log(`ERROR at: userValidatorF.doExit - ${error}`)
         );
     }
 
