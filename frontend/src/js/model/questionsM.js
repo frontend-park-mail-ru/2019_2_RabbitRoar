@@ -74,7 +74,6 @@ class OfflineQuestionsM {
 
     removePointsForQuestion() {
         this.score -= this.currentQuestionScore;
-        document.getElementById("score").innerHTML = this.score;
     }
 
     sendAnswer(answer) {
@@ -91,7 +90,6 @@ class OfflineQuestionsM {
         }
 
         this.questionTable.mode = "result";
-        document.getElementById("score").innerHTML = this.score;
         Bus.emit(QUESTION_CHANGE);
 
         setTimeout(this._showResult.bind(this), 4000)
@@ -303,14 +301,20 @@ class OnlineQuestionsM {
     }
 
     _recieveAnswer = (data) => {
+        this.result = true;
         this.questionTable.selectedQuestion.answer = data.payload.player_answer;
+
         for (const player of this.players) {
             if (player.id === data.payload.player_id) {
                 this.answerOwner = player.username;
+                if (this.result === true) {
+                    player.score += this.currentQuestionScore;
+                } else {
+                    player.score -= this.currentQuestionScore;
+                }
                 break;
             }
         }
-        this.result = true;
         this.questionTable.mode = "result";
         Bus.emit(QUESTION_CHANGE);
 

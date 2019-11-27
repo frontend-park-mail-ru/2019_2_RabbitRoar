@@ -5,6 +5,7 @@ import {
     ROUTER_EVENT,
     USERS_PANEL_UPDATE,
     QUESTION_PANEL_UPDATE,
+    GAME_PANEL_UPDATE,
     QUESTION_CHANGE,
     PLAYERS_CHANGE,
     CONNECTION,
@@ -19,6 +20,7 @@ import {
 import { WAITING, SINGLE_GAME, ONLINE_GAME } from "../paths";
 
 import GamePanelC from "../controller/gamePanelC.js";
+import GamePanelE from "../element/gamePanelE.js";
 import QuestionTableC from "../controller/questionsTableC.js"
 import QuestionTableE from "../element/questionTableE.js"
 import UsersPanelE from "../element/usersPanelE.js"
@@ -37,6 +39,7 @@ class GameF {
         this.livingElements = 0;
         this.ifaces = new Map;
         this.ifaces.set(GamePanelC, this._gamePanelCInterface);
+        this.ifaces.set(GamePanelE, this._gamePanelEInterface);
         this.ifaces.set(QuestionTableC, this._questionTableCInterface);
         this.ifaces.set(QuestionTableE, this._questionTableEInterface);
         this.ifaces.set(UsersPanelE, this._usersPanelEInterface);
@@ -117,6 +120,7 @@ class GameF {
         } else if (QuestionsM.current.questionTable.mode === "result") {
             Bus.emit(TIMER_INTERRUPTION);
             Bus.emit(QUESTION_PANEL_UPDATE);
+            Bus.emit(GAME_PANEL_UPDATE);
         }
     }
 
@@ -186,6 +190,10 @@ class GameF {
         return this.current.gamePanelCInterface;
     }
 
+    _gamePanelEInterface = () => {
+        return this.current.gamePanelEInterface;
+    }
+
     _usersPanelEInterface = () => {
         return this.current.usersPanelEInterface;
     }
@@ -230,6 +238,15 @@ class OfflineGameF {
         const iface = {
             clickQuestion(packId, cellId, themeId) {
                 QuestionsM.clickQuestion(packId, cellId, themeId);
+            }
+        };
+        return iface;
+    };
+
+    get gamePanelEInterface() {
+        const iface = {
+            getScoreById(userId) {
+                return QuestionsM.current.score;
             }
         };
         return iface;
@@ -289,6 +306,19 @@ class OnlineGameF {
         const iface = {
             sendAnswer(answer) {
                 QuestionsM.sendAnswer(answer);
+            }
+        };
+        return iface;
+    };
+
+    get gamePanelEInterface() {
+        const iface = {
+            getScoreById(userId) {
+                for (const player of QuestionsM.current.players) {
+                    if (player.id === userId) {
+                        return player.score;
+                    }
+                }
             }
         };
         return iface;

@@ -46,6 +46,7 @@ export const WEBSOCKET_CLOSE = "websocketClose";
 
 export const QUESTION_PANEL_UPDATE = "questPanelUpdate";
 export const USERS_PANEL_UPDATE = "usersPanelUpdate";
+export const GAME_PANEL_UPDATE = "gamePanelUpdate";
 export const QUESTION_WAS_CHOSEN = "questionWasChosen";
 export const CRASH_EVENT = "crashEvent";
 
