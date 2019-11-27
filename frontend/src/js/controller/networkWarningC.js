@@ -2,7 +2,7 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 
 import Bus from "../event_bus.js";
 
-import { ROUTER_EVENT, CONNECTION, WEBSOCKET_CLOSE, CRASH_EVENT, OFFLINE_GAME_END } from "../modules/events.js";
+import { ROUTER_EVENT, CONNECTION, WEBSOCKET_CLOSE, CRASH_EVENT, OFFLINE_GAME_END, SERVICE_WORKER_CMD } from "../modules/events.js";
 import { ROOT, WAITING } from "../paths";
 
 class NetworkWarningC {
@@ -19,7 +19,21 @@ class NetworkWarningC {
         Bus.on(CRASH_EVENT, this._crashConnection);
         Bus.on(OFFLINE_GAME_END, this._endGame);
 
+        Bus.on(SERVICE_WORKER_CMD, this._checkSw);
     }
+
+    _checkSw = () => {
+        if (this.sw) {
+            return
+        }
+        if (window.navigator.serviceWorker.controller === null) {
+            this.sw = true;
+            alert("Чтобы приложение продолжило стабильно работать, необходимо перезагрузить страницу.");
+            window.location.reload();
+            return;
+        }
+    }
+
     _goToRoot = () => {
         Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }

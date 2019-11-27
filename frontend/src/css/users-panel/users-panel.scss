@@ -1,7 +1,9 @@
 .user-panel-grid-container {
   display: grid;
   color: var(--font-color);
-  grid-template-columns: 15vw 70vw 15vw;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  grid-template-columns: 15% 70% 15%;
   grid-template-rows: 1fr;
 }
 

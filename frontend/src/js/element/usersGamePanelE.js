@@ -46,11 +46,13 @@ class UsersGamePanelE {
         this.gameIface = GameF.getInterface(this)();
 
         const players = this.gameIface.getPlayers();
+        const leaveLogo = StaticManager.leaveLogo;
         // const gameInfo = this.gameIface.getGameInfo();
 
 
         this.root.insertAdjacentHTML("beforeend", Template({
             players: players,
+            leaveLogo: leaveLogo,
         }));
         this.controller.startAllListeners();
     }

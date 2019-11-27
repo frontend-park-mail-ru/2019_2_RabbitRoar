@@ -44,6 +44,12 @@ if ("serviceWorker" in navigator) {
 }
 
 Bus.on(SERVICE_WORKER_CMD, (cmd) => {
+    if (navigator.serviceWorker.controller === null) {
+        return;
+    }
+    if (!navigator.serviceWorker.controller) {
+        console.log("ServiceWorker не поддерживается данным браузером");
+    }
     navigator.serviceWorker.controller.postMessage(cmd)
 });
 
