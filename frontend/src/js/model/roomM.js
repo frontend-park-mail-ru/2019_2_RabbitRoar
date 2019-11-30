@@ -98,6 +98,7 @@ class RealRoomM {
     }
 
     _playerJoinedToRoom = (data) => {
+        this.host = data.payload.host;
         this.lastState = this.state;
         this.state = "waiting";
 

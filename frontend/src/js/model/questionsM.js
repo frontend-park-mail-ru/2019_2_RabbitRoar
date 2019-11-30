@@ -218,6 +218,8 @@ class OnlineQuestionsM {
 
         WebSocketIface.addMessageHandler("request_respondent", this._userChoseQuestion);
         WebSocketIface.addMessageHandler("answer_given_back", this._recieveAnswer);
+        WebSocketIface.addMessageHandler("request_answer_from_respondent", this._verdictOrSelected);
+        WebSocketIface.addMessageHandler("verdict_given_back", this._verdictDone);
     }
 
     addFields = (...fields) => {
@@ -225,6 +227,28 @@ class OnlineQuestionsM {
             this[field.name] = field.value;
         }
     }
+
+    _verdictOrSelected = (data) => {
+        if (this.userId === data.payload.player_id) {
+            this.questionTable.mode = "selected";
+        } else {
+            this.questionTable.mode = "verdict";
+        }
+    }
+
+
+    _verdictDone = (data) => {
+        console.log(`Вердикт ведущего: ${data.payload.verdict}`);
+        this.questionTable.mode = "result";
+
+        setTimeout( () => {
+            this.questionTable.mode = "default";
+            this.questionTable.selectedQuestion.answer = "";
+            Bus.emit(QUESTION_CHANGE);
+        }, 2000);
+    }
+
+
 
     _userChoseQuestion = (data) => {
         console.log(data);
@@ -242,7 +266,7 @@ class OnlineQuestionsM {
 
         const question = data.payload.question;
 
-        this.questionTable.mode = "selected";
+        this.questionTable.mode = "answer_race";
         this.questionTable.selectedQuestion.text = question;
         this.chosedQuestionsId[disabledQuestionId] = true;
     }
@@ -274,10 +298,6 @@ class OnlineQuestionsM {
         }
 
         console.log(`My answer: ${answer}`);
-        const race = JSON.stringify({
-            "type": "respondent_ready"
-        });
-        WebSocketIface.sentMessage(race);
 
         const body = JSON.stringify({
             "type": "respondent_answer_given",
@@ -291,15 +311,9 @@ class OnlineQuestionsM {
     
     _recieveAnswer = (data) => {
         this.questionTable.selectedQuestion.answer = data.payload.player_answer;
-        this.questionTable.mode = "result";
-        setTimeout(this._showResult.bind(this), 2000)
+        this.questionTable.mode = "verdict";
     }
 
-
-    _showResult() {
-        this.questionTable.mode = "default";
-        Bus.emit(QUESTION_CHANGE);
-    }
 
 
     getInfo = () => {
@@ -319,6 +333,16 @@ class OnlineQuestionsM {
             return {
                 mode: this.questionTable.mode,
                 answer: this.questionTable.selectedQuestion.answer,
+            };
+        } else if (this.questionTable.mode === "verdict") {
+            return {
+                mode: this.questionTable.mode,
+                answer: this.questionTable.selectedQuestion.answer,
+            };
+        } else if (this.questionTable.mode === "answer_race") {
+            return {
+                mode: this.questionTable.mode,
+                questionText: this.questionTable.selectedQuestion.text,
             };
         }
     }

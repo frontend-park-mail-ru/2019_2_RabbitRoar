@@ -19,6 +19,14 @@ if state.mode == "selected"
         div(class="question-container__question")
             div() #{state.questionText}
 
+if state.mode == "answer_race"
+    div(id="progress-bar" class="progress-bar-hidden")
+        div(id="dynamic-bar" class="dynamic-bar")
+    div(class="question-container")
+        div(class="question-container__race") Нажмите Enter или "Захват!" чтобы начать отвечать.
+        div(class="question-container__question")
+            div() #{state.questionText}
+
 else if state.mode == "default"
     div(id="progress-bar" class="progress-bar-hidden")
         div(id="dynamic-bar" class="dynamic-bar")
@@ -53,20 +61,20 @@ else if state.mode == "verdict"
                     div() #{state.respondent.score}
             div(class="question-container__master-answer__text")
                 div(class="question-container__master-answer__text-container")
-                    div() Ответ: "правильный ответ"
-                    div() Keeeek ответил: "неправильный ответ"
+                    div() Правильный ответ: "#{state.respondent.trueAnswer}"
+                    div() #{state.respondent.name}: "#{state.answer}"
             div(class="question-container__master-answer__verdict")
                 div(class="question-container__master-answer__verdict-container")
-                    div(class="verdict-button") Неверно
-                    div(class="verdict-button") Верно
+                    div(class="verdict-button" id="verdict_false") Неверно
+                    div(class="verdict-button" id="verdict_true") Верно
         else
             div(class="question-container__master-answer__logo")
                 div(class="question-container__master-answer__logo-avatar-container")
                     img(class="question-container__master-answer__logo-avatar",
-                        src="https://i.kym-cdn.com/photos/images/newsfeed/001/504/739/5c0.jpg",
+                        src=state.respondent.avatar,
                         alt="NotFound")
-                    div(class="panel-text" name="username") keeeek
-                    div() 1000
+                    div(class="panel-text" name="username") #{state.respondent.name}
+                    div() #{state.respondent.score}
             div(class="question-container__master-answer__text")
                 div(class="question-container__master-answer__text-container")
-                    div() Ответ: "Какой то текст"
+                    div() #{state.respondent.name}: "#{state.answer}"

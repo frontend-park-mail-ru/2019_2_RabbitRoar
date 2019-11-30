@@ -3,7 +3,7 @@ import GameF from "../fasade/gameF.js";
 import Bus from "../event_bus.js";
 import { ROUTER_EVENT } from "../modules/events.js";
 import { ROOT } from "../paths";
-import { QUESTION_WAS_CHOSEN, TIMER_STOPPED, TIMER_INTERRUPTION } from "../modules/events.js";
+import { GAME_PANEL_STATE_CHANGE, TIMER_STOPPED, TIMER_INTERRUPTION } from "../modules/events.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
 
 
@@ -14,7 +14,7 @@ class GamePanelC {
 
         this.registerHandler("changing-button", "click", this._buttonPressed);
         document.addEventListener("keyup", this._answerEntered);
-        Bus.on(QUESTION_WAS_CHOSEN, this._startListenQuestion);
+        Bus.on(GAME_PANEL_STATE_CHANGE, this._startListenQuestion);
         Bus.on(TIMER_STOPPED, this._stopListenQuestion);
         Bus.on(TIMER_INTERRUPTION, this._stopListenQuestion);
 

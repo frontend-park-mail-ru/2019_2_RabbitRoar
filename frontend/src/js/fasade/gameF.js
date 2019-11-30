@@ -11,7 +11,7 @@ import {
     PLAYERS_CHANGE,
     CONNECTION,
     ROOM_CHANGE,
-    QUESTION_WAS_CHOSEN,
+    GAME_PANEL_STATE_CHANGE,
     TIMER_INTERRUPTION,
     CRASH_EVENT,
     USER_PANEL_USER_READY,
@@ -23,7 +23,9 @@ import WebSocketIface from "../modules/webSocketIface.js"
 
 
 import GamePanelC from "../controller/gamePanelC.js";
+import OnlineGamePanelC from "../controller/gamePanelOnlineC.js";
 import GamePanelE from "../element/gamePanelE.js";
+import OnlineGamePanelE from "../element/gamePanelOnlineE.js";
 import QuestionTableC from "../controller/questionsTableC.js"
 import QuestionTableE from "../element/questionTableE.js"
 import UsersPanelE from "../element/usersPanelE.js"
@@ -43,6 +45,8 @@ class GameF {
         this.ifaces = new Map;
         this.ifaces.set(GamePanelC, this._gamePanelCInterface);
         this.ifaces.set(GamePanelE, this._gamePanelEInterface);
+        this.ifaces.set(OnlineGamePanelC, this._onlineGamePanelCInterface);
+        this.ifaces.set(OnlineGamePanelE, this._onlineGamePanelEInterface);
         this.ifaces.set(QuestionTableC, this._questionTableCInterface);
         this.ifaces.set(QuestionTableE, this._questionTableEInterface);
         this.ifaces.set(UsersPanelE, this._usersPanelEInterface);
@@ -119,20 +123,23 @@ class GameF {
             Bus.emit(QUESTION_PANEL_UPDATE);
         } else if (QuestionsM.current.questionTable.mode === "selected") {
             Bus.emit(QUESTION_PANEL_UPDATE);
-            Bus.emit(QUESTION_WAS_CHOSEN);
+            Bus.emit(GAME_PANEL_STATE_CHANGE, "selected");
         } else if (QuestionsM.current.questionTable.mode === "result") {
             Bus.emit(TIMER_INTERRUPTION);
             Bus.emit(QUESTION_PANEL_UPDATE);
-            Bus.emit(GAME_PANEL_UPDATE);
+            Bus.emit(GAME_PANEL_UPDATE);    // Только для offline
         } else if (QuestionsM.current.questionTable.mode === "verdict") {
             Bus.emit(QUESTION_PANEL_UPDATE);
-            Bus.emit(QUESTION_WAS_CHOSEN);
+            Bus.emit(GAME_PANEL_STATE_CHANGE, "verdict");
+        } else if (QuestionsM.current.questionTable.mode === "answer_race") {
+            Bus.emit(QUESTION_PANEL_UPDATE);
+            Bus.emit(GAME_PANEL_STATE_CHANGE, "answer_race");
         }
     }
 
-    _playersChange = () => {
+    _playersChange = (activeUser) => {
         const playersState = {
-            active: PlayersM.current.userIdWhoChoseAnswer,
+            active: activeUser,
             players: PlayersM.current.players
         }
 
@@ -156,9 +163,11 @@ class GameF {
             } else if (eventType === "start_game") {
                 QuestionsM.current.addFields(
                     { name: "themes", value: RoomM.current.startGameData.payload.themes },
+                    { name: "userId", value: ValidatorF.userId },
                 );
                 PlayersM.current.addFields(
                     { name: "userId", value: ValidatorF.userId },
+                    { name: "host", value: RoomM.current.host },
                     { name: "players", value: RoomM.current.playerReadyData.payload }
                 );
 
@@ -197,6 +206,14 @@ class GameF {
 
     _gamePanelEInterface = () => {
         return this.current.gamePanelEInterface;
+    }
+
+    _onlineGamePanelCInterface = () => {
+        return this.current.onlineGamePanelCInterface;
+    }
+
+    _onlineGamePanelEInterface = () => {
+        return this.current.onlineGamePanelEInterface;
     }
 
     _usersPanelEInterface = () => {
@@ -280,7 +297,8 @@ class OnlineGameF {
         
         WebSocketIface.addMessageHandler("answer_given_back", () => Bus.emit(QUESTION_CHANGE));
         WebSocketIface.addMessageHandler("request_respondent", () => Bus.emit(QUESTION_CHANGE));
-
+        WebSocketIface.addMessageHandler("request_answer_from_respondent", () => Bus.emit(QUESTION_CHANGE));
+        WebSocketIface.addMessageHandler("verdict_given_back", () => Bus.emit(QUESTION_CHANGE));
 
     }
 
@@ -303,8 +321,21 @@ class OnlineGameF {
                     info = Object.assign(info, PlayersM.getAnsweredPlayerInfo());
                     console.log(info);
                 }
+
+                if (QuestionsM.current.questionTable.mode === "verdict") {
+                    info = Object.assign(info, PlayersM.getVerdictInfo());
+                    console.log(info);
+                }
+
                 return info;
             },
+            sendVerdict(result) {
+                if (result) {
+                    WebSocketIface.sentMessage(JSON.stringify({"type": "verdict_correct"}));
+                } else {
+                    WebSocketIface.sentMessage(JSON.stringify({"type": "verdict_wrong"}));
+                }
+            }
         };
         return iface;
     };
@@ -322,16 +353,19 @@ class OnlineGameF {
         return iface;
     };
 
-    get gamePanelCInterface() {
+    get onlineGamePanelCInterface() {
         const iface = {
             sendAnswer(answer) {
                 QuestionsM.sendAnswer(answer);
+            },
+            race() {
+                PlayersM.race();
             }
         };
         return iface;
     };
 
-    get gamePanelEInterface() {
+    get onlineGamePanelEInterface() {
         const iface = {
             getScoreById(userId) {
                 for (const player of PlayersM.current.players) {
