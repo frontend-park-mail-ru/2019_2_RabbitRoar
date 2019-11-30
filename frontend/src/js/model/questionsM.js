@@ -64,7 +64,8 @@ class OfflineQuestionsM {
         }
 
         this.currentQuestionScore = Number(document.getElementById(cellId).innerHTML);
-        this.questionTable.mode = "selected";
+        //this.questionTable.mode = "selected";
+        this.questionTable.mode = "verdict";
         this.questionTable.selectedQuestion = question;
         this.chosedQuestionsId[cellId] = true;
 
@@ -127,6 +128,11 @@ class OfflineQuestionsM {
                 answer: this.questionTable.selectedQuestion.answer,
                 result: this.result,
                 currentQuestionScore: this.currentQuestionScore,
+            };
+        } else if (this.questionTable.mode === "verdict") {
+            return {
+                mode: this.questionTable.mode,
+                questionText: this.questionTable.selectedQuestion.text,
             };
         }
     }

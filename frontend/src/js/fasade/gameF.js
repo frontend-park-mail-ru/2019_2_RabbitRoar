@@ -124,6 +124,9 @@ class GameF {
             Bus.emit(TIMER_INTERRUPTION);
             Bus.emit(QUESTION_PANEL_UPDATE);
             Bus.emit(GAME_PANEL_UPDATE);
+        } else if (QuestionsM.current.questionTable.mode === "verdict") {
+            Bus.emit(QUESTION_PANEL_UPDATE);
+            Bus.emit(QUESTION_WAS_CHOSEN);
         }
     }
 

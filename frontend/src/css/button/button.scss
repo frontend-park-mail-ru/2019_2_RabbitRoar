@@ -134,3 +134,22 @@
   background-color: var(--color-bg-dark);
   cursor: pointer;
 }
+
+.verdict-button {
+  @extend %button;
+  transition: none;
+  border: 1px solid transparent;
+  border-bottom: 1px;
+  border-radius: 0px;
+  width: 90%;
+  height: 90%;
+}
+
+
+.verdict-button:hover {
+  border-width: 1px;
+  border-color: var(--border-color-theme);
+  color: var(--font-color);
+  background-color: var(--color-bg-dark);
+  cursor: pointer;
+}

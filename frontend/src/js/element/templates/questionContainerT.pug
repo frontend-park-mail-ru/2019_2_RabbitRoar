@@ -38,3 +38,35 @@ else if state.mode == "result"
             div(class="question-container__result_false") Неправильный ответ!
             div(class="question-container__answer_false") Ответ: "#{state.answer}"
             div(class="question-container__score_false") - #{state.currentQuestionScore} Очков
+
+else if state.mode == "verdict"
+    div(id="progress-bar" class="progress-bar-hidden")
+        div(id="dynamic-bar" class="dynamic-bar")
+    div(class="question-container")
+        if state.role == "master"
+            div(class="question-container__master-answer__logo")
+                div(class="question-container__master-answer__logo-avatar-container")
+                    img(class="question-container__master-answer__logo-avatar",
+                        src=state.respondent.avatar,
+                        alt="NotFound")
+                    div(class="panel-text") #{state.respondent.name}
+                    div() #{state.respondent.score}
+            div(class="question-container__master-answer__text")
+                div(class="question-container__master-answer__text-container")
+                    div() Ответ: "правильный ответ"
+                    div() Keeeek ответил: "неправильный ответ"
+            div(class="question-container__master-answer__verdict")
+                div(class="question-container__master-answer__verdict-container")
+                    div(class="verdict-button") Неверно
+                    div(class="verdict-button") Верно
+        else
+            div(class="question-container__master-answer__logo")
+                div(class="question-container__master-answer__logo-avatar-container")
+                    img(class="question-container__master-answer__logo-avatar",
+                        src="https://i.kym-cdn.com/photos/images/newsfeed/001/504/739/5c0.jpg",
+                        alt="NotFound")
+                    div(class="panel-text" name="username") keeeek
+                    div() 1000
+            div(class="question-container__master-answer__text")
+                div(class="question-container__master-answer__text-container")
+                    div() Ответ: "Какой то текст"
