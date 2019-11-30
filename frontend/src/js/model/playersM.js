@@ -41,6 +41,8 @@ class RealPlayersM {
         WebSocketIface.addMessageHandler("request_question_from_player", this._activateUser);
         WebSocketIface.addMessageHandler("answer_given_back", this._recieveAnswer);
         WebSocketIface.addMessageHandler("request_respondent", this._userChoseQuestion);
+        //WebSocketIface.addMessageHandler("request_answer_from_respondent", this._processAnswering);
+
     }
 
     addFields = (...fields) => {
@@ -48,6 +50,11 @@ class RealPlayersM {
             this[field.name] = field.value;
         }
     }
+
+    _processAnswering = (data) => {
+        this.answeringId = data.payload.player_id;
+    }
+
 
     _userChoseQuestion = (data) => {
         this.currentQuestionScore = (data.payload.question_id + 1) * 100;
