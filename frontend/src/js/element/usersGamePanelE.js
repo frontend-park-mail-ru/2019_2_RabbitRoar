@@ -36,7 +36,8 @@ class UsersGamePanelE {
                 currentPlayersMap[i].classList.add("waiting-player-game-passive");
             }
 
-            if (currentPlayersMap[i].id === host.id.toString()) {
+            if ((currentPlayersMap[i].id === host.id.toString())
+            && (currentPlayersMap[i].children[0].children.length === 0)) {
                 const image = document.createElement("IMG");
                 image.src =  StaticManager.hostIcon;
                 image.alt = "User";

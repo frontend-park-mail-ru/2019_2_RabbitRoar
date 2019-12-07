@@ -73,7 +73,7 @@ class UsersPanelE {
                 this._insertCell(player, currentPlayersMap[order]);
             }
 
-            if (player.id === host.id) {
+            if ((player.id === host.id) && (currentPlayersMap[order].children[0].children.length === 0)) {
                 const image = document.createElement("IMG");
                 image.src =  StaticManager.hostIcon;
                 image.alt = "User";
