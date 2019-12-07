@@ -33,6 +33,7 @@ import UsersPanelE from "../element/usersPanelE.js"
 import UsersGamePanelE from "../element/usersGamePanelE.js"
 import ValidatorF from "./userValidatorF.js";
 import StaticManager from "../modules/staticManager.js";
+import packM from "../model/packM.js";
 
 
 
@@ -81,6 +82,7 @@ class GameF {
             if (options.action === "join") {
                 console.log("Create game, user join");
                 this.current = await this._createOnlineGame(options.roomId, null);
+
             } else if (options.action === "create") {
                 console.log("Create game, user create");
 
@@ -231,8 +233,13 @@ class GameF {
         return name;
     }
     
+    // Методы работают только для онлайна
     getRoomName = () => {
         return this.current.getRoomName();
+    }
+
+    getPackDescription = () => {
+        return this.current.getPackDescription();
     }
 }
 
@@ -291,13 +298,12 @@ class OfflineGameF {
 
 class OnlineGameF {
     constructor(roomId, roomOptions) {
-
         console.log(roomId, roomOptions);
+
         console.log("in online game constructor");
         QuestionsM.CreateNew("online");
         RoomM.CreateNew(roomId, roomOptions);
         PlayersM.CreateNew(roomId, roomOptions);
-
         
         WebSocketIface.addMessageHandler("answer_given_back", () => Bus.emit(QUESTION_CHANGE));
         WebSocketIface.addMessageHandler("request_respondent", () => Bus.emit(QUESTION_CHANGE));
@@ -425,7 +431,14 @@ class OnlineGameF {
     }
 
     getPackName = () => {
+        console.log("getPackName in gameF");
         return RoomM.getPackName();
+    }
+
+    getPackDescription = () => {
+        const packId = RoomM.getPackId();
+        console.log(packM.getPackById(packId));
+        return packM.getPackById(packId);
     }
 }
 

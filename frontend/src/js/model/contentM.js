@@ -20,6 +20,7 @@ class ContentM {
         }
     }
 
+    
 
     getUserPacks = async () => {
         const packs = await getUserPacks();

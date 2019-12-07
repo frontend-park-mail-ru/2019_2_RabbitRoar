@@ -53,7 +53,12 @@ class RoomM {
     }
 
     getRoomName = () => {
-        return this.current.roomName;
+        console.log("AAA почти получили имя");
+        return this.current.getRoomName();
+    }
+
+    getPackId = () => {
+        return this.current.pack;
     }
 }
 
@@ -139,6 +144,15 @@ class RealRoomM {
 
     async connect() {
         let response;
+        try {
+            const csrf = await getCSRF();
+            await deleteLeaveRoom(csrf.CSRF);
+        } catch (err) {
+            console.log(err);
+            this.lastState = this.state;
+            this.state = "crash_connection";
+            return;
+        }
         if (this.roomOptions) {
             console.log("POST CREATE");
             try {
@@ -151,17 +165,10 @@ class RealRoomM {
                 return;
             }
             this.roomId = response.UUID;
+
             console.log("ROOM ID from create:", this.roomId);
         } else {
-            try {
-                const csrf = await getCSRF();
-                await deleteLeaveRoom(csrf.CSRF);
-            } catch (err) {
-                console.log(err);
-                this.lastState = this.state;
-                this.state = "crash_connection";
-                return;
-            }
+
 
             try {
                 const csrf = await getCSRF();
@@ -174,21 +181,29 @@ class RealRoomM {
             }
         }
 
+        console.log("ROOM OPTION", this.roomOptions);
+        console.log("RESPONSE ", response);
         this.roomInfo = response;
 
         this.UUID = response.UUID;
-        this.roomName = response.roomName;
+        this.roomName = response.name;
         this.playersCapacity = response.playersCapacity;
         this.playersJoined = parseInt(response.playersJoined);
         this.pack = response.pack;
         this.packName = response.packName;
 
+        // this.packDescription = getPackById();
         this.lastState = this.state;
         this.state = "before_connection";
 
         WebSocketIface.connect(this.roomId);
+        console.log("ROOM OPTION", this.roomOptions);
     }
 
+    getRoomName = () => {
+        console.log("roomM", this.roomName);
+        return this.roomName;
+    }
 }
 
 export default new RoomM();

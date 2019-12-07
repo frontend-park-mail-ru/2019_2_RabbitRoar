@@ -5,7 +5,8 @@ div(class="popup " id="leave-popup")
             div(class="popup-button" id="continue") Покинуть
             div(class="popup-button" id="cancel") Отмена
 
-div(class="panel-text") Ожидайте других игроков!
+div(class="panel-text" id="room-name") Комната: #{roomName}
+div(class="panel-text") #{userName}, ожидайте других игроков!
 div(class="user-panel-grid-container")
     div(class="user-panel-container")
         each player, index in players

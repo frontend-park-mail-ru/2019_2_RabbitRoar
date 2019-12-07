@@ -88,11 +88,18 @@ class UsersPanelE {
         const players = this.gameIface.getPlayers();
         const roomInfo = this.gameIface.getRoomInfo();
         const leaveLogo = StaticManager.leaveLogo;
+        const roomName = GameF.getRoomName();
+        const userName = ValidatorF.getCurrentUsername();
+        console.log("Имя комнаты в элементе ", roomName);
+        console.log("Имя юзера ", userName);
+
 
         this.root.insertAdjacentHTML("beforeend", Template({
             players: players,
             room: roomInfo,
-            leaveLogo: leaveLogo
+            leaveLogo: leaveLogo,
+            roomName: roomName,
+            userName: userName
         }));
         this.controller.startAllListeners();
     }

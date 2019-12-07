@@ -7,6 +7,11 @@ class ValidatorF {
     constructor() {
         this.networkState = window.navigator.onLine;
         this.userId;
+        this.username;
+    }
+
+    getCurrentUsername() {
+        return this.username;
     }
 
     checkLocalstorageAutorization() {
@@ -14,7 +19,7 @@ class ValidatorF {
         return result;
     }
 
-    async getUserData() {
+    async getUserData() {        
         let userInfo;
         if (UserM.checkLocalstorageAutorization()) {
             try {
@@ -26,8 +31,12 @@ class ValidatorF {
         } else {
             userInfo = UserM.getNoAutoriseData();
         }
+        console.log(userInfo);
         if (!this.userId) {
             this.userId = userInfo.ID;
+        }
+        if (!this.username) {
+            this.username = userInfo.username;
         }
         return userInfo;
     }
