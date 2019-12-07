@@ -227,9 +227,12 @@ class GameF {
 
     // shity place
     getPackName = () => {
-        console.log(this.current);
         const name = this.current.getPackName();
         return name;
+    }
+    
+    getRoomName = () => {
+        return this.current.getRoomName();
     }
 }
 
@@ -416,9 +419,12 @@ class OnlineGameF {
         return iface;
     }
 
+    getRoomName = () => {
+        return RoomM.getRoomName();
+    }
 
     getPackName = () => {
-        return RoomM.getRoomName();
+        return RoomM.getPackName();
     }
 }
 
