@@ -21,23 +21,27 @@ else
         div(class="tab-click" id="my-packs") Мои паки
         div(class="tab" id="all-packs") Все паки
         
-        div(class="tab-content")
-            p(class="pack-number" id="pack-id") Выбранный пак:
-            span(class="error-annotation" id="error_pack") Отображение ошибки
+        if packs
+            div(class="tab-content")
+                p(class="pack-number" id="pack-id") Выбранный пак:
+                span(class="error-annotation" id="error_pack") Отображение ошибки
 
-            div(id="offline_mode")
-            div(class="offline-panel")
-                div(class="panel-elem") Название:
-                div(class="panel-elem") Автор:
-                div(class="panel-elem") Рейтинг:
-                div(class="panel-elem") 
-            each pack, index in packs
+                div(id="offline_mode")
                 div(class="offline-panel")
-                    div(class="panel-elem") #{pack.name}
-                    div(class="panel-elem") #{pack.author}
-                    div(class="panel-elem") #{pack.rating}
-                    div(class="panel-elem")
-                        div(class="pack-button" id=pack.id) Выбрать
+                    div(class="panel-elem") Название:
+                    div(class="panel-elem") Автор:
+                    div(class="panel-elem") Рейтинг:
+                    div(class="panel-elem") 
+                each pack, index in packs
+                    div(class="offline-panel")
+                        div(class="panel-elem") #{pack.name}
+                        div(class="panel-elem") #{pack.author}
+                        div(class="panel-elem") #{pack.rating}
+                        div(class="panel-elem")
+                            div(class="pack-button" id=pack.id) Выбрать
+        else 
+            div(class="tab-content")
+                p Вы не создали ни одного пака
 
     form(class="form")
         button(type="submit", id="finish") Завершить

@@ -44,7 +44,13 @@ class CreateRoomE {
             packs = this.userPacks;
             disabledTabId = "all-packs";
         }
-
+        // console.log(packs.length);
+        // if (packs.length === 0) {
+        //     packs = undefined;
+        //     console.log("Пустые паки!");
+        // } else {
+        //     console.log("Не пустые паки!");
+        // }
         this.root.insertAdjacentHTML("beforeend", Template({ packs, formNumber }));
         if (formNumber === 2) {
             const disabledTabElement = document.getElementById(disabledTabId);
