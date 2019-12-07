@@ -9,6 +9,28 @@ import { replaceTwoCssClasses } from "../modules/css_operations";
 
 import StaticManager from "../modules/staticManager.js"
 
+const MOKiface = {
+    getPlayers() {
+        const capacity = 4;
+        const players = new Array;
+
+        for (let i = 0; i < capacity; i++) {
+            players.push({
+                id: i,
+                username: "Empty" + i,
+                avatar: StaticManager.getUserUrl(),
+                score: 0,
+                ready: false
+            });
+        }
+        return players;
+    },
+
+    getRoomInfo() {
+        return {};
+    },
+}
+
 class UsersPanelE {
     constructor() {
         this.controller = UsersPanelC;
@@ -18,7 +40,7 @@ class UsersPanelE {
 
     _changeUserIndicator = (userId) => {
         const userElem = document.getElementById(userId);
-        const indicatorElem = userElem.children[1];
+        const indicatorElem = userElem.children[2];
         replaceTwoCssClasses(indicatorElem, "users-panel__ready-indicator__false", "users-panel__ready-indicator__true");
     }
 
@@ -35,6 +57,7 @@ class UsersPanelE {
 
     _updatePlayers = (message) => {
         const currentPlayers = document.querySelectorAll(".waiting-player");
+        const host = this.gameIface.getHost();
 
         const currentPlayersMap = {}
         for (let i = 0; i < currentPlayers.length; i++) {
@@ -49,25 +72,25 @@ class UsersPanelE {
             } else {
                 this._insertCell(player, currentPlayersMap[order]);
             }
+
+            if ((player.id === host.id) && (currentPlayersMap[order].children[0].children.length === 0)) {
+                const image = document.createElement("IMG");
+                image.src =  StaticManager.hostIcon;
+                image.alt = "User";
+                image.id = "hostIcon";
+                image.classList.add("navbar__user-logo");
+                currentPlayersMap[order].children[0].insertAdjacentElement("beforeend", image);
+            }
             order++;
         }
     }
 
-    // "players": [
-    //     {
-    //         "id": "int",
-    //         "username": "string",
-    //         "avatar": "string",
-    //         "score": "int",
-    //         "ready": bool
-    //     }
-    // ]
 
     _insertCell(player, container) {
         container.id = player.id;
 
-        container.children[0].children[0].children[0].src = player.avatar;
-        container.children[0].children[1].innerHTML = player.username;
+        container.children[1].children[0].children[0].src = player.avatar;
+        container.children[1].children[1].innerHTML = player.username;
         if (player.ready) {
             console.log("user ", player.username, "ready");
             this._changeUserIndicator(player.id);
@@ -80,19 +103,18 @@ class UsersPanelE {
         this.create(this.root);
     }
 
+    
+
 
     create = (root = document.getElementById("application")) => {
         this.root = root;
         this.gameIface = GameF.getInterface(this)();
+        //this.gameIface = MOKiface;
 
         const players = this.gameIface.getPlayers();
-        const roomInfo = this.gameIface.getRoomInfo();
         const leaveLogo = StaticManager.leaveLogo;
         const roomName = GameF.getRoomName();
         const userName = ValidatorF.getCurrentUsername();
-        console.log("Имя комнаты в элементе ", roomName);
-        console.log("Имя юзера ", userName);
-
 
         this.root.insertAdjacentHTML("beforeend", Template({
             players: players,
@@ -100,6 +122,7 @@ class UsersPanelE {
             leaveLogo: leaveLogo,
             roomName: roomName,
             userName: userName
+
         }));
         this.controller.startAllListeners();
     }

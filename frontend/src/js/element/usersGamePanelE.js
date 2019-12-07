@@ -18,6 +18,7 @@ class UsersGamePanelE {
     _update = (playersState) => {
         console.log(playersState);
         const currentPlayers = document.querySelectorAll(".waiting-player-game");
+        const host = this.gameIface.getHost();
         const amount = currentPlayers.length;
 
         const currentPlayersMap = {}
@@ -27,7 +28,6 @@ class UsersGamePanelE {
         }
 
         for (let i = 0; i < amount; i++) {
-            console.log(`${currentPlayersMap[i].id} === ${playersState.active}`)
             if (currentPlayersMap[i].id === playersState.active.toString()) {
                 currentPlayersMap[i].classList.add("waiting-player-game-active");
                 currentPlayersMap[i].classList.remove("waiting-player-game-passive");
@@ -35,7 +35,18 @@ class UsersGamePanelE {
                 currentPlayersMap[i].classList.remove("waiting-player-game-active");
                 currentPlayersMap[i].classList.add("waiting-player-game-passive");
             }
-            currentPlayersMap[i].children[2].innerHTML = playersState.players[i].score;
+
+            if ((currentPlayersMap[i].id === host.id.toString())
+            && (currentPlayersMap[i].children[0].children.length === 0)) {
+                const image = document.createElement("IMG");
+                image.src =  StaticManager.hostIcon;
+                image.alt = "User";
+                image.id = "hostIcon";
+                image.classList.add("navbar__user-logo");
+                currentPlayersMap[i].children[0].insertAdjacentElement("beforeend", image);
+            }
+
+            currentPlayersMap[i].children[3].innerHTML = playersState.players[i].score;
         }
 
     }

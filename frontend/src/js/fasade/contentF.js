@@ -8,6 +8,8 @@ import { CHANGE_TAB } from "../modules/events.js";
 import MainMenuM from "../model/mainMenuM.js";
 import { PACK_WORKER_COMMAND } from "../modules/events.js";
 
+import { ROUTER_EVENT  } from "../modules/events.js";
+
 import UserValidatorF from "./userValidatorF";
 
 
@@ -135,9 +137,11 @@ class ContentF {
         MainMenuM.currentTab = window.id.tabRoom;
     }
 
-    setCurrentTab = (newValue) => {
+    setCurrentTab = (newValue, reload = true) => {
         MainMenuM.currentTab = newValue;
-        Bus.emit(CHANGE_TAB);
+        if (reload) {
+            Bus.emit(ROUTER_EVENT.ROUTE_TO, MainMenuM.currentTab);
+        }
     }
 
     deletePackById = async (packForDelete) => {
