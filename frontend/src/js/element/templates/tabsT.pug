@@ -35,12 +35,6 @@ div(class="main-container")
                 div(class="panel-elem") Количество:
                 div(class="panel-elem")
                 
-                div(class="popup" id="popup")
-                    div(class="popup__content")
-                        div(class="popup-elem-top" id="popup-elem-top") Вы переходите в online игру.
-                        div(class="popup-elem-bottom")
-                            div(class="popup-button" id="cansel") Отмена
-                            div(class="popup-button" id="continue") Авторизоваться
             if (templateContent.connection === true)
                 each room, index in templateContent.content
                     div(class="rooms-panel")
@@ -105,7 +99,7 @@ div(class="main-container")
 
                 div(class="popup " id="popup")
                     div(class="popup__content " id="popup_content")
-                        div(class="popup-elem-top" id="popup-elem-top") Вы переходите в offline игру, очки начислены не будут
+                        div(class="popup-elem-normal" id="popup-elem-top") Вы переходите в offline игру, очки начислены не будут
                         div(class="popup-elem-bottom ")
                             div(class="popup-button" id="cansel") Отмена
                             div(class="popup-button" id="continue") Продолжить
@@ -156,7 +150,7 @@ div(class="main-container")
 
             div(class="popup " id="popup")
                 div(class="popup__content " id="popup_content")
-                    div(class="popup-elem-top" id="popup-elem-top") Для создания пака необходимо авторизоваться
+                    div(class="popup-elem-normal" id="popup-elem-top") Для создания пака необходимо авторизоваться
                     div(class="popup-elem-bottom ")
                         div(class="popup-button" id="cansel") Отмена
                         div(class="popup-button" id="login") Продолжить

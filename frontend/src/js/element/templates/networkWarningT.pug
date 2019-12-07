@@ -1,26 +1,26 @@
 div(class="popup" id="popup_sw_error")
     div(class="popup__content")
-        div(class="popup-elem-top" id="popup-elem-top-error") Чтобы приложение продолжило стабильно работать, пожалуйста, перезагрузите страницу любым методом кроме ctrl+F5.
+        div(class="popup-elem-normal" id="popup-elem-top-error") Чтобы приложение продолжило стабильно работать, пожалуйста, перезагрузите страницу любым методом кроме ctrl+F5.
 
 div(class="popup" id="popup_connection_error")
     div(class="popup__content")
-        div(class="popup-elem-top" id="popup-elem-top-error") Не удалось установить Websocket соединение.
+        div(class="popup-elem-normal" id="popup-elem-top-error") Не удалось установить Websocket соединение.
         div(class="popup-elem-bottom")
             div(class="popup-button" id="popup_connection_error_route") Смириться
 
 div(class="popup" id="popup_http_error")
     div(class="popup__content")
-        div(class="popup-elem-top" id="popup-elem-top-error") Не удалось установить HTTPS соединение.
+        div(class="popup-elem-normal" id="popup-elem-top-error") Не удалось установить HTTPS соединение.
         div(class="popup-elem-bottom")
             div(class="popup-button" id="popup_connection_http_error_route") Смириться
 
 div(class="popup" id="popup_connect_timer")
     div(class="popup__content")
-        div(class="popup-elem-top" id="popup-elem-top-error") Идет подключение, подождите.
+        div(class="popup-elem-normal" id="popup-elem-top-error") Идет подключение, подождите.
 
 div(class="popup" id="popup_load_timer")
     div(class="popup__content")
-        div(class="popup-elem-top" id="popup-elem-top-error") Подождите, данные загружаются.
+        div(class="popup-elem-normal" id="popup-elem-top-error") Подождите, данные загружаются.
 
 if online === true
     div(class="warning" id="warning")
@@ -32,6 +32,6 @@ else
 
 div(class="popup" id="popup-end")
     div(class="popup__content")
-        div(class="popup-elem-top" id="popup-elem-top") Игра завершена
+        div(class="popup-elem-normal" id="popup-elem-top") Игра завершена
         div(class="popup-elem-bottom")
             div(class="popup-button" id="exit-offline-game") OK

@@ -123,10 +123,6 @@ class TabsC {
             } else {
                 this._startGame(event);
             }
-            // else {
-            //     const join_id = event.target.getAttribute("join_id");
-            //     continueBtn.setAttribute("join_id", join_id);
-            // }
         }
 
     }
