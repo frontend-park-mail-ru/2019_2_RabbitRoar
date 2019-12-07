@@ -1,6 +1,10 @@
 @import "sizes";
 @import "TEMPLATE_PANEL";
 
+@import "/game-panel-online/game-panel-online";
+@import "/game-panel-online/__control/game-panel-online__control";
+@import "/game-panel-online/__input/game-panel-online__input";
+
 @import "./help/__question-img/help__question-img.scss";
 @import "./help/__text-help/help__text-help.scss";
 
