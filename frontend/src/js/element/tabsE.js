@@ -3,17 +3,23 @@ import Bus from "../event_bus.js";
 import { CHANGE_TAB } from "../modules/events.js";
 import ContentF from "../fasade/contentF.js";
 import TabsC from "../controller/tabsC.js";
+import { TAB } from "../paths";
 
 
 class TabsE {
     constructor() {
         this.root = document.getElementById("application");
         this.controller = TabsC;
-        Bus.on(CHANGE_TAB, this._restartListener);
     }
 
     create = (root = document.getElementById("application")) => {
         this.root = root;
+
+        if (window.location.pathname === "/") {
+            ContentF.setCurrentTab(TAB[0], false);
+        } else {
+            ContentF.setCurrentTab(window.location.pathname, false);
+        }
 
         ContentF.getTabContent().then(
             templateContent => {
@@ -33,11 +39,6 @@ class TabsE {
                 this.controller.startAllListeners();
             }
         );
-    }
-
-    _restartListener = (event) => {
-        this._localDestroy();
-        this.create(this.root);
     }
 
     _highlightChosen = () => {
