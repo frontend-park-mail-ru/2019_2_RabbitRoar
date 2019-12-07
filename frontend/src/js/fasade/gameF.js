@@ -404,6 +404,9 @@ class OnlineGameF {
             getRoomInfo() {
                 return RoomM.current.roomInfo;
             },
+            getHost() {
+                return RoomM.current.host;
+            },
         };
         return iface;
     }
@@ -415,7 +418,10 @@ class OnlineGameF {
             },
             getGameInfo() {
                 return {};
-            }
+            },
+            getHost() {
+                return PlayersM.current.host;
+            },
         };
         return iface;
     }

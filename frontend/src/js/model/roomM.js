@@ -55,6 +55,14 @@ class RoomM {
     getRoomName = () => {
         return this.current.roomName;
     }
+
+    getHostId = () => {
+        if (this.current.host) {
+            return this.current.host;
+        } else {
+            return this.current.playerJoinedData.payload.players[0];
+        }
+    }
 }
 
 class RealRoomM {
@@ -103,9 +111,7 @@ class RealRoomM {
 
     _playerJoinedToRoom = (data) => {
         if (!data.payload.host) {
-            data.payload.host = {
-                id: data.payload.players[0].id
-            }
+            data.payload.host = data.payload.players[0]
         }
         this.host = data.payload.host;
         this.lastState = this.state;
@@ -139,6 +145,17 @@ class RealRoomM {
 
     async connect() {
         let response;
+
+        try {
+            const csrf = await getCSRF();
+            await deleteLeaveRoom(csrf.CSRF);
+        } catch (err) {
+            console.log(err);
+            this.lastState = this.state;
+            this.state = "crash_connection";
+            return;
+        }
+
         if (this.roomOptions) {
             console.log("POST CREATE");
             try {
@@ -153,16 +170,6 @@ class RealRoomM {
             this.roomId = response.UUID;
             console.log("ROOM ID from create:", this.roomId);
         } else {
-            try {
-                const csrf = await getCSRF();
-                await deleteLeaveRoom(csrf.CSRF);
-            } catch (err) {
-                console.log(err);
-                this.lastState = this.state;
-                this.state = "crash_connection";
-                return;
-            }
-
             try {
                 const csrf = await getCSRF();
                 response = await postJoinRoom(this.roomId, csrf.CSRF);

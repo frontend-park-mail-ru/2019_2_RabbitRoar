@@ -9,6 +9,7 @@ div(class="user-panel-grid-container")
     div(class="user-panel-container")
         each player, index in players
             div(class="waiting-player-game" order=index id=player.id)
+                div(class="users-panel__icon")
                 img(class="player-avatar-game",
                     src=player.avatar,
                     name="avatar",
