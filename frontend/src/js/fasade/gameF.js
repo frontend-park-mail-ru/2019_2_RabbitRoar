@@ -330,13 +330,7 @@ class OnlineGameF {
 
                 return info;
             },
-            sendVerdict(result) {
-                if (result) {
-                    WebSocketIface.sentMessage(JSON.stringify({"type": "verdict_correct"}));
-                } else {
-                    WebSocketIface.sentMessage(JSON.stringify({"type": "verdict_wrong"}));
-                }
-            }
+
         };
         return iface;
     };
@@ -348,6 +342,13 @@ class OnlineGameF {
                     QuestionsM.clickQuestion(packId, cellId, themeId);
                 } else {
                     console.log("НОУ юзер не может выбирать вопрос");
+                }
+            },
+            sendVerdict(result) {
+                if (result) {
+                    WebSocketIface.sentMessage(JSON.stringify({"type": "verdict_correct"}));
+                } else {
+                    WebSocketIface.sentMessage(JSON.stringify({"type": "verdict_wrong"}));
                 }
             }
         };

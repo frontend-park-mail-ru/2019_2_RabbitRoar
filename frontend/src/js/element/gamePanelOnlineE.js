@@ -35,6 +35,7 @@ class GamePanelOnlineE {
             if (state === "default") {
                 changingButton.innerHTML = "Выберите вопрос";
             }
+            changingButton.setAttribute("state", state);
 
             inputAnswer.style.visibility = "hidden";
             inputAnswer.value = "";

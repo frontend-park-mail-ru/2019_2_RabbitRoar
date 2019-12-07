@@ -1,6 +1,7 @@
 import WebSocketIface from "../modules/webSocketIface.js"
 import Bus from "../event_bus.js";
 import { PLAYERS_CHANGE } from "../modules/events.js";
+import StaticManager from "../modules/staticManager.js";
 
 
 
@@ -44,7 +45,7 @@ class PlayersM {
         return {
             respondent: {
                 name: this.current.answeringPlayer.username,
-                avatar: this.current.answeringPlayer.avatar,
+                avatar: StaticManager.getUserUrl(this.current.answeringPlayer.avatar),
                 score: this.current.answeringPlayer.score,
                 trueAnswer: this.current.trueAnswer,
             },
