@@ -34,7 +34,13 @@ div(class="main-container")
                 div(class="panel-elem") Пак:
                 div(class="panel-elem") Количество:
                 div(class="panel-elem")
-                
+
+                div(class="popup" id="popup")
+                    div(class="popup__content")
+                        div(class="popup-elem-top" id="popup-elem-top") Вы переходите в online игру.
+                        div(class="popup-elem-bottom")
+                            div(class="popup-button" id="cansel") Отмена
+                            div(class="popup-button" id="continue") Авторизоваться     
             if (templateContent.connection === true)
                 each room, index in templateContent.content
                     div(class="rooms-panel")
