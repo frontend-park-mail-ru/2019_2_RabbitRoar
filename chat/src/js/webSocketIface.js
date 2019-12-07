@@ -1,3 +1,4 @@
+
 class WebSocketIface {
     constructor() {
         this.addErrorHandler(
@@ -42,7 +43,7 @@ class WebSocketIface {
     };
 
     connect() {
-        this.socket = new WebSocket("wss://svoyak.fun/api/chat/ws");
+        this.socket = new WebSocket("wss://svoyak.fun/chat/ws");
 
         this.socket.onopen = (event) => {
             if (this.openHandlers) {

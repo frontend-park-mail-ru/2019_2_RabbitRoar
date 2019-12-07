@@ -1,8 +1,5 @@
 import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import GameF from "../fasade/gameF.js";
-import Bus from "../event_bus.js";
-import { GAME_PANEL_STATE_CHANGE } from "../modules/events.js";
-import { replaceTwoCssClasses } from "../modules/css_operations";
 
 
 class GamePanelC {
@@ -10,16 +7,17 @@ class GamePanelC {
         Object.assign(this, DomEventsWrapperMixin);
 
         this.registerHandler("changing-button", "click", this._buttonPressed);
-        document.addEventListener("keyup", this._answerEntered);
     }
 
     startAllListeners = () => {
         this.gameIface = GameF.getInterface(this)();
         this.enableAll();
+        document.addEventListener("keyup", this._answerEntered);
     }
 
     disableAllListeners = () => {
         this.disableAll();
+        document.removeEventListener("keyup", this._answerEntered);
     }
 
     _buttonPressed = (event) => {

@@ -1,10 +1,9 @@
 import Template from "./templates/gamePanelOnline.pug";
 import GamePanelOnlineC from "../controller/gamePanelOnlineC.js";
-import ValidatorF from "../fasade/userValidatorF.js";
 import GameF from "../fasade/gameF.js";
 
 import Bus from "../event_bus.js";
-import { GAME_PANEL_UPDATE } from "../modules/events.js";
+import { GAME_PANEL_UPDATE, GAME_PANEL_STATE_CHANGE } from "../modules/events.js";
 
 
 class GamePanelOnlineE {

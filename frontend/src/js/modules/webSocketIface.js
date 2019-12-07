@@ -1,4 +1,4 @@
-
+import { HttpsOrigin } from "../paths.js"
 
 
 class WebSocketIface {
@@ -64,7 +64,7 @@ class WebSocketIface {
             if (this.handlersMap) {
                 for (const type in this.handlersMap) {
                     const objMessage = JSON.parse(event.data);
-                    console.log("Пришло сообщение типа", objMessage.type);
+                    console.log("Пришло сообщение типа----------->", objMessage.type);
                     if (objMessage.type === type) {
                         for (const handler of this.handlersMap[type]) {
                             handler(objMessage);

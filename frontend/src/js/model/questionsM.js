@@ -64,8 +64,8 @@ class OfflineQuestionsM {
         }
 
         this.currentQuestionScore = Number(document.getElementById(cellId).innerHTML);
-        //this.questionTable.mode = "selected";
-        this.questionTable.mode = "verdict";
+        this.questionTable.mode = "selected";
+        //this.questionTable.mode = "verdict";
         this.questionTable.selectedQuestion = question;
         this.chosedQuestionsId[cellId] = true;
 

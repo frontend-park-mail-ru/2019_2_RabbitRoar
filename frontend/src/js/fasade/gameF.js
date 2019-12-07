@@ -16,7 +16,8 @@ import {
     CRASH_EVENT,
     USER_PANEL_USER_READY,
     USER_PANEL_NEW_USER,
-    ONLINE_QUESTION_TABLE_UPDATE
+    ONLINE_QUESTION_TABLE_UPDATE,
+    WEBSOCKET_CLOSE
 } from "../modules/events.js";
 import { WAITING, SINGLE_GAME, ONLINE_GAME } from "../paths";
 import WebSocketIface from "../modules/webSocketIface.js"
@@ -185,7 +186,7 @@ class GameF {
             const closeCode = RoomM.current.closeCode;
             const lastState = RoomM.current.lastState;
 
-            Bus.emit(CLOSE, {
+            Bus.emit(WEBSOCKET_CLOSE, {
                 code: closeCode,
                 lastState: lastState,
             });

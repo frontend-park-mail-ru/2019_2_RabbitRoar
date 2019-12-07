@@ -2,11 +2,6 @@ import Bus from "../event_bus.js";
 import { ROUTER_EVENT, PROFILE_UPDATE } from "../modules/events.js";
 import { LOGIN, ROOT, staticFiles } from "../paths";
 import UserM from "../model/userM.js";
-import { basePhotoUrl } from "../modules/ajax.js"
-
-const defaultAvatar = window.location.origin + staticFiles.userLogo;
-
-
 
 class ValidatorF {
     constructor() {

@@ -1,10 +1,11 @@
 import { postRequest, deleteRequest, getRequest, putRequest, RetardsPostRequest } from "./ajax.js";
 import { SERVICE_WORKER_CMD } from "../modules/events.js";
 import Bus from "../event_bus.js";
+import { HttpsOrigin } from "../paths.js"
 
 
 const userCacheDelete = () => {
-    const base = "https://svoyak.fun/api";
+    const base = HttpsOrigin;
 
     if (window.navigator.onLine) {
         Bus.emit(SERVICE_WORKER_CMD, {

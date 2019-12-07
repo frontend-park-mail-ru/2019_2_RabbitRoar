@@ -69,7 +69,8 @@ class NavbarE {
 
         this.root.insertAdjacentHTML("beforeend", Template({
             authorized: authorized,
-            chatUrl: StaticManager.chatAvatar
+            chatUrl: StaticManager.chatAvatar,
+            exitUrl: StaticManager.exitLogo
         }));
         
         if (currentUrl === "/") {
