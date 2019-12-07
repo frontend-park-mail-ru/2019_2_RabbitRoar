@@ -8,15 +8,10 @@ class PackInfoC {
         Object.assign(this, DomEventsWrapperMixin);
 
         this.registerHandler("ready", "click", this._getReady);
-        this.registerHandler("exit", "click", this._exitFromWaiting);
     }
 
     _getReady = () => {
         document.getElementById("main-user").style.borderColor = "#72f1b8";
-    }
-
-    _exitFromWaiting = () => {
-        Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
     }
 
     startAllListeners = () => {

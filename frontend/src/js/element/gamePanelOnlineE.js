@@ -18,9 +18,10 @@ class GamePanelOnlineE {
     _changeState = (state) => {
         const changingButton = document.getElementById("changing-button");
         const inputAnswer = document.getElementById("input-answer");
-
+        
         if (state === "answer_race") {
             changingButton.className = "game-panel-button";
+            inputAnswer.style.visibility = "hidden";
             changingButton.innerHTML = "Захватить!";
             changingButton.setAttribute("state", "answer_race");
         } else if (state === "selected") {
@@ -35,10 +36,10 @@ class GamePanelOnlineE {
             if (state === "default") {
                 changingButton.innerHTML = "Выберите вопрос";
             }
-            changingButton.setAttribute("state", state);
 
+            changingButton.setAttribute("state", state);
             inputAnswer.style.visibility = "hidden";
-            inputAnswer.value = "";
+            inputAnswer.value = "Юзер должен выбрать вопрос";
         }
     }
 

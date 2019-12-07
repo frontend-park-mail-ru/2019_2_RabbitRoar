@@ -1,0 +1,10 @@
+.game-panel-online__input {
+    grid-row-start: 1;
+    grid-row-end: 2;
+  
+    grid-column-start: 2;
+    grid-column-end: 3;
+  
+    font-size: var(--font-size);
+    visibility: hidden; 
+  }

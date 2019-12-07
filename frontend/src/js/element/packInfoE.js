@@ -13,7 +13,8 @@ class PackInfoE {
         
         this.root = root;
         const packName = GameF.getPackName();
-        this.root.insertAdjacentHTML("beforeend", Template({packName: packName}));
+        const roomName = GameF.getRoomName();
+        this.root.insertAdjacentHTML("beforeend", Template({packName: packName, roomName: roomName}));
 
         this.controller.startAllListeners();
     }

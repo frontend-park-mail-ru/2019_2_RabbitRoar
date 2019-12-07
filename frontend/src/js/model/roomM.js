@@ -48,8 +48,12 @@ class RoomM {
         await this.current.connect();
     }
 
-    getRoomName() {
-        return this.current.roomId;
+    getPackName = () => {
+        return this.current.packName;
+    }
+
+    getRoomName = () => {
+        return this.current.roomName;
     }
 }
 
