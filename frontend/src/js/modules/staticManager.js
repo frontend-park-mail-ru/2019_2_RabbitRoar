@@ -58,6 +58,10 @@ class StaticManager {
         return this.base + "/static/exit.svg";
     }
 
+    get hostIcon() {
+        return this.base + "/static/host-icon.png";
+    }
+
     getIframeUrl() {
         if (this.base === this.nginx) {
             return this.nginx + "/chat";
