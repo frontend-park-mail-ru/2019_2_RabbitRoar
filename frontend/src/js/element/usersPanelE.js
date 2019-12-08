@@ -78,7 +78,7 @@ class UsersPanelE {
                 image.src =  StaticManager.hostIcon;
                 image.alt = "User";
                 image.id = "hostIcon";
-                image.classList.add("navbar__user-logo");
+                image.classList.add("users-panel__icon-img");
                 currentPlayersMap[order].children[0].insertAdjacentElement("beforeend", image);
             }
             order++;
@@ -91,10 +91,7 @@ class UsersPanelE {
 
         container.children[1].children[0].children[0].src = player.avatar;
         container.children[1].children[1].innerHTML = player.username;
-        if (player.ready) {
-            console.log("user ", player.username, "ready");
-            this._changeUserIndicator(player.id);
-        }
+        this._changeUserIndicator(player.id, player.ready);
     }
 
 

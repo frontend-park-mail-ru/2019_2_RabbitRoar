@@ -5,8 +5,34 @@ import Bus from "../event_bus.js";
 
 import StaticManager from "../modules/staticManager.js";
 
-
 import { USERS_PANEL_UPDATE } from "../modules/events.js";
+
+const MOKiface = {
+    getPlayers() {
+        const capacity = 4;
+        const players = new Array;
+
+        for (let i = 0; i < capacity; i++) {
+            players.push({
+                id: i,
+                username: "Empty" + i,
+                avatar: StaticManager.getUserUrl(),
+                score: 0,
+                ready: false
+            });
+        }
+        return players;
+    },
+    getHost() {
+        return {
+            id: 0,
+            username: "Empty" + 0,
+            avatar: StaticManager.getUserUrl(),
+            score: 0,
+            ready: false
+        };
+    },
+};
 
 class UsersGamePanelE {
     constructor() {
@@ -41,7 +67,7 @@ class UsersGamePanelE {
                 image.src =  StaticManager.hostIcon;
                 image.alt = "User";
                 image.id = "hostIcon";
-                image.classList.add("navbar__user-logo");
+                image.classList.add("users-panel__icon-img");
                 currentPlayersMap[i].children[0].insertAdjacentElement("beforeend", image);
             }
 
@@ -53,15 +79,23 @@ class UsersGamePanelE {
 
     create = (root = document.getElementById("application")) => {
         this.root = root;
-        this.gameIface = GameF.getInterface(this)();
+        //this.gameIface = GameF.getInterface(this)();
+        this.gameIface = MOKiface;
 
         const players = this.gameIface.getPlayers();
         const leaveLogo = StaticManager.leaveLogo;
+
 
         this.root.insertAdjacentHTML("beforeend", Template({
             players: players,
             leaveLogo: leaveLogo,
         }));
+
+        this._update({
+            active: 0,
+            players: players
+        });
+
         this.controller.startAllListeners();
     }
 

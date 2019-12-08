@@ -29,7 +29,7 @@ class WebSocketIface {
 
     sentMessage(body) {
         this.socket.send(body);
-        console.log("User ready");
+        console.log("Отправлено сообщение ----------->", body);
     }
 
     connect(roomId) {
@@ -63,7 +63,7 @@ class WebSocketIface {
         this.socket.onmessage = (event) => {
             if (this.handlersMap) {
                 const objMessage = JSON.parse(event.data);
-                console.log("Пришло сообщение ----------->", objMessage);
+                console.log("Пришло сообщение <-----------", objMessage);
                 for (const type in this.handlersMap) {
                     if (objMessage.type === type) {
                         for (const handler of this.handlersMap[type]) {
