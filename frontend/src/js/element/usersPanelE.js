@@ -118,7 +118,6 @@ class UsersPanelE {
 
         this.root.insertAdjacentHTML("beforeend", Template({
             players: players,
-            room: roomInfo,
             leaveLogo: leaveLogo,
             roomName: roomName,
             userName: userName
