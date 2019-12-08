@@ -45,7 +45,7 @@ class PlayersM {
         return {
             respondent: {
                 name: this.current.answeringPlayer.username,
-                avatar: StaticManager.getUserUrl(this.current.answeringPlayer.avatar),
+                avatar: this.current.answeringPlayer.avatar,
                 score: this.current.answeringPlayer.score,
                 trueAnswer: this.current.trueAnswer,
             },

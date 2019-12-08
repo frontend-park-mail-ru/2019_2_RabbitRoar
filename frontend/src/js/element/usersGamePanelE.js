@@ -79,8 +79,8 @@ class UsersGamePanelE {
 
     create = (root = document.getElementById("application")) => {
         this.root = root;
-        //this.gameIface = GameF.getInterface(this)();
-        this.gameIface = MOKiface;
+        this.gameIface = GameF.getInterface(this)();
+        //this.gameIface = MOKiface;
 
         const players = this.gameIface.getPlayers();
         const leaveLogo = StaticManager.leaveLogo;
@@ -91,10 +91,10 @@ class UsersGamePanelE {
             leaveLogo: leaveLogo,
         }));
 
-        this._update({
-            active: 0,
-            players: players
-        });
+        // this._update({
+        //     active: 0,
+        //     players: players
+        // });
 
         this.controller.startAllListeners();
     }
