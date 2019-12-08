@@ -16,7 +16,6 @@ class UsersGamePanelE {
 
 
     _update = (playersState) => {
-        console.log(playersState);
         const currentPlayers = document.querySelectorAll(".waiting-player-game");
         const host = this.gameIface.getHost();
         const amount = currentPlayers.length;
@@ -58,8 +57,6 @@ class UsersGamePanelE {
 
         const players = this.gameIface.getPlayers();
         const leaveLogo = StaticManager.leaveLogo;
-        // const gameInfo = this.gameIface.getGameInfo();
-
 
         this.root.insertAdjacentHTML("beforeend", Template({
             players: players,

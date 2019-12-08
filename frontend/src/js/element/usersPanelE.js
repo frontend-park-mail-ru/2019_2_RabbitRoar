@@ -38,24 +38,24 @@ class UsersPanelE {
         Bus.on(USER_PANEL_USER_READY, this._readyChange);
     }
 
-    _changeUserIndicator = (userId) => {
+    _changeUserIndicator = (userId, ready) => {
         const userElem = document.getElementById(userId);
         const indicatorElem = userElem.children[2];
-        replaceTwoCssClasses(indicatorElem, "users-panel__ready-indicator__false", "users-panel__ready-indicator__true");
+        if (ready) {
+            replaceTwoCssClasses(indicatorElem, "users-panel__ready-indicator__false", "users-panel__ready-indicator__true");
+        } else {
+            replaceTwoCssClasses(indicatorElem, "users-panel__ready-indicator__true", "users-panel__ready-indicator__false");
+        }
     }
 
-    _readyChange = (data) => {
-        console.log(data.payload);
-        const readyPlayers = data.payload;
-        readyPlayers.forEach(playerData => {
-            if (playerData.ready) {
-                this._changeUserIndicator(playerData.id);
-            }
+    _readyChange = (players) => {
+        players.forEach(player => {
+            this._changeUserIndicator(player.id, player.ready);
         });
 
     }
 
-    _updatePlayers = (message) => {
+    _updatePlayers = (players) => {
         const currentPlayers = document.querySelectorAll(".waiting-player");
         const host = this.gameIface.getHost();
 
@@ -67,7 +67,7 @@ class UsersPanelE {
 
 
         let order = 0;
-        for (const player of message.payload.players) {
+        for (const player of players) {
             if (player.id.toString() === currentPlayersMap[order].id) {
             } else {
                 this._insertCell(player, currentPlayersMap[order]);

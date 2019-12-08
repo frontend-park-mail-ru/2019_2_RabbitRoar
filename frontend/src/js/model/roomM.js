@@ -65,7 +65,7 @@ class RoomM {
         if (this.current.host) {
             return this.current.host;
         } else {
-            return this.current.playerJoinedData.payload.players[0];
+            return this.current.players[0];
         }
     }
 }
@@ -84,8 +84,9 @@ class RealRoomM {
         this.pack;
         this.packName;
 
-        this.playerReadyData;
-        this.playerJoinedData;
+
+        this.players = {};
+        this.host = {};
 
         this.startGameData;
 
@@ -105,11 +106,13 @@ class RealRoomM {
         this.lastState = this.state;
         this.state = "waiting";
 
-        console.log("Player ready: ");
-        console.log(data);
-
         this.playersJoined++;
-        this.playerReadyData = data;
+
+        for (const player of data.payload.players) {
+            player.avatar = StaticManager.getUserUrl(player.avatar);
+        }
+        
+        this.players = data.payload.players;
 
         Bus.emit(ROOM_CHANGE, "player_ready");
     }
@@ -118,18 +121,16 @@ class RealRoomM {
         if (!data.payload.host) {
             data.payload.host = data.payload.players[0]
         }
+
         this.host = data.payload.host;
         this.lastState = this.state;
         this.state = "waiting";
-
-        console.log("Player joined :");
-        console.log(data);
 
         for (const player of data.payload.players) {
             player.avatar = StaticManager.getUserUrl(player.avatar);
         }
 
-        this.playerJoinedData = data;
+        this.players = data.payload.players;
         Bus.emit(ROOM_CHANGE, "player_connected");
     }
 

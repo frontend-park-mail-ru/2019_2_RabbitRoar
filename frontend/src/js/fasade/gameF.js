@@ -140,6 +140,9 @@ class GameF {
         }
     }
 
+
+
+
     _playersChange = (activeUser) => {
         const playersState = {
             active: activeUser,
@@ -160,9 +163,9 @@ class GameF {
                 Bus.emit(CONNECTION, "done");
             }
             if (eventType === "player_connected") {
-                Bus.emit(USER_PANEL_NEW_USER, RoomM.current.playerJoinedData);
+                Bus.emit(USER_PANEL_NEW_USER, RoomM.current.players);
             } else if (eventType === "player_ready") {
-                Bus.emit(USER_PANEL_USER_READY, RoomM.current.playerReadyData);
+                Bus.emit(USER_PANEL_USER_READY, RoomM.current.players);
             } else if (eventType === "start_game") {
                 QuestionsM.current.addFields(
                     { name: "themes", value: RoomM.current.startGameData.payload.themes },
@@ -171,7 +174,7 @@ class GameF {
                 PlayersM.current.addFields(
                     { name: "userId", value: ValidatorF.userId },
                     { name: "host", value: RoomM.current.host },
-                    { name: "players", value: RoomM.current.playerReadyData.payload }
+                    { name: "players", value: RoomM.current.players }
                 );
 
                 Bus.emit(ROUTER_EVENT.ROUTE_TO, ONLINE_GAME);
@@ -420,7 +423,7 @@ class OnlineGameF {
     get usersGamePanelEInterface() {
         const iface = {
             getPlayers() {
-                return RoomM.current.playerJoinedData.payload.players;
+                return PlayersM.current.players;
             },
             getGameInfo() {
                 return {};

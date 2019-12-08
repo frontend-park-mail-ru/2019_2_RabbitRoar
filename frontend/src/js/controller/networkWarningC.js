@@ -11,6 +11,7 @@ class NetworkWarningC {
 
         this.registerHandler("popup_connection_error_route", "click", this._processPopUp);
         this.registerHandler("popup_connection_http_error_route", "click", this._processPopUp);
+        this.registerHandler("popup_game_end_route", "click", this._processPopUp);
         this.registerHandler("exit-offline-game", "click", this._goToRoot);
 
 
@@ -65,6 +66,8 @@ class NetworkWarningC {
             if (close.lastState === "before_connection") {
                 this._showOrHidePopUp("popup_connection_error");
             }
+        } else {
+            this._showOrHidePopUp("popup_game_end");
         }
     }
 
