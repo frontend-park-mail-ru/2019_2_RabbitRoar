@@ -6,7 +6,7 @@
   text-align: center;
   z-index: 1;
   grid-template-columns: 1fr;
-  grid-template-rows: 2fr, 1fr;
+  grid-template-rows: 2fr 1fr;
 }
 
 @media all and (orientation: landscape) {
