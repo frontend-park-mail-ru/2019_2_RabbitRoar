@@ -23,9 +23,6 @@ else
         
         if packs
             div(class="tab-content")
-                p(class="pack-number" id="pack-id") Выбранный пак:
-                span(class="error-annotation" id="error_pack") Отображение ошибки
-
                 div(id="offline_mode")
                 div(class="offline-panel")
                     div(class="panel-elem") Название:
@@ -34,11 +31,13 @@ else
                     div(class="panel-elem") 
                 each pack, index in packs
                     div(class="offline-panel")
-                        div(class="panel-elem") #{pack.name}
+                        div(class="panel-elem" id="pack-name-" + pack.id) #{pack.name}
                         div(class="panel-elem") #{pack.author}
                         div(class="panel-elem") #{pack.rating}
                         div(class="panel-elem")
                             div(class="pack-button" id=pack.id) Выбрать
+                span(class="error-annotation" id="error-pack-not-chosen") Отображение ошибки
+                
         else 
             div(class="tab-content")
                 p Вы не создали ни одного пака

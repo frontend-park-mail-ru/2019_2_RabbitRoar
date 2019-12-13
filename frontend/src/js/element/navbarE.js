@@ -14,15 +14,6 @@ class NavbarE {
         const currentUrl = window.location.pathname;
         let navBarText;
         switch (currentUrl) {
-            case "/":
-                navBarText = "";
-                break;
-            case "/login":
-                navBarText = "";
-                break;
-            case "/signup":
-                navBarText = "";
-                break;
             case "/user/profile":
                 navBarText = "Профиль";
                 break;
@@ -73,7 +64,8 @@ class NavbarE {
             exitUrl: StaticManager.exitLogo
         }));
         
-        if (currentUrl === "/") {
+        if (currentUrl === "/"  || currentUrl === "/rooms" || currentUrl === "/top" || currentUrl === "/training"
+        || currentUrl === "/packs" || currentUrl === "/about") {
             document.getElementById("back").style.visibility = "hidden";
         } else {
             document.getElementById("back").style.visibility = "visible"

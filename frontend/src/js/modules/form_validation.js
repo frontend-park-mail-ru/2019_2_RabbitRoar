@@ -246,8 +246,12 @@ export const autorizationVaildation = () => {
     return error;
 };
 
+export const hidePackError = () => {
+    const errorPackElement = document.getElementById("error-pack-not-chosen");
+    replaceTwoCssClasses(errorPackElement, "error-visible", "error-annotation");
+};
+
 export const roomCreatureVaildation = () => {
-    const errorPasswordElement = document.getElementById("error_password");
     const errorRoomNameElement = document.getElementById("error_room_name");
 
     let error = false;

@@ -53,7 +53,6 @@ class RoomM {
     }
 
     getRoomName = () => {
-        console.log("AAA почти получили имя");
         return this.current.getRoomName();
     }
 

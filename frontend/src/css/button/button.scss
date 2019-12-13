@@ -30,6 +30,7 @@
 
 .button-in-list {
   @extend %button;
+  background-color: transparent; 
   width: 75%;
   height: 75%;
 }
@@ -97,6 +98,7 @@
 
 .pack-button {
   @extend %button;
+  background-color: transparent;
 }
 
 .pack-button:hover {
