@@ -11,7 +11,7 @@ echo "Running build $PROJ_DIR."
 
 pushd $PROJ_DIR
 
-docker build -f deployments/Dockerfile-app -t alexnav/svoyak-frontend-chat .
+docker build -f deployments/Dockerfile-chat -t alexnav/svoyak-frontend-chat .
 docker tag alexnav/svoyak-frontend-chat alexnav/svoyak-frontend-chat:$TRAVIS_BUILD_NUMBER
 
 docker build -f deployments/Dockerfile-app -t alexnav/svoyak-frontend-app .
