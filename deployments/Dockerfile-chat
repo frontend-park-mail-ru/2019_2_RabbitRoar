@@ -15,4 +15,4 @@ COPY --from=builder /build/dist /www
 
 COPY deployments/nginx_chat.conf /etc/nginx/nginx.conf
 
-EXPOSE 3000
+EXPOSE 3002
