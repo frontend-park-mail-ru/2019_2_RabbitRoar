@@ -21,7 +21,7 @@
 @import "/game-panel/__user-logo/game-panel__user-logo";
 
 @import "/tab/tab";
-@import "/tab/__text/tab__text";
+@import "/tab/__help-text/tab__help-text";
 @import "/tab/__сreate-pack-button/tab__create-pack-button";
 @import "/tab/__create-room-button/tab__create-room-button";
 @import "/tab/__info-container/tab__info-container";
@@ -38,7 +38,6 @@
 
 @import "/users-panel-game/users-panel-game";
 @import "/users-panel-game/__score/users-panel-game__score.scss";
-
 
 @import "/pack-info/pack-info";
 @import "/pack-creation/pack-creation";
@@ -65,7 +64,6 @@
 @import "question-container/__master-answer/question-container__master-answer__text";
 @import "question-container/__master-answer/question-container__master-answer__verdict";
 
-
 @import "warning/warning";
 
 @import "popup/popup";
@@ -85,7 +83,6 @@
 @import "edit-svg/edit-svg.scss";
 
 @import "empty-tab-info/empty-tab-info";
-
 
 :root {
   // main colors
@@ -109,7 +106,9 @@
   --scroll: var(--main-light-color);
 
   // text
-  --color-headers-font: white;
+  --main-logo-color: white;
+  --help-text-color: white;
+  --color-headers-font: var(--main-light-color);
   --font-color: var(--main-light-color);
 
   // questions
