@@ -12,8 +12,8 @@ export const PACK_EDITING = "/pack_editing";
 export const TAB = ["/rooms", "/top", "/training", "/packs", "/about"];
 
 
-//export const HttpsOrigin = "https://svoyak.fun/api";
-export const HttpsOrigin = "http://192.168.43.121:3000";
+export const HttpsOrigin = "https://svoyak.fun/api";
+//export const HttpsOrigin = "http://192.168.43.121:3000";
 export const HttpOrigin = "http://svoyak.fun/api";
 
 
