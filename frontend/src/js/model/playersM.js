@@ -32,6 +32,7 @@ class PlayersM {
             currentQuestionScore: this.current.currentQuestionScore,
             answerOwner: this.current.answeringPlayer.username,
             result: this.current.result,
+            correctAnswer: this.current.correctAnswer,
         }
     }
 
@@ -47,7 +48,7 @@ class PlayersM {
                 name: this.current.answeringPlayer.username,
                 avatar: this.current.answeringPlayer.avatar,
                 score: this.current.answeringPlayer.score,
-                trueAnswer: this.current.trueAnswer,
+                trueAnswer: this.current.trueAnswerForHost,
             },
             role: role
         }
@@ -64,7 +65,9 @@ class PlayersM {
 class RealPlayersM {
     constructor() {
         this.players = {};
-        this.trueAnswer = "";
+        this.trueAnswerForHost = "";
+        this.answeringPlayer = {};
+        this.correctAnswer = "";
 
         WebSocketIface.addMessageHandler("request_question_from_player", this._activateUser);       // id того, кто выбирает вопрос
         WebSocketIface.addMessageHandler("request_respondent", this._userChoseQuestion);            // Пользователь выбрал вопрос -> установить стоимость
@@ -82,23 +85,19 @@ class RealPlayersM {
     }
 
     _verdictDone = (data) => {
-        let result;
-        if (data.payload === true) {
-            result = 1;
+        this.result = data.payload.verdict;
+
+        if (this.result === true) {
+            this.correctAnswer = data.payload.answer;
         } else {
-            this.result = -1;
+            this.correctAnswer = "******";
         }
 
-        for (const player of this.players) {
-            if (player.id === answeringPlayer.id) {
-                player.score += this.currentQuestionScore * result;
-                break;
-            }
-        }
+        this.players = data.payload.players;
     }
 
     _saveTrueAnswer = (data) => {
-        this.trueAnswer = data.payload.answer;
+        this.trueAnswerForHost = data.payload.answer;
     }
 
     _processAnswering = (data) => {
@@ -120,8 +119,6 @@ class RealPlayersM {
         console.log("My id in OnlineQuestionsM: ", this.userId);
         this.userIdWhoChoseAnswer = data.payload.player_id;
         console.log("User chose question :", this.userIdWhoChoseAnswer);
-
-        Bus.emit(PLAYERS_CHANGE, this.userIdWhoChoseAnswer);
     }
 }
 

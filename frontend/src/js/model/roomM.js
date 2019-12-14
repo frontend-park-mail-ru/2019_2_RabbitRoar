@@ -98,6 +98,8 @@ class RealRoomM {
     }
     _startGame = (data) => {
         this.startGameData = data;
+        this.lastState = this.state;
+        this.state = "game";
         Bus.emit(ROOM_CHANGE, "start_game");
     }
 
