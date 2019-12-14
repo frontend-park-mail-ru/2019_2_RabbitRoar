@@ -15,7 +15,11 @@
 
   input,
   button {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: var(--color-bg-dark);
+    color: var(--main-light-color);
+    border-color: var(--main-light-color);
+    border-width: 2px;
+    
     margin: 10px 0px;
     width: 65%;
     padding-top: 10px;
@@ -82,8 +86,13 @@
   }
 
   button {
-    color: var(--color-headers-font);
+    width: 25%;
+    border-radius: 100px;
     cursor: pointer;
+  }
+
+  button:hover {
+    background-color: var(--color-bg-light);
   }
 }
 
