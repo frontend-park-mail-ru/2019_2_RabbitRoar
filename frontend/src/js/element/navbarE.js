@@ -24,7 +24,7 @@ class NavbarE {
                 navBarText = "Игра";
                 break;
             case "/room":
-                navBarText = "Комната";
+                navBarText = "Создание комнаты";
                 break;
             case "/waiting":
                 navBarText = "Ожидание игры";

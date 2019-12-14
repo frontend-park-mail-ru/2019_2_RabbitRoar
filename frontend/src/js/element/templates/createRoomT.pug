@@ -1,21 +1,22 @@
 if formNumber === 1
     form(class="form")
-        p Создание комнаты
-            div(class="form-group")
-                label(for="room-name") Название
-                input(class="input-valid" name="room-name", id="room-name", type="text")
-                span(class="error-annotation" id="error_room_name") Отображение ошибки
+        div(class="form-group")
+            label(for="room-name") Название
+            input(class="input-valid" name="room-name", id="room-name", type="text")
+            span(class="error-annotation" id="error_room_name") Отображение ошибки
 
-            div(class="form-group")
-                label(for="checkbox") Пароль
-                input(class="checkbox" type="checkbox" id="checkbox")
-                span(class="error-annotation" id="password_info") Для присоединения в комнату будет сгенерирована ссылка
+        div(class="form-group")
+            label(for="users-number") Количество игроков
+            input(type="number" id="users-number" size="3" name="num" min="2" max="6" value="2")
+            span(class="error-annotation") Отображение ошибки
 
-            div(class="form-group")
-                label(for="users-number") Количество игроков
-                input(type="number" id="users-number" size="3" name="num" min="2" max="6" value="2")
 
-            button(type="submit", id="further") Далее
+        div(class="form-group")
+            label(for="checkbox") Пароль
+            input(class="checkbox" type="checkbox" id="checkbox")
+            span(class="error-annotation" id="password_info") Для присоединения в комнату будет сгенерирована ссылка
+
+        button(type="submit", id="further") Далее
 else 
     div(id="max_order" maxOrder="2")
     div(class="main-room-container")

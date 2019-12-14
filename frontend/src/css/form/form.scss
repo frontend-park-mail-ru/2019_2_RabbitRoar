@@ -1,3 +1,15 @@
+@-webkit-keyframes autofill {
+  to {
+    color: var(--color-headers-font);
+    background: var(--color-bg-light);
+  }
+}
+
+input:-webkit-autofill {
+  -webkit-animation-name: autofill;
+  -webkit-animation-fill-mode: both;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -19,7 +31,7 @@
     color: var(--main-light-color);
     border-color: var(--main-light-color);
     border-width: 2px;
-    
+
     margin: 10px 0px;
     width: 45%;
     padding-top: 10px;
@@ -35,6 +47,7 @@
     text-align: center;
     border-bottom: 2px solid transparent;
     transition: background-color 500ms ease, border-bottom 500ms ease, box-shadow 1000ms ease;
+    border-radius: 100px;
   }
 
   input[type="file"] {
@@ -44,6 +57,7 @@
   }
 
   input:focus {
+    outline: none;
     border-bottom: 2px solid var(--border-color-theme);
     box-shadow: 0 5px 5px -5px var(--border-color-theme);
   }
@@ -86,6 +100,7 @@
   }
 
   button {
+    outline: none;
     width: 20%;
     border-radius: 100px;
     cursor: pointer;
