@@ -17,9 +17,10 @@ if formNumber === 1
 
             button(type="submit", id="further") Далее
 else 
+    div(id="max_order" maxOrder="2")
     div(class="main-room-container")
-        div(class="tab-click" id="my-packs") Мои паки
-        div(class="tab" id="all-packs") Все паки
+        div(class="tab" id="my-packs" order="1") Мои паки
+        div(class="tab tab-click" id="all-packs" order="2") Все паки
         
         if packs
             div(class="tab-content")

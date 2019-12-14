@@ -24,8 +24,6 @@ class CreateRoomC {
 
         this.registerClassHandler(".tab", "mouseover", this._lightTab);
         this.registerClassHandler(".tab", "mouseout", this._unLightTab);
-        this.registerClassHandler(".tab-click", "mouseover", this._lightTab);
-        this.registerClassHandler(".tab-click", "mouseout", this._unLightTab);
 
         this.registerHandler("my-packs", "click", this._choseTab);
         this.registerHandler("all-packs", "click", this._choseTab);
@@ -49,12 +47,12 @@ class CreateRoomC {
 
     _choseTab = (event) => {
         const currentTabElement = document.getElementById(this.currentTabId);
-        replaceTwoCssClasses(currentTabElement, "tab-click", "tab");
+        currentTabElement.classList.toggle("tab-click");
 
         const newTabElement = document.getElementById(event.target.id);
-        replaceTwoCssClasses(newTabElement, "tab", "tab-click");
-        this.currentTabId = event.target.id;
+        newTabElement.classList.toggle("tab-click");
 
+        this.currentTabId = event.target.id;
         Bus.emit(CHANGE_VIEW_ROOM_CREATION);
     }
 

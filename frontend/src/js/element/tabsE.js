@@ -48,6 +48,7 @@ class TabsE {
         let right;
         const choosen = ContentF.findChosen(targetElems);
         const choosenOrder = choosen.getAttribute("order");
+        const maxOrder = document.getElementById("max_order").getAttribute("maxOrder");
 
         if (targetElems) {
             for (const elem of targetElems) {
@@ -61,14 +62,14 @@ class TabsE {
 
                 if ((elem.getAttribute("order") === "1") && (elem !== choosen)) {
                     elem.classList.add("tab-left");
-                } else if ((elem.getAttribute("order") === "5") && (elem !== choosen)) {
+                } else if ((elem.getAttribute("order") === maxOrder) && (elem !== choosen)) {
                     elem.classList.add("tab-right");
                 }
             }
             choosen.classList.add("tab-click");
             if (choosenOrder === "1") {
                 choosen.style.borderLeftWidth = "2px";
-            } else if (choosenOrder === "5") {
+            } else if (choosenOrder === maxOrder) {
                 choosen.style.borderRightWidth = "2px";
             }
         }
