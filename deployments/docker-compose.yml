@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+
+  app:
+    image: alexnav/svoyak-frontend-app
+    restart: always
+    labels:
+      com.centurylinklabs.watchtower.enable: 'true'
+    ports:
+      - 3001:3001
+
+  chat:
+    image: alexnav/svoyak-frontend-chat
+    restart: always
+    labels:
+      com.centurylinklabs.watchtower.enable: 'true'
+    ports:
+      - 3002:3002

@@ -1,8 +1,0 @@
-FROM node:12
-
-RUN mkdir /app
-
-WORKDIR /app
-
-# make it volume in compose and share it between containers
-CMD pwd && ls && rm -rf node_modules && npm install && npm run build
