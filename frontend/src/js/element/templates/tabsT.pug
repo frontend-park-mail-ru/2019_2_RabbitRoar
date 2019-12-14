@@ -18,11 +18,11 @@ mixin paginator(pag_id, amount)
             div(class="pg-button") Next
 
 div(class="main-container")
-    div(class="tab", id=window.id.tabRoom) КОМНАТЫ
-    div(class="tab", id=window.id.tabTop) ЗАЛ СЛАВЫ
-    div(class="tab", id=window.id.tabOffline) ТРЕНИРОВКА
-    div(class="tab", id=window.id.tabPack) ПАКИ
-    div(class="tab", id=window.id.tabAboutGame) ОБ ИГРЕ
+    div(class="tab", id=window.id.tabRoom, order="1") КОМНАТЫ
+    div(class="tab", id=window.id.tabTop, order="2") ЗАЛ СЛАВЫ
+    div(class="tab", id=window.id.tabOffline, order="3") ТРЕНИРОВКА
+    div(class="tab", id=window.id.tabPack, order="4") ПАКИ
+    div(class="tab", id=window.id.tabAboutGame, order="5") ОБ ИГРЕ
 
     if templateContent.contentType == window.id.tabRoom
         div(class="fadeout-container")

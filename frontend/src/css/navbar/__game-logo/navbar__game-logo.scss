@@ -5,6 +5,10 @@
   font-size: var(--big-font-size);
 }
 
+.navbar__game-logo:hover {
+  color: var(--forth-color);
+}
+
 .navbar__game-logo-container {
   grid-column-start: 2;
   grid-column-end: 3;
