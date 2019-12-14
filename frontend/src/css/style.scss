@@ -80,9 +80,11 @@
 
 @import "faq-text/faq-text";
 
-@import "./flex-containers/flex-containers.scss";
+@import "flex-containers/flex-containers.scss";
 
-@import "./edit-svg/edit-svg.scss";
+@import "edit-svg/edit-svg.scss";
+
+@import "empty-tab-info/empty-tab-info";
 
 
 :root {
