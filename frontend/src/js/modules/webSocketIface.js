@@ -33,8 +33,8 @@ class WebSocketIface {
     }
 
     connect(roomId) {
-        //this.socket = new WebSocket("wss://svoyak.fun/api/game/ws");
-        this.socket = new WebSocket("ws://192.168.43.121:3000/game/ws");
+        this.socket = new WebSocket("wss://svoyak.fun/api/game/ws");
+        //this.socket = new WebSocket("ws://192.168.43.121:3000/game/ws");
 
         this.socket.onopen = (event) => {
             if (this.openHandlers) {
