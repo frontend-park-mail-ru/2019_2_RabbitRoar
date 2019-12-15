@@ -52,9 +52,6 @@ class RoomM {
         return this.current.packName;
     }
 
-    getRoomName = () => {
-        return this.current.getRoomName();
-    }
 
     getPackId = () => {
         return this.current.pack;
@@ -208,10 +205,6 @@ class RealRoomM {
         console.log("ROOM OPTION", this.roomOptions);
     }
 
-    getRoomName = () => {
-        console.log("roomM", this.roomName);
-        return this.roomName;
-    }
 }
 
 export default new RoomM();

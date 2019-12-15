@@ -173,6 +173,8 @@ class GameF {
                     { name: "themes", value: RoomM.current.startGameData.payload.themes },
                     { name: "userId", value: ValidatorF.userId },
                 );
+                console.log("!!!!!!!!!!!!!!!")
+                console.log(ValidatorF.userId)
                 PlayersM.current.addFields(
                     { name: "userId", value: ValidatorF.userId },
                     { name: "host", value: RoomM.current.host },
@@ -236,9 +238,9 @@ class GameF {
     }
     
     // Методы работают только для онлайна
-    getRoomName = () => {
-        return this.current.getRoomName();
-    }
+    // getRoomName = () => {
+    //     return this.current.getRoomName();
+    // }
 
     getPackDescription = () => {
         return this.current.getPackDescription();
@@ -445,9 +447,6 @@ class OnlineGameF {
         return iface;
     }
 
-    getRoomName = () => {
-        return RoomM.getRoomName();
-    }
 
     getPackName = () => {
         console.log("getPackName in gameF");

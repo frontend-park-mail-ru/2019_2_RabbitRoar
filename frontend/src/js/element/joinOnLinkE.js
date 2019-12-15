@@ -27,8 +27,7 @@ class JoinOnLinkE {
                 return accum;
             },
             {}
-        );
-        
+        );        
 
         this.root.insertAdjacentHTML("beforeend", Template());
         this.controller.startAllListeners();
