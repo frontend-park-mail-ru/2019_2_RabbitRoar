@@ -32,7 +32,6 @@ class ValidatorF {
         } else {
             userInfo = UserM.getNoAutoriseData();
         }
-        console.log(userInfo);
         if (!this.userId) {
             this.userId = userInfo.ID;
         }

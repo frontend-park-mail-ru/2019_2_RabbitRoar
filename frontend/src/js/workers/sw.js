@@ -235,7 +235,18 @@ function _getUrlRevision(requestUrl) {
 
 
 function _transformApiUrl(requestUrl) {
-    const appPages = ["/", "/login", "/profile", "/signup", "/single_game"];
+    const appPages = [
+        "/",
+        "/login",
+        "/profile",
+        "/signup",
+        "/single_game",
+        "/top",
+        "/rooms",
+        "/training",
+        "/packs",
+        "/about"
+        ];
 
     for (const page of appPages) {
         if (requestUrl.pathname === page) {
