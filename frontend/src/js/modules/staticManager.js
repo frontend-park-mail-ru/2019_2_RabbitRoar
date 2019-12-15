@@ -51,7 +51,7 @@ class StaticManager {
     }
 
     get leaveLogo() {
-        return this.base + "/static/leave-game.png";
+        return this.base + "/static/leave.svg";
     }
 
     get exitLogo() {

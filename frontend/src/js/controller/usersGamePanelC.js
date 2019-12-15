@@ -23,6 +23,7 @@ class UsersGamePanelC {
     }
 
     _processPopup = (event) => {
+
         this._showOrHidePopUp("leave-popup");
         if (event.target.id === "continue") {
             Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
@@ -30,6 +31,8 @@ class UsersGamePanelC {
     }
 
     _leaveGame = () => {
+        console.log("in Leve id handler ");
+
         this._showOrHidePopUp("leave-popup");
     }
     

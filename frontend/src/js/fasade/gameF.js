@@ -440,13 +440,12 @@ class OnlineGameF {
     }
 
     getPackName = () => {
-        console.log("getPackName in gameF");
         return RoomM.getPackName();
     }
 
     getPackDescription = () => {
         const packId = RoomM.getPackId();
-        console.log(packM.getPackById(packId));
+        //console.log(packM.getPackById(packId));
         return packM.getPackById(packId);
     }
 }

@@ -1,0 +1,34 @@
+.form-button {
+  background-color: var(--color-bg-dark);
+  color: var(--main-light-color);
+  border: 2px solid;
+  border-color: var(--main-light-color);
+  font-size: var(--font-size);
+  outline: none;
+  width: 20%;
+  height: 100%;
+  border-radius: 100px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  cursor: pointer;
+}
+
+.form-button:hover {
+  background-color: var(--color-bg-light);
+}
+
+.form-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  width: 100%;
+
+  grid-row: 2;
+  grid-column: 2;
+}

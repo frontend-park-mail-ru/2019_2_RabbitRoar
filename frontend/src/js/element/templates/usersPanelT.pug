@@ -4,9 +4,11 @@ div(class="popup " id="leave-popup")
         div(class="popup-elem-bottom ")
             div(class="popup-button" id="continue") Покинуть
             div(class="popup-button" id="cancel") Отмена
-
-div(class="panel-text" id="room-name") Комната: #{roomName}
-div(class="panel-text") #{userName}, ожидайте других игроков!
+div(class="waiting-container-text")
+    div(class="waiting-container-text__text first-text" id="room-name" ) Комната #{roomName}
+    div(class="waiting-container-text__text second-text") #{userName}, ожидайте других игроков!
+    div(class="waiting-text-container__leave")
+        img(src=leaveLogo id="leave_logo")
 div(class="user-panel-grid-container")
     div(class="user-panel-container")
         each player, index in players
@@ -20,9 +22,5 @@ div(class="user-panel-grid-container")
                         alt="User")
                     div(class="users_panel__text" name="username") #{player.username}
                 div(class="users-panel__ready-indicator users-panel__ready-indicator__false", id="capitan-ready")
-    div(class="users-panel__leave")
-        img(class="users-panel__leave-img",
-        id="leave_logo",
-        src=leaveLogo,
-        alt="User")
-div(class="button-ready" id="button-ready") Готов
+    div(class="form-button-container")
+        div(class="form-button" id="button-ready") Готов
