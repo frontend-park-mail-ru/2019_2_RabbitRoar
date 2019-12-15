@@ -4,7 +4,8 @@
   margin-left: 1vw;
   margin-right: 1vw;
   grid-template-columns: 15% 70% 15%;
-  grid-template-rows: 1fr;
+  grid-template-rows: 85% 15%;
+  height: 40vh;
 }
 
 .user-panel-container {
@@ -25,16 +26,10 @@
   align-items: center;
 }
 
-
-
 .player-avatar {
   border: 2px solid var(--border-color-theme);
   border-bottom-width: 0px;
 }
-
-
-
-
 
 @media all and (orientation: landscape) {
   .player-avatar {
@@ -43,14 +38,9 @@
   }
 }
 
-
 @media all and (orientation: portrait) {
   .player-avatar {
     width: 10vh;
     height: 10vh;
   }
 }
-
-
-
-

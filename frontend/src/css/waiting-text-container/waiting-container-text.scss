@@ -1,0 +1,22 @@
+.waiting-container-text {
+  display: grid;
+  justify-content: center;
+  grid-template-rows: 8vh 5vh;
+  grid-template-columns: 95% 5%;
+  width: auto;
+}
+
+.first-text {
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    font-size: var(--big-font-size); 
+}
+
+.second-text {
+    grid-row: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    font-size: var(--font-size); 
+
+}

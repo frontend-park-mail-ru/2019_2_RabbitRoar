@@ -44,12 +44,34 @@ class TabsE {
     _highlightChosen = () => {
         const targetElems = document.querySelectorAll(".tab");
 
+        let left;
+        let right;
+        const choosen = ContentF.findChosen(targetElems);
+        const choosenOrder = choosen.getAttribute("order");
+        const maxOrder = document.getElementById("max_order").getAttribute("maxOrder");
+
         if (targetElems) {
             for (const elem of targetElems) {
                 elem.className = "tab";
-            }
 
-            ContentF.findChosen(targetElems).className = "tab-click";
+                if (elem.getAttribute("order") === String(+choosenOrder - 1)) {
+                    elem.classList.add("tab-left-click");
+                } else if (elem.getAttribute("order") === String(1 + +choosenOrder)) {
+                    elem.classList.add("tab-right-click");
+                }
+
+                if ((elem.getAttribute("order") === "1") && (elem !== choosen)) {
+                    elem.classList.add("tab-left");
+                } else if ((elem.getAttribute("order") === maxOrder) && (elem !== choosen)) {
+                    elem.classList.add("tab-right");
+                }
+            }
+            choosen.classList.add("tab-click");
+            if (choosenOrder === "1") {
+                choosen.style.borderLeftWidth = "2px";
+            } else if (choosenOrder === maxOrder) {
+                choosen.style.borderRightWidth = "2px";
+            }
         }
     }
 

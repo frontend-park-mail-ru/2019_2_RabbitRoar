@@ -1,47 +1,48 @@
 if formNumber === 1
     form(class="form")
-        p Создание комнаты
-            div(class="form-group")
-                label(for="room-name") Название
-                input(class="input-valid" name="room-name", id="room-name", type="text")
-                span(class="error-annotation" id="error_room_name") Отображение ошибки
+        div(class="form-group")
+            label(for="room-name") Название
+            input(class="input-valid" name="room-name", id="room-name", type="text")
+            span(class="error-annotation" id="error_room_name") Отображение ошибки
 
-            div(class="form-group")
-                label(for="checkbox") Пароль
-                input(class="checkbox" type="checkbox" id="checkbox")
-                span(class="error-annotation" id="password_info") Для присоединения в комнату будет сгенерирована ссылка
+        div(class="form-group")
+            label(for="users-number") Количество игроков
+            input(type="number" id="users-number" size="3" name="num" min="2" max="6" value="2")
+            span(class="error-annotation") Отображение ошибки
 
-            div(class="form-group")
-                label(for="users-number") Количество игроков
-                input(type="number" id="users-number" size="3" name="num" min="2" max="6" value="2")
 
-            button(type="submit", id="further") Далее
+        div(class="form-group")
+            label(for="checkbox") Пароль
+            input(class="checkbox" type="checkbox" id="checkbox")
+            span(class="error-annotation" id="password_info") Для присоединения в комнату будет сгенерирована ссылка
+
+        button(type="submit", id="further") Далее
 else 
+    div(id="max_order" maxOrder="2")
     div(class="main-room-container")
-        div(class="tab-click" id="my-packs") Мои паки
-        div(class="tab" id="all-packs") Все паки
+        div(class="tab" id="my-packs" order="1") Мои паки
+        div(class="tab tab-click" id="all-packs" order="2") Все паки
         
         if packs
             div(class="tab-content")
-                p(class="pack-number" id="pack-id") Выбранный пак:
-                span(class="error-annotation" id="error_pack") Отображение ошибки
-
                 div(id="offline_mode")
                 div(class="offline-panel")
-                    div(class="panel-elem") Название:
-                    div(class="panel-elem") Автор:
-                    div(class="panel-elem") Рейтинг:
+                    div(class="panel-elem") Название
+                    div(class="panel-elem") Автор
+                    div(class="panel-elem") Рейтинг
                     div(class="panel-elem") 
                 each pack, index in packs
                     div(class="offline-panel")
-                        div(class="panel-elem") #{pack.name}
+                        div(class="panel-elem" id="pack-name-" + pack.id) #{pack.name}
                         div(class="panel-elem") #{pack.author}
                         div(class="panel-elem") #{pack.rating}
                         div(class="panel-elem")
                             div(class="pack-button" id=pack.id) Выбрать
+                span(class="error-annotation" id="error-pack-not-chosen") Отображение ошибки
+                
         else 
             div(class="tab-content")
-                p Вы не создали ни одного пака
+                div(class="empty-tab-info") Вы не создали ни одного пака
 
     form(class="form")
         button(type="submit", id="finish") Завершить

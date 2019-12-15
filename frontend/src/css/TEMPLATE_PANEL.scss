@@ -16,7 +16,8 @@
     margin-top: $table-vertical-margin;
     margin-bottom: $table-vertical-margin;
     border-style: solid;
-    background-color: var(--color-bg-light);
+    
+    background-color: var(--color-bg-light-low-opacity);
     border-color: var(--border-color-theme);
     border-width: 0px;
 }

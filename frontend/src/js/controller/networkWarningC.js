@@ -12,6 +12,8 @@ class NetworkWarningC {
         this.registerHandler("popup_connection_error_route", "click", this._processPopUp);
         this.registerHandler("popup_connection_http_error_route", "click", this._processPopUp);
         this.registerHandler("popup_game_end_route", "click", this._processPopUp);
+        this.registerHandler("game_disconnect_route", "click", this._processPopUp);
+        this.registerHandler("wait_disconnect_route", "click", this._processPopUp);
         this.registerHandler("exit-offline-game", "click", this._goToRoot);
 
 
@@ -65,6 +67,10 @@ class NetworkWarningC {
         if (close.code !== 1000) {
             if (close.lastState === "before_connection") {
                 this._showOrHidePopUp("popup_connection_error");
+            } else if (close.lastState === "game") {
+                this._showOrHidePopUp("game_disconnect");
+            } else if (close.lastState === "waiting") {
+                this._showOrHidePopUp("wait_disconnect");
             }
         } else {
             this._showOrHidePopUp("popup_game_end");

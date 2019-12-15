@@ -34,6 +34,7 @@ class WebSocketIface {
 
     connect(roomId) {
         this.socket = new WebSocket("wss://svoyak.fun/api/game/ws");
+        //this.socket = new WebSocket("ws://192.168.43.121:3000/game/ws");
 
         this.socket.onopen = (event) => {
             if (this.openHandlers) {
@@ -78,9 +79,9 @@ class WebSocketIface {
 
     disconnect() {
         this.clearHandlers();
-        if (this.socket) {
-            this.socket.close(1000, "Бан");
-        }
+        //if (this.socket) {
+            //this.socket.close(1000, "Бан");
+        //}
     }
 
 

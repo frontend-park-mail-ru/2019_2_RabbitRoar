@@ -52,10 +52,23 @@ class CreateRoomE {
         this.root.insertAdjacentHTML("beforeend", Template({ packs, formNumber }));
         if (formNumber === 2) {
             const disabledTabElement = document.getElementById(disabledTabId);
-            replaceTwoCssClasses(disabledTabElement, "tab-click", "tab");
+
+            if (disabledTabElement.getAttribute("order") === "1") {
+                disabledTabElement.className = "tab tab-left-click tab-left";
+            } else {
+                disabledTabElement.className = "tab tab-right-click tab-right";
+            }
+
+
 
             const currentTabElement = document.getElementById(tabPackId);
-            replaceTwoCssClasses(currentTabElement, "tab", "tab-click");
+
+            if (currentTabElement.getAttribute("order") === "1") {
+                currentTabElement.style.borderLeftWidth = "2px";
+            } else {
+                currentTabElement.style.borderRightWidth = "2px";
+            }
+            currentTabElement.className = "tab tab-click";
         }
         this.controller.startAllListeners();
 

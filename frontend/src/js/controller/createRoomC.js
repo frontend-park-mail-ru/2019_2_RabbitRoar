@@ -4,7 +4,7 @@ import { ROOT } from "../paths.js";
 import { ROUTER_EVENT, CHANGE_VIEW_ROOM_CREATION } from "../modules/events.js";
 import GameF from "../fasade/gameF.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
-import { roomCreatureVaildation } from "../modules/form_validation";
+import { roomCreatureVaildation, hidePackError } from "../modules/form_validation";
 
 class CreateRoomC {
     constructor() {
@@ -24,8 +24,6 @@ class CreateRoomC {
 
         this.registerClassHandler(".tab", "mouseover", this._lightTab);
         this.registerClassHandler(".tab", "mouseout", this._unLightTab);
-        this.registerClassHandler(".tab-click", "mouseover", this._lightTab);
-        this.registerClassHandler(".tab-click", "mouseout", this._unLightTab);
 
         this.registerHandler("my-packs", "click", this._choseTab);
         this.registerHandler("all-packs", "click", this._choseTab);
@@ -49,12 +47,12 @@ class CreateRoomC {
 
     _choseTab = (event) => {
         const currentTabElement = document.getElementById(this.currentTabId);
-        replaceTwoCssClasses(currentTabElement, "tab-click", "tab");
+        currentTabElement.classList.toggle("tab-click");
 
         const newTabElement = document.getElementById(event.target.id);
-        replaceTwoCssClasses(newTabElement, "tab", "tab-click");
-        this.currentTabId = event.target.id;
+        newTabElement.classList.toggle("tab-click");
 
+        this.currentTabId = event.target.id;
         Bus.emit(CHANGE_VIEW_ROOM_CREATION);
     }
 
@@ -71,10 +69,17 @@ class CreateRoomC {
     }
 
     _chosePack = (event) => {
-        const errorPackElement = document.getElementById("error_pack");
-        replaceTwoCssClasses(errorPackElement, "error-visible", "error-annotation");
+        hidePackError();
+        const previousPackId = this.packId;
+        var bodyStyles = window.getComputedStyle(document.body);
+        var colorForChoosedPack = bodyStyles.getPropertyValue("--color-success");
+
+        if (previousPackId !== -1) {
+            var ordinaryColor = bodyStyles.getPropertyValue("--border-color-theme");
+            document.getElementById("pack-name-" + previousPackId).style.color = ordinaryColor;
+        }
         this.packId = parseInt(event.target.id, 10);
-        document.getElementById("pack-id").innerHTML = "Выбранный пак: " + String(this.packId);
+        document.getElementById("pack-name-" + this.packId).style.color = colorForChoosedPack;
     }
 
     _checkboxChanged = () => {
@@ -102,6 +107,7 @@ class CreateRoomC {
     _goBack = () => {
         this.usersCount = 0;
         this.roomName = "";
+        this.packId = -1;
         if (this.currentFormPart == 1) {
             Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
         } else if (this.currentFormPart == 2) {
@@ -120,12 +126,14 @@ class CreateRoomC {
     }
 
     _finish = () => {
-        const errorPackElement = document.getElementById("error_pack");
+        const errorPackElement = document.getElementById("error-pack-not-chosen");
         if (this.packId == -1) {
+            console.log("in error");
             replaceTwoCssClasses(errorPackElement, "error-annotation", "error-visible");
             errorPackElement.innerHTML = "Необходимо выбрать пак для игры.";
             return;
         }
+
 
         var obj = new Object();
         obj.playersCapacity = this.usersCount;

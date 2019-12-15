@@ -166,7 +166,9 @@ class GameF {
                 Bus.emit(USER_PANEL_NEW_USER, RoomM.current.players);
             } else if (eventType === "player_ready") {
                 Bus.emit(USER_PANEL_USER_READY, RoomM.current.players);
-            } else if (eventType === "start_game") {
+            }
+        } else if (RoomM.current.state === "game") {
+            if (eventType === "start_game") {
                 QuestionsM.current.addFields(
                     { name: "themes", value: RoomM.current.startGameData.payload.themes },
                     { name: "userId", value: ValidatorF.userId },
@@ -176,11 +178,8 @@ class GameF {
                     { name: "host", value: RoomM.current.host },
                     { name: "players", value: RoomM.current.players }
                 );
-
                 Bus.emit(ROUTER_EVENT.ROUTE_TO, ONLINE_GAME);
             }
-
-
         } else if (RoomM.current.state === "before_connection") {
             Bus.emit(CONNECTION, "before");
         } else if (RoomM.current.state === "crash_connection") {
@@ -260,7 +259,9 @@ class OfflineGameF {
     get questionTableEInterface() {
         const iface = {
             questionInfo() {
-                return QuestionsM.getInfo();
+                const info = QuestionsM.getInfo();
+                info.answerOwner = ValidatorF.username;
+                return info;
             },
             sendAnswer(answer = "") {
                 answer = "";
@@ -311,7 +312,16 @@ class OnlineGameF {
         WebSocketIface.addMessageHandler("answer_given_back", () => Bus.emit(QUESTION_CHANGE));
         WebSocketIface.addMessageHandler("request_respondent", () => Bus.emit(QUESTION_CHANGE));
         WebSocketIface.addMessageHandler("request_answer_from_respondent", () => Bus.emit(QUESTION_CHANGE));
-        WebSocketIface.addMessageHandler("verdict_given_back", () => Bus.emit(QUESTION_CHANGE));
+        WebSocketIface.addMessageHandler("request_verdict_from_host", () => Bus.emit(QUESTION_CHANGE));
+        WebSocketIface.addMessageHandler("request_question_from_player", () => {
+            const id = PlayersM.current.userIdWhoChoseAnswer;
+            Bus.emit(PLAYERS_CHANGE, id);
+            Bus.emit(QUESTION_CHANGE);
+        });
+        WebSocketIface.addMessageHandler("verdict_given_back", () => {
+            Bus.emit(PLAYERS_CHANGE, "-1");
+            Bus.emit(QUESTION_CHANGE);
+        });
 
     }
 
@@ -440,13 +450,12 @@ class OnlineGameF {
     }
 
     getPackName = () => {
-        console.log("getPackName in gameF");
         return RoomM.getPackName();
     }
 
     getPackDescription = () => {
         const packId = RoomM.getPackId();
-        console.log(packM.getPackById(packId));
+        //console.log(packM.getPackById(packId));
         return packM.getPackById(packId);
     }
 }

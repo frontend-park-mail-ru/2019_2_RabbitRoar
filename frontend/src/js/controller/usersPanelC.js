@@ -10,7 +10,6 @@ class UsersPanelC {
         Object.assign(this, DomEventsWrapperMixin);
         this.registerHandler("button-ready", "click", this._sentUserReady);
         this.registerHandler("leave_logo", "click", this._leaveGame);
-
         this.registerClassHandler(".popup-button", "click", this._processPopup);
     }
 
@@ -30,6 +29,7 @@ class UsersPanelC {
     }
 
     _leaveGame = () => {
+        console.log("in Leve id handler ");
         this._showOrHidePopUp("leave-popup");
     }
     

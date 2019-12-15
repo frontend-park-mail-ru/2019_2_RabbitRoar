@@ -49,11 +49,11 @@ export const registrationValidation = () => {
     let registrationError = _fieldValidation(document.getElementById("username").value, document.getElementById("username"),
         errorUsernameElement, _usernameIsValid, "Введите логин.", "Логин должен содержать минимум 3 символа.");
 
-    registrationError = registrationError || _fieldValidation(document.getElementById("password").value, document.getElementById("password"),
-        errorPasswordElement, _passwordIsValid, "Введите пароль.", "Пароль должен содержать от 5 до 24 символов, одну цифру и одну букву.");
+    registrationError = _fieldValidation(document.getElementById("password").value, document.getElementById("password"),
+        errorPasswordElement, _passwordIsValid, "Введите пароль.", "Пароль должен содержать от 5 до 24 символов, одну цифру и одну букву.") || registrationError;
 
-    registrationError = registrationError || _fieldValidation(document.getElementById("email").value, document.getElementById("email"),
-        errorEmailElement, _emailIsValid, "Введите email.", "Недопустимый email.");
+    registrationError = _fieldValidation(document.getElementById("email").value, document.getElementById("email"),
+        errorEmailElement, _emailIsValid, "Введите email.", "Недопустимый email.") || registrationError;
 
     if (registrationError) {
         return true;
@@ -246,8 +246,12 @@ export const autorizationVaildation = () => {
     return error;
 };
 
+export const hidePackError = () => {
+    const errorPackElement = document.getElementById("error-pack-not-chosen");
+    replaceTwoCssClasses(errorPackElement, "error-visible", "error-annotation");
+};
+
 export const roomCreatureVaildation = () => {
-    const errorPasswordElement = document.getElementById("error_password");
     const errorRoomNameElement = document.getElementById("error_room_name");
 
     let error = false;
