@@ -42,16 +42,15 @@ div(class="main-container")
                     div(class="panel-elem") Пак
                     div(class="panel-elem") Количество
                     div(class="panel-elem")
-                if (templateContent.connection === true)
-                    each room, index in templateContent.content
-                        div(class="rooms-panel")
-                            div(class="panel-elem elem-justify-start") #{room.name}
-                            div(class="panel-elem") #{room.packName}
-                            div(class="panel-elem") #{room.playersJoined + "/" + room.playersCapacity}
-                            div(class="panel-elem" id=room.UUID)
-                                div(class="join-button button-in-list" id="play" join_id=room.UUID) Присоединиться
-                    +paginator("room-paginator", 5)
-        else
+                each room, index in templateContent.content
+                    div(class="rooms-panel")
+                        div(class="panel-elem elem-justify-start") #{room.name}
+                        div(class="panel-elem") #{room.packName}
+                        div(class="panel-elem") #{room.playersJoined + "/" + room.playersCapacity}
+                        div(class="panel-elem" id=room.UUID)
+                            div(class="join-button button-in-list" id="play" join_id=room.UUID) Присоединиться
+                +paginator("room-paginator", 5)
+        else if (templateContent.connection === true)
             div(class="tab-content")
                 div(class="empty-tab-info") Ни одной комнаты еще не было создано, создайте свою!
         div(class="popup" id="popup")
@@ -74,15 +73,15 @@ div(class="main-container")
 
 
     else if templateContent.contentType == window.id.tabTop
-        div(class="fadeout-container")
-            div(class="fadeout")
-        div(class="tab-content")
-            div(class="best-players-panel")
-                div(class="panel-elem")
-                div(class="panel-elem panel-elem-left") Имя
-                div(class="panel-elem") Рейтинг
-                div(class="panel-elem") Звание
-            if (templateContent.connection === true)
+        if (templateContent.content.length)
+            div(class="fadeout-container")
+                div(class="fadeout")
+            div(class="tab-content")
+                div(class="best-players-panel")
+                    div(class="panel-elem")
+                    div(class="panel-elem panel-elem-left") Имя
+                    div(class="panel-elem") Рейтинг
+                    div(class="panel-elem") Звание
                 each val, index in templateContent.content
                     div(class="best-players-panel")
                         div(class="panel-elem")
@@ -97,11 +96,14 @@ div(class="main-container")
                             alt="No exist")
                             div(class="rank-text") #{val.rank.name}
                 +paginator("top-paginator", 5)
-            else
-                +bottom_info(
-                    "Не удалось получить список игроков, проверьте интернет соединение",
-                    "Играть offline",
-                    "join_offline_btn")
+        else if (templateContent.connection === true)
+            div(class="tab-content")
+                div(class="empty-tab-info") Список игроков пуст!
+        if (templateContent.connection === false)
+            +bottom_info(
+                "Не удалось получить список игроков, проверьте интернет соединение",
+                "Играть offline",
+                "join_offline_btn")
 
     else if templateContent.contentType == window.id.tabOffline
         div(class="tab-content")
@@ -129,41 +131,42 @@ div(class="main-container")
         +bottom_info_only_text("Тренировка представлет собой одиночную игру с таймером для ответа")
 
     else if templateContent.contentType == window.id.tabPack
-        div(class="tab-content")
-            if (templateContent.content.length)
-                    div(id="offline_mode")
-                    div(class="offline-panel")
-                        div(class="panel-elem") Название:
-                        div(class="panel-elem") Рейтинг:
-                        div(class="panel-elem") 
-                        div(class="panel-elem")
-                    if (templateContent.connection === true)
-                        each pack, index in templateContent.content
-                            div(class="offline-panel")
-                                div(class="panel-elem") #{pack.name}
-                                div(class="panel-elem") #{pack.rating}
-                                div(class="panel-elem")
-                                    div(class="button-in-list create" id="create" pack_id=pack.id) Изменить
-                                div(class="panel-elem")
-                                    div(class="button-in-list delete" id="delete" pack_id=pack.id) Удалить
-                        +paginator("pack-paginator", 5)
-                    else
-                        +bottom_info(
-                            "Не удалось получить паки, проверьте интернет соединение",
-                            "Играть offline",
-                            "join_offline_btn")
-                            
-            else
-                div(class="empty-tab-info") Создавайте свои паки и играйте с друзьями!    
-            div(class="button-container-create-pack")
-                div(class="create-pack-button" id="create-pack-button") Создать пак
+        if (templateContent.content.length)
+            div(class="tab-content")
+                div(id="offline_mode")
+                div(class="offline-panel")
+                    div(class="panel-elem") Название:
+                    div(class="panel-elem") Рейтинг:
+                    div(class="panel-elem") 
+                    div(class="panel-elem")
 
-            div(class="popup " id="popup")
-                div(class="popup__content " id="popup_content")
-                    div(class="popup-elem-normal" id="popup-elem-top") Для создания пака необходимо авторизоваться
-                    div(class="popup-elem-bottom ")
-                        div(class="popup-button" id="cansel") Отмена
-                        div(class="popup-button" id="login") Продолжить
+                each pack, index in templateContent.content
+                    div(class="offline-panel")
+                        div(class="panel-elem") #{pack.name}
+                        div(class="panel-elem") #{pack.rating}
+                        div(class="panel-elem")
+                            div(class="button-in-list create" id="create" pack_id=pack.id) Изменить
+                        div(class="panel-elem")
+                            div(class="button-in-list delete" id="delete" pack_id=pack.id) Удалить
+                +paginator("pack-paginator", 5)
+                            
+        else if (templateContent.connection === true)
+            div(class="tab-content")
+                div(class="empty-tab-info") Создавайте свои паки и играйте с друзьями!    
+                div(class="button-container-create-pack")
+                    div(class="create-pack-button" id="create-pack-button") Создать пак
+        if (templateContent.connection === false)
+            +bottom_info(
+                "Не удалось получить паки, проверьте интернет соединение",
+                "Играть offline",
+                "join_offline_btn")
+
+        div(class="popup " id="popup")
+            div(class="popup__content " id="popup_content")
+                div(class="popup-elem-normal" id="popup-elem-top") Для создания пака необходимо авторизоваться
+                div(class="popup-elem-bottom ")
+                    div(class="popup-button" id="cansel") Отмена
+                    div(class="popup-button" id="login") Продолжить
           
     else if templateContent.contentType == window.id.tabAboutGame
         div(class="tab-content")

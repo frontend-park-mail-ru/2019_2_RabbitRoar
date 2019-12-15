@@ -21,6 +21,7 @@ class TabsE {
             ContentF.setCurrentTab(window.location.pathname, false);
         }
 
+
         ContentF.getTabContent().then(
             templateContent => {
                 templateContent.connection = true;
@@ -31,7 +32,7 @@ class TabsE {
         ).catch(
             () => {
                 const templateContent = {
-                    contentType: window.id.tabRoom,
+                    contentType: ContentF.getCurrentTab(),
                     connection: false,
                     content: []
                 };

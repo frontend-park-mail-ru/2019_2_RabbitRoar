@@ -125,6 +125,10 @@ class ContentF {
         return content;
     }
 
+    getCurrentTab = () => {
+        return MainMenuM.currentTab;
+    }
+
     findChosen =  (tabs) => {
         for (const tab of tabs) {
             if (tab.id === MainMenuM.currentTab) {
