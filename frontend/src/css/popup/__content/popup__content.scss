@@ -98,3 +98,28 @@
   border-top-width: 0px;
   border-bottom-width: 0px;
 }
+
+
+.popup__content-info {
+  display: grid;
+  visibility: inherit;
+  background-color: var(--color-bg-dark);
+  color: var(--font-color);
+  text-align: center;
+  z-index: 1;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr 1fr;
+}
+
+@media all and (orientation: landscape) {
+  .popup__content {
+    width: 60%;
+    height: 70%;
+  }
+}
+@media all and (orientation: portrait) {
+  .popup__content {
+    width: 70%;
+    height: 60%;
+  }
+}

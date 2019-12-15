@@ -58,6 +58,10 @@ class StaticManager {
         return this.base + "/static/exit.svg";
     }
 
+    get infoLogo() {
+        return this.base + "/static/info-icon.svg";
+    }
+
     get hostIcon() {
         return this.base + "/static/host-icon.png";
     }
