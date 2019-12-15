@@ -23,22 +23,22 @@ async function cacheInitPromise() {
                         const requestURL = new URL(request.url);
                         if ((key.pathname === requestURL.pathname) && (key.search !== requestURL.search)) {
                             await cache.delete(request.url);
-                            //console.log(`UPDATE from ${requestURL.pathname + requestURL.search}`);
-                            //console.log(`To ${key.pathname + key.search}`);
+                            console.log(`UPDATE from ${requestURL.pathname + requestURL.search}`);
+                            console.log(`To ${key.pathname + key.search}`);
                             await cache.add(key.pathname + key.search);
                         }
                     }
                 );
                 await cache.add(findKey);
-                //console.log(`CACHED: ${findKey}`);
+                console.log(`CACHED: ${findKey}`);
             } else {
-                //console.log(`ALREADY EXIST: ${key}`);
+                console.log(`ALREADY EXIST: ${key}`);
             }
         } catch (err) {
-            //console.log(`Cache init error! ${err}`);
+            console.log(`Cache init error! ${err}`);
         }
     }
-    //console.log("Установлен успешно");
+    console.log("Установлен успешно");
 }
 
 self.addEventListener("install", function (event) {
@@ -56,10 +56,10 @@ async function processPromise(event) {
         const cache = await caches.open(CACHE_NAME);
         try {
             const response = await cache.match(requestUrl, {ignoreSearch: true});
-            //console.log(`OFFLINE Страница найдена в кэше: ${response.url}`);
+            console.log(`OFFLINE Страница найдена в кэше: ${response.url}`);
             return response;
         } catch {
-            //console.log(`Страница не найдена: ${requestUrl}`);
+            console.log(`Страница не найдена: ${requestUrl}`);
             return;
         }
     } else {
@@ -67,19 +67,19 @@ async function processPromise(event) {
         let response = await cache.match(requestUrl, {ignoreSearch: true});
 
         if (response) {
-            //console.log(`Найдено в статическом кэше: ${_getUrlRevision(requestUrl)}`);
+            console.log(`Найдено в статическом кэше: ${_getUrlRevision(requestUrl)}`);
             return response;
         } else if (_isPreCacheUrl(requestUrl)) {
-            //console.log(`Был удален: ${_getUrlRevision(requestUrl)}`);
+            console.log(`Был удален: ${_getUrlRevision(requestUrl)}`);
             await cache.add(_getUrlRevision(requestUrl));
             response = await cache.match(_getUrlRevision(requestUrl));
 
             if (response) {
-                //console.log("Восстановлен успешно");
-                //console.log(response);
+                console.log("Восстановлен успешно");
+                console.log(response);
                 return response;
             } else {
-                //console.log("Не удалось восстановить");
+                console.log("Не удалось восстановить");
             }
         }
 
@@ -88,7 +88,7 @@ async function processPromise(event) {
             try{
                 response = await fetch(event.request);
             } catch(err) {
-                //console.log(err);
+                console.log(err);
                 return response;
             }
             console.log(`Не нужно кэшировать: ${requestUrl.pathname}`);
@@ -100,14 +100,14 @@ async function processPromise(event) {
         try {
             response = await fetch(fetchRequest);
         } catch(err) {
-            //console.log(err);
+            console.log(err);
             return response;
         }
 
         const responseToCache = response.clone();
 
         cache.put(requestUrl, responseToCache);
-        //console.log(`ONLINE Страница загружена и сохранена в кэше!!: ${requestUrl}`);
+        console.log(`ONLINE Страница загружена и сохранена в кэше!!: ${requestUrl}`);
         return response;
     }
 }
@@ -142,7 +142,7 @@ async function reloadPromise() {
             if ((requestUrl.pathname === cacheObj.url) && (requestUrl.search !== "?" + cacheObj.revision)) {
                 const delPromise = await cache.delete(requestUrl.pathname + requestUrl.search);
                 promises.push(delPromise);
-                //console.log(`Удалена старая версия кэша: ${requestUrl.pathname + requestUrl.search}`);
+                console.log(`Удалена старая версия кэша: ${requestUrl.pathname + requestUrl.search}`);
             }
         }
     }

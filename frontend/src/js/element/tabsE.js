@@ -32,7 +32,8 @@ class TabsE {
             () => {
                 const templateContent = {
                     contentType: window.id.tabRoom,
-                    connection: false
+                    connection: false,
+                    content: []
                 };
                 this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
                 this._highlightChosen();
