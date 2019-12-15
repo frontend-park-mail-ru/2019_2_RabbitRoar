@@ -1,4 +1,5 @@
 sudo: true
+
 services: docker
 
 branches:
@@ -6,5 +7,11 @@ branches:
     - dev
     - ci
 
-script:
-  - bash deployments/ci/build.sh
+jobs:
+  include:
+    - stage: build docker image
+      script:
+        - bash deployments/ci/build.sh
+    - stage: push docker image
+      script:
+        - bash deployments/ci/push.sh

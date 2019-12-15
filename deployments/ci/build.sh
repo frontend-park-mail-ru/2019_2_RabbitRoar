@@ -19,8 +19,4 @@ docker tag alexnav/svoyak-frontend-app alexnav/svoyak-frontend-app:$TRAVIS_BUILD
 
 docker login --username=alexnav --password=$DOCKER_HUB_TOKEN
 
-docker push alexnav/svoyak-frontend-chat
-docker push alexnav/svoyak-frontend-app
-
 popd
-
