@@ -8,6 +8,7 @@ export const ROOM_CREATOR = "/room";
 export const WAITING = "/waiting";
 export const PACK_CREATION = "/pack_creation";
 export const PACK_EDITING = "/pack_editing";
+export const LINK_JOIN = "/link_join";
 
 export const TAB = ["/rooms", "/top", "/training", "/packs", "/about"];
 

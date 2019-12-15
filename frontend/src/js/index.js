@@ -11,6 +11,7 @@ import {
     PACK_CREATION,
     PACK_EDITING,
     ONLINE_GAME,
+    LINK_JOIN,
     TAB, } from "./paths";
 
 import { SERVICE_WORKER_CMD } from "./modules/events.js";
@@ -26,6 +27,7 @@ import GameWaitingV from "./view/gameWaitingV"
 import PackCreatorV from "./view/packCreatorV"
 import PackEditingV from "./view/packEditingV"
 import OnlineGameV from "./view/onlineGameV"
+import JoinOnLinkV from "./view/joinOnLinkV"
 
 
 
@@ -89,6 +91,7 @@ router.register(PACK_CREATION, PackCreatorV);
 router.register(PACK_EDITING, PackEditingV);
 router.register(PACK_EDITING, PackEditingV);
 router.register(ONLINE_GAME, OnlineGameV);
+router.register(LINK_JOIN, JoinOnLinkV);
 
 for (const tabPage of TAB) {
     router.register(tabPage, MainMenuV);
