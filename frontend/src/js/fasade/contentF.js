@@ -144,7 +144,8 @@ class ContentF {
     setCurrentTab = (newValue, reload = true) => {
         MainMenuM.currentTab = newValue;
         if (reload) {
-            Bus.emit(ROUTER_EVENT.ROUTE_TO, MainMenuM.currentTab);
+            Bus.emit(ROUTER_EVENT.FAKE_ROUTE, MainMenuM.currentTab);
+            Bus.emit(CHANGE_TAB);
         }
     }
 

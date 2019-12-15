@@ -10,7 +10,15 @@ class TabsE {
     constructor() {
         this.root = document.getElementById("application");
         this.controller = TabsC;
+
+        Bus.on(CHANGE_TAB, this._change);
     }
+
+    _change = (event) => {
+        this._localDestroy();
+        this.create(this.root);
+    }
+
 
     create = (root = document.getElementById("application")) => {
         this.root = root;
