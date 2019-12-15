@@ -58,10 +58,12 @@ class NavbarE {
             );
         }
 
+        const infoLogo = StaticManager.infoLogo;
         this.root.insertAdjacentHTML("beforeend", Template({
             authorized: authorized,
             chatUrl: StaticManager.chatAvatar,
-            exitUrl: StaticManager.exitLogo
+            exitUrl: StaticManager.exitLogo,
+            infoLogo: infoLogo
         }));
         
         if (currentUrl === "/"  || currentUrl === "/rooms" || currentUrl === "/top" || currentUrl === "/training"

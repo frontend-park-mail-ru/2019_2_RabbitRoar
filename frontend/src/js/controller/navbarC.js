@@ -19,9 +19,24 @@ class NavbarC {
 
         this.registerHandler("chat_bar", "mouseover", this._chatFocus);
         this.registerHandler("chat_bar", "mouseout", this._chatFocus);
-
         this.registerHandler("chat_bar", "click", this._chatClick);
+
+        this.registerHandler("help_bar", "mouseover", this._helpFocus);
+        this.registerHandler("help_bar", "mouseout", this._helpFocus);
+        this.registerHandler("help_bar", "click", this._showOrHidePopUpInfo);
+
+        this.registerHandler("info-ok", "click", this._showOrHidePopUpInfo);
+
+
         this.registerHandler("back", "click", this._goToRoot);
+    }
+
+    _showOrHidePopUpInfo = () => {
+        const popupInfo = document.getElementById("info-popup");
+        if (popupInfo) {
+            popupInfo.classList.toggle("popup_show");
+            return;
+        }
     }
 
     _goToRoot = () => {
@@ -32,6 +47,19 @@ class NavbarC {
             Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
         }
     }
+
+    _helpFocus = () => {
+        const helpBar = document.getElementById("help_bar");
+        if (helpBar) {
+            helpBar.classList.toggle("help__help-bar-show");
+        }
+    }
+
+    // _helpClick = () => {
+    //     const popoupRules = document.getElementById("info-popup");
+
+    //     alert("help");
+    // }
 
     _chatFocus = () => {
         const chatBar = document.getElementById("chat_bar");

@@ -13,8 +13,6 @@
   font-size: var(--tab-text);
 }
 
-
-
 .tab-click {
   z-index: 0.5;
   border-top-width: 2px;
@@ -25,7 +23,6 @@
   border-radius: 0px;
   background-color: rgba(0, 0, 0, 0);
   font-size: var(--tab-text);
-
 }
 
 .tab-left {
@@ -33,13 +30,10 @@
   border-bottom-left-radius: 10px;
 }
 
-
 .tab-right {
   border-right-width: 2px;
   border-bottom-right-radius: 10px;
 }
-
-
 
 .tab-left-click {
   border-right-width: 2px;
@@ -50,9 +44,6 @@
   border-left-width: 2px;
   border-bottom-left-radius: 10px;
 }
-
-
-
 
 .tab-hover {
   z-index: 1;
