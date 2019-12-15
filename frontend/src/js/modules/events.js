@@ -4,6 +4,7 @@ const globalRouterEvent = "goTo";
 export const ROUTER_EVENT = {
     ROUTE_TO: globalRouterEvent,
     SESSION_END: "listenUnAutorise",
+    FAKE_ROUTE: "fakeRoute"
 };
 
 

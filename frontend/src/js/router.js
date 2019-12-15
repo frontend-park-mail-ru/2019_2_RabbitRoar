@@ -8,6 +8,7 @@ export class Router {
         this.routes = new Map();
         this.root = root;
         Bus.on(ROUTER_EVENT.ROUTE_TO, this.routeTo);
+        Bus.on(ROUTER_EVENT.FAKE_ROUTE, this.fakeRouteTo);
 
         window.addEventListener("popstate", (event) => {
             event.preventDefault();
@@ -23,6 +24,14 @@ export class Router {
         }
     }
 
+    fakeRouteTo = (path = "/") => {
+        const parseUrl = new URL("https://localhost:8080" + path);
+        path = parseUrl.pathname;
+        
+        if (window.location.pathname !== path) {
+            history.pushState(null, null, path);
+        }
+    }
 
     routeTo = (path = "/", firtsTime = false) => {
         const parseUrl = new URL("https://localhost:8080" + path);
