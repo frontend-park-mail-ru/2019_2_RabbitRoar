@@ -8,6 +8,7 @@ class ValidatorF {
         this.networkState = window.navigator.onLine;
         this.userId;
         this.username;
+        this.getUserData();
     }
 
     getCurrentUsername() {

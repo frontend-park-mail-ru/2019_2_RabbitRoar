@@ -94,6 +94,10 @@ class RealPlayersM {
         }
 
         this.players = data.payload.players;
+        
+        for (const player of data.payload.players) {
+            player.avatar = StaticManager.getUserUrl(player.avatar);
+        }
     }
 
     _saveTrueAnswer = (data) => {

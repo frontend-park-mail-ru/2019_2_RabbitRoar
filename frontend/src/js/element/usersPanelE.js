@@ -5,6 +5,7 @@ import GameF from "../fasade/gameF.js";
 import Bus from "../event_bus.js";
 
 import { USER_PANEL_NEW_USER, USER_PANEL_USER_READY } from "../modules/events.js";
+import { LINK_JOIN, HttpsOriginNoApi } from "../paths";
 import { replaceTwoCssClasses } from "../modules/css_operations";
 
 import StaticManager from "../modules/staticManager.js"
@@ -110,15 +111,15 @@ class UsersPanelE {
 
         const players = this.gameIface.getPlayers();
         const leaveLogo = StaticManager.leaveLogo;
-        const roomName = GameF.getRoomName();
+        const roomInfo = this.gameIface.getRoomInfo();
         const userName = ValidatorF.getCurrentUsername();
 
         this.root.insertAdjacentHTML("beforeend", Template({
             players: players,
             leaveLogo: leaveLogo,
-            roomName: roomName,
-            userName: userName
-
+            roomName: roomInfo.name,
+            userName: userName,
+            roomURL: window.location.origin + LINK_JOIN + "?UUID=" + roomInfo.UUID // Заменить origin
         }));
         this.controller.startAllListeners();
     }

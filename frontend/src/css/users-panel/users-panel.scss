@@ -26,6 +26,11 @@
   align-items: center;
 }
 
+
+.hidden-share-link {
+  visibility: hidden;
+}
+
 .player-avatar {
   border: 2px solid var(--border-color-theme);
   border-bottom-width: 0px;
