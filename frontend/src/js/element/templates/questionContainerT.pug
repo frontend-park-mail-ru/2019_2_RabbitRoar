@@ -39,13 +39,13 @@ else if state.mode == "result"
         div(id="dynamic-bar" class="dynamic-bar")
     div(class="question-container")
         if state.result === true
-            div(class="question-container__result_true")
-            div(class="question-container__answer_true") Правильно! #{state.answerOwner}
-            div(class="question-container__score_true") + #{state.currentQuestionScore} Очков
+            div(class="question-container__result_true") Правильно!
+            div(class="question-container__answer_true") Правильный ответ: #{state.correctAnswer}, #{state.answerOwner} ответил: #{state.answer}
+            div(class="question-container__score_true") #{state.answerOwner} + #{state.currentQuestionScore} Очков
         else
             div(class="question-container__result_false") Неправильный ответ!
-            div(class="question-container__answer_false") Ответ: "#{state.answer}"
-            div(class="question-container__score_false") - #{state.currentQuestionScore} Очков
+            div(class="question-container__answer_false") Правильный ответ: "#{state.correctAnswer}", #{state.answerOwner} ответил: "#{state.answer}"
+            div(class="question-container__score_false") #{state.answerOwner} - #{state.currentQuestionScore} Очков
 
 else if state.mode == "verdict"
     div(id="progress-bar" class="progress-bar-hidden")

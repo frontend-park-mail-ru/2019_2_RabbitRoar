@@ -88,6 +88,8 @@ class OfflineQuestionsM {
             this.result = false;
             this.removePointsForQuestion();
         }
+        this.userAnswer = answer;
+
 
         this.questionTable.mode = "result";
         Bus.emit(QUESTION_CHANGE);
@@ -125,7 +127,8 @@ class OfflineQuestionsM {
         } else if (this.questionTable.mode === "result") {
             return {
                 mode: this.questionTable.mode,
-                answer: this.questionTable.selectedQuestion.answer,
+                correctAnswer: this.questionTable.selectedQuestion.answer,
+                answer: this.userAnswer,
                 result: this.result,
                 currentQuestionScore: this.currentQuestionScore,
             };
@@ -220,6 +223,24 @@ class OnlineQuestionsM {
         WebSocketIface.addMessageHandler("answer_given_back", this._recieveAnswer);
         WebSocketIface.addMessageHandler("request_answer_from_respondent", this._verdictOrSelected);
         WebSocketIface.addMessageHandler("verdict_given_back", this._verdictDone);
+        WebSocketIface.addMessageHandler("request_question_from_player", this._defaultMode);       // id того, кто выбирает вопрос
+    }
+
+    _defaultMode = (data) => {
+        this.questionTable.mode = "default";
+
+        const field = data.payload.questions;
+
+        for (let i = 0; i < field.length; i++) {
+            for (let j = 0; j < field[i].length; j++) {
+                if (!field[i][j]) {
+                    const themeName = this.themes[i];
+                    const key = themeName + "-" + j;
+                    console.log(key);
+                    this.chosedQuestionsId[key] = true;
+                }
+            }
+        }
     }
 
     addFields = (...fields) => {
@@ -242,33 +263,26 @@ class OnlineQuestionsM {
         this.questionTable.mode = "result";
 
         setTimeout( () => {
-            this.questionTable.mode = "default";
             this.questionTable.selectedQuestion.answer = "";
-            Bus.emit(QUESTION_CHANGE);
-        }, 2000);
+        }, 50);
     }
 
 
 
     _userChoseQuestion = (data) => {
-        console.log(data);
         this.themeIndex = data.payload.theme_id;
         const questionIndex = data.payload.question_id;
 
-        console.log("this.themeIndex: ", this.themeIndex);
-        console.log("this.questionIndex", questionIndex);
 
         const currentTheme = this.themes[this.themeIndex];
         const disabledQuestionId = currentTheme + "-" + questionIndex;
-
-        console.log("htmlQuestionId: ", disabledQuestionId);
 
 
         const question = data.payload.question;
 
         this.questionTable.mode = "answer_race";
         this.questionTable.selectedQuestion.text = question;
-        this.chosedQuestionsId[disabledQuestionId] = true;
+        //this.chosedQuestionsId[disabledQuestionId] = true;
     }
 
     clickQuestion = (packId, cellId, themeId) => {
