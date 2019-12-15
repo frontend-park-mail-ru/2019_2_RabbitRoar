@@ -2,7 +2,7 @@
   display: grid;
   height: 40vh;
   grid-template-columns: 25% 50% 25%;
-  grid-template-rows: 10% 25% 65%;
+  grid-template-rows: 8% 25% 60%;
   text-align: center;
 }
 
@@ -14,8 +14,8 @@
   border: 5px solid;
   border-color: var(--forth-color);
   border-radius: 50px;
-
 }
+
 .info-heder-text {
   background-color: transparent;
   text-align: center;

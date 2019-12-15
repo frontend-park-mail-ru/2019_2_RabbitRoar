@@ -1,0 +1,18 @@
+.navbar__navigation-text {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    text-align: center;
+    color: var(--forth-color);
+    font-size: var(--font-size);
+    padding-left: 1vw;
+    padding-right: 1vw;
+    height: 100%;
+    
+    cursor: default;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+  }

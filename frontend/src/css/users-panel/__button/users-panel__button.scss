@@ -1,0 +1,21 @@
+.user-panel__button-ready {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.user-panel__button-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+
+  grid-column: 2;
+  grid-row: 3;
+}

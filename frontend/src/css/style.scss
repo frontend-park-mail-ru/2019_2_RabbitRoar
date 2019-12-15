@@ -10,7 +10,8 @@
 @import "./help/__help-bar/help__help-bar.scss";
 
 @import "/navbar/navbar";
-@import "/navbar/__exit/navbar__exit";
+@import "./navbar/__right-panel/navbar__right-panel.scss";
+@import "./navbar/__navigation-text/navbar__navigation-text.scss";
 @import "/navbar/__game-logo/navbar__game-logo";
 @import "/navbar/__user-logo/navbar__user-logo";
 @import "/navbar/__back-img/navbar__back-img";
@@ -31,6 +32,7 @@
 @import "/pack-creation/__input/pack-creation__input";
 
 @import "/users-panel/users-panel";
+@import "./users-panel/__button/users-panel__button.scss";
 @import "/users-panel/__ready-indicator/users-panel__ready-indicator.scss";
 @import "/users-panel/__icons/users-panel__icons.scss";
 @import "/users-panel/__text/users-panel__text.scss";
