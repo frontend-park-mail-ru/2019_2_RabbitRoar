@@ -160,7 +160,7 @@ self.addEventListener("message", async function (event) {
 
     if (event.data.command === "delete") {
         const cache = await caches.open(CACHE_NAME);
-        //console.log(`delete ${event.data.url}`);
+        console.log(`delete ${event.data.url}`);
         await cache.delete(event.data.url);
     } else if (event.data.command === "regExp_delete") {
         const cache = await caches.open(CACHE_NAME);
@@ -170,7 +170,7 @@ self.addEventListener("message", async function (event) {
             const parseUrl = new URL(key.url);
             if (parseUrl.pathname.match(event.data.regExp)) {
                 const result = await cache.delete(key);
-                //console.log(`regExp_delete[${key}]: ${result}`);
+                console.log(`regExp_delete[${key}]: ${result}`);
             }
         }
     }
@@ -238,7 +238,7 @@ function _transformApiUrl(requestUrl) {
     const appPages = [
         "/",
         "/login",
-        "/profile",
+        "/user/profile",
         "/signup",
         "/single_game",
         "/top",

@@ -40,8 +40,8 @@ class User {
     }
 
     async exit() {
-        await logout();
         localStorage.removeItem("authorized");
+        await logout();
     }
 
 
