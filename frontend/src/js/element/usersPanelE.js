@@ -17,7 +17,7 @@ const MOKiface = {
 
         for (let i = 0; i < capacity; i++) {
             players.push({
-                id: i,
+                id: -i,
                 username: "Empty" + i,
                 avatar: StaticManager.getUserUrl(),
                 score: 0,
@@ -66,6 +66,16 @@ class UsersPanelE {
             currentPlayersMap[order] = currentPlayers[i];
         }
 
+        const diff = currentPlayers.length - players.length;
+        for (let i = 0; i < diff; i++) {
+            players.push({
+                id: -i,
+                username: "Empty" + i,
+                avatar: StaticManager.getUserUrl(),
+                score: 0,
+                ready: false
+            });
+        }
 
         let order = 0;
         for (const player of players) {
@@ -74,13 +84,23 @@ class UsersPanelE {
                 this._insertCell(player, currentPlayersMap[order]);
             }
 
-            if ((player.id === host.id) && (currentPlayersMap[order].children[0].children.length === 0)) {
-                const image = document.createElement("IMG");
-                image.src =  StaticManager.hostIcon;
-                image.alt = "User";
-                image.id = "hostIcon";
-                image.classList.add("users-panel__icon-img");
-                currentPlayersMap[order].children[0].insertAdjacentElement("beforeend", image);
+            const iconContainer = currentPlayersMap[order].children[0];
+            if (player.id === host.id) {
+                if (iconContainer.children.length === 0) {
+                    const image = document.createElement("IMG");
+                    image.src = StaticManager.hostIcon;
+                    image.alt = "User";
+                    image.id = "hostIcon";
+                    image.classList.add("users-panel__icon-img");
+                    currentPlayersMap[order].children[0].insertAdjacentElement("beforeend", image);
+                }
+            } else {
+                const img = document.getElementById("hostIcon");
+                if (iconContainer.children.length > 0) {
+                    for (const child of iconContainer.children) {
+                        iconContainer.removeChild(child);
+                    }
+                }
             }
             order++;
         }
@@ -101,7 +121,7 @@ class UsersPanelE {
         this.create(this.root);
     }
 
-    
+
 
 
     create = (root = document.getElementById("application")) => {
