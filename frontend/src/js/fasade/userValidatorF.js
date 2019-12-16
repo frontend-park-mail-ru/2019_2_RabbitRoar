@@ -80,6 +80,11 @@ class ValidatorF {
     doExit() {
         UserM.exit().then(
             resolve => Bus.emit(ROUTER_EVENT.ROUTE_TO, LOGIN)
+        ).catch(
+            (err) => {
+                console.log("Оффлайн выход - успешно")
+                Bus.emit(ROUTER_EVENT.ROUTE_TO, LOGIN);
+            }
         );
     }
 

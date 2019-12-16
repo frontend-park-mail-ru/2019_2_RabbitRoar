@@ -12,7 +12,6 @@ class GamePanelE {
         this.root = document.getElementById("application");
         this.controller = GamePanelC;
 
-        Bus.on(GAME_PANEL_UPDATE, this._update);
     }
 
     _update = () => {
@@ -30,6 +29,8 @@ class GamePanelE {
     }
 
     create(root = document.getElementById("application")) {
+        Bus.on(GAME_PANEL_UPDATE, this._update);
+
         this.root = root;
         this.gameIface = GameF.getInterface(this)();
 
@@ -45,6 +46,7 @@ class GamePanelE {
 
 
     destroy() {
+        Bus.off(GAME_PANEL_UPDATE, this._update);
         this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }

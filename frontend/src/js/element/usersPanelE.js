@@ -35,8 +35,7 @@ const MOKiface = {
 class UsersPanelE {
     constructor() {
         this.controller = UsersPanelC;
-        Bus.on(USER_PANEL_NEW_USER, this._updatePlayers);
-        Bus.on(USER_PANEL_USER_READY, this._readyChange);
+
     }
 
     _changeUserIndicator = (userId, ready) => {
@@ -127,6 +126,8 @@ class UsersPanelE {
     create = (root = document.getElementById("application")) => {
         this.root = root;
         this.gameIface = GameF.getInterface(this)();
+        Bus.on(USER_PANEL_NEW_USER, this._updatePlayers);
+        Bus.on(USER_PANEL_USER_READY, this._readyChange);
         //this.gameIface = MOKiface;
 
         const players = this.gameIface.getPlayers();
@@ -146,6 +147,8 @@ class UsersPanelE {
 
 
     destroy = () => {
+        Bus.off(USER_PANEL_NEW_USER, this._updatePlayers);
+        Bus.off(USER_PANEL_USER_READY, this._readyChange);
         this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }

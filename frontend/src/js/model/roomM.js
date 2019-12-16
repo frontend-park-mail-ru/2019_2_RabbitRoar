@@ -11,6 +11,7 @@ import StaticManager from "../modules/staticManager.js";
 // "done_connection" - Удалось установить соединение по вебсоккету
 // "waiting" - Ожидание игроков
 // "game" - Процесс игры
+// "game_ended" - Процесс игры
 // "closed" - Вебсоккет закрылся
 
 
@@ -88,10 +89,20 @@ class RealRoomM {
         WebSocketIface.addMessageHandler("user_connected", this._playerJoinedToRoom);
         WebSocketIface.addMessageHandler("player_ready_back", this._playerReady);
         WebSocketIface.addMessageHandler("start_game", this._startGame);
+        WebSocketIface.addMessageHandler("game_ended", this._endGame);
 
         WebSocketIface.addOpenHandler(this._doneConnection);
         WebSocketIface.addCloseHandler(this._closeConnection);
     }
+
+
+    _endGame = (data) => {
+        this.lastState = this.state;
+        this.state = "game_ended";
+        Bus.emit(ROOM_CHANGE);
+    }
+
+
     _startGame = (data) => {
         this.startGameData = data;
         this.lastState = this.state;

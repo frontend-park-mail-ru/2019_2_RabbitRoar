@@ -10,9 +10,6 @@ class GamePanelOnlineE {
     constructor() {
         this.root = document.getElementById("application");
         this.controller = GamePanelOnlineC;
-
-        Bus.on(GAME_PANEL_UPDATE, this._update);
-        Bus.on(GAME_PANEL_STATE_CHANGE, this._changeState);
     }
 
     _changeState = (state) => {
@@ -49,6 +46,9 @@ class GamePanelOnlineE {
     }
 
     create(root = document.getElementById("application")) {
+        Bus.on(GAME_PANEL_UPDATE, this._update);
+        Bus.on(GAME_PANEL_STATE_CHANGE, this._changeState);
+
         this.root = root;
         this.gameIface = GameF.getInterface(this)();
 
@@ -58,6 +58,8 @@ class GamePanelOnlineE {
 
 
     destroy() {
+        Bus.on(GAME_PANEL_UPDATE, this._update);
+        Bus.on(GAME_PANEL_STATE_CHANGE, this._changeState);
         this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }
