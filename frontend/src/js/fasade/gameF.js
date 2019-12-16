@@ -16,6 +16,7 @@ import {
     CRASH_EVENT,
     USER_PANEL_USER_READY,
     USER_PANEL_NEW_USER,
+    GAME_END,
     ONLINE_QUESTION_TABLE_UPDATE,
     WEBSOCKET_CLOSE
 } from "../modules/events.js";
@@ -196,6 +197,8 @@ class GameF {
                 code: closeCode,
                 lastState: lastState,
             });
+        } else if (RoomM.current.state === "game_ended") {
+            Bus.emit(GAME_END);
         }
     }
 

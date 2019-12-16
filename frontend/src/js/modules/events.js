@@ -62,6 +62,8 @@ export const CHANGE_VIEW_ROOM_CREATION = "changeContentRoomCreation";
 export const CHANGE_VIEW_PACK_CREATION = "changeContentPackCreation";
 
 
+export const GAME_END = "gameEnd";
+
 // ONLINE
 export const USER_PANEL_USER_READY = "UserPanelUserReady";
 export const USER_PANEL_NEW_USER = "UserPanelNewUser";

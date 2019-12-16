@@ -2,7 +2,7 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 
 import Bus from "../event_bus.js";
 
-import { ROUTER_EVENT, CONNECTION, WEBSOCKET_CLOSE, CRASH_EVENT, OFFLINE_GAME_END, SERVICE_WORKER_CMD } from "../modules/events.js";
+import { ROUTER_EVENT, GAME_END, CONNECTION, WEBSOCKET_CLOSE, CRASH_EVENT, OFFLINE_GAME_END, SERVICE_WORKER_CMD } from "../modules/events.js";
 import { ROOT, WAITING } from "../paths";
 
 class NetworkWarningC {
@@ -21,8 +21,13 @@ class NetworkWarningC {
         Bus.on(WEBSOCKET_CLOSE, this._wsClose);
         Bus.on(CRASH_EVENT, this._crashConnection);
         Bus.on(OFFLINE_GAME_END, this._endGame);
+        Bus.on(GAME_END, this._OnlineEndGame);
 
         Bus.on(SERVICE_WORKER_CMD, this._checkSw);
+    }
+
+    _OnlineEndGame = () => {
+        this._showOrHidePopUp("popup-end");
     }
 
     _checkSw = () => {
