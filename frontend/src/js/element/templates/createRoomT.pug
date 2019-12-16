@@ -16,7 +16,7 @@ if formNumber === 1
             input(class="checkbox" type="checkbox" id="checkbox")
             span(class="error-annotation" id="password_info") Для присоединения в комнату будет сгенерирована ссылка
 
-        button(type="submit", id="further") Далее
+        input(type="submit", class="input-button", value="Далее", id="further")
 else 
     div(id="max_order" maxOrder="2")
     div(class="main-room-container")
@@ -45,5 +45,5 @@ else
                 div(class="empty-tab-info") Вы не создали ни одного пака
 
     form(class="form")
-        button(type="submit", id="finish") Завершить
+        input(type="submit", class="input-button", value="Завершить" id="finish")
         

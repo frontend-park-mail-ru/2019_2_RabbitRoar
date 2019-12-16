@@ -19,7 +19,6 @@ div(class="main-container")
     div(class="tab", id=window.id.tabTop, order="2") Зал славы
     div(class="tab", id=window.id.tabOffline, order="3") Тренировка
     div(class="tab", id=window.id.tabPack, order="4") Паки
-    //div(class="tab", id=window.id.tabAboutGame, order="5") Об игре
 
     if templateContent.contentType == window.id.tabRoom
         if (templateContent.content.length)
@@ -45,14 +44,14 @@ div(class="main-container")
                 div(class="empty-tab-info") Ни одной комнаты еще не было создано, создайте свою!
         div(class="popup" id="popup")
             div(class="popup__content")
-                div(class="popup-elem-top" id="popup-elem-top") Вы переходите в online игру.
+                div(class="popup-elem-top" id="popup-elem-top") Для мультиплеера необходимо авторизоваться.
                 div(class="popup-elem-bottom")
                     div(class="popup-button" id="cansel") Отмена
                     div(class="popup-button" id="continue") Авторизоваться  
 
         if (templateContent.connection === true)
             div(class="tab__create-room-btn-container")
-                div(class="tab__create-room-btn" id=button_id) Создать кнопку
+                div(class="tab__create-room-btn" id=button_id) Создать комнату
         else
             +bottom_info(
                 "Не удалось получить список комнат, проверьте интернет соединение",

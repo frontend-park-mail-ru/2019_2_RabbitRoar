@@ -35,7 +35,7 @@ if formNumber === 1
             span(class="error-annotation" id="error_theme_5") Отображение ошибки
         span(class="error-annotation" id="error_main") Укажите уникальные темы
 
-        button(type="submit", id="further") Далее
+        input(type="submit", class="input-button", value="Далее", id="further")
 else
     div(class="text-container")
         div(id="pack-name-header" class="text")
@@ -65,7 +65,7 @@ else
         div(class="text-help") Для создания вопроса выберите ячейку с темой и стоимостью
 
     form(class="form")
-        button(type="submit", id="save-pack") Сохранить пак
+        input(type="submit", class="input-button", value="Сохранить пак" id="save-pack")
 
     div(class="popup" id="popup-question")
         div(class="popup__content-question " id="popup_content")
