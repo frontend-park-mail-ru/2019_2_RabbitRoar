@@ -3,7 +3,7 @@ import Bus from "./event_bus.js";
 
 
 export const DomEventsWrapperMixin = {
-    registerHandler(id = "application", JsEvent = "click", callback) {
+    registerHandler(id = "application", JsEvent = "click", callback, prevent = true) {
         if (!this.events) {
             this.events = new Map();
         }
@@ -17,13 +17,15 @@ export const DomEventsWrapperMixin = {
         }
 
         idHandlers.set(JsEvent, function (ev) {
-            ev.preventDefault();
+            if (prevent) {
+                ev.preventDefault();
+            }
             callback(ev);
         });
         this.events.set(id, idHandlers);
     },
 
-    registerClassHandler(cssClass = "application", JsEvent = "click", callback) {
+    registerClassHandler(cssClass = "application", JsEvent = "click", callback, prevent = true) {
         if (!this.classEvents) {
             this.classEvents = new Map();
         }
@@ -37,7 +39,9 @@ export const DomEventsWrapperMixin = {
         }
 
         idHandlers.set(JsEvent, function (ev) {
-            ev.preventDefault();
+            if (prevent) {
+                ev.preventDefault();
+            }
             callback(ev);
         });
         this.classEvents.set(cssClass, idHandlers);

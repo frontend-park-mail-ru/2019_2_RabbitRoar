@@ -25,7 +25,7 @@ class NavbarC {
         this.registerHandler("chat_bar", "mouseout", this._chatFocus);
         this.registerHandler("chat_bar", "click", this._chatClick);
 
-        this.registerHandler("application", "click", this._chatOff);
+        this.registerHandler("application", "click", this._chatOff, false);
 
 
         this.registerHandler("help_bar", "mouseover", this._helpFocus);
