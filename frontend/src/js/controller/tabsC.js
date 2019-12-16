@@ -31,7 +31,7 @@ class TabsC {
         this.registerClassHandler(".create", "click", this._editPack);
 
         this.registerClassHandler(".join-button", "click", this._joinClick);
-        this.registerClassHandler(".delete", "click", this._deleteCurrentClass);
+        this.registerClassHandler(".delete", "click", this._deletePack);
 
         this.registerHandler("create-pack-button", "click", this._createPack);
 
@@ -47,9 +47,12 @@ class TabsC {
         Bus.emit(ROUTER_EVENT.ROUTE_TO, PACK_EDITING);
     }
 
+
     _deletePack = (event) => {
         const packForDelete = event.target.getAttribute("pack_id");
         ContentF.deletePackById(packForDelete);
+        //const tab_ = ContentF.getCurrentTab();
+        //Bus.emit(ROUTER_EVENT.ROUTE_TO, tab_);
     }
 
     startAllListeners() {
