@@ -4,10 +4,10 @@ import { DomEventsWrapperMixin } from "../DomEventsWrapperMixin.js";
 import { id } from "../modules/id.js";
 import Bus from "../event_bus.js";
 import PackM from "../model/packM.js";
-
+import { replaceTwoCssClasses } from "../modules/css_operations";
 
 import { ROUTER_EVENT, PACK_FOR_EDIT_WAS_CHOSEN } from "../modules/events.js";
-import { SINGLE_GAME, ROOM_CREATOR, LOGIN, PACK_CREATION, PACK_EDITING, ROOT} from "../paths";
+import { SINGLE_GAME, ROOM_CREATOR, LOGIN, PACK_CREATION, PACK_EDITING, ROOT } from "../paths";
 
 import ValidatorF from "../fasade/userValidatorF.js";
 
@@ -36,11 +36,26 @@ class TabsC {
         this.registerHandler("create-pack-button", "click", this._createPack);
 
         this.registerClassHandler(".popup-button", "click", this._processPopUp);
-        this.registerClassHandler(".tab__create-room-btn", "click", this._routeToRoomCreation);
 
         this.registerClassHandler(".pg-elem", "click", this._paginatorClick);
 
+        this.registerHandler("join_offline_btn", "click", this._playOffline);
+
+        this.registerHandler("create-room-button", "click", this._routeToRoomCreation);
+        window.addEventListener("offline", this._offline);
+
     }
+
+
+    _offline = () => {
+        this._wasInOffline = true;
+        window.location.reload();
+    }
+
+    _playOffline = (event) => {
+        ContentF.setCurrentTab("/training");
+    }
+
     _editPack = async () => {
         const packIdForEdit = event.target.getAttribute("pack_id");
         await ContentF.setInfoForPackEditing(packIdForEdit);
@@ -84,10 +99,6 @@ class TabsC {
     }
 
     _processPopUp = (event) => {
-        // if (event.target.id === "continue") {
-        //     this._showOrHidePopUp();
-        //     this._startGame(event);
-        // } 
         if (event.target.id == "cansel") {
             this._showOrHidePopUp();
         } else if (event.target.id == "login") {
@@ -163,17 +174,18 @@ class TabsC {
 
 
     _routeToRoomCreation = () => {
-        if (ValidatorF.checkLocalstorageAutorization()) {
-            Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOM_CREATOR);
-        } else {
-            document.getElementById("popup-elem-top").innerHTML = "Для создания игры необходимо авторизоваться.";
-            const continueButton = document.getElementById("continue");
-            if (continueButton) {
-                continueButton.id = "login";
+        if (window.navigator.onLine === true) {
+            if (ValidatorF.checkLocalstorageAutorization()) {
+                Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOM_CREATOR);
+            } else {
+                document.getElementById("popup-elem-top").innerHTML = "Для создания игры необходимо авторизоваться.";
+                const continueButton = document.getElementById("continue");
+                if (continueButton) {
+                    continueButton.id = "login";
+                }
+                this._showOrHidePopUp();
             }
-            this._showOrHidePopUp();
         }
-
     }
 }
 

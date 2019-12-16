@@ -71,11 +71,6 @@ class NavbarC {
         }
     }
 
-    // _helpClick = () => {
-    //     const popoupRules = document.getElementById("info-popup");
-
-    //     alert("help");
-    // }
 
     _chatFocus = () => {
         const chatBar = document.getElementById("chat_bar");

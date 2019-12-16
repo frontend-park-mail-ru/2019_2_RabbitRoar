@@ -51,10 +51,9 @@ div(class="main-container")
 
         if (templateContent.connection === true)
             div(class="tab__create-room-btn-container")
-                div(class="tab__create-room-btn" id=button_id) Создать комнату
+                div(class="tab__create-room-btn" id="create-room-button") Создать комнату
         else
             +bottom_info(
-                "Не удалось получить список комнат, проверьте интернет соединение",
                 "Играть offline",
                 "join_offline_btn")
 
@@ -88,7 +87,6 @@ div(class="main-container")
                 div(class="empty-tab-info") Список игроков пуст!
         if (templateContent.connection === false)
             +bottom_info(
-                "Не удалось получить список игроков, проверьте интернет соединение",
                 "Играть offline",
                 "join_offline_btn")
 
@@ -143,7 +141,6 @@ div(class="main-container")
                     div(class="create-pack-button" id="create-pack-button") Создать пак
         if (templateContent.connection === false)
             +bottom_info(
-                "Не удалось получить паки, проверьте интернет соединение",
                 "Играть offline",
                 "join_offline_btn")
 
@@ -154,14 +151,5 @@ div(class="main-container")
                     div(class="popup-button" id="cansel") Отмена
                     div(class="popup-button" id="login") Продолжить
           
-    else if templateContent.contentType == window.id.tabAboutGame
-        div(class="tab-content")
-            div(class="faq-text")
-                div(class="line") Добро пожаловать в онлайн-викторину «Swoyak»!
-                div(class="line") Выбирайте вопросы из игрового табло и отвечайте на них.
-                div(class="line") В игре присутствует ТАЙМЕР - вы должны успеть ответить на вопрос.  
-                div(class="line") Игра заканчивается, когда все вопросы выбраны.
-                div(class="line") Играй и повышай уровень.
-                div(class="line") Играйте с друзьями и создавайте индивидуальные тематические комнаты.
 
 
