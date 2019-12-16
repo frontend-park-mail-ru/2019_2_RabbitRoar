@@ -1,7 +1,9 @@
+import { HttpsOrigin } from "../paths.js"
+
 class StaticManager {
     constructor() {
         this.base = window.location.origin;
-        this.nginx = "https://svoyak.fun/api"
+        this.nginx = HttpsOrigin;
 
         this.userDefaultAvatar = "/static/default-logo.png";
 
@@ -45,7 +47,23 @@ class StaticManager {
     }
 
     get chatAvatar() {
-        return this.base + "/static/chat-logo.jpg";
+        return this.base + "/static/chat-logo.png";
+    }
+
+    get leaveLogo() {
+        return this.base + "/static/leave.svg";
+    }
+
+    get exitLogo() {
+        return this.base + "/static/exit.svg";
+    }
+
+    get infoLogo() {
+        return this.base + "/static/info-icon.svg";
+    }
+
+    get hostIcon() {
+        return this.base + "/static/host-icon.png";
     }
 
     getIframeUrl() {

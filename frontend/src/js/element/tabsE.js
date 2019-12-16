@@ -3,17 +3,32 @@ import Bus from "../event_bus.js";
 import { CHANGE_TAB } from "../modules/events.js";
 import ContentF from "../fasade/contentF.js";
 import TabsC from "../controller/tabsC.js";
+import { TAB } from "../paths";
 
 
 class TabsE {
     constructor() {
         this.root = document.getElementById("application");
         this.controller = TabsC;
-        Bus.on(CHANGE_TAB, this._restartListener);
+
+        Bus.on(CHANGE_TAB, this._change);
     }
+
+    _change = (event) => {
+        this._localDestroy();
+        this.create(this.root);
+    }
+
 
     create = (root = document.getElementById("application")) => {
         this.root = root;
+
+        if (window.location.pathname === "/") {
+            ContentF.setCurrentTab(TAB[0], false);
+        } else {
+            ContentF.setCurrentTab(window.location.pathname, false);
+        }
+
 
         ContentF.getTabContent().then(
             templateContent => {
@@ -25,8 +40,9 @@ class TabsE {
         ).catch(
             () => {
                 const templateContent = {
-                    contentType: window.id.tabRoom,
-                    connection: false
+                    contentType: ContentF.getCurrentTab(),
+                    connection: false,
+                    content: []
                 };
                 this.root.insertAdjacentHTML("beforeend", Template({ templateContent }));
                 this._highlightChosen();
@@ -35,20 +51,37 @@ class TabsE {
         );
     }
 
-    _restartListener = (event) => {
-        this._localDestroy();
-        this.create(this.root);
-    }
-
     _highlightChosen = () => {
         const targetElems = document.querySelectorAll(".tab");
+
+        let left;
+        let right;
+        const choosen = ContentF.findChosen(targetElems);
+        const choosenOrder = choosen.getAttribute("order");
+        const maxOrder = document.getElementById("max_order").getAttribute("maxOrder");
 
         if (targetElems) {
             for (const elem of targetElems) {
                 elem.className = "tab";
-            }
 
-            ContentF.findChosen(targetElems).className = "tab-click";
+                if (elem.getAttribute("order") === String(+choosenOrder - 1)) {
+                    elem.classList.add("tab-left-click");
+                } else if (elem.getAttribute("order") === String(1 + +choosenOrder)) {
+                    elem.classList.add("tab-right-click");
+                }
+
+                if ((elem.getAttribute("order") === "1") && (elem !== choosen)) {
+                    elem.classList.add("tab-left");
+                } else if ((elem.getAttribute("order") === maxOrder) && (elem !== choosen)) {
+                    elem.classList.add("tab-right");
+                }
+            }
+            choosen.classList.add("tab-click");
+            if (choosenOrder === "1") {
+                choosen.style.borderLeftWidth = "2px";
+            } else if (choosenOrder === maxOrder) {
+                choosen.style.borderRightWidth = "2px";
+            }
         }
     }
 

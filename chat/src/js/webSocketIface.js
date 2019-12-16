@@ -1,24 +1,25 @@
+
 class WebSocketIface {
     constructor() {
         this.addErrorHandler(
             (error) => {
-                console.log(`[error] ${error}`);
-                console.log(error);
+                // console.log(`[error] ${error}`);
+                // console.log(error);
             }
         );
 
         this.addOpenHandler(
             (event) => {
-                console.log("[open] Соединение установлено");
+                // console.log("[open] Соединение установлено");
             }
         );
 
         this.addCloseHandler(
             (event) => {
                 if (event.wasClean) {
-                    console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+                    // console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
                 } else {
-                    console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
+                    // console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
                 }
             }
         );
@@ -33,8 +34,6 @@ class WebSocketIface {
         const user = objMessage.user;
         const text = objMessage.text;
 
-        console.log(user + ": " + text);
-
         let messageElem = document.createElement("div");
         messageElem.className += " " + "message-in-chat";
         messageElem.textContent = user + ": " + text;
@@ -42,7 +41,7 @@ class WebSocketIface {
     };
 
     connect() {
-        this.socket = new WebSocket("wss://svoyak.fun/api/chat/ws");
+        this.socket = new WebSocket("wss://svoyak.fun/chat/ws");
 
         this.socket.onopen = (event) => {
             if (this.openHandlers) {
@@ -72,7 +71,6 @@ class WebSocketIface {
         this.socket.onmessage = (event) => {
             const objMessage = JSON.parse(event.data);
             this.drawMessage(objMessage);
-            console.log(objMessage);
         };
     }
 
@@ -176,24 +174,24 @@ class WebSocketIface {
 
         this.addOpenHandler(
             (event) => {
-                console.log("[open] Соединение установлено");
+                // console.log("[open] Соединение установлено");
             }
         );
 
 
         this.addErrorHandler(
             (error) => {
-                console.log(`[error] ${error}`);
-                console.log(error);
+                // console.log(`[error] ${error}`);
+                // console.log(error);
             }
         );
 
         this.addCloseHandler(
             (event) => {
                 if (event.wasClean) {
-                    console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+                    // console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
                 } else {
-                    console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
+                    // console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
                 }
             }
         );

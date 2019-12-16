@@ -43,24 +43,23 @@ class PackM {
         try {
             publicPacks = await getPublicPackList();
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
 
         try {
             playedPacks = await getPlayedPackList();
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
 
         try {
             myPackList = await getMyPackList();
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
 
 
         if ((!publicPacks) && (!playedPacks) && (!myPackList)) {
-            console.log("Error: pack list is empty!");
             return;
         }
 
@@ -78,13 +77,11 @@ class PackM {
         for (const id of uniquePack) {
             this.packList.push(id);
         }
-        console.log(`My packs: ${this.packList}`);
 
         if (localStorage.getItem("packs_list")) {
             const savedPacks = JSON.parse(localStorage.getItem("packs_list"));
             for (const savedPackId of savedPacks) {     // Удалит паки которых нет у пользователя в профиле
                 if (!this.packList.includes(savedPackId)) {
-                    console.log(`delete pack with id: ${savedPackId}`);
                     this._deletePack(savedPackId);
                 }
             }

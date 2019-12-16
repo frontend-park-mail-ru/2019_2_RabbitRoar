@@ -1,0 +1,45 @@
+.form-button {
+  background-color: var(--color-bg-dark);
+  color: var(--main-light-color);
+  border: 2px solid;
+  border-color: var(--main-light-color);
+  font-size: var(--small-font-size);
+  outline: none;
+  width: 30%;
+  height: 100%;
+  border-radius: 100px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.form-button-click {
+  background-color: var(--color-bg-light);
+  color: var(--main-light-color);
+  border: 2px solid;
+  border-color: var(--main-light-color);
+  font-size: var(--font-size);
+  outline: none;
+  width: 20%;
+  height: 100%;
+  border-radius: 100px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  cursor: pointer;
+  transition: 0.2s;
+
+  -webkit-box-shadow: 0px 0px 10px 0px var(--color-success);
+  -moz-box-shadow: 0px 0px 10px 0px var(--color-success);
+  box-shadow: 0px 0px 10px 0px var(--color-success);
+}
+
+.form-button:hover {
+  background-color: var(--color-bg-light);
+}

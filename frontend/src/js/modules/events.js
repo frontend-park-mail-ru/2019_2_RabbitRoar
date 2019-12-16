@@ -4,6 +4,7 @@ const globalRouterEvent = "goTo";
 export const ROUTER_EVENT = {
     ROUTE_TO: globalRouterEvent,
     SESSION_END: "listenUnAutorise",
+    FAKE_ROUTE: "fakeRoute"
 };
 
 
@@ -46,7 +47,8 @@ export const WEBSOCKET_CLOSE = "websocketClose";
 
 export const QUESTION_PANEL_UPDATE = "questPanelUpdate";
 export const USERS_PANEL_UPDATE = "usersPanelUpdate";
-export const QUESTION_WAS_CHOSEN = "questionWasChosen";
+export const GAME_PANEL_UPDATE = "gamePanelUpdate";
+export const GAME_PANEL_STATE_CHANGE = "gamePanelStateChange";
 export const CRASH_EVENT = "crashEvent";
 
 export const TIMER_STOPPED = "timerStopped";
@@ -56,10 +58,13 @@ export const FORM_CHANGED = "formChanged";
 
 export const PACK_FOR_EDIT_WAS_CHOSEN = "packEditing";
 
+export const CHANGE_VIEW_ROOM_CREATION = "changeContentRoomCreation";
 export const CHANGE_VIEW_PACK_CREATION = "changeContentPackCreation";
+
+
+export const GAME_END = "gameEnd";
 
 // ONLINE
 export const USER_PANEL_USER_READY = "UserPanelUserReady";
 export const USER_PANEL_NEW_USER = "UserPanelNewUser";
-//export const ONLINE_QUESTION_TABLE_UPDATE = "OnlineQuestionTableUpdate";
 export const DISABLE_QUESTION = "OnlineQuestionTableUpdate";

@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
 doctype html
-html
+html(lang="ru")
   head
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
@@ -15,4 +13,4 @@ html
           label(for="user-text")
           input(name="user-text", id="user-text", type="text", autocomplete="off")
           span(class="error-annotation" id="empty-message") Введите ваше сообщение
-      button(type="submit" class="chat-button" id="send-message") Отправить
+      input(type="submit", value="Отправить", class="chat-button", id="send-message")

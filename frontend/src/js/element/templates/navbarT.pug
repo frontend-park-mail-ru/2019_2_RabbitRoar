@@ -1,20 +1,41 @@
 div(class="chat-bar" id="chat_bar")
     img(src=chatUrl class="chat-icon" id="chat_icon")
+div(class="help__help-bar" id="help_bar")
+    img(src=infoLogo id="info_logo" class="help__svg")
 nav(class="navbar")
     div(class="grid-navbar-left")
         div(class="flex-container")
-            img(src="https://svoyak.fun/static/exit.svg" class="navbar__back-img" id="back")
-            a(class="navbar__exit", id="navigation", href="#")
+            img(src=exitUrl class="navbar__back-img" id="back")
+            a(class="navbar__navigation-text ", id="navigation", href="#")
     div(class="navbar__game-logo-container")
         div(class="flex-container-centered-content")
             a(class="navbar__game-logo", id="nav_logo", href="#") Своя игра
     if authorized == false
         div(class="grid-navbar-right")
             div(class="flex-navbar-right")
-                a(class="navbar__exit", id="nav_login", href="#") Вход
-                a(class="navbar__exit", id='nav_registration', href="#") Регистрация
+                a(class="navbar__right-panel", id="nav_login", href="#") Вход
+                a(class="navbar__right-panel", id='nav_registration', href="#") Регистрация
     else
         div(class="grid-navbar-right")
             div(class="flex-navbar-right")
                 a(id="nav_profile", href="#" class= "navbar__user-logo-container")
-                a(class="navbar__exit", id="nav_exit", href="#") Выход
+                a(class="navbar__right-panel", id="nav_exit", href="#") Выход
+
+
+div(class="popup " id="info-popup")
+    div(class="popup__content " id="popup_content")
+        div(class="popup-elem-normal" id="popup-elem-top")
+            div(class="faq-text")
+                div(class="line") Добро пожаловать в онлайн-викторину «Swoyak»!
+                div(class="line") КАК ИГРАТЬ
+                div(class="line") Выбирайте вопросы из игрового табло и отвечайте на них.
+                div(class="line") В игре присутствует таймер.
+                div(class="line") Игра заканчивается, когда все вопросы выбраны.  
+                div(class="line") ТРЕНИРОВКА
+                div(class="line") В этом разделе вы можете поиграть в одиночную игру с таймером
+                div(class="line") КОМНАТЫ
+                div(class="line") Играйте с друзьями и создавайте индивидуальные тематические комнаты.
+                div(class="line") ПАКИ
+                div(class="line") В этом разделе вы можете создать собственные темы и вопросы.
+        div(class="popup-elem-bottom ")
+            div(class="popup-button" id="info-ok") Ок!

@@ -2,25 +2,19 @@ import { getPackById } from "../modules/requests.js"
 
 onmessage = async function (event) {
     if (event.data.command === "update") {
-        console.log("Worker: Message received UPDATE");
-
+        // console.log("Worker: Message received UPDATE");
         for (const packId of event.data.packList) {
-            console.log(`Try load pack ${packId}`);
+            // console.log(`Try load pack ${packId}`);
 
             let pack;
             try {
                 pack = await getPackById(packId);
             } catch (err) {
-                console.log(err);
+                // console.log(err);
                 continue;
             }
             parsePack(pack);
         }
-
-        // const myPacks = getDefaultPacks();
-        // for (const pack of myPacks) {
-        //     parsePack(pack);
-        // }
     }
 }
 
@@ -30,9 +24,7 @@ function parsePack(pack) {
     fullPackMsg.value = JSON.stringify(pack);
     self.postMessage(fullPackMsg);
 
-
     let key = pack.id;
-
     const packInfo = {
         id: pack.id,
         name: pack.name,

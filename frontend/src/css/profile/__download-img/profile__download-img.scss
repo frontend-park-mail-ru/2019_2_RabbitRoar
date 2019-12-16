@@ -1,2 +1,27 @@
 .profile__download-img {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.profile__download-img + label {
+  font-size: var(--small-font-size);
+  color: var(--main-light-color);
+  background-color: var(--color-bg-dark);
+  border: 2px solid;
+  border-color: var(--main-light-color);
+  padding: 1vh;
+  display: inline-block;
+  border-radius: 100px;
+}
+.profile__download-img:focus + label,
+.profile__download-img + label:hover {
+  background-color: var(--color-bg-light);
+}
+
+.profile__download-img + label {
+  cursor: pointer;
 }

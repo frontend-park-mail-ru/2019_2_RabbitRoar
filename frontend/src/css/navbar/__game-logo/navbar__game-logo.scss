@@ -1,8 +1,12 @@
 .navbar__game-logo {
   text-decoration: none;
   text-align: center;
-  color: var(--color-headers-font);
-  font-size: var(--big-font-size);
+  color: var(--main-logo-color);
+  font-size: var(--main-logo-font);
+}
+
+.navbar__game-logo:hover {
+  color: var(--forth-color);
 }
 
 .navbar__game-logo-container {

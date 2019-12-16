@@ -3,10 +3,19 @@
   width: 6vh;
   border-radius: 50%;
   object-fit: cover;
+  display: flex;
+  padding-left: 1vw;
+  padding-right: 1vw;
 }
 
 .navbar__user-logo-container {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.navbar__user-logo-container:hover {
+  background-color: var(--color-bg-dark);
 }

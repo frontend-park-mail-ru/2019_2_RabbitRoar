@@ -1,0 +1,21 @@
+sudo: true
+
+services: docker
+
+branches:
+  only:
+    - dev
+    - ci
+
+jobs:
+  include:
+
+    - stage: build docker image
+      script: bash deployments/ci/build_app.sh
+      script: bash deployments/ci/build_chat.sh
+
+    - stage: deploy
+      script:
+        - bash deployments/ci/build_app.sh
+        - bash deployments/ci/build_chat.sh
+        - bash deployments/ci/push.sh

@@ -1,22 +1,21 @@
 import { postRequest, deleteRequest, getRequest, putRequest, RetardsPostRequest } from "./ajax.js";
 import { SERVICE_WORKER_CMD } from "../modules/events.js";
 import Bus from "../event_bus.js";
+import { HttpsOrigin } from "../paths.js"
 
 
 const userCacheDelete = () => {
-    const base = "https://svoyak.fun/api";
+    const base = HttpsOrigin;
 
-    if (window.navigator.onLine) {
-        Bus.emit(SERVICE_WORKER_CMD, {
-            command: "delete",
-            url: base + "/user/"
-        });
+    Bus.emit(SERVICE_WORKER_CMD, {
+        command: "delete",
+        url: base + "/user/"
+    });
 
-        Bus.emit(SERVICE_WORKER_CMD, {
-            command: "regExp_delete",
-            regExp: new RegExp("^(/api/uploads/avatar/).+(\.jpeg|\.png)$"),
-        });
-    }
+    Bus.emit(SERVICE_WORKER_CMD, {
+        command: "regExp_delete",
+        regExp: new RegExp("^(/api/uploads/avatar/).+(\.jpeg|\.png)$"),
+    });
 }
 
 export async function getAllPacksForOnline() {
@@ -91,7 +90,7 @@ export async function signIn(login, password) {
 
     let response = await postRequest("/login", body);
     console.log("Статус авторизации ", response.status);
-    
+
     if (!response.ok) {
         throw new Error(`Signin error: ${response.statusText}`);
     }

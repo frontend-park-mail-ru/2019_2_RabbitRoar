@@ -8,11 +8,12 @@
 
 .warning_show {
   visibility: visible;
-  z-index: 1;
+  z-index: -1;
 }
 
 .warning-content {
+  border-radius: 10px;
   background-color: var(--color-danger);
-  width: 20vw;
+  width: 30vw;
   text-align: center;
 }

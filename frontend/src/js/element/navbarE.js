@@ -14,15 +14,6 @@ class NavbarE {
         const currentUrl = window.location.pathname;
         let navBarText;
         switch (currentUrl) {
-            case "/":
-                navBarText = "";
-                break;
-            case "/login":
-                navBarText = "";
-                break;
-            case "/signup":
-                navBarText = "";
-                break;
             case "/user/profile":
                 navBarText = "Профиль";
                 break;
@@ -33,7 +24,7 @@ class NavbarE {
                 navBarText = "Игра";
                 break;
             case "/room":
-                navBarText = "Комната";
+                navBarText = "Создание комнаты";
                 break;
             case "/waiting":
                 navBarText = "Ожидание игры";
@@ -67,12 +58,16 @@ class NavbarE {
             );
         }
 
+        const infoLogo = StaticManager.infoLogo;
         this.root.insertAdjacentHTML("beforeend", Template({
             authorized: authorized,
-            chatUrl: StaticManager.chatAvatar
+            chatUrl: StaticManager.chatAvatar,
+            exitUrl: StaticManager.exitLogo,
+            infoLogo: infoLogo
         }));
         
-        if (currentUrl === "/") {
+        if (currentUrl === "/"  || currentUrl === "/rooms" || currentUrl === "/top" || currentUrl === "/training"
+        || currentUrl === "/packs" || currentUrl === "/about") {
             document.getElementById("back").style.visibility = "hidden";
         } else {
             document.getElementById("back").style.visibility = "visible"

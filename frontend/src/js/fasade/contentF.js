@@ -8,6 +8,8 @@ import { CHANGE_TAB } from "../modules/events.js";
 import MainMenuM from "../model/mainMenuM.js";
 import { PACK_WORKER_COMMAND } from "../modules/events.js";
 
+import { ROUTER_EVENT } from "../modules/events.js";
+
 import UserValidatorF from "./userValidatorF";
 
 
@@ -79,7 +81,8 @@ class ContentF {
         const csrf = csrfJson.CSRF;
 
         PackM.updatePack(packObj, packId, csrf).catch(
-            (error) => console.log(`ERROR at: contentF.updatePack - ${error}`));
+            // (error) => console.log(`ERROR at: contentF.updatePack - ${error}`)
+        );
     }
 
     savePack = async (packObj) => {
@@ -87,7 +90,8 @@ class ContentF {
         const csrf = csrfJson.CSRF;
 
         PackM.savePack(packObj, csrf).catch(
-            (error) => console.log(`ERROR at: contentF.savePack - ${error}`));
+            // (error) => console.log(`ERROR at: contentF.savePack - ${error}`)
+        );
     }
 
     updateLocalPacks = async () => {
@@ -115,15 +119,18 @@ class ContentF {
 
         try {
             content = await ContentM.getTabContent(currentId, currentPage);
-        } catch(err) {
-            console.log(err);
-            throw(err);
+        } catch (err) {
+            throw (err);
         }
 
         return content;
     }
 
-    findChosen =  (tabs) => {
+    getCurrentTab = () => {
+        return MainMenuM.currentTab;
+    }
+
+    findChosen = (tabs) => {
         for (const tab of tabs) {
             if (tab.id === MainMenuM.currentTab) {
                 return tab;
@@ -135,9 +142,12 @@ class ContentF {
         MainMenuM.currentTab = window.id.tabRoom;
     }
 
-    setCurrentTab = (newValue) => {
+    setCurrentTab = (newValue, reload = true) => {
         MainMenuM.currentTab = newValue;
-        Bus.emit(CHANGE_TAB);
+        if (reload) {
+            Bus.emit(ROUTER_EVENT.FAKE_ROUTE, MainMenuM.currentTab);
+            Bus.emit(CHANGE_TAB);
+        }
     }
 
     deletePackById = async (packForDelete) => {

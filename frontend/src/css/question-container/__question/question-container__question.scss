@@ -8,3 +8,14 @@
     grid-row-start: 2;
     grid-row-end: 6;
 }
+
+.question-container__race {
+    @extend %button;
+    border-radius: 10px;
+    border-width: 2px;
+
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}

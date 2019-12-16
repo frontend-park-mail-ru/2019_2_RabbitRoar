@@ -1,7 +1,7 @@
 import { replaceTwoCssClasses } from "./css_operations";
 
 const _emailIsValid = (email) => {
-    const re = /\w+@\w+\.\w{2,6}/;    
+    const re = /\w+@\w+\.\w{2,6}/;
     return re.test(String(email).toLowerCase());
 };
 
@@ -49,11 +49,11 @@ export const registrationValidation = () => {
     let registrationError = _fieldValidation(document.getElementById("username").value, document.getElementById("username"),
         errorUsernameElement, _usernameIsValid, "Введите логин.", "Логин должен содержать минимум 3 символа.");
 
-    registrationError = registrationError || _fieldValidation(document.getElementById("password").value, document.getElementById("password"),
-        errorPasswordElement, _passwordIsValid, "Введите пароль.", "Пароль должен содержать от 5 до 24 символов, одну цифру и одну букву.");
+    registrationError = _fieldValidation(document.getElementById("password").value, document.getElementById("password"),
+        errorPasswordElement, _passwordIsValid, "Введите пароль.", "Пароль должен содержать от 5 до 24 символов, одну цифру и одну букву.") || registrationError;
 
-    registrationError = registrationError || _fieldValidation(document.getElementById("email").value, document.getElementById("email"),
-        errorEmailElement, _emailIsValid, "Введите email.", "Недопустимый email.");
+    registrationError = _fieldValidation(document.getElementById("email").value, document.getElementById("email"),
+        errorEmailElement, _emailIsValid, "Введите email.", "Недопустимый email.") || registrationError;
 
     if (registrationError) {
         return true;
@@ -246,8 +246,12 @@ export const autorizationVaildation = () => {
     return error;
 };
 
+export const hidePackError = () => {
+    const errorPackElement = document.getElementById("error-pack-not-chosen");
+    replaceTwoCssClasses(errorPackElement, "error-visible", "error-annotation");
+};
+
 export const roomCreatureVaildation = () => {
-    const errorPasswordElement = document.getElementById("error_password");
     const errorRoomNameElement = document.getElementById("error_room_name");
 
     let error = false;
@@ -280,23 +284,43 @@ export const packCreationVaildationForm1 = () => {
         replaceTwoCssClasses(document.getElementById("pack-name"), "input-error", "input-valid");
     }
 
+    const errorPackDescriptionElement = document.getElementById("error_pack-description");
+    const packDescription = document.getElementById("pack-description").value;
+    if (!packDescription) {
+        replaceTwoCssClasses(errorPackDescriptionElement, "error-annotation", "error-visible");
+        replaceTwoCssClasses(document.getElementById("pack-description"), "input-valid", "input-error");
+        errorPackDescriptionElement.innerHTML = "Введите описание пака.";
+        error = true;
+    } else {
+        replaceTwoCssClasses(errorPackDescriptionElement, "error-visible", "error-annotation");
+        replaceTwoCssClasses(document.getElementById("pack-description"), "input-error", "input-valid");
+    }
+
     const inputsId = ["theme_1", "theme_2", "theme_3", "theme_4", "theme_5"];
     let themesArray = new Array();
     inputsId.forEach(
-        id => {
+        (id, index) => {
             const errorThemeElement = document.getElementById("error_" + id);
             const theme = document.getElementById(id).value;
             if (!theme) {
                 replaceTwoCssClasses(errorThemeElement, "error-annotation", "error-visible");
                 replaceTwoCssClasses(document.getElementById(id), "input-valid", "input-error");
-                errorThemeElement.innerHTML = "Введите название темы " + id + ".";
+                errorThemeElement.innerHTML = "Введите название темы " + (index + 1) + ".";
                 error = true;
             } else {
                 replaceTwoCssClasses(errorThemeElement, "error-visible", "error-annotation");
                 replaceTwoCssClasses(document.getElementById(id), "input-error", "input-valid");
-                themesArray.push(theme);
+                if (themesArray.indexOf(theme) === -1) {
+                    themesArray.push(theme);
+                } else {
+                    const mainErrorElement = document.getElementById("error_main");
+                    replaceTwoCssClasses(mainErrorElement, "error-annotation", "error-visible");
+                    error = true;
+                }
+
+
             }
         }
     );
-    return [error, themesArray, packName];
+    return [error, themesArray, packName, packDescription];
 };

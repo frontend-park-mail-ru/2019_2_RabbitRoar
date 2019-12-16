@@ -7,6 +7,15 @@ class QuestionTableC {
         Object.assign(this, DomEventsWrapperMixin);
 
         this.registerClassHandler(".question-container__cost", "click", this._choseQuestion);
+        this.registerClassHandler(".verdict-button", "click", this._sendVerdict);
+    }
+
+    _sendVerdict = (event) => {
+        if (event.target.id === "verdict_false") {
+            this.gameIface.sendVerdict(false);
+        } else if (event.target.id === "verdict_true") {
+            this.gameIface.sendVerdict(true);
+        }
     }
 
     startAllListeners = () => {

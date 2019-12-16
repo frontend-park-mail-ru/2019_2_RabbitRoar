@@ -1,4 +1,4 @@
-# 2019_2_RabbitRoar
+# 2019_2_RabbitRoar [![Build Status](https://travis-ci.org/frontend-park-mail-ru/2019_2_RabbitRoar.svg?branch=dev)](https://travis-ci.org/frontend-park-mail-ru/2019_2_RabbitRoar)
 Frontend-repository for project Swoyak [Project link](https://svoyak.fun/)
 
 # About

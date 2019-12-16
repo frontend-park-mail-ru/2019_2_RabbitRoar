@@ -1,30 +1,40 @@
 import QuestionsM from "../model/questionsM.js";
 import RoomM from "../model/roomM.js";
+import PlayersM from "../model/playersM.js";
 import Bus from "../event_bus.js";
 import {
     ROUTER_EVENT,
     USERS_PANEL_UPDATE,
     QUESTION_PANEL_UPDATE,
+    GAME_PANEL_UPDATE,
     QUESTION_CHANGE,
     PLAYERS_CHANGE,
     CONNECTION,
     ROOM_CHANGE,
-    QUESTION_WAS_CHOSEN,
+    GAME_PANEL_STATE_CHANGE,
     TIMER_INTERRUPTION,
     CRASH_EVENT,
     USER_PANEL_USER_READY,
     USER_PANEL_NEW_USER,
-    ONLINE_QUESTION_TABLE_UPDATE
+    GAME_END,
+    ONLINE_QUESTION_TABLE_UPDATE,
+    WEBSOCKET_CLOSE
 } from "../modules/events.js";
 import { WAITING, SINGLE_GAME, ONLINE_GAME } from "../paths";
+import WebSocketIface from "../modules/webSocketIface.js"
+
 
 import GamePanelC from "../controller/gamePanelC.js";
+import OnlineGamePanelC from "../controller/gamePanelOnlineC.js";
+import GamePanelE from "../element/gamePanelE.js";
+import OnlineGamePanelE from "../element/gamePanelOnlineE.js";
 import QuestionTableC from "../controller/questionsTableC.js"
 import QuestionTableE from "../element/questionTableE.js"
 import UsersPanelE from "../element/usersPanelE.js"
 import UsersGamePanelE from "../element/usersGamePanelE.js"
 import ValidatorF from "./userValidatorF.js";
 import StaticManager from "../modules/staticManager.js";
+import packM from "../model/packM.js";
 
 
 
@@ -37,6 +47,9 @@ class GameF {
         this.livingElements = 0;
         this.ifaces = new Map;
         this.ifaces.set(GamePanelC, this._gamePanelCInterface);
+        this.ifaces.set(GamePanelE, this._gamePanelEInterface);
+        this.ifaces.set(OnlineGamePanelC, this._onlineGamePanelCInterface);
+        this.ifaces.set(OnlineGamePanelE, this._onlineGamePanelEInterface);
         this.ifaces.set(QuestionTableC, this._questionTableCInterface);
         this.ifaces.set(QuestionTableE, this._questionTableEInterface);
         this.ifaces.set(UsersPanelE, this._usersPanelEInterface);
@@ -44,15 +57,8 @@ class GameF {
 
         Bus.on(QUESTION_CHANGE, this._questionChange);
         Bus.on(ROOM_CHANGE, this._roomChange);
-        //Bus.on(ONLINE_QUESTION_TABLE_UPDATE, this._updateQuestionTable);
         Bus.on(PLAYERS_CHANGE, this._playersChange);
     }
-
-    // _updateQuestionTable(type) {
-    //     if (type === "disable_question") {
-    //         console.log("Нужно кинуть ивент элементу");
-    //     }
-    // }
 
     gameExist = () => {
         return (!!this.current);
@@ -68,11 +74,8 @@ class GameF {
             this.current = await this._createOfflineGame(options.packId);
         } else {
             if (options.action === "join") {
-                console.log("Create game, user join");
                 this.current = await this._createOnlineGame(options.roomId, null);
             } else if (options.action === "create") {
-                console.log("Create game, user create");
-
                 this.current = await this._createOnlineGame(null, options.roomOptions);
             }
 
@@ -97,8 +100,6 @@ class GameF {
         if (this.gamePaths.includes(path)) {
             return;
         }
-
-        console.log("Game clearing");
         this.current.clear();
         this.current = undefined;
         Bus.off(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
@@ -107,23 +108,33 @@ class GameF {
 
     _questionChange = (type) => {
         if (QuestionsM.current.questionTable.mode === "default") {
-            if (type === "disable_question"){
+            if (type === "disable_question") {
                 Bus.emit();
             }
             Bus.emit(QUESTION_PANEL_UPDATE);
         } else if (QuestionsM.current.questionTable.mode === "selected") {
             Bus.emit(QUESTION_PANEL_UPDATE);
-            Bus.emit(QUESTION_WAS_CHOSEN);
+            Bus.emit(GAME_PANEL_STATE_CHANGE, "selected");
         } else if (QuestionsM.current.questionTable.mode === "result") {
             Bus.emit(TIMER_INTERRUPTION);
             Bus.emit(QUESTION_PANEL_UPDATE);
+            Bus.emit(GAME_PANEL_UPDATE);    // Только для offline
+        } else if (QuestionsM.current.questionTable.mode === "verdict") {
+            Bus.emit(QUESTION_PANEL_UPDATE);
+            Bus.emit(GAME_PANEL_STATE_CHANGE, "verdict");
+        } else if (QuestionsM.current.questionTable.mode === "answer_race") {
+            Bus.emit(QUESTION_PANEL_UPDATE);
+            Bus.emit(GAME_PANEL_STATE_CHANGE, "answer_race");
         }
     }
 
-    _playersChange = () => {
+
+
+
+    _playersChange = (activeUser) => {
         const playersState = {
-            active: QuestionsM.current.userIdWhoChoseAnswer,
-            players: QuestionsM.current.players
+            active: activeUser,
+            players: PlayersM.current.players
         }
 
         Bus.emit(USERS_PANEL_UPDATE, playersState);
@@ -133,30 +144,28 @@ class GameF {
     // created->closed (crash)
 
     _roomChange = (eventType) => {
-        console.log(`${RoomM.current.lastState}->${RoomM.current.state}`);
-
         if (RoomM.current.state === "waiting") {
             if (RoomM.current.lastState === "done_connection") {
-                console.log("done_connection");
                 Bus.emit(CONNECTION, "done");
             }
-            console.log("In waiting");
-            console.log("EVENT in if: ", eventType);
-
             if (eventType === "player_connected") {
-                Bus.emit(USER_PANEL_NEW_USER, RoomM.current.playerJoinedData);
-
+                Bus.emit(USER_PANEL_NEW_USER, RoomM.current.players);
             } else if (eventType === "player_ready") {
-                Bus.emit(USER_PANEL_USER_READY, RoomM.current.playerReadyData);
-            } else if (eventType === "start_game") {
-                QuestionsM.current.themes = RoomM.current.startGameData.payload.themes;
-                QuestionsM.current.players = RoomM.current.playerReadyData.payload;
-                QuestionsM.current.userId = ValidatorF.userId;
-
+                Bus.emit(USER_PANEL_USER_READY, RoomM.current.players);
+            }
+        } else if (RoomM.current.state === "game") {
+            if (eventType === "start_game") {
+                QuestionsM.current.addFields(
+                    { name: "themes", value: RoomM.current.startGameData.payload.themes },
+                    { name: "userId", value: ValidatorF.userId },
+                );
+                PlayersM.current.addFields(
+                    { name: "userId", value: ValidatorF.userId },
+                    { name: "host", value: RoomM.current.host },
+                    { name: "players", value: RoomM.current.players }
+                );
                 Bus.emit(ROUTER_EVENT.ROUTE_TO, ONLINE_GAME);
             }
-
-
         } else if (RoomM.current.state === "before_connection") {
             Bus.emit(CONNECTION, "before");
         } else if (RoomM.current.state === "crash_connection") {
@@ -167,10 +176,12 @@ class GameF {
             const closeCode = RoomM.current.closeCode;
             const lastState = RoomM.current.lastState;
 
-            Bus.emit(CLOSE, {
+            Bus.emit(WEBSOCKET_CLOSE, {
                 code: closeCode,
                 lastState: lastState,
             });
+        } else if (RoomM.current.state === "game_ended") {
+            Bus.emit(GAME_END);
         }
     }
 
@@ -186,6 +197,18 @@ class GameF {
         return this.current.gamePanelCInterface;
     }
 
+    _gamePanelEInterface = () => {
+        return this.current.gamePanelEInterface;
+    }
+
+    _onlineGamePanelCInterface = () => {
+        return this.current.onlineGamePanelCInterface;
+    }
+
+    _onlineGamePanelEInterface = () => {
+        return this.current.onlineGamePanelEInterface;
+    }
+
     _usersPanelEInterface = () => {
         return this.current.usersPanelEInterface;
     }
@@ -194,11 +217,18 @@ class GameF {
         return this.current.usersGamePanelEInterface;
     }
 
-    // shity place
     getPackName = () => {
-        console.log(this.current);
         const name = this.current.getPackName();
         return name;
+    }
+
+    // Методы работают только для онлайна
+    // getRoomName = () => {
+    //     return this.current.getRoomName();
+    // }
+
+    getPackDescription = () => {
+        return this.current.getPackDescription();
     }
 }
 
@@ -216,7 +246,9 @@ class OfflineGameF {
     get questionTableEInterface() {
         const iface = {
             questionInfo() {
-                return QuestionsM.getInfo();
+                const info = QuestionsM.getInfo();
+                info.answerOwner = ValidatorF.username;
+                return info;
             },
             sendAnswer(answer = "") {
                 answer = "";
@@ -235,6 +267,15 @@ class OfflineGameF {
         return iface;
     };
 
+    get gamePanelEInterface() {
+        const iface = {
+            getScoreById(userId) {
+                return QuestionsM.current.score;
+            }
+        };
+        return iface;
+    };
+
     get gamePanelCInterface() {
         const iface = {
             sendAnswer(answer) {
@@ -248,11 +289,24 @@ class OfflineGameF {
 
 class OnlineGameF {
     constructor(roomId, roomOptions) {
-
-        console.log(roomId, roomOptions);
-        console.log("in online game constructor");
         QuestionsM.CreateNew("online");
         RoomM.CreateNew(roomId, roomOptions);
+        PlayersM.CreateNew(roomId, roomOptions);
+
+        WebSocketIface.addMessageHandler("answer_given_back", () => Bus.emit(QUESTION_CHANGE));
+        WebSocketIface.addMessageHandler("request_respondent", () => Bus.emit(QUESTION_CHANGE));
+        WebSocketIface.addMessageHandler("request_answer_from_respondent", () => Bus.emit(QUESTION_CHANGE));
+        WebSocketIface.addMessageHandler("request_verdict_from_host", () => Bus.emit(QUESTION_CHANGE));
+        WebSocketIface.addMessageHandler("request_question_from_player", () => {
+            const id = PlayersM.current.userIdWhoChoseAnswer;
+            Bus.emit(PLAYERS_CHANGE, id);
+            Bus.emit(QUESTION_CHANGE);
+        });
+        WebSocketIface.addMessageHandler("verdict_given_back", () => {
+            Bus.emit(PLAYERS_CHANGE, "-1");
+            Bus.emit(QUESTION_CHANGE);
+        });
+
     }
 
     clear = () => {
@@ -268,10 +322,18 @@ class OnlineGameF {
     get questionTableEInterface() {
         const iface = {
             questionInfo() {
-                return QuestionsM.getInfo();
+                let info = QuestionsM.getInfo();
+
+                if (QuestionsM.current.questionTable.mode === "result") {
+                    info = Object.assign(info, PlayersM.getAnsweredPlayerInfo());
+                }
+
+                if (QuestionsM.current.questionTable.mode === "verdict") {
+                    info = Object.assign(info, PlayersM.getVerdictInfo());
+                }
+                return info;
             },
-            lastClickedCells() {
-            },
+
         };
         return iface;
     };
@@ -279,16 +341,41 @@ class OnlineGameF {
     get questionTableCInterface() {
         const iface = {
             clickQuestion(packId, cellId, themeId) {
-                QuestionsM.clickQuestion(packId, cellId, themeId);
+                if (PlayersM.haveAbilityChoose()) {
+                    QuestionsM.clickQuestion(packId, cellId, themeId);
+                }
+            },
+            sendVerdict(result) {
+                if (result) {
+                    WebSocketIface.sentMessage(JSON.stringify({ "type": "verdict_correct" }));
+                } else {
+                    WebSocketIface.sentMessage(JSON.stringify({ "type": "verdict_wrong" }));
+                }
             }
         };
         return iface;
     };
 
-    get gamePanelCInterface() {
+    get onlineGamePanelCInterface() {
         const iface = {
             sendAnswer(answer) {
                 QuestionsM.sendAnswer(answer);
+            },
+            race() {
+                PlayersM.race();
+            }
+        };
+        return iface;
+    };
+
+    get onlineGamePanelEInterface() {
+        const iface = {
+            getScoreById(userId) {
+                for (const player of PlayersM.current.players) {
+                    if (player.id === userId) {
+                        return player.score;
+                    }
+                }
             }
         };
         return iface;
@@ -315,6 +402,9 @@ class OnlineGameF {
             getRoomInfo() {
                 return RoomM.current.roomInfo;
             },
+            getHost() {
+                return RoomM.current.host;
+            },
         };
         return iface;
     }
@@ -322,18 +412,26 @@ class OnlineGameF {
     get usersGamePanelEInterface() {
         const iface = {
             getPlayers() {
-                return RoomM.current.playerJoinedData.payload.players;
+                return PlayersM.current.players;
             },
             getGameInfo() {
                 return {};
-            }
+            },
+            getHost() {
+                return PlayersM.current.host;
+            },
         };
         return iface;
     }
 
 
     getPackName = () => {
-        return RoomM.getRoomName();
+        return RoomM.getPackName();
+    }
+
+    getPackDescription = () => {
+        const packId = RoomM.getPackId();
+        return packM.getPackById(packId);
     }
 }
 

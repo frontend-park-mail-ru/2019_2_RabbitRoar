@@ -1,19 +1,28 @@
-div(class="popup " id="popup")
+div(class="popup " id="leave-popup")
     div(class="popup__content " id="popup_content")
-        div(class="popup-elem-top" id="popup-elem-top") Невозможно подключиться к комнате
+        div(class="popup-elem-normal" id="popup-elem-top") Вы уверены что хотите выйти?
         div(class="popup-elem-bottom ")
-            div(class="popup-button" id="continue") На главную
-
-div(class="panel-text") Ожидайте других игроков!
-div(class="user-panel-container")
-    each player, index in players
-        div(class="waiting-player" order=index id=player.id)
-            div(class="player-avatar")
-                div(class="logo-div")
-                    img(class="game-panel__user-logo",
-                    src=player.avatar,
-                    name="avatar",
-                    alt="User")
-                div(class="panel-text" name="username") #{player.username}
-            div(class="users-panel__ready-indicator users-panel__ready-indicator__false", id="capitan-ready")
-div(class="button-ready" id="button-ready") Готов
+            div(class="popup-button" id="continue") Покинуть
+            div(class="popup-button" id="cancel") Отмена
+div(class="waiting-container-text")
+    div(class="waiting-container-text__text first-text" id="room-name" ) Комната #{roomName}
+    div(class="waiting-container-text__text second-text") #{userName}, ожидайте других игроков!
+    div(class="waiting-text-container__leave")
+        img(src=leaveLogo id="leave_logo")
+div(class="user-panel-grid-container")
+    div(class="user-panel-container")
+        each player, index in players
+            div(class="waiting-player" order=index id=player.id)
+                div(class="users-panel__icon")
+                div(class="player-avatar")
+                    div(class="logo-div")
+                        img(class="game-panel__user-logo",
+                        src=player.avatar,
+                        name="avatar",
+                        alt="User")
+                    div(class="users_panel__text" name="username") #{player.username}
+                div(class="users-panel__ready-indicator users-panel__ready-indicator__false", id="capitan-ready")
+    div(class="user-panel__button-ready")
+        div(class="form-button" id="button-ready") Готов
+    div(class="user-panel__button-copy")
+        div(class="form-button" id="button-copy" link=roomURL) Копировать ссылку

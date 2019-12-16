@@ -20,6 +20,7 @@ class ContentM {
         }
     }
 
+    
 
     getUserPacks = async () => {
         const packs = await getUserPacks();
@@ -90,13 +91,13 @@ class ContentM {
             return mainContent;
         }
 
-        // empty content
-        if (id === window.id.tabAboutGame) {
-            const mainContent = {
-                contentType: id,
-            };
-            return mainContent;
-        }
+        // // empty content
+        // if (id === window.id.tabAboutGame) {
+        //     const mainContent = {
+        //         contentType: id,
+        //     };
+        //     return mainContent;
+        // }
 
         if (id === window.id.tabOffline) {
             const allId = JSON.parse(localStorage.getItem("packs_list"));

@@ -70,7 +70,7 @@ class QuestionTableE {
     _progressBarMoving = () => {
         this.timerIsWorking = true;
         return new Promise((resolve, reject) => {
-            const period = 400;
+            const period = 4000;
             let width = 0;
             let barElem = document.getElementById("dynamic-bar");
             const interval = setInterval(() => {
@@ -78,7 +78,6 @@ class QuestionTableE {
                     this.gameIface.sendAnswer();
                     this._interruptImmediatly(interval, resolve);
                 } else if (this.progressBarInterrupt) {
-                    console.log("interrupt in table");
                     this._interruptImmediatly(interval, resolve);
                 } else {
                     width++;

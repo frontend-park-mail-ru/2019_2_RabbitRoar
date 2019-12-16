@@ -1,9 +1,6 @@
 import "../css/style.scss";
 import WebSocketIface from "./webSocketIface.js";
 
-const doneConnection = () => {
-    console.log("Connection was established.");
-}
 
 const replaceTwoCssClasses = (elem, classOne, classTwo) => {
     if (elem.classList.contains(classOne)) {
@@ -40,5 +37,4 @@ document.getElementById("send-message").onclick = () => {
 
 document.getElementById("user-text").focus();
 WebSocketIface.connect();
-WebSocketIface.addOpenHandler(doneConnection);
 WebSocketIface.addCloseHandler(tryRestart);

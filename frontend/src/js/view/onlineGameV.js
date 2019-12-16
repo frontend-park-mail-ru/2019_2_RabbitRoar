@@ -1,7 +1,7 @@
 import NavbarE from "../element/navbarE.js";
 import NetworkWarningE from "../element/networkWarningE.js";
 import QuestionTableE from "../element/questionTableE";
-import GamePanelE from "../element/gamePanelE";
+import GamePanelOnlineE from "../element/gamePanelOnlineE";
 import UsersGamePanelE from "../element/usersGamePanelE";
 
 
@@ -12,9 +12,9 @@ class OnlineGameV extends View{};
 
 export default new OnlineGameV(
     document.getElementById("application"),
-    NavbarE,
+    //NavbarE,
     UsersGamePanelE,
     QuestionTableE,
-    GamePanelE,
+    GamePanelOnlineE,
     NetworkWarningE
 );

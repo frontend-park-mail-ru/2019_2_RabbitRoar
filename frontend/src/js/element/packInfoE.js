@@ -13,6 +13,8 @@ class PackInfoE {
         
         this.root = root;
         const packName = GameF.getPackName();
+        // Здесь получаем описание пака
+       //  const packDescription = GameF.getPackDescription();
         this.root.insertAdjacentHTML("beforeend", Template({packName: packName}));
 
         this.controller.startAllListeners();

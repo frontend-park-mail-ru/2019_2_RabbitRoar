@@ -1,11 +1,17 @@
 @import "sizes";
 @import "TEMPLATE_PANEL";
 
-@import "./help/__question-img/help__question-img.scss";
+@import "/game-panel-online/game-panel-online";
+@import "/game-panel-online/__control/game-panel-online__control";
+@import "/game-panel-online/__input/game-panel-online__input";
+
+@import "./help/__svg/help__svg.scss";
 @import "./help/__text-help/help__text-help.scss";
+@import "./help/__help-bar/help__help-bar.scss";
 
 @import "/navbar/navbar";
-@import "/navbar/__exit/navbar__exit";
+@import "./navbar/__right-panel/navbar__right-panel.scss";
+@import "./navbar/__navigation-text/navbar__navigation-text.scss";
 @import "/navbar/__game-logo/navbar__game-logo";
 @import "/navbar/__user-logo/navbar__user-logo";
 @import "/navbar/__back-img/navbar__back-img";
@@ -17,7 +23,7 @@
 @import "/game-panel/__user-logo/game-panel__user-logo";
 
 @import "/tab/tab";
-@import "/tab/__text/tab__text";
+@import "/tab/__help-text/tab__help-text";
 @import "/tab/__сreate-pack-button/tab__create-pack-button";
 @import "/tab/__create-room-button/tab__create-room-button";
 @import "/tab/__info-container/tab__info-container";
@@ -26,12 +32,13 @@
 @import "/pack-creation/__input/pack-creation__input";
 
 @import "/users-panel/users-panel";
+@import "./users-panel/__button/users-panel__button.scss";
 @import "/users-panel/__ready-indicator/users-panel__ready-indicator.scss";
-@import "/button/__ready-button/button__ready-button.scss";
+@import "/users-panel/__icons/users-panel__icons.scss";
+@import "/users-panel/__text/users-panel__text.scss";
 
 @import "/users-panel-game/users-panel-game";
 @import "/users-panel-game/__score/users-panel-game__score.scss";
-
 
 @import "/pack-info/pack-info";
 @import "/pack-creation/pack-creation";
@@ -54,6 +61,10 @@
 @import "question-container/__result/question-container__answer";
 @import "question-container/__result/question-container__score";
 
+@import "question-container/__master-answer/question-container__master-answer__logo";
+@import "question-container/__master-answer/question-container__master-answer__text";
+@import "question-container/__master-answer/question-container__master-answer__verdict";
+
 @import "warning/warning";
 
 @import "popup/popup";
@@ -68,28 +79,45 @@
 
 @import "faq-text/faq-text";
 
-@import "./flex-containers/flex-containers.scss";
+@import "flex-containers/flex-containers.scss";
+
+@import "edit-svg/edit-svg.scss";
+
+@import "empty-tab-info/empty-tab-info";
+
+@import "form-button/form-button";
+
+@import "waiting-text-container/waiting-container-text";
+@import "waiting-text-container/__text/waiting-text-container__text";
+@import "./waiting-text-container/__leave/waiting-text-container__leave.scss";
+
 
 :root {
   // main colors
   --color-bg-dark: rgb(23, 21, 32);
   --color-bg-light: rgba(38, 35, 53, 1);
+  --main-light-color: #c5aee0;
+  --forth-color: #efbcd5;
+
+  --color-bg-light-low-opacity: rgba(38, 35, 53, 0.3);
 
   // form
   --color-success: #72f1b8;
-  --color-input-valid: #c5aee0;
+  --color-input-valid: var(--main-light-color);
   --color-danger: #920031;
 
   // старый цвет - rgba(54, 249, 246, 1);
-  --border-color-theme: #c5aee0;
+  --border-color-theme: var(--main-light-color);
 
   // scroll
   --scroll-background: var(--color-bg-light);
-  --scroll: #c5aee0;
+  --scroll: var(--main-light-color);
 
   // text
-  --color-headers-font: white;
-  --font-color-theme: #c5aee0;
+  --main-logo-color: white;
+  --help-text-color: white;
+  --color-headers-font: var(--main-light-color);
+  --font-color: var(--main-light-color);
 
   // questions
   --question-theme-bg: var(--color-bg-dark);
@@ -97,7 +125,6 @@
   --question-container-gap-width: 2px;
 
   --color-border-primary-low: #b497d6;
-  --forth-color: #efbcd5;
 
   --main-width: 90vw;
   --main-content-vertical-margin: 2vh;
