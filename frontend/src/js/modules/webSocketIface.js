@@ -5,23 +5,23 @@ class WebSocketIface {
     constructor() {
         this.addErrorHandler(
             (error) => {
-                console.log(`[error] ${error}`);
-                console.log(error);
+                // console.log(`[error] ${error}`);
+                // console.log(error);
             }
         );
 
         this.addOpenHandler(
             (event) => {
-                console.log("[open] Соединение установлено");
+                // console.log("[open] Соединение установлено");
             }
         );
 
         this.addCloseHandler(
             (event) => {
                 if (event.wasClean) {
-                    console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+                    // console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
                 } else {
-                    console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
+                    // console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
                 }
             }
         );
@@ -29,12 +29,10 @@ class WebSocketIface {
 
     sentMessage(body) {
         this.socket.send(body);
-        console.log("Отправлено сообщение ----------->", body);
     }
 
     connect(roomId) {
         this.socket = new WebSocket("wss://svoyak.fun/api/game/ws");
-        //this.socket = new WebSocket("ws://192.168.43.121:3000/game/ws");
 
         this.socket.onopen = (event) => {
             if (this.openHandlers) {
@@ -64,7 +62,6 @@ class WebSocketIface {
         this.socket.onmessage = (event) => {
             if (this.handlersMap) {
                 const objMessage = JSON.parse(event.data);
-                console.log("Пришло сообщение <-----------", objMessage);
                 for (const type in this.handlersMap) {
                     if (objMessage.type === type) {
                         for (const handler of this.handlersMap[type]) {
@@ -79,9 +76,6 @@ class WebSocketIface {
 
     disconnect() {
         this.clearHandlers();
-        //if (this.socket) {
-            //this.socket.close(1000, "Бан");
-        //}
     }
 
 
@@ -176,24 +170,24 @@ class WebSocketIface {
 
         this.addOpenHandler(
             (event) => {
-                console.log("[open] Соединение установлено");
+                // console.log("[open] Соединение установлено");
             }
         );
 
 
         this.addErrorHandler(
             (error) => {
-                console.log(`[error] ${error}`);
-                console.log(error);
+                // console.log(`[error] ${error}`);
+                // console.log(error);
             }
         );
 
         this.addCloseHandler(
             (event) => {
                 if (event.wasClean) {
-                    console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+                    // console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
                 } else {
-                    console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
+                    // console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
                 }
             }
         );

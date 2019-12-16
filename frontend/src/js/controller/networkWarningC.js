@@ -59,7 +59,6 @@ class NetworkWarningC {
         } else if (connect === "done") {
             this._showOrHidePopUp("popup_load_timer");
         } else {
-            console.log("WS crashed");
         }
     }
 

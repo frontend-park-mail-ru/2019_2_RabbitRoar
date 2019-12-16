@@ -21,7 +21,7 @@ class AutorisationE {
         if (authorized) {
             Bus.emit(AUTORISATION_EVENT.ROUTE_TO, ROOT);
         } else {
-            console.log("autorisationE._signIn: AUTORISE ERROR");
+            // тут должна быть обработка ошибок
         }
     }
 

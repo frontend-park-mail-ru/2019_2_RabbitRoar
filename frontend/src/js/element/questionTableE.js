@@ -78,7 +78,6 @@ class QuestionTableE {
                     this.gameIface.sendAnswer();
                     this._interruptImmediatly(interval, resolve);
                 } else if (this.progressBarInterrupt) {
-                    console.log("interrupt in table");
                     this._interruptImmediatly(interval, resolve);
                 } else {
                     width++;

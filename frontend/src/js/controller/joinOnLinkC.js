@@ -25,8 +25,6 @@ class JoinOnLinkC {
             }
         ).catch(
             (err) => {
-                console.log("GAME CREATE FATAL ERROR");
-                console.log(err);
                 Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
             }
         );

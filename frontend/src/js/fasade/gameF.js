@@ -56,15 +56,8 @@ class GameF {
 
         Bus.on(QUESTION_CHANGE, this._questionChange);
         Bus.on(ROOM_CHANGE, this._roomChange);
-        //Bus.on(ONLINE_QUESTION_TABLE_UPDATE, this._updateQuestionTable);
         Bus.on(PLAYERS_CHANGE, this._playersChange);
     }
-
-    // _updateQuestionTable(type) {
-    //     if (type === "disable_question") {
-    //         console.log("Нужно кинуть ивент элементу");
-    //     }
-    // }
 
     gameExist = () => {
         return (!!this.current);
@@ -80,12 +73,8 @@ class GameF {
             this.current = await this._createOfflineGame(options.packId);
         } else {
             if (options.action === "join") {
-                console.log("Create game, user join");
                 this.current = await this._createOnlineGame(options.roomId, null);
-
             } else if (options.action === "create") {
-                console.log("Create game, user create");
-
                 this.current = await this._createOnlineGame(null, options.roomOptions);
             }
 
@@ -110,8 +99,6 @@ class GameF {
         if (this.gamePaths.includes(path)) {
             return;
         }
-
-        console.log("Game clearing");
         this.current.clear();
         this.current = undefined;
         Bus.off(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
@@ -120,7 +107,7 @@ class GameF {
 
     _questionChange = (type) => {
         if (QuestionsM.current.questionTable.mode === "default") {
-            if (type === "disable_question"){
+            if (type === "disable_question") {
                 Bus.emit();
             }
             Bus.emit(QUESTION_PANEL_UPDATE);
@@ -156,8 +143,6 @@ class GameF {
     // created->closed (crash)
 
     _roomChange = (eventType) => {
-        console.log(`${RoomM.current.lastState}->${RoomM.current.state}`);
-
         if (RoomM.current.state === "waiting") {
             if (RoomM.current.lastState === "done_connection") {
                 Bus.emit(CONNECTION, "done");
@@ -173,8 +158,6 @@ class GameF {
                     { name: "themes", value: RoomM.current.startGameData.payload.themes },
                     { name: "userId", value: ValidatorF.userId },
                 );
-                console.log("!!!!!!!!!!!!!!!")
-                console.log(ValidatorF.userId)
                 PlayersM.current.addFields(
                     { name: "userId", value: ValidatorF.userId },
                     { name: "host", value: RoomM.current.host },
@@ -231,12 +214,11 @@ class GameF {
         return this.current.usersGamePanelEInterface;
     }
 
-    // shity place
     getPackName = () => {
         const name = this.current.getPackName();
         return name;
     }
-    
+
     // Методы работают только для онлайна
     // getRoomName = () => {
     //     return this.current.getRoomName();
@@ -304,13 +286,10 @@ class OfflineGameF {
 
 class OnlineGameF {
     constructor(roomId, roomOptions) {
-        console.log(roomId, roomOptions);
-
-        console.log("in online game constructor");
         QuestionsM.CreateNew("online");
         RoomM.CreateNew(roomId, roomOptions);
         PlayersM.CreateNew(roomId, roomOptions);
-        
+
         WebSocketIface.addMessageHandler("answer_given_back", () => Bus.emit(QUESTION_CHANGE));
         WebSocketIface.addMessageHandler("request_respondent", () => Bus.emit(QUESTION_CHANGE));
         WebSocketIface.addMessageHandler("request_answer_from_respondent", () => Bus.emit(QUESTION_CHANGE));
@@ -344,14 +323,11 @@ class OnlineGameF {
 
                 if (QuestionsM.current.questionTable.mode === "result") {
                     info = Object.assign(info, PlayersM.getAnsweredPlayerInfo());
-                    console.log(info);
                 }
 
                 if (QuestionsM.current.questionTable.mode === "verdict") {
                     info = Object.assign(info, PlayersM.getVerdictInfo());
-                    console.log(info);
                 }
-
                 return info;
             },
 
@@ -364,15 +340,13 @@ class OnlineGameF {
             clickQuestion(packId, cellId, themeId) {
                 if (PlayersM.haveAbilityChoose()) {
                     QuestionsM.clickQuestion(packId, cellId, themeId);
-                } else {
-                    console.log("НОУ юзер не может выбирать вопрос");
                 }
             },
             sendVerdict(result) {
                 if (result) {
-                    WebSocketIface.sentMessage(JSON.stringify({"type": "verdict_correct"}));
+                    WebSocketIface.sentMessage(JSON.stringify({ "type": "verdict_correct" }));
                 } else {
-                    WebSocketIface.sentMessage(JSON.stringify({"type": "verdict_wrong"}));
+                    WebSocketIface.sentMessage(JSON.stringify({ "type": "verdict_wrong" }));
                 }
             }
         };
@@ -454,7 +428,6 @@ class OnlineGameF {
 
     getPackDescription = () => {
         const packId = RoomM.getPackId();
-        //console.log(packM.getPackById(packId));
         return packM.getPackById(packId);
     }
 }

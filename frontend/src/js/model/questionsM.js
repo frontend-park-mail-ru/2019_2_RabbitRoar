@@ -35,7 +35,6 @@ class QuestionsM {
 
 class OfflineQuestionsM {
     constructor(packId = 0) {
-        console.log("OfflineQuestionsM CREATED");
         this.packId = packId;
         this.result = undefined;
         this.mode = "offline";
@@ -52,14 +51,12 @@ class OfflineQuestionsM {
 
     clickQuestion(packId, cellId, themeId) {
         if (!!this.chosedQuestionsId[cellId]) {
-            console.log("Вы уже выбирали вопрос");
             return;
         }
 
         const key = "" + packId + "-" + cellId;
         const question = JSON.parse(localStorage.getItem(key));
         if (!question) {
-            console.log("No question in cache");
             return;
         }
 
@@ -101,9 +98,7 @@ class OfflineQuestionsM {
     _showResult() {
         this.questionTable.mode = "default";
         this.numberOfSelectedQuestions++;
-        console.log(this.numberOfSelectedQuestions);
         if (this.numberOfSelectedQuestions === 25) {
-            console.log(this.numberOfSelectedQuestions);
             Bus.emit(OFFLINE_GAME_END);
         } else {
             Bus.emit(QUESTION_CHANGE);
@@ -166,7 +161,6 @@ class OfflineQuestionsM {
         }
 
         const needMatches = Math.floor((trueWords.length / 2) + 1);
-        console.log(`NEED MATHES ${needMatches}`);
         const needEqual = 0.8;
         let matches = 0;
 
@@ -178,7 +172,6 @@ class OfflineQuestionsM {
                 }
 
                 let localMatches = 0;
-                console.log(trueWord);
                 const trueWordObj = trueWord.split("");
                 trueWordObj.forEach((val, ind) => {
                     if (val === userWord[ind]) {
@@ -190,12 +183,10 @@ class OfflineQuestionsM {
                     maxEqual = localEqual;
                 }
             }
-            console.log(maxEqual);
             if (maxEqual >= needEqual) {
                 matches++;
             }
         }
-        console.log(matches);
         return (matches >= needMatches);
     }
 }
@@ -236,7 +227,6 @@ class OnlineQuestionsM {
                 if (!field[i][j]) {
                     const themeName = this.themes[i];
                     const key = themeName + "-" + j;
-                    console.log(key);
                     this.chosedQuestionsId[key] = true;
                 }
             }
@@ -259,7 +249,6 @@ class OnlineQuestionsM {
 
 
     _verdictDone = (data) => {
-        console.log(`Вердикт ведущего: ${data.payload.verdict}`);
         this.questionTable.mode = "result";
 
         setTimeout( () => {
@@ -282,19 +271,12 @@ class OnlineQuestionsM {
 
         this.questionTable.mode = "answer_race";
         this.questionTable.selectedQuestion.text = question;
-        //this.chosedQuestionsId[disabledQuestionId] = true;
     }
 
     clickQuestion = (packId, cellId, themeId) => {
         const questionIndex = parseInt(cellId.slice(-1));
-        console.log("question index: ", questionIndex);
 
         const themeIndex = this.themes.indexOf(themeId);
-
-        console.log("theme index: ", themeIndex);
-        console.log(this.themes);
-
-        console.log("Юзер может выбирать вопрос");
         const body = JSON.stringify({
             "type": "question_chosen",
             "payload": {
@@ -308,10 +290,7 @@ class OnlineQuestionsM {
 
     sendAnswer = (answer) => {
         if (this.questionTable.mode !== "selected") {
-            return console.log("Select question");
         }
-
-        console.log(`My answer: ${answer}`);
 
         const body = JSON.stringify({
             "type": "respondent_answer_given",

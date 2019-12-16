@@ -43,14 +43,14 @@ window.packWorker.onmessage = (msg) => Bus.emit(PACK_WORKER_MESSAGE, msg);
 Bus.on(PACK_WORKER_COMMAND, (data) => window.packWorker.postMessage(data));
 
 ContentF.updateLocalPacks().then(
-    () => console.log()
+    //() => console.log()
 );
 
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/sw.js").then(function (registration) {
-        console.log("sw.js registration successful with scope: ", registration.scope);
+        // console.log("sw.js registration successful with scope: ", registration.scope);
     }).catch(function (err) {
-        console.log("sw.js registration failed: ", err);
+        // console.log("sw.js registration failed: ", err);
     });
 
 }
@@ -60,21 +60,10 @@ Bus.on(SERVICE_WORKER_CMD, (cmd) => {
         return;
     }
     if (!navigator.serviceWorker.controller) {
-        console.log("ServiceWorker не поддерживается данным браузером");
+        // console.log("ServiceWorker не поддерживается данным браузером");
     }
     navigator.serviceWorker.controller.postMessage(cmd)
 });
-
-// navigator.serviceWorker.addEventListener("message", function handler(event) {
-//     console.log(event.data);
-// });
-
-// navigator.serviceWorker.getRegistrations().then(function (registrations) {
-//   for (let registration of registrations) {
-//       console.log("UNREGISTER");
-//     registration.unregister();
-//   }
-// });
 
 window.id = id;
 

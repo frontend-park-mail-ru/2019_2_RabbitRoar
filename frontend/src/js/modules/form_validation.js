@@ -315,9 +315,6 @@ export const packCreationVaildationForm1 = () => {
                 } else {
                     const mainErrorElement = document.getElementById("error_main");
                     replaceTwoCssClasses(mainErrorElement, "error-annotation", "error-visible");
-
-                    console.log("Текущие темы", themesArray);
-                    console.log("Тема", theme);
                     error = true;
                 }
 

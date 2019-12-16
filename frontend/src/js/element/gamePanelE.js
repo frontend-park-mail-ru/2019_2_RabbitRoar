@@ -25,7 +25,7 @@ class GamePanelE {
                 }
             }
         ).catch(
-            (err) => console.log(err)
+            // (err) => console.log(err)
         );
     }
 
@@ -39,7 +39,7 @@ class GamePanelE {
                 this.controller.startAllListeners();
             }
         ).catch(
-            (err) => console.log(err)
+            // (err) => console.log(err)
         );
     }
 

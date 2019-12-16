@@ -20,13 +20,12 @@ class ValidatorF {
         return result;
     }
 
-    async getUserData() {        
+    async getUserData() {
         let userInfo;
         if (UserM.checkLocalstorageAutorization()) {
             try {
                 userInfo = await UserM.getData();
             } catch (err) {
-                console.log(err);
                 userInfo = UserM.getNoAutoriseData();
             }
         } else {
@@ -45,14 +44,16 @@ class ValidatorF {
         UserM.changeTextFields(changesMap, csrf).then(
             resolve => { }
         ).catch(
-            (error) => console.log(`ERROR at: userValidatorF.changeTextFields - ${error}`));
+            //(error) => console.log(`ERROR at: userValidatorF.changeTextFields - ${error}`)
+        );
     }
 
     changeUserAvatar(formData, csrf) {
         UserM.changeAvatar(formData, csrf).then(
             resolve => { }
         ).catch(
-            (error) => console.log(`ERROR at: userValidatorF.changeUserAvatar - ${error}`));
+            //(error) => console.log(`ERROR at: userValidatorF.changeUserAvatar - ${error}`)
+        );
     }
 
 
@@ -72,7 +73,8 @@ class ValidatorF {
                 Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT)
             }
         ).catch(
-            (error) => console.log(`ERROR at: userValidatorF.doRegistration - ${error}`));
+            // (error) => console.log(`ERROR at: userValidatorF.doRegistration - ${error}`)
+        );
     }
 
     doExit() {
