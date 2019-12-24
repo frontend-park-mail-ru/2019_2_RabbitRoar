@@ -1,18 +1,18 @@
 .user-panel-grid-container {
+  padding-top: 5px;
   display: grid;
   color: var(--font-color);
   margin-left: 1vw;
   margin-right: 1vw;
   grid-template-columns: 15% 70% 15%;
-  grid-template-rows: 76% 12% 12%;
-  height: 45vh;
+  grid-template-rows: 74% 13% 13%;
 }
 
 .user-panel-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 1;
@@ -22,8 +22,13 @@
 .waiting-player {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  height: 100%;
+}
+
+.users-panel-button-padding {
+  height: 80%;
 }
 
 
@@ -41,11 +46,19 @@
     width: 10vw;
     height: 10vw;
   }
+
+  .user-panel-grid-container {
+    height: 50vh;
+  }
 }
 
 @media all and (orientation: portrait) {
   .player-avatar {
-    width: 10vh;
-    height: 10vh;
+    width: 20vw;
+    height: 20vw;
+  }
+
+  .user-panel-grid-container {
+    height: 30vh;
   }
 }

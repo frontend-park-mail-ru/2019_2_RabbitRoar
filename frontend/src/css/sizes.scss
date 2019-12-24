@@ -3,8 +3,8 @@ $table-slash-height: 6vh;       // Высота разделителя межд�
 $rank-margin: 4vw;              // Отступ у значка звания справа
 
 :root{
-    --max-width: 100vw;
-    --max-height: 100vh;
+    --max-width: calc(100vw);
+    --max-height: calc(100vh);
     @media all and (orientation: landscape) {
         --font-size: 1.4vw;              // Размер шрифта
         --big-font-size: 2vw;            // Размер большого шрифта

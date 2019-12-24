@@ -5,8 +5,10 @@ div(class="popup " id="leave-popup")
             div(class="popup-button" id="continue") Покинуть
             div(class="popup-button" id="cancel") Отмена
 div(class="waiting-container-text")
-    div(class="waiting-container-text__text first-text" id="room-name" ) Комната #{roomName}
-    div(class="waiting-container-text__text second-text") #{userName}, ожидайте других игроков!
+    div(class="waiting-container-text__text first-text" id="room-name" )
+        div(class="wrapper-flex")
+            div(class="first-text-content") Комната: "#{roomName}"
+            div(class="second-text-content") #{userName}, ожидайте других игроков!
     div(class="waiting-text-container__leave")
         img(src=leaveLogo id="leave_logo")
 div(class="user-panel-grid-container")
@@ -23,6 +25,6 @@ div(class="user-panel-grid-container")
                     div(class="users_panel__text" name="username") #{player.username}
                 div(class="users-panel__ready-indicator users-panel__ready-indicator__false", id="capitan-ready")
     div(class="user-panel__button-ready")
-        div(class="form-button" id="button-ready") Готов
+        div(class="users-panel-button-padding form-button" id="button-ready") Готов
     div(class="user-panel__button-copy")
-        div(class="form-button" id="button-copy" link=roomURL) Копировать ссылку
+        div(class="users-panel-button-padding form-button" id="button-copy" link=roomURL) Копировать ссылку

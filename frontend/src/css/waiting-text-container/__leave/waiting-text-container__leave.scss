@@ -1,7 +1,6 @@
 .waiting-text-container__leave {
     display: inline-block;
     position: inherit;
-    height: 100%;
 	vertical-align: middle; 
     
     grid-column-start: 2;
@@ -17,4 +16,19 @@
     position: absolute;
     top: 0;
     left: 0;
+  }
+
+
+  @media all and (orientation: landscape) {
+    .waiting-text-container__leave {
+        height: 10vw;
+        width: 5vw;
+    }
+  }
+  
+  @media all and (orientation: portrait) {
+    .waiting-text-container__leave {
+        height: 20vw;
+        width: 10vw;
+    }
   }
