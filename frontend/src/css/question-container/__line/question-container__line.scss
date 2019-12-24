@@ -1,18 +1,18 @@
 .question-container__line {
     display: grid;
     //WTF!!!!!!!!!!!!!!!???????????overflow: hidden;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 20% 16% 16% 16% 16% 16%;
     width: 100%;
     height: 100%;
 }
 
-// @media all and (orientation: landscape) {
-//     .question-container__line {
-
-//     }
-// }
-// @media all and (orientation: portrait) {
-//     .question-container__line {
-
-//     }
-// }
+@media all and (orientation: landscape) {
+    .question-container__line {
+        grid-template-columns: 20% 16% 16% 16% 16% 16%;
+    }
+}
+@media all and (orientation: portrait) {
+    .question-container__line {
+        grid-template-columns: 40% 12% 12% 12% 12% 12%;
+    }
+}

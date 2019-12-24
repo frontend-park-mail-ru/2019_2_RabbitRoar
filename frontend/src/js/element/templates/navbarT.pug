@@ -13,11 +13,11 @@ nav(class="navbar")
     if authorized == false
         div(class="grid-navbar-right")
             div(class="flex-navbar-right")
-                a(class="navbar__right-panel", id="nav_login", href="#") Вход
                 a(class="navbar__right-panel", id='nav_registration', href="#") Регистрация
+                a(class="navbar__right-panel", id="nav_login", href="#") Вход
     else
         div(class="grid-navbar-right")
-            div(class="flex-navbar-right")
+            div(class="flex-navbar-right-always-row")
                 a(id="nav_profile", href="#" class= "navbar__user-logo-container")
                 a(class="navbar__right-panel", id="nav_exit", href="#") Выход
 
