@@ -23,14 +23,24 @@
   text-align: center;
   color: var(--forth-color);
   font-size: var(--big-font-size);
-  margin-left: 1vw;
-  margin-right: 1vw;
+}
+
+@media all and (orientation: landscape) {
+  .messages {
+    height: calc(20px + 60vh);
+    width: 100%;
+  }
+}
+
+@media all and (orientation: portrait) {
+  .messages {
+    height: calc(40px + 70vh);
+    width: 100%;
+  }
 }
 
 .messages {
   background-color: var(--color-bg-light);
-  height: 60vh;
-  width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -83,7 +93,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: var(--color-headers-font);
+  color: var(--font-color);
 
   .form-group {
     display: flex;
@@ -92,66 +102,62 @@
     width: 100%;
   }
 
-  button {
-    background-color: rgba(0, 0, 0, 0);
-    margin: 10px 0px;
-    width: 50%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: var(--font-size);
-  }
-
-  input {
-    border: 0px;
-    margin-bottom: 1px;
-    color: var(--color-headers-font);
-    background-color: var(--color-input);
-    text-align: center;
-    border-bottom: 2px solid transparent;
-    transition: background-color 500ms ease, border-bottom 500ms ease, box-shadow 1000ms ease;
-
-    width: 100%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: var(--big-font-size);
-  }
-
-  input:focus {
-    border-bottom: 2px solid var(--border-color-theme);
-    box-shadow: 0 5px 5px -5px var(--border-color-theme);
-  }
-
-  .input-error,
-  input:invalid {
-    box-shadow: 0 5px 5px -5px var(--color-danger);
-    border-bottom: 2px solid var(--color-danger);
-    color: var(--color-danger);
-  }
-
-  .input-valid:focus {
-    color: var(--color-input-valid);
-    box-shadow: 0 5px 5px -5px var(--color-input-valid);
-    border-bottom: 2px solid var(--color-input-valid);
-  }
-
-  .error-annotation {
-    font-size: var(--big-font-size);
-    color: var(--color-danger);
-    visibility: hidden;
-  }
-
-  .error-visible {
-    font-size: var(--small-font-size);
-    color: var(--color-danger);
-  }
-
   label {
     font-weight: bold;
     font-size: var(--font-size);
   }
+}
+.user-input {
+  border: 0px;
+  margin-bottom: 1px;
+  color: var(--color-light);
+  background-color: var(--color-input);
+  text-align: center;
+  border-bottom: 2px solid transparent;
+  transition: background-color 500ms ease, border-bottom 500ms ease, box-shadow 1000ms ease;
 
-  button {
-    color: var(--color-headers-font);
-    cursor: pointer;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: var(--big-font-size);
+}
+
+.user-input {
+  outline: none;
+  border-bottom: 2px solid var(--border-color-theme);
+  box-shadow: 0 5px 5px -5px var(--border-color-theme);
+}
+
+@media all and (orientation: landscape) {
+  .chat-button {
+    width: calc(10px + 45vw);
+    height: calc(10px + 10vh);
   }
+}
+@media all and (orientation: portrait) {
+  .chat-button {
+    width: calc(10px + 45vw);
+    height: calc(10px + 5vh);
+  }
+}
+.chat-button {
+  background-color: var(--color-bg-dark);
+  color: var(--color-light);
+  border: 2px solid;
+  border-color: var(--color-light);
+  font-size: var(--big-font-size);
+  outline: none;
+  border-radius: 100px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.chat-button:hover {
+  background-color: var(--color-bg-light);
 }
