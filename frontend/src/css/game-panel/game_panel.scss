@@ -15,6 +15,23 @@
   grid-template-columns:  2fr 1fr 4fr 1fr 2fr;
 }
 
+@media all and (orientation: landscape) {
+  .game-panel-container {
+    display: grid;
+    width: 90vw;
+    height: calc(var(--max-height) / 4);
+    grid-template-columns:  2fr 1fr 4fr 1fr 2fr;
+  }
+}
+@media all and (orientation: portrait) {
+  .game-panel-container {
+    display: grid;
+    width: 90vw;
+    height: calc(var(--max-height) / 8);
+    grid-template-columns:  1fr 2fr 4fr 2fr 1fr;
+  }
+}
+
 .input-answer {
   grid-row-start: 1;
   grid-row-end: 2;

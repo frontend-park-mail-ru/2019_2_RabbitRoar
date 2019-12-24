@@ -8,12 +8,14 @@
   position: absolute;
   opacity: 0.5;
   background: var(--color-bg-light);
-  top: 25vh;
-  left: 0px;
-  bottom: 25vh;
-  right: 96vw;
   z-index: 0;
+
+  left: 0px;
+  top: var(--chat-top);
+  width: var(--chat-width);
+  height: var(--chat-height);
 }
+
 
 .chat-bar-show {
   visibility: visible;

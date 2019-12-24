@@ -46,9 +46,7 @@ class GamePanelC {
 
         const changingButton = document.getElementById("changing-button");
         replaceTwoCssClasses(changingButton, "game-panel-button-without-hover", "game-panel-button");
-        changingButton.innerHTML = "Ответить";
-
-
+        changingButton.value = "Ответить";
     }
 
     _stopListenQuestion = () => {
@@ -60,7 +58,7 @@ class GamePanelC {
 
         const changingButton = document.getElementById("changing-button");
         replaceTwoCssClasses(changingButton, "game-panel-button", "game-panel-button-without-hover");
-        changingButton.innerHTML = "Выберите вопрос";
+        changingButton.value = "Выберите вопрос";
     }
 
     _answerEntered = (event) => {

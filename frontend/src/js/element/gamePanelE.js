@@ -37,6 +37,7 @@ class GamePanelE {
         ValidatorF.getUserData().then(
             (data) => {
                 this.root.insertAdjacentHTML("beforeend", Template({ userData: data }));
+                document.getElementById("input-answer").style.width = "100%";
                 this.controller.startAllListeners();
             }
         ).catch(

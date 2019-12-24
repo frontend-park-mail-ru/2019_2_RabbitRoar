@@ -32,15 +32,15 @@ input:-webkit-autofill {
     border-width: 2px;
 
     margin: 10px 0px;
-    width: 45%;
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: var(--font-size);
     outline: none;
-    width: 20%;
     border-radius: 100px;
     cursor: pointer;
   }
+
+
 
   .input-button:hover {
     background-color: var(--color-bg-light);
@@ -53,7 +53,6 @@ input:-webkit-autofill {
     border-width: 2px;
 
     margin: 10px 0px;
-    width: 45%;
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: var(--font-size);
@@ -74,7 +73,6 @@ input:-webkit-autofill {
     border-width: 2px;
 
     margin: 10px 0px;
-    width: 45%;
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: var(--font-size);
@@ -95,7 +93,6 @@ input:-webkit-autofill {
     border-width: 2px;
 
     margin: 10px 0px;
-    width: 45%;
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: var(--font-size);
@@ -116,7 +113,6 @@ input:-webkit-autofill {
     border-width: 2px;
 
     margin: 10px 0px;
-    width: 45%;
     padding-top: 10px;
     padding-bottom: 10px;
 
@@ -202,4 +198,41 @@ input:-webkit-autofill {
   font-size: var(--small-font-size);
   color: var(--color-danger);
   padding: 2px;
+}
+
+
+@media all and (orientation: landscape) {
+  .input-button {
+    width: 20%;
+  }
+    input[type="text"] {
+      width: 50%;
+    }
+    input[type="email"] {
+      width: 50%;
+    }
+    input[type="password"] {
+      width: 50%;
+    }
+    input[type="number"] {
+      width: 50%;
+    }
+  }
+  
+@media all and (orientation: portrait) {
+  .input-button {
+    width: 60%;
+  }
+  input[type="text"] {
+    width: 80%;
+  }
+  input[type="email"] {
+    width: 80%;
+  }
+  input[type="password"] {
+    width: 80%;
+  }
+  input[type="number"] {
+    width: 80%;
+  }
 }

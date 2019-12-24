@@ -1,6 +1,5 @@
 .game-panel__user-logo {
   height: 5vw;
-  width: auto;
   border-radius: 50%;
 }
 
@@ -9,4 +8,19 @@
   justify-content: center;
   align-items: center;
   margin: 0.5vw;
+}
+
+@media all and (orientation: landscape) {
+  .game-panel__user-logo {
+    height: 5vw;
+    width: 5vw;
+    border-radius: 50%;
+  }
+}
+@media all and (orientation: portrait) {
+  .game-panel__user-logo {
+    height: 12vw;
+    width: 12vw;
+    border-radius: 50%;
+  }
 }

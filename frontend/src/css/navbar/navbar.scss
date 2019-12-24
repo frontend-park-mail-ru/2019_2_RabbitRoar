@@ -1,6 +1,6 @@
 .navbar {
   display: grid;
   grid-template-columns: 2fr 1fr 2fr;
-  grid-template-rows: 64px;
+  grid-template-rows: var(--navbar-height);
   background-color: var(--color-bg-light);
 }

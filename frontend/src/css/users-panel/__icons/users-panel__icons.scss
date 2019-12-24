@@ -12,17 +12,28 @@
     height: 2vw;
 }
 
+
+
+
 @media all and (orientation: landscape) {
     .users-panel__icon-img {
-        width: 2vw;
-        height: 2vw;
+        width: 3vw;
+        height: 3vw;
+    }
+
+    .users-panel__icon {
+        margin-bottom: 1vw;
     }
 }
   
   
 @media all and (orientation: portrait) {
     .users-panel__icon-img {
-        width: 2vh;
-        height: 2vh;
+        width: 8vw;
+        height: 8vw;
+    }
+
+    .users-panel__icon {
+        margin-bottom: 5vw;
     }
 }
