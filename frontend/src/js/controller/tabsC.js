@@ -23,6 +23,10 @@ class TabsC {
         this.registerHandler(id.tabAboutGame, "click", this._tabClick);
         this.registerHandler(id.tabOffline, "click", this._tabClick);
 
+
+        this.registerHandler("resume", "click", this._resume);
+        this.registerHandler("leave", "click", this._leave);
+
         this.registerClassHandler(".tab", "mouseover", this._lightTab);
         this.registerClassHandler(".tab", "mouseout", this._unLightTab);
         this.registerClassHandler(".tab-click", "mouseover", this._lightTab);
@@ -190,6 +194,24 @@ class TabsC {
             }
         }
     }
+
+
+    _resume = (event) => {
+        const lastGameUUID = event.target.getAttribute("room_id");
+        GameF.ResumeGame(lastGameUUID).catch(
+            (err) => {
+                console.log("GAME RECONNECT FATAL ERROR");
+                console.log(err);
+                Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+            }
+        );
+    }
+
+    _leave = (event) => {
+        const lastGameUUID = event.target.getAttribute("room_id");
+        GameF.LeaveGame(lastGameUUID);
+    }
+
 }
 
 export default new TabsC();

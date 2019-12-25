@@ -53,6 +53,7 @@ class RoomM {
 
             localStorage.removeItem("last_game_lastState");
             localStorage.removeItem("last_game_state");
+            localStorage.removeItem("last_game_startGameData");
             // () => console.log("Комната уничтожена")
         });
     }
@@ -212,6 +213,7 @@ class RealRoomM {
     
                 localStorage.removeItem("last_game_lastState");
                 localStorage.removeItem("last_game_state");
+                localStorage.removeItem("last_game_startGameData");
             } catch (err) {
                 this.lastState = this.state;
                 this.state = "crash_connection";

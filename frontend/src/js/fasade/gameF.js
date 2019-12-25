@@ -19,8 +19,9 @@ import {
     GAME_END,
     ONLINE_QUESTION_TABLE_UPDATE,
     WEBSOCKET_CLOSE,
+    RECONNECT_EVENT
 } from "../modules/events.js";
-import { WAITING, SINGLE_GAME, ONLINE_GAME } from "../paths";
+import { WAITING, SINGLE_GAME, ONLINE_GAME, TAB } from "../paths";
 import WebSocketIface from "../modules/webSocketIface.js"
 
 
@@ -68,23 +69,28 @@ class GameF {
         return this.ifaces.get(consumer);
     }
 
+    ResumeGame = async (lastGameUUID) => {
+        const lastGameState = localStorage.getItem("last_game_state");
+
+        if ((lastGameUUID) && (lastGameState === "game")) {
+            this.current = await this.Reconnect();
+            Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
+            this._roomChange("start_game");
+        }
+    }
+
+    LeaveGame = (lastGameUUID) => {
+        RoomM.clear();
+        Bus.emit(ROUTER_EVENT.ROUTE_TO, TAB[0]);
+    }
+
     CreateGame = async (mode = "offline", options) => {
         if (mode === "offline") {
             Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
             this.current = await this._createOfflineGame(options.packId);
         } else {
             if (options.action === "join") {
-                const lastGameUUID = localStorage.getItem("last_game_UUID");
-                const lastGameState = localStorage.getItem("last_game_state");
-
-                if ((lastGameUUID) && (lastGameState === "game")) {
-                    this.current = await this.Reconnect();
-                    Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
-                    this._roomChange("start_game");
-                    return;
-                } else {
-                    this.current = await this._createOnlineGame(options.roomId, null);
-                }
+                this.current = await this._createOnlineGame(options.roomId, null);
             } else if (options.action === "create") {
                 this.current = await this._createOnlineGame(null, options.roomOptions);
             }
@@ -354,6 +360,8 @@ class OnlineGameF {
                 if (QuestionsM.current.questionTable.mode === "verdict") {
                     info = Object.assign(info, PlayersM.getVerdictInfo());
                 }
+
+
                 return info;
             },
 
