@@ -26,6 +26,7 @@ class NavbarC {
         this.registerHandler("chat_bar", "click", this._chatClick);
 
         this.registerHandler("application", "click", this._chatOff, false);
+        this.registerHandler("chat_exit", "click", this._chatOff, false);
 
 
         this.registerHandler("help_bar", "mouseover", this._helpFocus);
@@ -43,6 +44,12 @@ class NavbarC {
             const iframe = document.getElementById("chat_iframe");
             iframe.className = "iframe";
             this.chat = false;
+
+            const iframeContainer = document.getElementById("chat_container");
+            iframeContainer.className = "iframe-container";
+
+            const exitChat = document.getElementById("chat_exit");
+            exitChat.className = "exit-chat";
         }
     }
 
@@ -80,11 +87,17 @@ class NavbarC {
     }
 
     _chatClick = (event) => {
+        const iframeContainer = document.getElementById("chat_container");
+        iframeContainer.classList.toggle("iframe-container-show");
+
         const iframe = document.getElementById("chat_iframe");
         if (iframe.src === "") {
             iframe.src = StaticManager.getIframeUrl();
         }
         iframe.classList.toggle("iframe_show");
+
+        const exitIcon = document.getElementById("chat_exit");
+        exitIcon.classList.toggle("exit-chat-show");
 
         if (this.chat) {
             this.chat = false;

@@ -1,19 +1,35 @@
-.iframe {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    visibility: hidden;
-    width: 70vw;
-    height: 70vh;
-    top: 15vh; left: 15vw; bottom: 15vh; right: 15vw;
-    z-index: 0;
+.iframe-container {
+  position: absolute;
+  flex-direction: column;
+  align-items: flex-end;
+
+  width: 70vw;
+  height: 70vh;
+  top: 15vh;
+  left: 15vw;
+  bottom: 15vh;
+  right: 15vw;
+  visibility: hidden;
+
+  z-index: 0;
+  display: none;
 }
 
+.iframe-container-show {
+  display: flex;
+  visibility: visible;
+  z-index: 226;
+}
 
+.iframe {
+  visibility: hidden;
+  width: 100%;
+  height: 90%;
+  z-index: 0;
+}
 
 .iframe_show {
-    visibility: visible;
-    z-index: 228;
-    background: rgba(36, 27, 47, 0.95);
+  visibility: visible;
+  z-index: 228;
+  background: rgba(36, 27, 47, 0.95);
 }
