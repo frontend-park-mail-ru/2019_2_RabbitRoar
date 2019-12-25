@@ -6,11 +6,13 @@ html(lang="ru")
     meta(http-equiv="X-UA-Compatible" content="ie=edge")
     title Chat
   body
+    div(class="flex-container-centered-content")
+      div(class="chat-header") АНОНИМНЫЙ ЧАТ
     div(class="flex-container")
       div(id="messages" class="messages")
     form(class="form" name="publish")
       div(class="form-group")
           label(for="user-text")
-          input(name="user-text", id="user-text", type="text", autocomplete="off")
-          span(class="error-annotation" id="empty-message") Введите ваше сообщение
+          input(name="user-text", id="user-text", type="text", class="user-input" autocomplete="off")
+    div(class="flex-container-centered-content")
       input(type="submit", value="Отправить", class="chat-button", id="send-message")
