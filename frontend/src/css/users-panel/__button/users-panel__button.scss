@@ -9,6 +9,11 @@
   grid-row: 2;
 }
 
+#button-ready {
+  border-color: var(--color-danger);
+}
+
+
 .user-panel__button-copy {
   display: flex;
   flex-direction: column;

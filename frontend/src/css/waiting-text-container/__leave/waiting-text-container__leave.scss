@@ -6,9 +6,21 @@
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 1;
-    grid-row-end: 3;
+    grid-row-end: 2;
+    height: 100%;
+    width: 100%;
 
     cursor: pointer;
+}
+
+.leave-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .svg-content {
@@ -19,16 +31,16 @@
   }
 
 
+
+
   @media all and (orientation: landscape) {
-    .waiting-text-container__leave {
-        height: 10vw;
-        width: 5vw;
+    .leave-img {
+        height: 100%;
     }
   }
   
   @media all and (orientation: portrait) {
-    .waiting-text-container__leave {
-        height: 20vw;
-        width: 10vw;
+    .leave-img {
+        height: 50%;
     }
   }

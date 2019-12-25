@@ -1,13 +1,13 @@
 .waiting-container-text {
   display: grid;
   justify-content: center;
-  grid-template-columns: 95% 5%;
   width: auto;
 }
 
 @media all and (orientation: landscape) {
   .waiting-container-text {
     grid-template-rows: calc(25px + 8vh) 0.1vh;
+    grid-template-columns: 80% 20%;
   }
   .wrapper-flex {
     width: 60%;
@@ -16,10 +16,11 @@
 
 @media all and (orientation: portrait) {
   .waiting-container-text {
-    grid-template-rows: calc(25px + 4vh) 0.1vh;
+    grid-template-rows: calc(25px + 10vh) 0.1vh;
+    grid-template-columns: 70% 30%;
   }
   .wrapper-flex {
-    width: 80%;
+    width: 70%;
   }
 }
 

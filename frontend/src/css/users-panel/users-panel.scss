@@ -37,7 +37,7 @@
 }
 
 .player-avatar {
-  border: 2px solid var(--border-color-theme);
+  border: 2px solid var(--color-bg-light);
   border-bottom-width: 0px;
 }
 
@@ -45,9 +45,12 @@
   .player-avatar {
     width: 10vw;
     height: 10vw;
+    margin: 0 5px;
+    border-radius: 10px;
   }
 
   .user-panel-grid-container {
+    padding-top: 5px;
     height: 50vh;
   }
 }
@@ -56,9 +59,12 @@
   .player-avatar {
     width: 20vw;
     height: 20vw;
+    margin: 0 2px;
+    border-radius: 5px;
   }
 
   .user-panel-grid-container {
+    padding-top: 20px;
     height: 30vh;
   }
 }

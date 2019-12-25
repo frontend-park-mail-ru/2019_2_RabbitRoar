@@ -10,7 +10,8 @@ div(class="waiting-container-text")
             div(class="first-text-content") Комната: "#{roomName}"
             div(class="second-text-content") #{userName}, ожидайте других игроков!
     div(class="waiting-text-container__leave")
-        img(src=leaveLogo id="leave_logo")
+        div(class="leave-flex")
+            img(src=leaveLogo class="leave-img" id="leave_logo")
 div(class="user-panel-grid-container")
     div(class="user-panel-container")
         each player, index in players
