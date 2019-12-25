@@ -50,7 +50,7 @@
     .user-panel-game-grid-container {
       grid-template-columns: 15% 70% 15%;
       padding-top: 5px;
-      height: 15vh;
+      height: 11vw;
     }
 
     .waiting-player-game {
@@ -64,8 +64,8 @@
   
 @media all and (orientation: portrait) {
     .player-avatar-game {
-      width: 50%;
-      height: 50%;
+      width: 40%;
+      height: 40%;
     }
 
     .user-panel-game-grid-container {
@@ -77,8 +77,8 @@
     .waiting-player-game {
       flex-wrap: wrap;
       font-size: var(--small-font-size);
-      height: 20vw;
-      width: 20vw;
+      height: 22vw;
+      width: 22vw;
       margin: 0px 5px;
       border-radius: 5px;
   }

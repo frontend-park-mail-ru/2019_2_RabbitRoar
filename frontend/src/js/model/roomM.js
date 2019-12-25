@@ -24,8 +24,8 @@ class RoomM {
         return this.current.state;
     }
 
-    CreateNew(roomId, roomOptions) {
-        this.current = new RealRoomM(roomId, roomOptions);
+    CreateNew(roomId, roomOptions, reconnect) {
+        this.current = new RealRoomM(roomId, roomOptions, reconnect);
     }
 
     // WebSocketIface.disconnect() если соккет был открыт,
@@ -50,7 +50,7 @@ class RoomM {
 
             localStorage.removeItem("last_game_host");
             localStorage.removeItem("last_game_players");
-    
+
             localStorage.removeItem("last_game_lastState");
             localStorage.removeItem("last_game_state");
             // () => console.log("Комната уничтожена")
@@ -80,7 +80,7 @@ class RoomM {
 }
 
 class RealRoomM {
-    constructor(roomId, roomOptions) {
+    constructor(roomId, roomOptions, reconnect) {
         this.state = "created";
         this.lastState;
         this.roomOptions = roomOptions;
@@ -99,12 +99,14 @@ class RealRoomM {
 
         this.startGameData;
 
-        WebSocketIface.addMessageHandler("user_connected", this._playerJoinedToRoom);
-        WebSocketIface.addMessageHandler("player_ready_back", this._playerReady);
-        WebSocketIface.addMessageHandler("start_game", this._startGame);
-        WebSocketIface.addMessageHandler("game_ended", this._endGame);
 
-        WebSocketIface.addOpenHandler(this._doneConnection);
+        if (!reconnect) {
+            WebSocketIface.addMessageHandler("user_connected", this._playerJoinedToRoom);
+            WebSocketIface.addOpenHandler(this._doneConnection);
+            WebSocketIface.addMessageHandler("player_ready_back", this._playerReady);
+            WebSocketIface.addMessageHandler("start_game", this._startGame);
+        }
+        WebSocketIface.addMessageHandler("game_ended", this._endGame);
         WebSocketIface.addCloseHandler(this._closeConnection);
     }
 
@@ -122,6 +124,8 @@ class RealRoomM {
         this.startGameData = data;
         this.lastState = this.state;
         this.state = "game";
+
+        localStorage.setItem("last_game_startGameData", JSON.stringify(data));
         localStorage.setItem("last_game_lastState", this.lastState);
         localStorage.setItem("last_game_state", this.state);
         Bus.emit(ROOM_CHANGE, "start_game");
@@ -140,7 +144,7 @@ class RealRoomM {
 
         this.players = data.payload.players;
 
-        localStorage.setItem("last_game_players", data.payload.players);
+        localStorage.setItem("last_game_players", JSON.stringify(data.payload.players));
         localStorage.setItem("last_game_lastState", this.lastState);
         localStorage.setItem("last_game_state", this.state);
 
@@ -160,8 +164,8 @@ class RealRoomM {
             player.avatar = StaticManager.getUserUrl(player.avatar);
         }
 
-        localStorage.setItem("last_game_host", data.payload.host);
-        localStorage.setItem("last_game_players", data.payload.players);
+        localStorage.setItem("last_game_host", JSON.stringify(data.payload.host));
+        localStorage.setItem("last_game_players", JSON.stringify(data.payload.players));
         localStorage.setItem("last_game_lastState", this.lastState);
         localStorage.setItem("last_game_state", this.state);
 
@@ -191,15 +195,30 @@ class RealRoomM {
     async connect() {
         let response;
 
-        try {
-            const csrf = await getCSRF();
-            await deleteLeaveRoom(csrf.CSRF);
-        } catch (err) {
-            this.lastState = this.state;
-            this.state = "crash_connection";
-            localStorage.setItem("last_game_lastState", this.lastState);
-            localStorage.setItem("last_game_state", this.state);
-            return;
+        if (localStorage.getItem("last_game_UUID")) {
+            try {
+                const csrf = await getCSRF();
+                await deleteLeaveRoom(csrf.CSRF);
+                localStorage.removeItem("last_game_UUID");
+                localStorage.removeItem("last_game_roomInfo");
+                localStorage.removeItem("last_game_roomName");
+                localStorage.removeItem("last_game_playersCapacity");
+                localStorage.removeItem("last_game_playersJoined");
+                localStorage.removeItem("last_game_pack");
+                localStorage.removeItem("last_game_packName");
+    
+                localStorage.removeItem("last_game_host");
+                localStorage.removeItem("last_game_players");
+    
+                localStorage.removeItem("last_game_lastState");
+                localStorage.removeItem("last_game_state");
+            } catch (err) {
+                this.lastState = this.state;
+                this.state = "crash_connection";
+                localStorage.setItem("last_game_lastState", this.lastState);
+                localStorage.setItem("last_game_state", this.state);
+                return;
+            }
         }
 
         if (this.roomOptions) {
@@ -227,8 +246,8 @@ class RealRoomM {
             }
         }
         localStorage.setItem("last_game_UUID", response.UUID);
-        localStorage.setItem("last_game_roomInfo", response.roomInfo);
-        localStorage.setItem("last_game_roomName", response.roomName);
+        localStorage.setItem("last_game_roomInfo", JSON.stringify(response));
+        localStorage.setItem("last_game_roomName", response.name);
         localStorage.setItem("last_game_playersCapacity", response.playersCapacity);
         localStorage.setItem("last_game_playersJoined", response.playersJoined);
         localStorage.setItem("last_game_pack", response.pack);
@@ -263,8 +282,10 @@ class RealRoomM {
 
         this.lastState = localStorage.getItem("last_game_lastState");
         this.state = localStorage.getItem("last_game_state");
-debugger
-        Bus.emit(ROOM_CHANGE);
+        this.startGameData = JSON.parse(localStorage.getItem("last_game_startGameData"));
+
+
+        WebSocketIface.connect(this.roomId);
     }
 
 }

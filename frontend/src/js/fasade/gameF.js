@@ -18,7 +18,7 @@ import {
     USER_PANEL_NEW_USER,
     GAME_END,
     ONLINE_QUESTION_TABLE_UPDATE,
-    WEBSOCKET_CLOSE
+    WEBSOCKET_CLOSE,
 } from "../modules/events.js";
 import { WAITING, SINGLE_GAME, ONLINE_GAME } from "../paths";
 import WebSocketIface from "../modules/webSocketIface.js"
@@ -75,11 +75,16 @@ class GameF {
         } else {
             if (options.action === "join") {
                 const lastGameUUID = localStorage.getItem("last_game_UUID");
-                // if (lastGameUUID) {
-                //     this.current = this.Reconnect;
-                // } else {
+                const lastGameState = localStorage.getItem("last_game_state");
+
+                if ((lastGameUUID) && (lastGameState === "game")) {
+                    this.current = await this.Reconnect();
+                    Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
+                    this._roomChange("start_game");
+                    return;
+                } else {
                     this.current = await this._createOnlineGame(options.roomId, null);
-                //}
+                }
             } else if (options.action === "create") {
                 this.current = await this._createOnlineGame(null, options.roomOptions);
             }
@@ -89,13 +94,12 @@ class GameF {
         }
     }
 
-    Reconnect = (UUID = localStorage.getItem("last_game_UUID")) => {
-        Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
+    Reconnect = async (UUID = localStorage.getItem("last_game_UUID")) => {
         return this._hardCreate(UUID);
     }
 
     _hardCreate = async (UUID) => {
-        const onlineGame = new OnlineGameF(UUID, null);
+        const onlineGame = new OnlineGameF(UUID, null, true);
         onlineGame.reconnect();
         return onlineGame;
     }
@@ -304,9 +308,9 @@ class OfflineGameF {
 
 
 class OnlineGameF {
-    constructor(roomId, roomOptions) {
+    constructor(roomId, roomOptions, reconnect=false) {
         QuestionsM.CreateNew("online");
-        RoomM.CreateNew(roomId, roomOptions);
+        RoomM.CreateNew(roomId, roomOptions, reconnect);
         PlayersM.CreateNew(roomId, roomOptions);
 
         WebSocketIface.addMessageHandler("answer_given_back", () => Bus.emit(QUESTION_CHANGE));
@@ -322,7 +326,6 @@ class OnlineGameF {
             Bus.emit(PLAYERS_CHANGE, "-1");
             Bus.emit(QUESTION_CHANGE);
         });
-
     }
 
     clear = () => {
