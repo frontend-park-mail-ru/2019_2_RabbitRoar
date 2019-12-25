@@ -75,7 +75,6 @@ class RealPlayersM {
         WebSocketIface.addMessageHandler("request_verdict_from_host", this._saveTrueAnswer);        // Реальный ответ для хоста
         WebSocketIface.addMessageHandler("verdict_given_back", this._verdictDone);                  // Ведущий прислал вердикт
 
-
     }
 
     addFields = (...fields) => {
