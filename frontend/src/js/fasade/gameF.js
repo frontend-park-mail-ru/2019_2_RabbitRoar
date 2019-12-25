@@ -74,7 +74,12 @@ class GameF {
             this.current = await this._createOfflineGame(options.packId);
         } else {
             if (options.action === "join") {
-                this.current = await this._createOnlineGame(options.roomId, null);
+                const lastGameUUID = localStorage.getItem("last_game_UUID");
+                // if (lastGameUUID) {
+                //     this.current = this.Reconnect;
+                // } else {
+                    this.current = await this._createOnlineGame(options.roomId, null);
+                //}
             } else if (options.action === "create") {
                 this.current = await this._createOnlineGame(null, options.roomOptions);
             }
@@ -82,6 +87,17 @@ class GameF {
             Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
             this._roomChange();
         }
+    }
+
+    Reconnect = (UUID = localStorage.getItem("last_game_UUID")) => {
+        Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
+        return this._hardCreate(UUID);
+    }
+
+    _hardCreate = async (UUID) => {
+        const onlineGame = new OnlineGameF(UUID, null);
+        onlineGame.reconnect();
+        return onlineGame;
     }
 
     _createOfflineGame = async (clickId) => {
@@ -316,6 +332,10 @@ class OnlineGameF {
 
     connect = async () => {
         await RoomM.connect();
+    }
+
+    reconnect = () => {
+        RoomM.current.recover();
     }
 
 

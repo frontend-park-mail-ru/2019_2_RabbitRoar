@@ -12,6 +12,8 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
+  align-content: space-between;
   align-items: flex-start;
   grid-column-start: 2;
   grid-column-end: 3;

@@ -39,9 +39,22 @@ class RoomM {
             }
         ).catch(
             // (err) => console.log(`Can't leave room ${err}`)
-        ).finally(
+        ).finally(() => {
+            localStorage.removeItem("last_game_UUID");
+            localStorage.removeItem("last_game_roomInfo");
+            localStorage.removeItem("last_game_roomName");
+            localStorage.removeItem("last_game_playersCapacity");
+            localStorage.removeItem("last_game_playersJoined");
+            localStorage.removeItem("last_game_pack");
+            localStorage.removeItem("last_game_packName");
+
+            localStorage.removeItem("last_game_host");
+            localStorage.removeItem("last_game_players");
+    
+            localStorage.removeItem("last_game_lastState");
+            localStorage.removeItem("last_game_state");
             // () => console.log("Комната уничтожена")
-        );
+        });
     }
 
     async connect() {
@@ -99,6 +112,8 @@ class RealRoomM {
     _endGame = (data) => {
         this.lastState = this.state;
         this.state = "game_ended";
+        localStorage.setItem("last_game_lastState", this.lastState);
+        localStorage.setItem("last_game_state", this.state);
         Bus.emit(ROOM_CHANGE);
     }
 
@@ -107,12 +122,15 @@ class RealRoomM {
         this.startGameData = data;
         this.lastState = this.state;
         this.state = "game";
+        localStorage.setItem("last_game_lastState", this.lastState);
+        localStorage.setItem("last_game_state", this.state);
         Bus.emit(ROOM_CHANGE, "start_game");
     }
 
     _playerReady = (data) => {
         this.lastState = this.state;
         this.state = "waiting";
+
 
         this.playersJoined++;
 
@@ -121,6 +139,10 @@ class RealRoomM {
         }
 
         this.players = data.payload.players;
+
+        localStorage.setItem("last_game_players", data.payload.players);
+        localStorage.setItem("last_game_lastState", this.lastState);
+        localStorage.setItem("last_game_state", this.state);
 
         Bus.emit(ROOM_CHANGE, "player_ready");
     }
@@ -138,6 +160,11 @@ class RealRoomM {
             player.avatar = StaticManager.getUserUrl(player.avatar);
         }
 
+        localStorage.setItem("last_game_host", data.payload.host);
+        localStorage.setItem("last_game_players", data.payload.players);
+        localStorage.setItem("last_game_lastState", this.lastState);
+        localStorage.setItem("last_game_state", this.state);
+
         this.players = data.payload.players;
         Bus.emit(ROOM_CHANGE, "player_connected");
     }
@@ -146,12 +173,16 @@ class RealRoomM {
     _doneConnection = () => {
         this.lastState = this.state;
         this.state = "done_connection";
+        localStorage.setItem("last_game_lastState", this.lastState);
+        localStorage.setItem("last_game_state", this.state);
         Bus.emit(ROOM_CHANGE);
     }
 
     _closeConnection = (event) => {
         this.lastState = this.state;
         this.state = "closed";
+        localStorage.setItem("last_game_lastState", this.lastState);
+        localStorage.setItem("last_game_state", this.state);
         this.closeCode = event.code;
         Bus.emit(ROOM_CHANGE);
     }
@@ -166,6 +197,8 @@ class RealRoomM {
         } catch (err) {
             this.lastState = this.state;
             this.state = "crash_connection";
+            localStorage.setItem("last_game_lastState", this.lastState);
+            localStorage.setItem("last_game_state", this.state);
             return;
         }
 
@@ -176,6 +209,8 @@ class RealRoomM {
             } catch (err) {
                 this.lastState = this.state;
                 this.state = "crash_connection";
+                localStorage.setItem("last_game_lastState", this.lastState);
+                localStorage.setItem("last_game_state", this.state);
                 return;
             }
             this.roomId = response.UUID;
@@ -186,9 +221,19 @@ class RealRoomM {
             } catch (err) {
                 this.lastState = this.state;
                 this.state = "crash_connection";
+                localStorage.setItem("last_game_lastState", this.lastState);
+                localStorage.setItem("last_game_state", this.state);
                 return;
             }
         }
+        localStorage.setItem("last_game_UUID", response.UUID);
+        localStorage.setItem("last_game_roomInfo", response.roomInfo);
+        localStorage.setItem("last_game_roomName", response.roomName);
+        localStorage.setItem("last_game_playersCapacity", response.playersCapacity);
+        localStorage.setItem("last_game_playersJoined", response.playersJoined);
+        localStorage.setItem("last_game_pack", response.pack);
+        localStorage.setItem("last_game_packName", response.packName);
+
         this.roomInfo = response;
         this.UUID = response.UUID;
         this.roomName = response.name;
@@ -199,7 +244,27 @@ class RealRoomM {
 
         this.lastState = this.state;
         this.state = "before_connection";
+        localStorage.setItem("last_game_lastState", this.lastState);
+        localStorage.setItem("last_game_state", this.state);
         WebSocketIface.connect(this.roomId);
+    }
+
+    recover = () => {
+        this.roomInfo = JSON.parse(localStorage.getItem("last_game_roomInfo"));
+        this.UUID = localStorage.getItem("last_game_UUID");
+        this.roomName = localStorage.getItem("last_game_roomName");
+        this.playersCapacity = localStorage.getItem("last_game_playersCapacity");
+        this.playersJoined = localStorage.getItem("last_game_playersJoined");
+        this.pack = localStorage.getItem("last_game_pack");
+        this.packName = localStorage.getItem("last_game_packName");
+
+        this.host = JSON.parse(localStorage.getItem("last_game_host"));
+        this.players = JSON.parse(localStorage.getItem("last_game_players"));
+
+        this.lastState = localStorage.getItem("last_game_lastState");
+        this.state = localStorage.getItem("last_game_state");
+debugger
+        Bus.emit(ROOM_CHANGE);
     }
 
 }

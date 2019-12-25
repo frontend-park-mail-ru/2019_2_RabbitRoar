@@ -139,10 +139,10 @@ class UsersGamePanelE {
 
     create = (root = document.getElementById("application")) => {
         this.root = root;
-        this.gameIface = GameF.getInterface(this)();
+        //this.gameIface = GameF.getInterface(this)();
         Bus.on(USERS_PANEL_UPDATE, this._update);
         Bus.on(USER_PANEL_NEW_USER, this._updatePlayers);
-        //this.gameIface = MOKiface;
+        this.gameIface = MOKiface;
 
         const players = this.gameIface.getPlayers();
         const leaveLogo = StaticManager.leaveLogo;
