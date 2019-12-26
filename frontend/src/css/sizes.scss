@@ -25,17 +25,17 @@ $rank-margin: 4vw;              // Отступ у значка звания с�
         --chat-height: 40vh;
     }
     @media all and (orientation: portrait) {
-        --font-size: 2.1vh;
-        --big-font-size: 2.7vh;
-        --small-font-size: 1.5vh;
-        --table-elem-height: 7.5vh;
-        --best-panel-img-size: 5vh;
-        --table-vertical-margin: 0.6vh;
-        --tab-height: 6vh;
-        --between-tab-height: 3vh;
+        --font-size: calc(5px + 2vw);
+        --big-font-size: calc(14px + 1vw);
+        --small-font-size: calc(6px + 1vw);
+        --table-elem-height: 12vw;
+        --best-panel-img-size: 7vw;
+        --table-vertical-margin: 1.2vw;
+        --tab-height: 10vw;
+        --between-tab-height: 6vw;
         --chat-img-size: 7vw;
         
-        --navbar-height: 20vw;
+        --navbar-height: 17vw;
         --tab-text: 3.5vw;
         --main-logo-font: 5vw;
 

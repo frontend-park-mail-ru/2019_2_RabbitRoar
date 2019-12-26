@@ -80,8 +80,9 @@ class GameF {
     }
 
     LeaveGame = (lastGameUUID) => {
-        RoomM.clear();
-        Bus.emit(ROUTER_EVENT.ROUTE_TO, TAB[0]);
+        RoomM.clear(
+            () => Bus.emit(ROUTER_EVENT.ROUTE_TO, TAB[0])
+        );
     }
 
     CreateGame = async (mode = "offline", options) => {

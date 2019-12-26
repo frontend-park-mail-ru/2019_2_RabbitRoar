@@ -30,7 +30,7 @@ class RoomM {
 
     // WebSocketIface.disconnect() если соккет был открыт,
     // произойдет вызов this.current._closeConnection()
-    clear() {
+    clear(route=()=>{}) {
         WebSocketIface.disconnect();
         this.current = undefined;
         getCSRF().then(
@@ -54,6 +54,7 @@ class RoomM {
             localStorage.removeItem("last_game_lastState");
             localStorage.removeItem("last_game_state");
             localStorage.removeItem("last_game_startGameData");
+            route();
             // () => console.log("Комната уничтожена")
         });
     }

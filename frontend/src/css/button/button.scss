@@ -78,7 +78,7 @@
 
 .game-panel-button {
   @extend %button;
-  font-size: var(--small-font-size);
+  font-size: var(--font-size);
   border-radius: 0px;
 }
 
@@ -92,7 +92,7 @@
 
 .game-panel-button-without-hover {
   @extend %button;
-  font-size: var(--small-font-size);
+  font-size: var(--font-size);
   border-radius: 0px;
 }
 
