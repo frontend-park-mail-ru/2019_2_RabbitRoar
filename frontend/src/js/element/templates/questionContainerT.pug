@@ -61,12 +61,15 @@ else if state.mode == "verdict"
                     div() #{state.respondent.score}
             div(class="question-container__master-answer__text")
                 div(class="question-container__master-answer__text-container")
-                    div() Правильный ответ: "#{state.respondent.trueAnswer}"
-                    div() #{state.respondent.name}: "#{state.answer}"
+                    if (state.answer !== null)
+                        div(class="question-container__master-answer__text-container__true") Правильный ответ: "#{state.respondent.trueAnswer}"
+                        div() #{state.respondent.name}: "#{state.answer}"
+                    else
+                        div(id="wait_input") #{state.respondent.name} печатает ответ                 
             div(class="question-container__master-answer__verdict")
                 div(class="question-container__master-answer__verdict-container")
-                    div(class="verdict-button" id="verdict_false") Неверно
-                    div(class="verdict-button" id="verdict_true") Верно
+                    div(class="verdict-button question-container__master-answer__text-container__false" id="verdict_false") Неверно
+                    div(class="verdict-button question-container__master-answer__text-container__true" id="verdict_true") Верно
         else
             div(class="question-container__master-answer__logo")
                 div(class="question-container__master-answer__logo-avatar-container")

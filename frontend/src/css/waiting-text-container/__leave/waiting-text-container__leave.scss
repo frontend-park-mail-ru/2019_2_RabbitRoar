@@ -37,10 +37,16 @@
     .leave-img {
         height: 100%;
     }
+    .leave-img-game {
+        height: 50%;
+    }
   }
   
   @media all and (orientation: portrait) {
     .leave-img {
         height: 50%;
+    }
+    .leave-img-game {
+        height: 15%;
     }
   }

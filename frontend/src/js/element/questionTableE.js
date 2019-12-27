@@ -13,6 +13,8 @@ class QuestionTableE {
         this.progressBarInterrupt = false;
         this.timerIsWorking = false;
 
+        this.pointsTicker;
+
         Bus.on(TIMER_STOPPED, this._redraw);
         Bus.on(QUESTION_PANEL_UPDATE, this._redraw);
         Bus.on(TIMER_INTERRUPTION, this._interruptProgressBar);
@@ -31,6 +33,8 @@ class QuestionTableE {
 
         this.root.insertAdjacentHTML("beforeend", Template({ state }));
         this.controller.startAllListeners();
+
+        this._checkWait();
 
 
         for (const _id in state.chosedCells) {
@@ -54,7 +58,25 @@ class QuestionTableE {
         }
     }
 
+    _checkWait = () => {
+        const waitInput = document.getElementById("wait_input");
+        if (waitInput) {
+            const maxPoints = 3;
+            const baseStr = waitInput.innerHTML;
+            let addStr = "";
+            this.pointsTicker = setInterval( () => {
+                waitInput.innerHTML = baseStr.concat(addStr);
+                if (addStr.length === maxPoints) {
+                    addStr = "";
+                } else {
+                    addStr += ".";
+                }
+            }, 400);
+        }
+    }
+
     destroy = () => {
+        clearInterval(this.pointsTicker);
         if (this.timerIsWorking) {
             this.timerIsWorking = false;
             Bus.emit(TIMER_INTERRUPTION);

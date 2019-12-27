@@ -18,9 +18,10 @@ import {
     USER_PANEL_NEW_USER,
     GAME_END,
     ONLINE_QUESTION_TABLE_UPDATE,
-    WEBSOCKET_CLOSE
+    WEBSOCKET_CLOSE,
+    RECONNECT_EVENT
 } from "../modules/events.js";
-import { WAITING, SINGLE_GAME, ONLINE_GAME } from "../paths";
+import { WAITING, SINGLE_GAME, ONLINE_GAME, TAB } from "../paths";
 import WebSocketIface from "../modules/webSocketIface.js"
 
 
@@ -68,6 +69,22 @@ class GameF {
         return this.ifaces.get(consumer);
     }
 
+    ResumeGame = async (lastGameUUID) => {
+        const lastGameState = localStorage.getItem("last_game_state");
+
+        if (lastGameUUID) {
+            this.current = await this.Reconnect();
+            Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
+            this._roomChange("start_game");
+        }
+    }
+
+    LeaveGame = (lastGameUUID) => {
+        RoomM.clear(
+            () => Bus.emit(ROUTER_EVENT.ROUTE_TO, TAB[0])
+        );
+    }
+
     CreateGame = async (mode = "offline", options) => {
         if (mode === "offline") {
             Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
@@ -82,6 +99,16 @@ class GameF {
             Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
             this._roomChange();
         }
+    }
+
+    Reconnect = async (UUID = localStorage.getItem("last_game_UUID")) => {
+        return this._hardCreate(UUID);
+    }
+
+    _hardCreate = async (UUID) => {
+        const onlineGame = new OnlineGameF(UUID, null, true);
+        onlineGame.reconnect();
+        return onlineGame;
     }
 
     _createOfflineGame = async (clickId) => {
@@ -107,6 +134,7 @@ class GameF {
 
 
     _questionChange = (type) => {
+        Bus.emit(GAME_PANEL_STATE_CHANGE, QuestionsM.current.questionTable.mode);
         if (QuestionsM.current.questionTable.mode === "default") {
             if (type === "disable_question") {
                 Bus.emit();
@@ -114,17 +142,14 @@ class GameF {
             Bus.emit(QUESTION_PANEL_UPDATE);
         } else if (QuestionsM.current.questionTable.mode === "selected") {
             Bus.emit(QUESTION_PANEL_UPDATE);
-            Bus.emit(GAME_PANEL_STATE_CHANGE, "selected");
         } else if (QuestionsM.current.questionTable.mode === "result") {
             Bus.emit(TIMER_INTERRUPTION);
             Bus.emit(QUESTION_PANEL_UPDATE);
             Bus.emit(GAME_PANEL_UPDATE);    // Только для offline
         } else if (QuestionsM.current.questionTable.mode === "verdict") {
             Bus.emit(QUESTION_PANEL_UPDATE);
-            Bus.emit(GAME_PANEL_STATE_CHANGE, "verdict");
         } else if (QuestionsM.current.questionTable.mode === "answer_race") {
             Bus.emit(QUESTION_PANEL_UPDATE);
-            Bus.emit(GAME_PANEL_STATE_CHANGE, "answer_race");
         }
     }
 
@@ -288,9 +313,9 @@ class OfflineGameF {
 
 
 class OnlineGameF {
-    constructor(roomId, roomOptions) {
+    constructor(roomId, roomOptions, reconnect=false) {
         QuestionsM.CreateNew("online");
-        RoomM.CreateNew(roomId, roomOptions);
+        RoomM.CreateNew(roomId, roomOptions, reconnect);
         PlayersM.CreateNew(roomId, roomOptions);
 
         WebSocketIface.addMessageHandler("answer_given_back", () => Bus.emit(QUESTION_CHANGE));
@@ -306,7 +331,6 @@ class OnlineGameF {
             Bus.emit(PLAYERS_CHANGE, "-1");
             Bus.emit(QUESTION_CHANGE);
         });
-
     }
 
     clear = () => {
@@ -318,6 +342,10 @@ class OnlineGameF {
         await RoomM.connect();
     }
 
+    reconnect = () => {
+        RoomM.current.recover();
+    }
+
 
     get questionTableEInterface() {
         const iface = {
@@ -326,11 +354,11 @@ class OnlineGameF {
 
                 if (QuestionsM.current.questionTable.mode === "result") {
                     info = Object.assign(info, PlayersM.getAnsweredPlayerInfo());
-                }
-
-                if (QuestionsM.current.questionTable.mode === "verdict") {
+                } else if (QuestionsM.current.questionTable.mode === "verdict") {
                     info = Object.assign(info, PlayersM.getVerdictInfo());
                 }
+
+
                 return info;
             },
 
@@ -370,6 +398,9 @@ class OnlineGameF {
 
     get onlineGamePanelEInterface() {
         const iface = {
+            getRole() {
+                return PlayersM.getRole();
+            },
             getScoreById(userId) {
                 for (const player of PlayersM.current.players) {
                     if (player.id === userId) {

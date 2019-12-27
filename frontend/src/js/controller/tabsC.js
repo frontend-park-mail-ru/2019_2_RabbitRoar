@@ -8,6 +8,7 @@ import { replaceTwoCssClasses } from "../modules/css_operations";
 
 import { ROUTER_EVENT, PACK_FOR_EDIT_WAS_CHOSEN } from "../modules/events.js";
 import { SINGLE_GAME, ROOM_CREATOR, LOGIN, PACK_CREATION, PACK_EDITING, ROOT } from "../paths";
+import { WAITING, ONLINE_GAME, TAB } from "../paths";
 
 import ValidatorF from "../fasade/userValidatorF.js";
 
@@ -17,11 +18,17 @@ class TabsC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
 
+        this.noReload = [WAITING, SINGLE_GAME, ONLINE_GAME];
+
         this.registerHandler(id.tabRoom, "click", this._tabClick);
         this.registerHandler(id.tabTop, "click", this._tabClick);
         this.registerHandler(id.tabPack, "click", this._tabClick);
         this.registerHandler(id.tabAboutGame, "click", this._tabClick);
         this.registerHandler(id.tabOffline, "click", this._tabClick);
+
+
+        this.registerHandler("resume", "click", this._resume);
+        this.registerHandler("leave", "click", this._leave);
 
         this.registerClassHandler(".tab", "mouseover", this._lightTab);
         this.registerClassHandler(".tab", "mouseout", this._unLightTab);
@@ -48,6 +55,10 @@ class TabsC {
 
 
     _offline = () => {
+        const path = window.location.pathname;
+        if (this.noReload.includes(path)) {
+            return;
+        }
         this._wasInOffline = true;
         window.location.reload();
     }
@@ -190,6 +201,24 @@ class TabsC {
             }
         }
     }
+
+
+    _resume = (event) => {
+        const lastGameUUID = event.target.getAttribute("room_id");
+        GameF.ResumeGame(lastGameUUID).catch(
+            (err) => {
+                console.log("GAME RECONNECT FATAL ERROR");
+                console.log(err);
+                Bus.emit(ROUTER_EVENT.ROUTE_TO, ROOT);
+            }
+        );
+    }
+
+    _leave = (event) => {
+        const lastGameUUID = event.target.getAttribute("room_id");
+        GameF.LeaveGame(lastGameUUID);
+    }
+
 }
 
 export default new TabsC();

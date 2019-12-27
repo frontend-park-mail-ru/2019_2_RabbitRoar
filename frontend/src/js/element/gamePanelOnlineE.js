@@ -9,34 +9,54 @@ import { GAME_PANEL_UPDATE, GAME_PANEL_STATE_CHANGE } from "../modules/events.js
 class GamePanelOnlineE {
     constructor() {
         this.root = document.getElementById("application");
+        this.ticker;
         this.controller = GamePanelOnlineC;
     }
 
     _changeState = (state) => {
         const changingButton = document.getElementById("changing-button");
+        const changingContainer = document.getElementById("changing-element");
         const inputAnswer = document.getElementById("input-answer");
-        
+
         if (state === "answer_race") {
+            this.ticker = setInterval(
+                () => {
+                    console.log("a");
+                    changingContainer.classList.toggle("game-panel-online__control-super");
+                },
+                1000
+            );
             changingButton.className = "game-panel-button";
+            changingContainer.className = "game-panel-online__control game-panel-online__control-success";
             inputAnswer.style.visibility = "hidden";
-            changingButton.innerHTML = "Захватить!";
+            changingButton.value = "Захватить!";
             changingButton.setAttribute("state", "answer_race");
         } else if (state === "selected") {
             inputAnswer.style.visibility = "visible";
             inputAnswer.focus();
 
             changingButton.className = "game-panel-button";
-            changingButton.innerHTML = "Отправить";
+            changingContainer.className = "game-panel-online__control game-panel-online__control-success";
+            changingButton.value = "Отправить";
             changingButton.setAttribute("state", "selected");
         } else {
             changingButton.className = "game-panel-button-without-hover";
+            changingContainer.className = "game-panel-online__control game-panel-online__control-danger";
             if (state === "default") {
-                changingButton.innerHTML = "Выберите вопрос";
+                changingButton.value = "Зеленый игрок выбирает вопрос";
+            } else if (state === "verdict") {
+                changingButton.value = "Ожидайте вердикт ведущего";
+            } else if (state === "result") {
+                changingButton.value = "Проверьте решение";
             }
+
 
             changingButton.setAttribute("state", state);
             inputAnswer.style.visibility = "hidden";
-            inputAnswer.value = "Юзер должен выбрать вопрос";
+        }
+
+        if (state !== "answer_race") {
+            clearInterval(this.ticker);
         }
     }
 
@@ -46,20 +66,27 @@ class GamePanelOnlineE {
     }
 
     create(root = document.getElementById("application")) {
-        Bus.on(GAME_PANEL_UPDATE, this._update);
-        Bus.on(GAME_PANEL_STATE_CHANGE, this._changeState);
-
         this.root = root;
         this.gameIface = GameF.getInterface(this)();
+        Bus.on(GAME_PANEL_UPDATE, this._update);
+
+
+        if (this.gameIface.getRole() === "master") {
+            Bus.on(GAME_PANEL_STATE_CHANGE, () => { });
+            return;
+        }
+
+        Bus.on(GAME_PANEL_STATE_CHANGE, this._changeState);
 
         this.root.insertAdjacentHTML("beforeend", Template());
+        document.getElementById("input-answer").style.width = "100%";
         this.controller.startAllListeners();
     }
 
 
     destroy() {
-        Bus.on(GAME_PANEL_UPDATE, this._update);
-        Bus.on(GAME_PANEL_STATE_CHANGE, this._changeState);
+        Bus.off(GAME_PANEL_UPDATE, this._update);
+        Bus.off(GAME_PANEL_STATE_CHANGE, this._changeState);
         this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }

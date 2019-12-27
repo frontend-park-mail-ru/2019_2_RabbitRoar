@@ -36,6 +36,14 @@ class PlayersM {
         }
     }
 
+    getRole() {
+        if (this.current.userId === this.current.host.id) {
+            return "master";
+        } else {
+            return "simple";
+        }
+    }
+
     getVerdictInfo() {
         let role;
         if (this.current.userId === this.current.host.id) {
@@ -74,7 +82,6 @@ class RealPlayersM {
         WebSocketIface.addMessageHandler("request_answer_from_respondent", this._processAnswering); // Присылает игрока который в итоге отвечает на вопрос
         WebSocketIface.addMessageHandler("request_verdict_from_host", this._saveTrueAnswer);        // Реальный ответ для хоста
         WebSocketIface.addMessageHandler("verdict_given_back", this._verdictDone);                  // Ведущий прислал вердикт
-
 
     }
 
