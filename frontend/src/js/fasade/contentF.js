@@ -125,7 +125,6 @@ class ContentF {
 
         content.resume = localStorage.getItem("last_game_UUID");
         content.lastState = localStorage.getItem("last_game_state");
-
         return content;
     }
 

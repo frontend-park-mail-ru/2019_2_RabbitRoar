@@ -31,6 +31,8 @@ class QuestionTableE {
         this.root = root;
         const state = this.gameIface.questionInfo();
 
+        console.log(state.correctAnswer);
+
         this.root.insertAdjacentHTML("beforeend", Template({ state }));
         this.controller.startAllListeners();
 

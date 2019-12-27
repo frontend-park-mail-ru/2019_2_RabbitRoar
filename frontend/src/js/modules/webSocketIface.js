@@ -19,9 +19,9 @@ class WebSocketIface {
         this.addCloseHandler(
             (event) => {
                 if (event.wasClean) {
-                    // console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+                    console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
                 } else {
-                    // console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
+                    console.log(`[close] Соединение прервано, код=${event.code} причина=${event.reason}`);
                 }
             }
         );

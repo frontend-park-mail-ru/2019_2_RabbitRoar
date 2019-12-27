@@ -39,12 +39,18 @@ class GamePanelC {
         }
     }
 
-    _startListenQuestion = () => {
+    _startListenQuestion = (state) => {
         this.abilityToEnterAnswer = true;
 
-        const inputAnswer = document.getElementById("input-answer");
-        inputAnswer.style.visibility = "visible";
-        inputAnswer.focus();
+        if (state === "selected") {
+            const inputAnswer = document.getElementById("input-answer");
+            inputAnswer.style.visibility = "visible";
+            inputAnswer.focus();
+        } else {
+            const inputAnswer = document.getElementById("input-answer");
+            inputAnswer.style.visibility = "hidden";
+        }
+
 
         const changingButton = document.getElementById("changing-button");
         replaceTwoCssClasses(changingButton, "game-panel-button-without-hover", "game-panel-button");
