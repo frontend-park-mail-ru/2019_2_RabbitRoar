@@ -75,6 +75,7 @@ class GamePanelOnlineE {
         Bus.on(GAME_PANEL_STATE_CHANGE, this._changeState);
 
         this.root.insertAdjacentHTML("beforeend", Template());
+        document.getElementById("input-answer").style.width = "100%";
         this.controller.startAllListeners();
     }
 

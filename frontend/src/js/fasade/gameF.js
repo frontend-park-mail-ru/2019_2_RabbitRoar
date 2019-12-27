@@ -72,7 +72,7 @@ class GameF {
     ResumeGame = async (lastGameUUID) => {
         const lastGameState = localStorage.getItem("last_game_state");
 
-        if ((lastGameUUID) && (lastGameState === "game")) {
+        if (lastGameUUID) {
             this.current = await this.Reconnect();
             Bus.on(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
             this._roomChange("start_game");

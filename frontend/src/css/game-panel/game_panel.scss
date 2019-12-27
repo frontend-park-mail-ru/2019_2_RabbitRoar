@@ -39,8 +39,28 @@
   grid-column-start: 3;
   grid-column-end: 4;
 
+  box-sizing: border-box;
+
   font-size: var(--font-size);
+  border-width: 2px;
+  border-style: solid;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-width: 0px;
+  background-color: var(--color-bg-dark);
+  color: var(--main-light-color);
   visibility: hidden; 
+  z-index: 1;
+
+  border-color: #920031;
+}
+
+.input-answer:focus {
+  outline:none;
+  border-color: var(--color-success);
+}
+.input-answer:active {
+  outline:none;
 }
 
 .profile {
