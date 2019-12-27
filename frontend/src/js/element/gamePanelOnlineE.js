@@ -62,11 +62,17 @@ class GamePanelOnlineE {
     }
 
     create(root = document.getElementById("application")) {
-        Bus.on(GAME_PANEL_UPDATE, this._update);
-        Bus.on(GAME_PANEL_STATE_CHANGE, this._changeState);
-
         this.root = root;
         this.gameIface = GameF.getInterface(this)();
+        Bus.on(GAME_PANEL_UPDATE, this._update);
+
+
+        if (this.gameIface.getRole() === "master") {
+            Bus.on(GAME_PANEL_STATE_CHANGE, () => {});
+            return;
+        }
+
+        Bus.on(GAME_PANEL_STATE_CHANGE, this._changeState);
 
         this.root.insertAdjacentHTML("beforeend", Template());
         this.controller.startAllListeners();
@@ -74,8 +80,8 @@ class GamePanelOnlineE {
 
 
     destroy() {
-        Bus.on(GAME_PANEL_UPDATE, this._update);
-        Bus.on(GAME_PANEL_STATE_CHANGE, this._changeState);
+        Bus.off(GAME_PANEL_UPDATE, this._update);
+        Bus.off(GAME_PANEL_STATE_CHANGE, this._changeState);
         this.controller.disableAllListeners();
         this.root.innerHTML = "";
     }

@@ -356,9 +356,7 @@ class OnlineGameF {
 
                 if (QuestionsM.current.questionTable.mode === "result") {
                     info = Object.assign(info, PlayersM.getAnsweredPlayerInfo());
-                }
-
-                if (QuestionsM.current.questionTable.mode === "verdict") {
+                } else if (QuestionsM.current.questionTable.mode === "verdict") {
                     info = Object.assign(info, PlayersM.getVerdictInfo());
                 }
 
@@ -402,6 +400,9 @@ class OnlineGameF {
 
     get onlineGamePanelEInterface() {
         const iface = {
+            getRole() {
+                return PlayersM.getRole();
+            },
             getScoreById(userId) {
                 for (const player of PlayersM.current.players) {
                     if (player.id === userId) {

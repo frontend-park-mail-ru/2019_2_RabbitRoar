@@ -13,10 +13,18 @@
 .question-container__master-answer__text-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
 
     background-color: var(--color-bg-light);
     width: 50%;
     height: 100%;
+}
+
+.question-container__master-answer__text-container__true {
+    color: var(--color-success);
+}
+
+.question-container__master-answer__text-container__false {
+    color: var(--color-danger);
 }

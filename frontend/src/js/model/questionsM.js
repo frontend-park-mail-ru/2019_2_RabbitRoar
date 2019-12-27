@@ -203,7 +203,9 @@ class OnlineQuestionsM {
         this.mode = "offline";
         this.questionTable = {};
         this.questionTable.mode = "default";
-        this.questionTable.selectedQuestion = {};
+        this.questionTable.selectedQuestion = {
+            answer: null
+        };
         this.chosedQuestionsId = {};
         this.score = 0;
         this.themes;
@@ -252,7 +254,8 @@ class OnlineQuestionsM {
         this.questionTable.mode = "result";
 
         setTimeout( () => {
-            this.questionTable.selectedQuestion.answer = "";
+            console.log("cleared");
+            this.questionTable.selectedQuestion.answer = null;
         }, 50);
     }
 

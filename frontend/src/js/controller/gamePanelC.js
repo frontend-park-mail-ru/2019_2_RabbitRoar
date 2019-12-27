@@ -11,21 +11,23 @@ class GamePanelC {
         this.abilityToEnterAnswer = false;
 
         this.registerHandler("changing-button", "click", this._buttonPressed);
-        Bus.on(GAME_PANEL_STATE_CHANGE, this._startListenQuestion);
-        Bus.on(TIMER_STOPPED, this._stopListenQuestion);
-        Bus.on(TIMER_INTERRUPTION, this._stopListenQuestion);
-
     }
 
     startAllListeners = () => {
         this.gameIface = GameF.getInterface(this)();
         this.enableAll();
         document.addEventListener("keyup", this._answerEntered);
+        Bus.on(GAME_PANEL_STATE_CHANGE, this._startListenQuestion);
+        Bus.on(TIMER_STOPPED, this._stopListenQuestion);
+        Bus.on(TIMER_INTERRUPTION, this._stopListenQuestion);
     }
 
     disableAllListeners = () => {
         this.disableAll();
         document.removeEventListener("keyup", this._answerEntered);
+        Bus.off(GAME_PANEL_STATE_CHANGE, this._startListenQuestion);
+        Bus.off(TIMER_STOPPED, this._stopListenQuestion);
+        Bus.off(TIMER_INTERRUPTION, this._stopListenQuestion);
     }
 
     _buttonPressed = (event) => {

@@ -36,6 +36,14 @@ class PlayersM {
         }
     }
 
+    getRole() {
+        if (this.current.userId === this.current.host.id) {
+            return "master";
+        } else {
+            return "simple";
+        }
+    }
+
     getVerdictInfo() {
         let role;
         if (this.current.userId === this.current.host.id) {
