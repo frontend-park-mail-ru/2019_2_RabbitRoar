@@ -70,6 +70,11 @@ class StaticManager {
         return this.base + "/static/close-chat.svg";
     }
 
+
+    get mainLogo() {
+        return this.base + "/static/test-logo.png";
+    }
+
     getIframeUrl() {
         if (this.base === this.nginx) {
             return this.nginx + "/chat";

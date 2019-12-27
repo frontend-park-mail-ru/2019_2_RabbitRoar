@@ -43,7 +43,7 @@
 .info-text-help {
   overflow-y: auto;
   overflow-x: hidden;
-  
+
   visibility: hidden;
   width: 100%;
   height: 90%;
@@ -58,25 +58,6 @@
   border-radius: 20px;
 }
 
-// .exit-help {
-//   visibility: hidden;
-//   display: none;
-// }
-
-// @media all and (orientation: landscape) {
-//   .exit-help-show {
-//     height: calc(15px + 4vh);
-//     width: calc(15px + 4vh);
-//   }
-// }
-
-// @media all and (orientation: portrait) {
-//   .exit-help-show {
-//     height: calc(10px + 2vh);
-//     width: calc(10px + 2vh);
-//   }
-// }
-
 .exit-help-show {
   visibility: visible;
   display: block;
@@ -89,8 +70,8 @@
   // margin-bottom: 2%;
   color: var(--forth-color);
 
-
   .help-text-header {
+    text-align: center;
     margin-top: 1%;
     font-size: var(--big-font-size);
   }
@@ -98,7 +79,7 @@
     overflow-wrap: break-word;
     word-wrap: break-word;
     hyphens: auto;
-    text-align: center; 
+    text-align: center;
 
     margin-top: 0.5%;
     margin-bottom: 0.5%;
@@ -108,7 +89,7 @@
 @media all and (orientation: landscape) {
   .help-text-container {
     margin-bottom: 2%;
- 
+
     .help-text-header {
       margin-top: 1%;
     }
@@ -117,25 +98,19 @@
       margin-bottom: 0.5%;
     }
   }
-
 }
 
 @media all and (orientation: portrait) {
+  .help-text-container {
+    margin-bottom: 2%;
 
+    .help-text-header {
+      margin-top: 5%;
+      margin-top: 5%;
+    }
+    .help-text {
+      margin-top: 2%;
+      margin-bottom: 2%;
+    }
+  }
 }
-// .help-header {
-//   display: inline;
-//   position: relative;
-//   //font-size: var(--big-font-size);
-//   font: 100px Helvetica, Sans-Serif;
-//   letter-spacing: -5px;
-//   color: var(--color-bg-dark);
-// }
-
-// .help-header:after {
-//   content: "Правила игры";
-//   position: absolute;
-//   left: 10px;
-//   top: 5px;
-//   color: var(--forth-color);
-// }
