@@ -79,8 +79,7 @@ class StaticManager {
         if (this.base === this.nginx) {
             return this.nginx + "/chat";
         } else {
-            return "https://localhost:8090/chat/";
-            // return "https://svoyak.fun/chat";
+            return "https://svoyak.fun/chat";
         }
     }
 
