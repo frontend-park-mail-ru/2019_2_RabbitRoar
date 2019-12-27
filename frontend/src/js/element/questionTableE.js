@@ -90,9 +90,24 @@ class QuestionTableE {
     }
 
     _progressBarMoving = () => {
+        const answerTime = 15 * 1000;
+        const period = 10;
+        const stepAmount = answerTime / period;
+        const step = 100 / stepAmount;       // % на 1 шаг
+
+        let R1 = 0;
+        let R2 = 255;
+        let G1 = 255;
+        let G2 = 0;
+        let B1 = 49;
+        let B2 = 0;
+
+        const dR = -((R1 - R2) / stepAmount);
+        const dG = -((G1 - G2) / stepAmount);
+        const dB = -((B1 - B2) / stepAmount);
+
         this.timerIsWorking = true;
         return new Promise((resolve, reject) => {
-            const period = 4000;
             let width = 0;
             let barElem = document.getElementById("dynamic-bar");
             const interval = setInterval(() => {
@@ -102,8 +117,12 @@ class QuestionTableE {
                 } else if (this.progressBarInterrupt) {
                     this._interruptImmediatly(interval, resolve);
                 } else {
-                    width++;
+                    width += step;
+                    R1 += dR;
+                    G1 += dG;
+                    //B2 += dB;
                     barElem.style.width = width + "%";
+                    barElem.style.backgroundColor = `rgba(${R1},${G1},${B1},${1})`;
                 }
             }, period);
         });
