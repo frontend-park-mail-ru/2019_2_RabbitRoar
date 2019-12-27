@@ -23,6 +23,8 @@ $rank-margin: 4vw;              // Отступ у значка звания с�
         --chat-top: 25vh;
         --chat-width: 4vw;
         --chat-height: 40vh;
+
+        --question-img-size: 3vw;
     }
     @media all and (orientation: portrait) {
         --font-size: calc(5px + 2vw);

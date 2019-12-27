@@ -68,6 +68,7 @@ class ContentF {
 
     getPackById = async (id) => {
         const packObj = await PackM.getPackById(id);
+        // console.log("suka nah ", packObj);
         return packObj;
     }
 

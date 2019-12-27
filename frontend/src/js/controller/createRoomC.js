@@ -17,7 +17,6 @@ class CreateRoomC {
 
         this.currentTabId = "my-packs";
 
-        this.registerClassHandler(".checkbox", "change", this._checkboxChanged);
         this.registerHandler("further", "click", this._goFurther);
         this.registerClassHandler(".pack-button", "click", this._chosePack);
         this.registerHandler("finish", "click", this._finish);
@@ -80,15 +79,6 @@ class CreateRoomC {
         }
         this.packId = parseInt(event.target.id, 10);
         document.getElementById("pack-name-" + this.packId).style.color = colorForChoosedPack;
-    }
-
-    _checkboxChanged = () => {
-        const messageElement = document.getElementById("password_info");
-        if (document.getElementById("checkbox").checked) {
-            replaceTwoCssClasses(messageElement, "error-annotation", "info-message");
-        } else {
-            replaceTwoCssClasses(messageElement, "info-message", "error-annotation");
-        }
     }
 
     _goFurther = () => {
