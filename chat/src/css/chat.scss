@@ -1,11 +1,30 @@
 .flex-container-centered-content {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   height: 100%;
   justify-content: center;
+  align-items: center;
 }
 
+.flex-container-button {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+@media all and (orientation: landscape) {
+  .flex-container-button {
+    margin-top: calc(5px + 0.5vh);
+  }
+}
+
+@media all and (orientation: portrait) {
+  .flex-container-button {
+    margin-top: calc(5px + 0.5vh);
+  }
+}
 .flex-container {
   display: flex;
   flex-direction: row;
@@ -14,10 +33,23 @@
 }
 
 .message-in-chat {
-  color: white;
+  color: var(--forth-color);
   font-size: var(--font-size);
 }
 
+@media all and (orientation: landscape) {
+  .message-in-chat {
+    margin-top: calc(10px + 0.5vh);
+    margin-left: 10px;
+  }
+}
+
+@media all and (orientation: portrait) {
+  .message-in-chat {
+    margin-top: calc(10px + 0.5vh);
+    margin-left: 10px;
+  }
+}
 .chat-header {
   text-decoration: none;
   text-align: center;
@@ -34,7 +66,7 @@
 
 @media all and (orientation: portrait) {
   .messages {
-    height: calc(40px + 70vh);
+    height: calc(40px + 60vh);
     width: 100%;
   }
 }
@@ -45,17 +77,75 @@
   overflow-x: hidden;
 }
 
-@media all and (orientation: landscape) {
-  ::-webkit-scrollbar {
-    width: 1.5vh;
-    height: 1.5vh;
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--font-color);
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  label {
+    font-weight: bold;
+    font-size: var(--font-size);
   }
 }
+.user-input {
+  border: 0px;
+  margin-bottom: 1px;
+  color: var(--color-light);
+  background-color: var(--color-input);
+  text-align: center;
+  transition: background-color 500ms ease, border-bottom 500ms ease, box-shadow 1000ms ease;
+  font-size: var(--font-size);
 
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  outline: none;
+  border-bottom: 2px solid var(--border-color-theme);
+  box-shadow: 0 5px 5px -5px var(--border-color-theme);
+}
+
+.chat-button {
+  background-color: var(--color-bg-dark);
+  color: var(--color-light);
+  border: 2px solid;
+  border-color: var(--color-light);
+
+  font-size: var(--font-size);
+  outline: none;
+  border-radius: 100px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.chat-button:hover {
+  background-color: var(--color-bg-light);
+}
+
+@media all and (orientation: landscape) {
+  .chat-button {
+    width: calc(10px + 45vw);
+    height: calc(10px + 10vh);
+  }
+}
 @media all and (orientation: portrait) {
-  ::-webkit-scrollbar {
-    width: 1.5vw;
-    height: 1.5vw;
+  .chat-button {
+    width: calc(10px + 45vw);
+    height: calc(10px + 5vh);
   }
 }
 
@@ -88,76 +178,16 @@
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
-
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--font-color);
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-
-  label {
-    font-weight: bold;
-    font-size: var(--font-size);
-  }
-}
-.user-input {
-  border: 0px;
-  margin-bottom: 1px;
-  color: var(--color-light);
-  background-color: var(--color-input);
-  text-align: center;
-  border-bottom: 2px solid transparent;
-  transition: background-color 500ms ease, border-bottom 500ms ease, box-shadow 1000ms ease;
-
-  width: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-size: var(--font-size);
-}
-
-.user-input {
-  outline: none;
-  border-bottom: 2px solid var(--border-color-theme);
-  box-shadow: 0 5px 5px -5px var(--border-color-theme);
-}
-
 @media all and (orientation: landscape) {
-  .chat-button {
-    width: calc(10px + 45vw);
-    height: calc(10px + 10vh);
+  ::-webkit-scrollbar {
+    width: 1.5vh;
+    height: 1.5vh;
   }
 }
+
 @media all and (orientation: portrait) {
-  .chat-button {
-    width: calc(10px + 45vw);
-    height: calc(10px + 5vh);
+  ::-webkit-scrollbar {
+    width: 1.5vw;
+    height: 1.5vw;
   }
-}
-.chat-button {
-  background-color: var(--color-bg-dark);
-  color: var(--color-light);
-  border: 2px solid;
-  border-color: var(--color-light);
-  font-size: var(--big-font-size);
-  outline: none;
-  border-radius: 100px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.chat-button:hover {
-  background-color: var(--color-bg-light);
 }

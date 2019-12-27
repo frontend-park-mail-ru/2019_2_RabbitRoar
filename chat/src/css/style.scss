@@ -18,14 +18,14 @@
    --font-color: var(--color-light);
 
   @media all and (orientation: landscape) {
-    --font-size: 2vw; // Размер шрифта
-    --big-font-size: calc(20px + 2vw); // Размер большого шрифта
-    --small-font-size: 1vw; // Размер малого шрифта
+    --font-size:  calc(20px + 1.5vw); 
+    --big-font-size: calc(20px + 2vw);
+    --small-font-size: 1vw;
 
   }
   @media all and (orientation: portrait) {
-    --font-size: 2vh;
-    --big-font-size: calc(10px + 2.7vh);
+    --font-size: calc(10px + 2vh);;
+    --big-font-size: calc(10px + 2.5vh);
     --small-font-size: 1vh;
   }
 }

@@ -3,16 +3,56 @@
   flex-direction: column;
   align-items: flex-end;
 
-  width: 70vw;
-  height: 70vh;
-  top: 15vh;
-  left: 15vw;
-  bottom: 15vh;
-  right: 15vw;
   visibility: hidden;
-
   z-index: 0;
   display: none;
+}
+@media all and (orientation: landscape) {
+  .iframe-container {
+    // width: 70vw;
+    // height: 70vh;
+
+    // top: 15vh;
+    // bottom: 15vh;
+
+    // left: 15vw;
+    // right: 15vw;
+    width: calc(50px + 60vw);
+    height: calc(50px + 60vh);
+
+    top: calc(40px + 15vh);
+    bottom: calc(70px + 15vh);
+
+    left: calc(70px + 15vw);
+    right: calc(70px + 15vw);
+  }
+}
+
+@media all and (orientation: portrait) {
+  .iframe-container {
+    width: calc(50px + 60vw);
+    height: calc(50px + 70vh);
+
+    top: calc(40px + 15vh);
+    bottom: calc(10px + 15vh);
+
+    left: calc(30px + 5vw);
+    right: calc(30px + 5vw);
+
+    // width: 70vw;
+    // height: 76vh;
+
+    // top: 12vh;
+    // bottom: 12vh;
+
+    // left: 15vw;
+    // right: 15vw;
+  }
+}
+
+iframe {
+  border: 7px solid var(--forth-color);
+  border-radius: 20px;
 }
 
 .iframe-container-show {

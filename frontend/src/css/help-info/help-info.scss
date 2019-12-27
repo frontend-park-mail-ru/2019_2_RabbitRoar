@@ -67,12 +67,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  // margin-bottom: 2%;
   color: var(--forth-color);
 
   .help-text-header {
     text-align: center;
-    margin-top: 1%;
     font-size: var(--big-font-size);
   }
   .help-text {
@@ -80,9 +78,6 @@
     word-wrap: break-word;
     hyphens: auto;
     text-align: center;
-
-    margin-top: 0.5%;
-    margin-bottom: 0.5%;
   }
 }
 
