@@ -1,10 +1,30 @@
-.game-panel-online__input {
+  .game-panel-online__input {
     grid-row-start: 1;
     grid-row-end: 2;
   
     grid-column-start: 2;
     grid-column-end: 3;
   
+    box-sizing: border-box;
+  
     font-size: var(--font-size);
+    border-width: 2px;
+    border-style: solid;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-width: 0px;
+    background-color: var(--color-bg-dark);
+    color: var(--main-light-color);
     visibility: hidden; 
+    z-index: 1;
+  
+    border-color: #920031;
+  }
+  
+  .game-panel-online__input:focus {
+    outline:none;
+    border-color: var(--color-success);
+  }
+  .game-panel-online__input:active {
+    outline:none;
   }

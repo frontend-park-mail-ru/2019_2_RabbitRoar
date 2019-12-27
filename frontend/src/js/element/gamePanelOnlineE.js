@@ -17,7 +17,7 @@ class GamePanelOnlineE {
         const changingButton = document.getElementById("changing-button");
         const changingContainer = document.getElementById("changing-element");
         const inputAnswer = document.getElementById("input-answer");
-        
+
         if (state === "answer_race") {
             this.ticker = setInterval(
                 () => {
@@ -43,12 +43,16 @@ class GamePanelOnlineE {
             changingButton.className = "game-panel-button-without-hover";
             changingContainer.className = "game-panel-online__control game-panel-online__control-danger";
             if (state === "default") {
-                changingButton.value = "Выберите вопрос";
+                changingButton.value = "Зеленый игрок выбирает вопрос";
+            } else if (state === "verdict") {
+                changingButton.value = "Ожидайте вердикт ведущего";
+            } else if (state === "result") {
+                changingButton.value = "Проверьте решение";
             }
+
 
             changingButton.setAttribute("state", state);
             inputAnswer.style.visibility = "hidden";
-            inputAnswer.value = "Юзер должен выбрать вопрос";
         }
 
         if (state !== "answer_race") {
@@ -68,7 +72,7 @@ class GamePanelOnlineE {
 
 
         if (this.gameIface.getRole() === "master") {
-            Bus.on(GAME_PANEL_STATE_CHANGE, () => {});
+            Bus.on(GAME_PANEL_STATE_CHANGE, () => { });
             return;
         }
 

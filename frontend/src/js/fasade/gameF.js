@@ -134,6 +134,7 @@ class GameF {
 
 
     _questionChange = (type) => {
+        Bus.emit(GAME_PANEL_STATE_CHANGE, QuestionsM.current.questionTable.mode);
         if (QuestionsM.current.questionTable.mode === "default") {
             if (type === "disable_question") {
                 Bus.emit();
@@ -141,17 +142,14 @@ class GameF {
             Bus.emit(QUESTION_PANEL_UPDATE);
         } else if (QuestionsM.current.questionTable.mode === "selected") {
             Bus.emit(QUESTION_PANEL_UPDATE);
-            Bus.emit(GAME_PANEL_STATE_CHANGE, "selected");
         } else if (QuestionsM.current.questionTable.mode === "result") {
             Bus.emit(TIMER_INTERRUPTION);
             Bus.emit(QUESTION_PANEL_UPDATE);
             Bus.emit(GAME_PANEL_UPDATE);    // Только для offline
         } else if (QuestionsM.current.questionTable.mode === "verdict") {
             Bus.emit(QUESTION_PANEL_UPDATE);
-            Bus.emit(GAME_PANEL_STATE_CHANGE, "verdict");
         } else if (QuestionsM.current.questionTable.mode === "answer_race") {
             Bus.emit(QUESTION_PANEL_UPDATE);
-            Bus.emit(GAME_PANEL_STATE_CHANGE, "answer_race");
         }
     }
 
