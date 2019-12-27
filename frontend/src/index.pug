@@ -7,7 +7,13 @@ html(lang="ru")
     link(rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon")
     title Svoyak
   body
-    iframe(class="iframe" id="chat_iframe")
+
+    div(class="iframe-container" id="chat_container")
+      div
+        img(class="exit-window", id="chat_exit",
+        src="https://svoyak.fun//static/close-chat.svg"
+        alt="chat-exit")
+      iframe(class="iframe" id="chat_iframe")
     div(id="application")
 
 //- <script src="https://browser.sentry-cdn.com/5.9.0/bundle.min.js" integrity="sha384-hMcetfUA+TR8vwXLe2PQTtnfYMs/1BMpXcmNGMNVjzbdKcd5mQ50kU6EC1fPHHq7" crossorigin="anonymous">

@@ -63,7 +63,9 @@ class NavbarE {
             authorized: authorized,
             chatUrl: StaticManager.chatAvatar,
             exitUrl: StaticManager.exitLogo,
-            infoLogo: infoLogo
+            closeIсon: StaticManager.closeIcon,
+            infoLogo: infoLogo,
+            mainLogo: StaticManager.mainLogo,
         }));
         
         if (currentUrl === "/"  || currentUrl === "/rooms" || currentUrl === "/top" || currentUrl === "/training"

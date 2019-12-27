@@ -9,7 +9,8 @@ nav(class="navbar")
             a(class="navbar__navigation-text ", id="navigation", href="#")
     div(class="navbar__game-logo-container")
         div(class="flex-container-centered-content")
-            a(class="navbar__game-logo", id="nav_logo", href="#") Своя игра
+            img(src=mainLogo class="navbar__game-logo" id="nav_logo")
+            //a(class="navbar__game-logo", id="nav_logo", href="#") Своя игра
     if authorized == false
         div(class="grid-navbar-right")
             div(class="flex-navbar-right")
@@ -21,21 +22,24 @@ nav(class="navbar")
                 a(id="nav_profile", href="#" class= "navbar__user-logo-container")
                 a(class="navbar__right-panel", id="nav_exit", href="#") Выход
 
+div(class="help-container" id="help_container")
+    div
+        img(class="exit-window", id="exit_help",
+        src=closeIсon
+        alt="help-exit")
 
-div(class="popup " id="info-popup")
-    div(class="popup__content " id="popup_content")
-        div(class="popup-elem-normal" id="popup-elem-top")
-            div(class="faq-text")
-                div(class="line") Добро пожаловать в онлайн-викторину «Swoyak»!
-                div(class="line") КАК ИГРАТЬ
-                div(class="line") Выбирайте вопросы из игрового табло и отвечайте на них.
-                div(class="line") В игре присутствует таймер.
-                div(class="line") Игра заканчивается, когда все вопросы выбраны.  
-                div(class="line") ТРЕНИРОВКА
-                div(class="line") В этом разделе вы можете поиграть в одиночную игру с таймером
-                div(class="line") КОМНАТЫ
-                div(class="line") Играйте с друзьями и создавайте индивидуальные тематические комнаты.
-                div(class="line") ПАКИ
-                div(class="line") В этом разделе вы можете создать собственные темы и вопросы.
-        div(class="popup-elem-bottom ")
-            div(class="popup-button" id="info-ok") Ок!
+    div(class="info-text-help" id="text_help")
+        div(class="help-text-container") 
+            div(class="help-text-header") Как играть в онлайн-викторину «Svoyak»?
+        div(class="help-text-container")
+            div(class="help-text") I. ТРЕНИРОВКА <br>
+            div(class="help-text") В этом разделе вы можете поиграть в одиночную игру с таймером <br>
+            div(class="help-text") Выбирайте вопросы из игрового табло и отвечайте на них <br>
+        div(class="help-text-container")
+            p(class="help-text") II. МУЛЬТИПЛЕЕР <br>
+            p(class="help-text") Дня начала игры создайте игровую комнату или присоединитесь к существующей <br>
+            p(class="help-text") Игра начнется, когда все игроки в комнате нажмут кнопку "Готов" <br>
+        div(class="help-text-container")
+            p(class="help-text") III. ПАКИ
+            p(class="help-text") В этом разделе вы можете создать собственные темы и вопросы <br>
+            p(class="help-text") После создания пак станет доступен при создании комнаты и в разделе "Тренировка" <br>

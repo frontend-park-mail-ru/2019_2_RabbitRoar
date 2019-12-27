@@ -1,19 +1,75 @@
-.iframe {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    visibility: hidden;
-    width: 70vw;
-    height: 70vh;
-    top: 15vh; left: 15vw; bottom: 15vh; right: 15vw;
-    z-index: 0;
+.iframe-container {
+  position: absolute;
+  flex-direction: column;
+  align-items: flex-end;
+
+  visibility: hidden;
+  z-index: 0;
+  display: none;
+}
+@media all and (orientation: landscape) {
+  .iframe-container {
+    // width: 70vw;
+    // height: 70vh;
+
+    // top: 15vh;
+    // bottom: 15vh;
+
+    // left: 15vw;
+    // right: 15vw;
+    width: calc(50px + 60vw);
+    height: calc(50px + 60vh);
+
+    top: calc(40px + 15vh);
+    bottom: calc(70px + 15vh);
+
+    left: calc(70px + 15vw);
+    right: calc(70px + 15vw);
+  }
 }
 
+@media all and (orientation: portrait) {
+  .iframe-container {
+    width: calc(50px + 60vw);
+    height: calc(50px + 70vh);
 
+    top: calc(40px + 15vh);
+    bottom: calc(10px + 15vh);
+
+    left: calc(30px + 5vw);
+    right: calc(30px + 5vw);
+
+    // width: 70vw;
+    // height: 76vh;
+
+    // top: 12vh;
+    // bottom: 12vh;
+
+    // left: 15vw;
+    // right: 15vw;
+  }
+}
+
+iframe {
+  border: 7px solid var(--forth-color);
+  border-radius: 20px;
+}
+
+.iframe-container-show {
+  display: flex;
+  visibility: visible;
+  z-index: 226;
+}
+
+.iframe {
+  visibility: hidden;
+  width: 100%;
+  height: 90%;
+  z-index: 0;
+}
 
 .iframe_show {
-    visibility: visible;
-    z-index: 228;
-    background: rgba(36, 27, 47, 0.95);
+  visibility: visible;
+  z-index: 228;
+  background: rgba(36, 27, 47, 0.95);
 }

@@ -147,6 +147,7 @@ class GameF {
             Bus.emit(QUESTION_PANEL_UPDATE);
             Bus.emit(GAME_PANEL_UPDATE);    // Только для offline
         } else if (QuestionsM.current.questionTable.mode === "verdict") {
+            Bus.emit(TIMER_INTERRUPTION);
             Bus.emit(QUESTION_PANEL_UPDATE);
         } else if (QuestionsM.current.questionTable.mode === "answer_race") {
             Bus.emit(QUESTION_PANEL_UPDATE);
