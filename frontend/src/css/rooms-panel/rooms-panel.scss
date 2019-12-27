@@ -3,6 +3,13 @@
     grid-template-columns: 2fr 2fr 1fr 2fr;
 }
 
+.rooms-panel-resume {
+    @extend %panel;
+    border: solid 1px var(--color-danger);
+    color: var(--color-danger);
+    grid-template-columns: 3fr 2fr 2fr;
+}
+
 @media all and (orientation: landscape) {
     .rooms-panel {
         grid-template-columns: 2fr 2fr 1fr 2fr;

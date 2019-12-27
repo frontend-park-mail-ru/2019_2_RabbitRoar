@@ -22,7 +22,7 @@
 
 @media all and (orientation: landscape) {
     .users-panel__ready-indicator {
-      width: 9vw;
+      width: 10vw;
       height: 1vw;
     }
 
@@ -42,8 +42,8 @@
   
   @media all and (orientation: portrait) {  
     .users-panel__ready-indicator {
-      width: 9vh;
-      height: 1vh;
+      width: 20vw;
+      height: 2vw;
     }
 
     .users-panel__ready-indicator__true {

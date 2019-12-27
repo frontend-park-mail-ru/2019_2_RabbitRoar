@@ -7,6 +7,15 @@
     height: 2vw;
 }
 
+.users-panel-game__icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 2vw;
+}
+
 .users-panel__icon-img {
     width: 2vw;
     height: 2vw;
@@ -17,23 +26,31 @@
 
 @media all and (orientation: landscape) {
     .users-panel__icon-img {
-        width: 3vw;
-        height: 3vw;
+        width: 2.5vw;
+        height: 2.5vw;
     }
 
     .users-panel__icon {
         margin-bottom: 1vw;
+    }
+
+    .users-panel-game__icon {
+        height: 2.5vw;
     }
 }
   
   
 @media all and (orientation: portrait) {
     .users-panel__icon-img {
-        width: 8vw;
-        height: 8vw;
+        width: 5vw;
+        height: 5vw;
     }
 
     .users-panel__icon {
         margin-bottom: 5vw;
+    }
+
+    .users-panel-game__icon {
+        height: 5vw;
     }
 }

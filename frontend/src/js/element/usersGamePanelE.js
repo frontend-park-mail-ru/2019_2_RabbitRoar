@@ -48,6 +48,7 @@ class UsersGamePanelE {
     }
 
     _updatePlayers = (players) => {
+        console.log(players)
         const currentPlayers = document.querySelectorAll(".waiting-player-game");
         const host = this.gameIface.getHost();
 
@@ -70,7 +71,6 @@ class UsersGamePanelE {
 
 
         let order = 0;
-        debugger;
         for (const player of players) {
             if (player.id.toString() === currentPlayersMap[order].id) {
             } else {
@@ -159,6 +159,12 @@ class UsersGamePanelE {
         // });
 
         this.controller.startAllListeners();
+        this._update({
+            active: -1,
+            players: players
+        });
+        console.log(players)
+        this._updatePlayers(players);
     }
 
 

@@ -9,34 +9,50 @@ import { GAME_PANEL_UPDATE, GAME_PANEL_STATE_CHANGE } from "../modules/events.js
 class GamePanelOnlineE {
     constructor() {
         this.root = document.getElementById("application");
+        this.ticker;
         this.controller = GamePanelOnlineC;
     }
 
     _changeState = (state) => {
         const changingButton = document.getElementById("changing-button");
+        const changingContainer = document.getElementById("changing-element");
         const inputAnswer = document.getElementById("input-answer");
         
         if (state === "answer_race") {
+            this.ticker = setInterval(
+                () => {
+                    console.log("a");
+                    changingContainer.classList.toggle("game-panel-online__control-super");
+                },
+                1000
+            );
             changingButton.className = "game-panel-button";
+            changingContainer.className = "game-panel-online__control game-panel-online__control-success";
             inputAnswer.style.visibility = "hidden";
-            changingButton.innerHTML = "Захватить!";
+            changingButton.value = "Захватить!";
             changingButton.setAttribute("state", "answer_race");
         } else if (state === "selected") {
             inputAnswer.style.visibility = "visible";
             inputAnswer.focus();
 
             changingButton.className = "game-panel-button";
-            changingButton.innerHTML = "Отправить";
+            changingContainer.className = "game-panel-online__control game-panel-online__control-success";
+            changingButton.value = "Отправить";
             changingButton.setAttribute("state", "selected");
         } else {
             changingButton.className = "game-panel-button-without-hover";
+            changingContainer.className = "game-panel-online__control game-panel-online__control-danger";
             if (state === "default") {
-                changingButton.innerHTML = "Выберите вопрос";
+                changingButton.value = "Выберите вопрос";
             }
 
             changingButton.setAttribute("state", state);
             inputAnswer.style.visibility = "hidden";
             inputAnswer.value = "Юзер должен выбрать вопрос";
+        }
+
+        if (state !== "answer_race") {
+            clearInterval(this.ticker);
         }
     }
 

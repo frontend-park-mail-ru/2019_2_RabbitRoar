@@ -26,6 +26,13 @@ div(class="main-container")
                 div(class="fadeout")
             div(class="tab-content")
                 div(id="online_mode")
+                if (templateContent.lastState == "game")
+                    div(class="rooms-panel-resume")
+                        div(class="panel-elem elem-justify-start") У вас есть незакончатая игра!
+                        div(class="panel-elem" id="resume_panel")
+                            div(class="join-button button-in-list" id="leave" room_id=templateContent.resume) Покинуть
+                        div(class="panel-elem" id="resume_panel")
+                            div(class="join-button button-in-list" id="resume" room_id=templateContent.resume) Продолжить
                 div(class="rooms-panel")
                     div(class="panel-elem elem-justify-start") Название
                     div(class="panel-elem") Пак
@@ -41,6 +48,13 @@ div(class="main-container")
                 +paginator("room-paginator", 5)
         else if (templateContent.connection === true)
             div(class="tab-content")
+                if (templateContent.lastState == "game")
+                    div(class="rooms-panel-resume")
+                        div(class="panel-elem elem-justify-start") У вас есть незакончатая игра!
+                        div(class="panel-elem" id="resume_panel")
+                            div(class="join-button button-in-list" id="leave" room_id=templateContent.resume) Покинуть
+                        div(class="panel-elem" id="resume_panel")
+                            div(class="join-button button-in-list" id="resume" room_id=templateContent.resume) Продолжить
                 div(class="empty-tab-info") Ни одной комнаты еще не было создано, создайте свою!
         div(class="popup" id="popup")
             div(class="popup__content")
