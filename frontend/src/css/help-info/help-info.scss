@@ -1,0 +1,113 @@
+@media all and (orientation: landscape) {
+  .help-container {
+    width: calc(50px + 60vw);
+    height: calc(50px + 60vh);
+
+    top: calc(40px + 15vh);
+    bottom: calc(70px + 15vh);
+
+    left: calc(70px + 15vw);
+    right: calc(70px + 15vw);
+  }
+}
+
+@media all and (orientation: portrait) {
+  .help-container {
+    width: calc(50px + 60vw);
+    height: calc(50px + 70vh);
+
+    top: calc(40px + 15vh);
+    bottom: calc(10px + 15vh);
+
+    left: calc(30px + 5vw);
+    right: calc(30px + 5vw);
+  }
+}
+
+.help-container {
+  position: absolute;
+  flex-direction: column;
+  align-items: flex-end;
+
+  z-index: 0;
+  display: none;
+  visibility: hidden;
+}
+
+.help-container-show {
+  display: flex;
+  visibility: visible;
+  z-index: 226;
+}
+
+.info-text-help {
+  visibility: hidden;
+  width: 100%;
+  height: 90%;
+  z-index: 0;
+}
+
+.info-text-help-show {
+  visibility: visible;
+  z-index: 228;
+  background: var(--color-bg-light);
+  border: 7px solid var(--forth-color);
+  border-radius: 20px;
+}
+
+// .exit-help {
+//   visibility: hidden;
+//   display: none;
+// }
+
+// @media all and (orientation: landscape) {
+//   .exit-help-show {
+//     height: calc(15px + 4vh);
+//     width: calc(15px + 4vh);
+//   }
+// }
+
+// @media all and (orientation: portrait) {
+//   .exit-help-show {
+//     height: calc(10px + 2vh);
+//     width: calc(10px + 2vh);
+//   }
+// }
+
+.exit-help-show {
+  visibility: visible;
+  display: block;
+}
+
+.help-text {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+.help-line {
+  
+}
+
+// .help-header {
+//   display: inline;
+//   position: relative;
+//   //font-size: var(--big-font-size);
+//   font: 100px Helvetica, Sans-Serif;
+//   letter-spacing: -5px;
+//   color: var(--color-bg-dark);
+// }
+
+// .help-header:after {
+//   content: "Правила игры";
+//   position: absolute;
+//   left: 10px;
+//   top: 5px;
+//   color: var(--forth-color);
+// }

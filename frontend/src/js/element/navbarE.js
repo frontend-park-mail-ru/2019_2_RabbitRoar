@@ -63,6 +63,7 @@ class NavbarE {
             authorized: authorized,
             chatUrl: StaticManager.chatAvatar,
             exitUrl: StaticManager.exitLogo,
+            closeIсon: StaticManager.closeIcon,
             infoLogo: infoLogo
         }));
         

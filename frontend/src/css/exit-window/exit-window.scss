@@ -1,0 +1,24 @@
+.exit-window {
+  visibility: hidden;
+  display: none;
+}
+
+@media all and (orientation: landscape) {
+  .exit-window-show {
+    height: calc(15px + 4vh);
+    width: calc(15px + 4vh);
+  }
+}
+
+@media all and (orientation: portrait) {
+  .exit-window-show {
+    height: calc(10px + 2vh);
+    width: calc(10px + 2vh);;
+  }
+}
+.exit-window-show {
+  visibility: visible;
+  display: block;
+  margin-left: 7vh;
+
+}

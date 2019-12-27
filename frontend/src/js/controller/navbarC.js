@@ -31,9 +31,9 @@ class NavbarC {
 
         this.registerHandler("help_bar", "mouseover", this._helpFocus);
         this.registerHandler("help_bar", "mouseout", this._helpFocus);
-        this.registerHandler("help_bar", "click", this._showOrHidePopUpInfo);
+        this.registerHandler("help_bar", "click", this._showOrHideHelpInfo);
 
-        this.registerHandler("info-ok", "click", this._showOrHidePopUpInfo);
+        this.registerHandler("exit_help", "click", this._showOrHideHelpInfo);
 
 
         this.registerHandler("back", "click", this._goToRoot);
@@ -49,17 +49,23 @@ class NavbarC {
             iframeContainer.className = "iframe-container";
 
             const exitChat = document.getElementById("chat_exit");
-            exitChat.className = "exit-chat";
+            exitChat.className = "exit-window";
         }
     }
 
+    _hideHelpInfo = () => {
 
-    _showOrHidePopUpInfo = () => {
-        const popupInfo = document.getElementById("info-popup");
-        if (popupInfo) {
-            popupInfo.classList.toggle("popup_show");
-            return;
-        }
+    }
+
+    _showOrHideHelpInfo = () => {
+        const infoContainer = document.getElementById("help_container");
+        infoContainer.classList.toggle("help-container-show");
+
+        const exitIcon = document.getElementById("exit_help");
+        exitIcon.classList.toggle("exit-window-show");
+
+        const text = document.getElementById("text_help");
+        text.classList.toggle("info-text-help-show");
     }
 
     _goToRoot = () => {
@@ -97,7 +103,7 @@ class NavbarC {
         iframe.classList.toggle("iframe_show");
 
         const exitIcon = document.getElementById("chat_exit");
-        exitIcon.classList.toggle("exit-chat-show");
+        exitIcon.classList.toggle("exit-window-show");
 
         if (this.chat) {
             this.chat = false;

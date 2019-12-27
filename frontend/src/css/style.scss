@@ -87,8 +87,9 @@
 
 @import "form-button/form-button";
 
-@import "./exit-chat/exit-chat.scss";
+@import "exit-window/exit-window";
 
+@import "help-info/help-info";
 
 @import "waiting-text-container/waiting-container-text";
 @import "waiting-text-container/__text/waiting-text-container__text";
