@@ -239,6 +239,8 @@ class RealRoomM {
         } else {
             try {
                 const csrf = await getCSRF();
+                if (this.roomId === null) {
+                }
                 response = await postJoinRoom(this.roomId, csrf.CSRF);
             } catch (err) {
                 this.lastState = this.state;
@@ -284,7 +286,7 @@ class RealRoomM {
         this.players = JSON.parse(localStorage.getItem("last_game_players"));
 
         this.lastState = localStorage.getItem("last_game_lastState");
-        this.state = localStorage.getItem("last_game_state");
+        this.state = "game";
         this.startGameData = JSON.parse(localStorage.getItem("last_game_startGameData"));
 
 

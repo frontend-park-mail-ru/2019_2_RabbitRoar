@@ -4,9 +4,12 @@
   background-color: grey;
   display: grid;
   margin: auto;
+  margin-top: 30px;
+  border-radius: 20px;
   .dynamic-bar {
     width: 1%;
     height: 30px;
+    border-radius: 20px;
     background-color: green;
   }
 }

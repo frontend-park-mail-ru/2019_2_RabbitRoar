@@ -138,7 +138,10 @@ class TabsC {
         }
     }
 
-    _joinClick = () => {
+    _joinClick = (event) => {
+        if ((event.target.id === "leave") || (event.target.id === "resume")) {
+            return;
+        }
         const continueBtn = document.getElementById("continue");
         if (continueBtn) {
             if (!ValidatorF.checkLocalstorageAutorization() && !document.getElementById("offline_mode")) {

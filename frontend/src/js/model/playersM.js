@@ -28,6 +28,9 @@ class PlayersM {
     }
 
     getAnsweredPlayerInfo() {
+        if (this.current.correctAnswer === "") {
+            this.current.correctAnswer = null;
+        }
         return {
             currentQuestionScore: this.current.currentQuestionScore,
             answerOwner: this.current.answeringPlayer.username,
@@ -75,7 +78,7 @@ class RealPlayersM {
         this.players = {};
         this.trueAnswerForHost = "";
         this.answeringPlayer = {};
-        this.correctAnswer = "";
+        this.correctAnswer = null;
 
         WebSocketIface.addMessageHandler("request_question_from_player", this._activateUser);       // id того, кто выбирает вопрос
         WebSocketIface.addMessageHandler("request_respondent", this._userChoseQuestion);            // Пользователь выбрал вопрос -> установить стоимость
@@ -97,7 +100,7 @@ class RealPlayersM {
         if (this.result === true) {
             this.correctAnswer = data.payload.answer;
         } else {
-            this.correctAnswer = "******";
+            this.correctAnswer = null;
         }
 
         this.players = data.payload.players;
