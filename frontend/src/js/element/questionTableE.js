@@ -2,7 +2,7 @@ import Template from "./templates/questionContainerT.pug";
 import QuestionTableC from "../controller/questionsTableC.js";
 import Bus from "../event_bus.js";
 import GameF from "../fasade/gameF.js";
-import { QUESTION_PANEL_UPDATE, TIMER_INTERRUPTION, TIMER_STOPPED } from "../modules/events.js";
+import { QUESTION_PANEL_UPDATE, TIMER_INTERRUPTION, TIMER_STOPPED, VERDICT_TIMER } from "../modules/events.js";
 import { replaceTwoCssClasses } from "../modules/css_operations";
 
 
@@ -50,11 +50,29 @@ class QuestionTableE {
         if (state.mode === "selected") {
             replaceTwoCssClasses(barElement, "progress-bar-hidden", "progress-bar");
 
-            this._progressBarMoving()
+            this._progressBarMoving(15)
                 .then((data) => {
                     this.timerIsWorking = false;
                 })
                 .catch((error) => { });
+        } else if (state.mode === "verdict") {            
+            if (state.answer !== null) {
+                replaceTwoCssClasses(barElement, "progress-bar-hidden", "progress-bar");
+                this._progressBarMoving(15)
+                .then((data) => {
+                    this.timerIsWorking = false;
+                })
+                .catch((error) => { });
+            }
+        } else if (state.mode === "answer_race") {            
+            if (state.answer !== null) {
+                replaceTwoCssClasses(barElement, "progress-bar-hidden", "progress-bar");
+                this._progressBarMoving(30)
+                .then((data) => {
+                    this.timerIsWorking = false;
+                })
+                .catch((error) => { });
+            }
         } else {
             replaceTwoCssClasses(barElement, "progress-bar", "progress-bar-hidden");
         }
@@ -91,8 +109,8 @@ class QuestionTableE {
         this.progressBarInterrupt = true;
     }
 
-    _progressBarMoving = () => {
-        const answerTime = 15 * 1000;
+    _progressBarMoving = (time) => {
+        const answerTime = time * 1000;
         const period = 10;
         const stepAmount = answerTime / period;
         const step = 100 / stepAmount;       // % на 1 шаг
@@ -129,6 +147,8 @@ class QuestionTableE {
             }, period);
         });
     }
+
+
 
     _interruptImmediatly = (interval, resolve) => {
         this.progressBarInterrupt = false;
