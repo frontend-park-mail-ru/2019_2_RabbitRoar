@@ -99,6 +99,7 @@ div(class="main-container")
         else if (templateContent.connection === true)
             div(class="tab-content")
                 div(class="empty-tab-info") Список игроков пуст!
+                +paginator("top-paginator", 5)
         if (templateContent.connection === false)
             +bottom_info(
                 "Играть offline",
