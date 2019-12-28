@@ -1,31 +1,29 @@
 import "../css/style.scss";
 import WebSocketIface from "./webSocketIface.js";
 
-
-const replaceTwoCssClasses = (elem, classOne, classTwo) => {
-    if (elem.classList.contains(classOne)) {
-        elem.classList.remove(classOne);
-    }
-    if (!elem.classList.contains(classTwo)) {
-        elem.classList.add(classTwo);
-    }
-};
-
 const tryRestart = (event) => {
     if (!event.wasClean) {
         setTimeout(WebSocketIface.connect(), 2000);
     }
 }
 
-document.getElementById("send-message").onclick = () => {
+const processEnter = (event) => {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("send-message").click();
+    }
+}
+
+const input = document.getElementById("user-text");
+input.addEventListener("keyup", processEnter);
+
+
+document.getElementById("send-message").onclick = (event) => {
     event.preventDefault();
     let outgoingMessage = document.getElementById("user-text").value;
-    const errorElement = document.getElementById("empty-message");
     if (outgoingMessage === "") {
-        replaceTwoCssClasses(errorElement, "error-annotation", "error-visible");
         return;
     }
-    replaceTwoCssClasses(errorElement, "error-visible", "error-annotation");
     document.getElementById("user-text").value = "";
     const body = JSON.stringify({
         "type": "message",
@@ -35,6 +33,14 @@ document.getElementById("send-message").onclick = () => {
     WebSocketIface.sentMessage(body);
 };
 
+function updateScroll() {
+    var element = document.getElementById("messages");
+    element.scrollTop = element.scrollHeight;
+}
+
+setInterval(updateScroll, 1000);
+
 document.getElementById("user-text").focus();
 WebSocketIface.connect();
 WebSocketIface.addCloseHandler(tryRestart);
+window.scrollTo(0, document.body.scrollHeight);

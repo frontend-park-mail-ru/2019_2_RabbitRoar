@@ -20,3 +20,23 @@
   align-items: center;
   height: 100%;
 }
+
+.flex-navbar-right-always-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+}
+
+
+@media all and (orientation: landscape) {
+  .flex-navbar-right {
+    flex-direction: row;
+  }
+}
+@media all and (orientation: portrait) {
+  .flex-navbar-right {
+    flex-direction: column;
+  }
+}

@@ -1,6 +1,6 @@
 .navbar__user-logo {
-  height: 6vh;
-  width: 6vh;
+  height: calc(var(--navbar-height) / 1.5);
+  width: calc(var(--navbar-height) / 1.5);
   border-radius: 50%;
   object-fit: cover;
   display: flex;

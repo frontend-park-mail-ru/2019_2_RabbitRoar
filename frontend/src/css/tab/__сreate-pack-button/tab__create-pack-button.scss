@@ -2,6 +2,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 8vh;
-  width: 10vw;
+}
+
+@media all and (orientation: landscape) {
+  .button-container-create-pack {
+    height: 4vw;
+    width: 30vw;
+  }
+}
+@media all and (orientation: portrait) {
+  .button-container-create-pack {
+    height: 8vw;
+    width: 50vw;
+  }
 }

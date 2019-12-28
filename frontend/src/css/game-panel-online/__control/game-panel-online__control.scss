@@ -5,8 +5,27 @@
     grid-column-end: 3;
     background-color: var(--color-bg-light);
   
-    border-bottom: 2px solid var(--color-border-primary-low);
-    border-left: 2px solid var(--color-border-primary-low);
-    border-top: 2px solid var(--color-border-primary-low);
-    border-right: 2px solid var(--color-border-primary-low);
   }
+
+  .game-panel-online__control:hover {
+    // border-width: 1px;
+    // border-color: var(--border-color-theme);
+    // color: var(--border-color-theme);
+    // background-color: var(--color-bg-dark);
+    cursor: pointer;
+  }
+
+  .game-panel-online__control-success {
+    border: 2px solid var(--color-success);
+  }
+
+  .game-panel-online__control-danger {
+    border: 2px solid var(--color-danger);
+  }
+
+.game-panel-online__control-super {
+  transition-duration: 1s;
+  -webkit-box-shadow: 0px 0px 10px 5px var(--color-success);
+  -moz-box-shadow: 0px 0px 10px 5px var(--color-success);
+  box-shadow: 0px 0px 10px 5px var(--color-success);
+}

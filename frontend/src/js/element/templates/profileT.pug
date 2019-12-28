@@ -32,5 +32,5 @@ form(class="form")
         input(class="input-valid", name="password-confirmation", id="password-confirmation", type="password", placeholder="От 5 до 24 символов", onfocus="this.placeholder=''")
     span(class="error-annotation" id="error_empty_fields") Отображение ошибки    
 
-    button(id="save_button", type="submit") Сохранить
-    button(id="cancel_button", type="reset") Сбросить изменения
+    input(type="submit", class="input-button", value="Сохранить" id="save_button")
+    input(type="submit", class="input-button", value="Сбросить изменения" id="cancel_button")

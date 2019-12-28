@@ -32,20 +32,26 @@ input:-webkit-autofill {
     border-width: 2px;
 
     margin: 10px 0px;
-    width: 45%;
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: var(--font-size);
     outline: none;
-    width: 20%;
     border-radius: 100px;
     cursor: pointer;
+
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-feature-settings: "kern";
+    font-size: var(--font-size);
+    font-weight: 600;
   }
 
   .input-button:hover {
     background-color: var(--color-bg-light);
   }
 
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
   input[type="text"] {
     background-color: var(--color-bg-dark);
     color: var(--main-light-color);
@@ -53,7 +59,6 @@ input:-webkit-autofill {
     border-width: 2px;
 
     margin: 10px 0px;
-    width: 45%;
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: var(--font-size);
@@ -67,69 +72,6 @@ input:-webkit-autofill {
     border-radius: 100px;
   }
 
-  input[type="email"] {
-    background-color: var(--color-bg-dark);
-    color: var(--main-light-color);
-    border-color: var(--main-light-color);
-    border-width: 2px;
-
-    margin: 10px 0px;
-    width: 45%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: var(--font-size);
-    border: 0px;
-    margin-bottom: 1px;
-    color: var(--color-headers-font);
-    background-color: var(--color-bg-light);
-    text-align: center;
-    border-bottom: 2px solid transparent;
-    transition: background-color 500ms ease, border-bottom 500ms ease, box-shadow 1000ms ease;
-    border-radius: 100px;
-  }
-
-  input[type="password"] {
-    background-color: var(--color-bg-dark);
-    color: var(--main-light-color);
-    border-color: var(--main-light-color);
-    border-width: 2px;
-
-    margin: 10px 0px;
-    width: 45%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: var(--font-size);
-    border: 0px;
-    margin-bottom: 1px;
-    color: var(--color-headers-font);
-    background-color: var(--color-bg-light);
-    text-align: center;
-    border-bottom: 2px solid transparent;
-    transition: background-color 500ms ease, border-bottom 500ms ease, box-shadow 1000ms ease;
-    border-radius: 100px;
-  }
-
-  input[type="number"] {
-    background-color: var(--color-bg-dark);
-    color: var(--main-light-color);
-    border-color: var(--main-light-color);
-    border-width: 2px;
-
-    margin: 10px 0px;
-    width: 45%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-
-    font-size: var(--font-size);
-    border: 0px;
-    margin-bottom: 1px;
-    color: var(--color-headers-font);
-    background-color: var(--color-bg-light);
-    text-align: center;
-    border-bottom: 2px solid transparent;
-    transition: background-color 500ms ease, border-bottom 500ms ease, box-shadow 1000ms ease;
-    border-radius: 100px;
-  }
   input[type="file"] {
     width: 18%;
     font-size: var(--small-font-size);
@@ -202,4 +144,40 @@ input:-webkit-autofill {
   font-size: var(--small-font-size);
   color: var(--color-danger);
   padding: 2px;
+}
+
+@media all and (orientation: landscape) {
+  .input-button {
+    width: 20%;
+  }
+  input[type="text"] {
+    width: 50%;
+  }
+  input[type="email"] {
+    width: 50%;
+  }
+  input[type="password"] {
+    width: 50%;
+  }
+  input[type="number"] {
+    width: 50%;
+  }
+}
+
+@media all and (orientation: portrait) {
+  .input-button {
+    width: 60%;
+  }
+  input[type="text"] {
+    width: 80%;
+  }
+  input[type="email"] {
+    width: 80%;
+  }
+  input[type="password"] {
+    width: 80%;
+  }
+  input[type="number"] {
+    width: 80%;
+  }
 }

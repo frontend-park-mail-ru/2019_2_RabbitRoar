@@ -26,13 +26,14 @@ class NavbarC {
         this.registerHandler("chat_bar", "click", this._chatClick);
 
         this.registerHandler("application", "click", this._chatOff, false);
+        this.registerHandler("chat_exit", "click", this._chatOff, false);
 
 
         this.registerHandler("help_bar", "mouseover", this._helpFocus);
         this.registerHandler("help_bar", "mouseout", this._helpFocus);
-        this.registerHandler("help_bar", "click", this._showOrHidePopUpInfo);
+        this.registerHandler("help_bar", "click", this._showOrHideHelpInfo);
 
-        this.registerHandler("info-ok", "click", this._showOrHidePopUpInfo);
+        this.registerHandler("exit_help", "click", this._showOrHideHelpInfo);
 
 
         this.registerHandler("back", "click", this._goToRoot);
@@ -43,16 +44,28 @@ class NavbarC {
             const iframe = document.getElementById("chat_iframe");
             iframe.className = "iframe";
             this.chat = false;
+
+            const iframeContainer = document.getElementById("chat_container");
+            iframeContainer.className = "iframe-container";
+
+            const exitChat = document.getElementById("chat_exit");
+            exitChat.className = "exit-window";
         }
     }
 
+    _hideHelpInfo = () => {
 
-    _showOrHidePopUpInfo = () => {
-        const popupInfo = document.getElementById("info-popup");
-        if (popupInfo) {
-            popupInfo.classList.toggle("popup_show");
-            return;
-        }
+    }
+
+    _showOrHideHelpInfo = () => {
+        const infoContainer = document.getElementById("help_container");
+        infoContainer.classList.toggle("help-container-show");
+
+        const exitIcon = document.getElementById("exit_help");
+        exitIcon.classList.toggle("exit-window-show");
+
+        const text = document.getElementById("text_help");
+        text.classList.toggle("info-text-help-show");
     }
 
     _goToRoot = () => {
@@ -80,11 +93,17 @@ class NavbarC {
     }
 
     _chatClick = (event) => {
+        const iframeContainer = document.getElementById("chat_container");
+        iframeContainer.classList.toggle("iframe-container-show");
+
         const iframe = document.getElementById("chat_iframe");
         if (iframe.src === "") {
             iframe.src = StaticManager.getIframeUrl();
         }
         iframe.classList.toggle("iframe_show");
+
+        const exitIcon = document.getElementById("chat_exit");
+        exitIcon.classList.toggle("exit-window-show");
 
         if (this.chat) {
             this.chat = false;

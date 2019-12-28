@@ -1,18 +1,20 @@
 .user-panel-grid-container {
+  padding-top: 5px;
   display: grid;
   color: var(--font-color);
   margin-left: 1vw;
   margin-right: 1vw;
   grid-template-columns: 15% 70% 15%;
-  grid-template-rows: 76% 12% 12%;
-  height: 45vh;
+  grid-template-rows: 74% 13% 13%;
 }
 
 .user-panel-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: flex-start;
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 1;
@@ -22,8 +24,12 @@
 .waiting-player {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+}
+
+.users-panel-button-padding {
+  height: 80%;
 }
 
 
@@ -32,7 +38,7 @@
 }
 
 .player-avatar {
-  border: 2px solid var(--border-color-theme);
+  border: 2px solid var(--color-bg-light);
   border-bottom-width: 0px;
 }
 
@@ -40,12 +46,28 @@
   .player-avatar {
     width: 10vw;
     height: 10vw;
+    margin: 0 5px;
+    border-radius: 10px;
+  }
+
+  .user-panel-grid-container {
+    grid-template-columns: 15% 70% 15%;
+    padding-top: 5px;
+    height: 50vh;
   }
 }
 
 @media all and (orientation: portrait) {
   .player-avatar {
-    width: 10vh;
-    height: 10vh;
+    width: 20vw;
+    height: 20vw;
+    margin: 0 2px;
+    border-radius: 5px;
+  }
+
+  .user-panel-grid-container {
+    grid-template-columns: 7% 86% 7%;
+    padding-top: 20px;
+    height: 60vh;
   }
 }

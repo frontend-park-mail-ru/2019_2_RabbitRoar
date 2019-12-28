@@ -40,11 +40,20 @@ else if state.mode == "result"
     div(class="question-container")
         if state.result === true
             div(class="question-container__result_true") Правильно!
-            div(class="question-container__answer_true") Правильный ответ: #{state.correctAnswer}, #{state.answerOwner} ответил: #{state.answer}
+            if (state.correctAnswer == "" || state.correctAnswer == null || state.correctAnswer == undefined)
+                div(class="question-container__answer_true") Правильный ответ не доступен!
+            else
+                div(class="question-container__answer_true") Правильный ответ: #{state.correctAnswer}
+            div(class="question-container__answer2_true") #{state.answerOwner} ответил: #{state.answer}
             div(class="question-container__score_true") #{state.answerOwner} + #{state.currentQuestionScore} Очков
         else
             div(class="question-container__result_false") Неправильный ответ!
-            div(class="question-container__answer_false") Правильный ответ: "#{state.correctAnswer}", #{state.answerOwner} ответил: "#{state.answer}"
+            if (state.correctAnswer == "" || state.correctAnswer == null || state.correctAnswer == undefined)
+                div(class="question-container__answer_false") Правильный ответ не доступен!
+            else
+                div(class="question-container__answer_false") Правильный ответ: #{state.correctAnswer}
+            div(class="question-container__answer_false") Правильный ответ: "#{state.correctAnswer}"
+            div(class="question-container__answer2_false") #{state.answerOwner} ответил: "#{state.answer}"
             div(class="question-container__score_false") #{state.answerOwner} - #{state.currentQuestionScore} Очков
 
 else if state.mode == "verdict"
@@ -61,12 +70,15 @@ else if state.mode == "verdict"
                     div() #{state.respondent.score}
             div(class="question-container__master-answer__text")
                 div(class="question-container__master-answer__text-container")
-                    div() Правильный ответ: "#{state.respondent.trueAnswer}"
-                    div() #{state.respondent.name}: "#{state.answer}"
+                    if (state.answer !== null)
+                        div(class="question-container__master-answer__text-container__true") Правильный ответ: "#{state.respondent.trueAnswer}"
+                        div() #{state.respondent.name}: "#{state.answer}"
+                    else
+                        div(id="wait_input") #{state.respondent.name} печатает ответ                 
             div(class="question-container__master-answer__verdict")
                 div(class="question-container__master-answer__verdict-container")
-                    div(class="verdict-button" id="verdict_false") Неверно
-                    div(class="verdict-button" id="verdict_true") Верно
+                    div(class="verdict-button question-container__master-answer__text-container__false" id="verdict_false") Неверно
+                    div(class="verdict-button question-container__master-answer__text-container__true" id="verdict_true") Верно
         else
             div(class="question-container__master-answer__logo")
                 div(class="question-container__master-answer__logo-avatar-container")

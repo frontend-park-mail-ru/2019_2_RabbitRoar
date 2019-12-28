@@ -2,7 +2,7 @@ import Bus from "../event_bus.js";
 import ContentM from "../model/contentM.js";
 import PackM from "../model/packM";
 import UserM from "../model/userM";
-
+import { getCSRF, deleteLeaveRoom } from "../modules/requests.js"
 
 import { CHANGE_TAB } from "../modules/events.js";
 import MainMenuM from "../model/mainMenuM.js";
@@ -68,6 +68,7 @@ class ContentF {
 
     getPackById = async (id) => {
         const packObj = await PackM.getPackById(id);
+        // console.log("suka nah ", packObj);
         return packObj;
     }
 
@@ -123,6 +124,8 @@ class ContentF {
             throw (err);
         }
 
+        content.resume = localStorage.getItem("last_game_UUID");
+        content.lastState = localStorage.getItem("last_game_state");
         return content;
     }
 

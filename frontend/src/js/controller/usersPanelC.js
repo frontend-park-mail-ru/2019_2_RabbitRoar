@@ -10,6 +10,7 @@ import { ROOT } from "../paths";
 class UsersPanelC {
     constructor() {
         Object.assign(this, DomEventsWrapperMixin);
+        this.ready = false;
         this.registerHandler("button-ready", "click", this._sentUserReady);
         this.registerHandler("button-copy", "click", this._copyLink);
         this.registerHandler("leave_logo", "click", this._leaveGame);
@@ -44,8 +45,18 @@ class UsersPanelC {
         });
         WebSocketIface.sentMessage(body);
 
-        event.target.className = "form-button-click";
-        setTimeout(() => event.target.className = "form-button", 200);
+        this.ready ^= true;
+
+        event.target.className = "form-button-click users-panel-button-padding";
+
+        setTimeout(() => {
+            event.target.className = "form-button users-panel-button-padding";
+            if (this.ready) {
+                event.target.style.borderColor = "var(--color-success)";
+            } else {
+                event.target.style.borderColor = "var(--color-danger)";
+            }
+        }, 200);
     }
 
     _copyLink = (event) => {
@@ -67,8 +78,14 @@ class UsersPanelC {
         document.body.removeChild(tmp);
         focus.focus();
 
-        event.target.className = "form-button-click";
-        setTimeout(() => event.target.className = "form-button", 200);
+        event.target.className = "form-button-click users-panel-button-padding";
+        event.target.innerHTML = "Скопировано в буфер";
+        event.target.style.borderColor = "var(--color-success)";
+        setTimeout(() => event.target.className = "form-button users-panel-button-padding", 200);
+        setTimeout(() => {
+            event.target.style.borderColor = "var(--border-color-theme)";
+            event.target.innerHTML = "Копировать ссылку";
+        }, 2000);
         //event.target.classList.toggle("button-ready-click");
 
 

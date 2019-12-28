@@ -1,12 +1,21 @@
 .navbar__game-logo {
-  text-decoration: none;
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   color: var(--main-logo-color);
-  font-size: var(--main-logo-font);
+
+  cursor: pointer;
+}
+@media all and (orientation: landscape) {
+  .navbar__game-logo {
+    height: 80%;
+  }
 }
 
-.navbar__game-logo:hover {
-  color: var(--forth-color);
+@media all and (orientation: portrait) {
+  .navbar__game-logo {
+    height: calc(10px + 5vh);
+  }
 }
 
 .navbar__game-logo-container {

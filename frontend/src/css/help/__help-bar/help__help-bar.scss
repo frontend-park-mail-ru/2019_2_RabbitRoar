@@ -1,19 +1,23 @@
 .help__help-bar {
   display: flex;
-  border-top-right-radius: 500px;
-  border-bottom-right-radius: 500px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: absolute;
+
+  border-top-right-radius: 500px;
+  border-bottom-right-radius: 500px;
+
   opacity: 0.5;
   background: var(--color-bg-light);
-  top: 76vh;
-  left: 0px;
-  bottom: 13vh;
-  right: 96vw;
   z-index: 0;
+
+  left: 0px;
+  top: calc(var(--chat-top) + var(--chat-height) + 5px);
+  width: var(--chat-width);
+  height: calc(var(--chat-height) / 4);
 }
+
 
 .help__help-bar-show {
   visibility: visible;

@@ -26,6 +26,13 @@ div(class="main-container")
                 div(class="fadeout")
             div(class="tab-content")
                 div(id="online_mode")
+                if (templateContent.resume)
+                    div(class="rooms-panel-resume")
+                        div(class="panel-elem elem-justify-start") У вас есть незакончатая игра!
+                        div(class="panel-elem" id="resume_panel")
+                            div(class="join-button button-in-list" id="leave" room_id=templateContent.resume) Покинуть
+                        div(class="panel-elem" id="resume_panel")
+                            div(class="join-button button-in-list" id="resume" room_id=templateContent.resume) Продолжить
                 div(class="rooms-panel")
                     div(class="panel-elem elem-justify-start") Название
                     div(class="panel-elem") Пак
@@ -41,6 +48,13 @@ div(class="main-container")
                 +paginator("room-paginator", 5)
         else if (templateContent.connection === true)
             div(class="tab-content")
+                if (templateContent.resume)
+                    div(class="rooms-panel-resume")
+                        div(class="panel-elem elem-justify-start") У вас есть незакончатая игра!
+                        div(class="panel-elem" id="resume_panel")
+                            div(class="join-button button-in-list" id="leave" room_id=templateContent.resume) Покинуть
+                        div(class="panel-elem" id="resume_panel")
+                            div(class="join-button button-in-list" id="resume" room_id=templateContent.resume) Продолжить
                 div(class="empty-tab-info") Ни одной комнаты еще не было создано, создайте свою!
         div(class="popup" id="popup")
             div(class="popup__content")
@@ -85,6 +99,7 @@ div(class="main-container")
         else if (templateContent.connection === true)
             div(class="tab-content")
                 div(class="empty-tab-info") Список игроков пуст!
+                +paginator("top-paginator", 5)
         if (templateContent.connection === false)
             +bottom_info(
                 "Играть offline",
@@ -96,7 +111,6 @@ div(class="main-container")
             div(class="offline-panel")
                 div(class="panel-elem") Название
                 div(class="panel-elem") Автор
-                div(class="panel-elem") Рейтинг
                 div(class="panel-elem") 
 
             div(class="popup " id="popup")
@@ -109,8 +123,8 @@ div(class="main-container")
             each pack, index in templateContent.content
                 div(class="offline-panel")
                     div(class="panel-elem") #{pack.name}
-                    div(class="panel-elem") #{pack.author}
-                    div(class="panel-elem") #{pack.rating}
+                    // div(class="panel-elem") #{pack.author}
+                    div(class="panel-elem") admin 
                     div(class="panel-elem")
                         div(class="join-button button-in-list" id="play" join_id=pack.id) Играть
 

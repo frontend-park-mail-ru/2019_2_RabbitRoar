@@ -1,14 +1,14 @@
 .users-panel__leave {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    // width: 80%;
-    // height: 80%;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
     grid-column-start: 3;
     grid-column-end: 4;
     grid-row-start: 1;
     grid-row-end: 2;
+    width: 100%;
+    height: 100%;
 }
 
 .users-panel__leave-img {

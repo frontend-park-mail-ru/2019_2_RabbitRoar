@@ -8,7 +8,6 @@ export class View {
         for (const elem of elements) {
             const container = document.createElement("div");
             container.id = elem.constructor.name;
-
             this.containers.push({
                 root: container,
                 content: elem

@@ -32,6 +32,7 @@ class CreateRoomE {
             this.packUploaded = true;
         }
 
+       // console.log(this.allPacks);
         const tabPackId = this.controller.currentTabId;
         const formNumber = this.controller.currentFormPart;
 
@@ -58,8 +59,6 @@ class CreateRoomE {
             } else {
                 disabledTabElement.className = "tab tab-right-click tab-right";
             }
-
-
 
             const currentTabElement = document.getElementById(tabPackId);
 

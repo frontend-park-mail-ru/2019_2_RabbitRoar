@@ -1,15 +1,26 @@
 .waiting-text-container__leave {
     display: inline-block;
     position: inherit;
-    height: 100%;
 	vertical-align: middle; 
     
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 1;
-    grid-row-end: 3;
+    grid-row-end: 2;
+    height: 100%;
+    width: 100%;
 
     cursor: pointer;
+}
+
+.leave-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .svg-content {
@@ -17,4 +28,25 @@
     position: absolute;
     top: 0;
     left: 0;
+  }
+
+
+
+
+  @media all and (orientation: landscape) {
+    .leave-img {
+        height: 100%;
+    }
+    .leave-img-game {
+        height: 50%;
+    }
+  }
+  
+  @media all and (orientation: portrait) {
+    .leave-img {
+        height: 50%;
+    }
+    .leave-img-game {
+        height: 15%;
+    }
   }

@@ -1,9 +1,27 @@
 .panel-info-grid {
   display: grid;
-  height: 40vh;
-  grid-template-columns: 25% 50% 25%;
-  grid-template-rows: 8% 25% 60%;
+  grid-template-rows: 5% 25% 70%;
   text-align: center;
+}
+
+@media all and (orientation: landscape) {
+  .panel-info-grid {
+    grid-template-columns: 20% 60% 20%;
+    height: calc(100px + 5vh);
+  }
+  .info-main-container {
+    border-radius: 50px;
+  }
+}
+
+@media all and (orientation: portrait) {
+  .panel-info-grid {
+    grid-template-columns: 10% 80% 10%;
+    height: calc(100px + 5vh);
+  }
+  .info-main-container {
+    border-radius: 20px;
+  }
 }
 
 .info-main-container {
@@ -13,7 +31,6 @@
   grid-row-end: 4;
   border: 5px solid;
   border-color: var(--forth-color);
-  border-radius: 50px;
 }
 
 .info-heder-text {

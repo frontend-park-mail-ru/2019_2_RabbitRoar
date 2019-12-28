@@ -8,6 +8,7 @@
 @import "./help/__svg/help__svg.scss";
 @import "./help/__text-help/help__text-help.scss";
 @import "./help/__help-bar/help__help-bar.scss";
+@import "./help/__question/help__question.scss";
 
 @import "/navbar/navbar";
 @import "./navbar/__right-panel/navbar__right-panel.scss";
@@ -36,6 +37,7 @@
 @import "/users-panel/__ready-indicator/users-panel__ready-indicator.scss";
 @import "/users-panel/__icons/users-panel__icons.scss";
 @import "/users-panel/__text/users-panel__text.scss";
+@import "/users-panel/__leave/users-panel__leave.scss";
 
 @import "/users-panel-game/users-panel-game";
 @import "/users-panel-game/__score/users-panel-game__score.scss";
@@ -86,6 +88,10 @@
 @import "empty-tab-info/empty-tab-info";
 
 @import "form-button/form-button";
+
+@import "exit-window/exit-window";
+
+@import "help-info/help-info";
 
 @import "waiting-text-container/waiting-container-text";
 @import "waiting-text-container/__text/waiting-text-container__text";

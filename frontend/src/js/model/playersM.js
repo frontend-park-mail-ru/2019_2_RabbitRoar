@@ -28,11 +28,22 @@ class PlayersM {
     }
 
     getAnsweredPlayerInfo() {
+        if (this.current.correctAnswer === "") {
+            this.current.correctAnswer = null;
+        }
         return {
             currentQuestionScore: this.current.currentQuestionScore,
             answerOwner: this.current.answeringPlayer.username,
             result: this.current.result,
             correctAnswer: this.current.correctAnswer,
+        }
+    }
+
+    getRole() {
+        if (this.current.userId === this.current.host.id) {
+            return "master";
+        } else {
+            return "simple";
         }
     }
 
@@ -67,14 +78,13 @@ class RealPlayersM {
         this.players = {};
         this.trueAnswerForHost = "";
         this.answeringPlayer = {};
-        this.correctAnswer = "";
+        this.correctAnswer = null;
 
         WebSocketIface.addMessageHandler("request_question_from_player", this._activateUser);       // id того, кто выбирает вопрос
         WebSocketIface.addMessageHandler("request_respondent", this._userChoseQuestion);            // Пользователь выбрал вопрос -> установить стоимость
         WebSocketIface.addMessageHandler("request_answer_from_respondent", this._processAnswering); // Присылает игрока который в итоге отвечает на вопрос
         WebSocketIface.addMessageHandler("request_verdict_from_host", this._saveTrueAnswer);        // Реальный ответ для хоста
         WebSocketIface.addMessageHandler("verdict_given_back", this._verdictDone);                  // Ведущий прислал вердикт
-
 
     }
 
@@ -90,7 +100,7 @@ class RealPlayersM {
         if (this.result === true) {
             this.correctAnswer = data.payload.answer;
         } else {
-            this.correctAnswer = "******";
+            this.correctAnswer = null;
         }
 
         this.players = data.payload.players;

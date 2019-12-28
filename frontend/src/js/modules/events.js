@@ -68,3 +68,7 @@ export const GAME_END = "gameEnd";
 export const USER_PANEL_USER_READY = "UserPanelUserReady";
 export const USER_PANEL_NEW_USER = "UserPanelNewUser";
 export const DISABLE_QUESTION = "OnlineQuestionTableUpdate";
+
+export const RECONNECT_EVENT = "reconnectEVENT";
+
+export const VERDICT_TIMER = "verdictTimer";

@@ -11,21 +11,23 @@ class GamePanelC {
         this.abilityToEnterAnswer = false;
 
         this.registerHandler("changing-button", "click", this._buttonPressed);
-        Bus.on(GAME_PANEL_STATE_CHANGE, this._startListenQuestion);
-        Bus.on(TIMER_STOPPED, this._stopListenQuestion);
-        Bus.on(TIMER_INTERRUPTION, this._stopListenQuestion);
-
     }
 
     startAllListeners = () => {
         this.gameIface = GameF.getInterface(this)();
         this.enableAll();
         document.addEventListener("keyup", this._answerEntered);
+        Bus.on(GAME_PANEL_STATE_CHANGE, this._startListenQuestion);
+        Bus.on(TIMER_STOPPED, this._stopListenQuestion);
+        Bus.on(TIMER_INTERRUPTION, this._stopListenQuestion);
     }
 
     disableAllListeners = () => {
         this.disableAll();
         document.removeEventListener("keyup", this._answerEntered);
+        Bus.off(GAME_PANEL_STATE_CHANGE, this._startListenQuestion);
+        Bus.off(TIMER_STOPPED, this._stopListenQuestion);
+        Bus.off(TIMER_INTERRUPTION, this._stopListenQuestion);
     }
 
     _buttonPressed = (event) => {
@@ -37,18 +39,22 @@ class GamePanelC {
         }
     }
 
-    _startListenQuestion = () => {
+    _startListenQuestion = (state) => {
         this.abilityToEnterAnswer = true;
 
-        const inputAnswer = document.getElementById("input-answer");
-        inputAnswer.style.visibility = "visible";
-        inputAnswer.focus();
+        if (state === "selected") {
+            const inputAnswer = document.getElementById("input-answer");
+            inputAnswer.style.visibility = "visible";
+            inputAnswer.focus();
+        } else {
+            const inputAnswer = document.getElementById("input-answer");
+            inputAnswer.style.visibility = "hidden";
+        }
+
 
         const changingButton = document.getElementById("changing-button");
         replaceTwoCssClasses(changingButton, "game-panel-button-without-hover", "game-panel-button");
-        changingButton.innerHTML = "Ответить";
-
-
+        changingButton.value = "Ответить";
     }
 
     _stopListenQuestion = () => {
@@ -60,7 +66,7 @@ class GamePanelC {
 
         const changingButton = document.getElementById("changing-button");
         replaceTwoCssClasses(changingButton, "game-panel-button", "game-panel-button-without-hover");
-        changingButton.innerHTML = "Выберите вопрос";
+        changingButton.value = "Выберите вопрос";
     }
 
     _answerEntered = (event) => {
