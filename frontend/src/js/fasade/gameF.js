@@ -134,6 +134,7 @@ class GameF {
 
 
     _questionChange = (type) => {
+        Bus.emit(TIMER_INTERRUPTION);
         Bus.emit(GAME_PANEL_STATE_CHANGE, QuestionsM.current.questionTable.mode);
         if (QuestionsM.current.questionTable.mode === "default") {
             if (type === "disable_question") {
@@ -143,11 +144,9 @@ class GameF {
         } else if (QuestionsM.current.questionTable.mode === "selected") {
             Bus.emit(QUESTION_PANEL_UPDATE);
         } else if (QuestionsM.current.questionTable.mode === "result") {
-            Bus.emit(TIMER_INTERRUPTION);
             Bus.emit(QUESTION_PANEL_UPDATE);
             Bus.emit(GAME_PANEL_UPDATE);    // Только для offline
         } else if (QuestionsM.current.questionTable.mode === "verdict") {
-            Bus.emit(TIMER_INTERRUPTION);
             Bus.emit(QUESTION_PANEL_UPDATE);
         } else if (QuestionsM.current.questionTable.mode === "answer_race") {
             Bus.emit(QUESTION_PANEL_UPDATE);
@@ -350,6 +349,8 @@ class OnlineGameF {
 
     get questionTableEInterface() {
         const iface = {
+            sendAnswer(answer = "") {
+            },
             questionInfo() {
                 let info = QuestionsM.getInfo();
 

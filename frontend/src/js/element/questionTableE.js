@@ -27,6 +27,7 @@ class QuestionTableE {
     }
 
     create = (root = document.getElementById("application")) => {
+        this.progressBarInterrupt = false;
         this.gameIface = GameF.getInterface(this)();
         this.root = root;
         const state = this.gameIface.questionInfo();
