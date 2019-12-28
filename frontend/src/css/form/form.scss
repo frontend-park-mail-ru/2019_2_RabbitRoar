@@ -38,6 +38,15 @@ input:-webkit-autofill {
     outline: none;
     border-radius: 100px;
     cursor: pointer;
+
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-feature-settings: "kern";
+    font-size: var(--font-size);
+    font-weight: 600;
+  }
+
+  .input-button:hover {
+    background-color: var(--color-bg-light);
   }
 
   input[type="email"],
