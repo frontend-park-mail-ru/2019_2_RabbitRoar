@@ -35,28 +35,25 @@ class RoomM {
         this.current = undefined;
         getCSRF().then(
             (csrf) => {
-                deleteLeaveRoom(csrf.CSRF);
+                deleteLeaveRoom(csrf.CSRF).finally(() => {
+                    localStorage.removeItem("last_game_UUID");
+                    localStorage.removeItem("last_game_roomInfo");
+                    localStorage.removeItem("last_game_roomName");
+                    localStorage.removeItem("last_game_playersCapacity");
+                    localStorage.removeItem("last_game_playersJoined");
+                    localStorage.removeItem("last_game_pack");
+                    localStorage.removeItem("last_game_packName");
+        
+                    localStorage.removeItem("last_game_host");
+                    localStorage.removeItem("last_game_players");
+        
+                    localStorage.removeItem("last_game_lastState");
+                    localStorage.removeItem("last_game_state");
+                    localStorage.removeItem("last_game_startGameData");
+                    route();
+                });
             }
-        ).catch(
-            // (err) => console.log(`Can't leave room ${err}`)
-        ).finally(() => {
-            localStorage.removeItem("last_game_UUID");
-            localStorage.removeItem("last_game_roomInfo");
-            localStorage.removeItem("last_game_roomName");
-            localStorage.removeItem("last_game_playersCapacity");
-            localStorage.removeItem("last_game_playersJoined");
-            localStorage.removeItem("last_game_pack");
-            localStorage.removeItem("last_game_packName");
-
-            localStorage.removeItem("last_game_host");
-            localStorage.removeItem("last_game_players");
-
-            localStorage.removeItem("last_game_lastState");
-            localStorage.removeItem("last_game_state");
-            localStorage.removeItem("last_game_startGameData");
-            route();
-            // () => console.log("Комната уничтожена")
-        });
+        )
     }
 
     async connect() {
