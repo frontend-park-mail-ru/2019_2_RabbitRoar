@@ -127,7 +127,7 @@ class GameF {
         if (this.gamePaths.includes(path)) {
             return;
         }
-        this.current.clear();
+        this.current.clear(() => window.location.reload());
         this.current = undefined;
         Bus.off(ROUTER_EVENT.ROUTE_TO, this.clearGameHandler);
     }
@@ -333,9 +333,9 @@ class OnlineGameF {
         });
     }
 
-    clear = () => {
+    clear = (route) => {
         QuestionsM.clear();
-        RoomM.clear();
+        RoomM.clear(route);
     }
 
     connect = async () => {
