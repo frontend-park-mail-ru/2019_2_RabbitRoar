@@ -4,12 +4,11 @@
   justify-content: center;
   color: var(--main-logo-color);
 
-
   cursor: pointer;
 }
 @media all and (orientation: landscape) {
   .navbar__game-logo {
-    height: calc(60px + 1vh);
+    height: 80%;
   }
 }
 
