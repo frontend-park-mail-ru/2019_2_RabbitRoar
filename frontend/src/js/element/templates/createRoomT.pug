@@ -31,7 +31,8 @@ else
                 each pack, index in packs
                     div(class="offline-panel")
                         div(class="panel-elem" id="pack-name-" + pack.id) #{pack.name}
-                        div(class="panel-elem") #{pack.author}
+                        div(class="panel-elem") admin 
+                        // div(class="panel-elem") #{pack.author}
                         div(class="panel-elem")
                             div(class="pack-button" id=pack.id) Выбрать
                 span(class="error-annotation" id="error-pack-not-chosen") Отображение ошибки
