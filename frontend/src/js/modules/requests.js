@@ -7,15 +7,15 @@ import { HttpsOrigin } from "../paths.js"
 const userCacheDelete = () => {
     const base = HttpsOrigin;
 
-    Bus.emit(SERVICE_WORKER_CMD, {
-        command: "delete",
-        url: base + "/user/"
-    });
+    // Bus.emit(SERVICE_WORKER_CMD, {
+    //     command: "delete",
+    //     url: base + "/user/"
+    // });
 
-    Bus.emit(SERVICE_WORKER_CMD, {
-        command: "regExp_delete",
-        regExp: new RegExp("^(/api/uploads/avatar/).+(\.jpeg|\.png)$"),
-    });
+    // Bus.emit(SERVICE_WORKER_CMD, {
+    //     command: "regExp_delete",
+    //     regExp: new RegExp("^(/api/uploads/avatar/).+(\.jpeg|\.png)$"),
+    // });
 }
 
 export async function getAllPacksForOnline() {
