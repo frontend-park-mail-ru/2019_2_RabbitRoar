@@ -46,6 +46,7 @@ ContentF.updateLocalPacks().then(
     //() => console.log()
 );
 
+/*
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/sw.js").then(function (registration) {
         // console.log("sw.js registration successful with scope: ", registration.scope);
@@ -64,7 +65,7 @@ Bus.on(SERVICE_WORKER_CMD, (cmd) => {
     }
     navigator.serviceWorker.controller.postMessage(cmd)
 });
-
+*/
 window.id = id;
 
 const router = new Router;
